@@ -178,6 +178,8 @@ alias ysu='curl --compressed -o- -L https://yarnpkg.com/install.sh | bash'
 
 ## docker-compose
 alias dc='docker-compose'
+alias drmi='sudo docker rmi $(sudo docker images -a --filter=dangling=true -q)'
+alias drm='sudo docker rm $(sudo docker ps --filter=status=exited --filter=status=created -q)'
 
 ## git
 alias clone='git clone'
