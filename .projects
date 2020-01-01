@@ -1,0 +1,3 @@
+alias sm='cd ~/northcamp/dev/app/smartsept'
+alias sma='yarn workspace @smart/api'
+alias smw='yarn workspace @smart/web'
