@@ -1,0 +1,412 @@
+[colors]
+background      = #293340
+background-alt  = #2DCED0
+background-alrt = #E60053
+
+foreground      = #eeeeee
+foreground-alt  = #293340
+
+error=#f00
+
+[bar/skill]
+; Prefer fixed center position for the `modules-center` block
+; When false, the center position will be based on the size of the other blocks.
+fixed-center = true
+monitor =
+
+bottom = false
+width = 100%
+height = 25
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 0
+line-color = ${colors.error}
+
+border-size = 0
+border-color = ${colors.error}
+
+; Fonts are defined using <font-name>;<vertical-offset>
+font-0 = DejaVu Sans:size=8;1
+font-4 = DejaVuSansMono Nerd Font Mono:size=11;3
+font-1 = Font Awesome 5 Free:style=Regular:pixelsize=8;1
+font-2 = Font Awesome 5 Free:style=Solid:pixelsize=8;1
+font-3 = Font Awesome 5 Brands:pixelsize=8;1
+
+modules-left = i3
+
+modules-center = title
+
+modules-right = network wireless-network battery pulseaudio keyboard date
+
+; Position of the system tray window
+; If empty or undefined, tray support will be disabled
+; NOTE: A center aligned tray will cover center aligned modules
+;
+; Available positions:
+;   left
+;   center
+;   right
+tray-position = right
+
+; If true, the bar will not shift its
+; contents when the tray changes
+tray-detached = false
+
+; Tray icon max size
+tray-maxsize = 14
+
+; Background color for the tray container
+; By default the tray container will use the bar
+; background color.
+; Note: 32 bit alpha blending is not supported.
+tray-background = ${colors.background}
+
+; Tray offset defined as pixel value (e.g. 35) or percentage (e.g. 50%)
+tray-offset-x = 0
+tray-offset-y = 0
+
+; Pad the sides of each tray icon
+tray-padding = 2
+
+; Scale factor for tray clients
+tray-scale = 1.0
+
+
+; Opacity value between 0.0 and 1.0 used on fade in/out
+dim-value = 1.0
+
+locale = en_US.UTF-8
+
+wm-restack = i3
+
+enable-ipc = true
+
+; Fallback click handlers that will be called if
+; there's no matching module handler found.
+click-left =
+click-middle =
+click-right =
+scroll-up =
+scroll-down =
+double-click-left =
+double-click-middle =
+double-click-right =
+
+; Requires polybar to be built with xcursor support (xcb-util-cursor)
+; Possible values are:
+; - default   : The default pointer as before, can also be an empty string (default)
+; - pointer   : Typically in the form of a hand
+; - ns-resize : Up and down arrows, can be used to indicate scrolling
+cursor-click =
+cursor-scroll =
+
+[module/network]
+type = internal/network
+interface = wlp2s0
+
+; Seconds to sleep between updates
+; Default: 1
+interval = 1
+
+; Test connectivity every Nth update
+; A value of 0 disables the feature
+; NOTE: Experimental (needs more testing)
+; Default: 0
+;ping-interval = 3
+
+; Accumulate values from all interfaces
+; when querying for up/downspeed rate
+; Default: false
+accumulate-stats = true
+
+; Consider an `UNKNOWN` interface state as up.
+; Some devices have an unknown state, even when they're running
+; Default: false
+unknown-as-up = true
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+;   %local_ip%  [wireless+wired]
+;   %local_ip6% [wireless+wired]
+;   %essid%     [wireless]
+;   %signal%    [wireless]
+;   %upspeed%   [wireless+wired]
+;   %downspeed% [wireless+wired]
+;   %linkspeed% [wired]
+; Default: %ifname% %local_ip%
+label-connected = "%upspeed:10% %downspeed:10%    "
+label-connected-foreground = ${colors.foreground}
+
+; Available tokens:
+;   %ifname%    [wireless+wired]
+; Default: (none)
+label-disconnected = " "
+label-disconnected-foreground = ${colors.foreground}
+
+[module/keyboard]
+type = internal/xkeyboard
+
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+
+format = "<label-layout><label-indicator>"
+format-spacing = 1
+
+; Available tokens:
+;   %layout%
+;   %name%
+;   %number%
+; Default: %layout%
+label-layout = %layout%
+label-layout-padding = 2
+
+label-indicator = %name%
+label-indicator-padding = 2
+label-indicator-background = ${colors.background-alrt}
+
+[module/wlan]
+type= internal/wlan
+
+[module/wireless-network]
+type = internal/network
+interface = wlp2s0
+interval = 3.0
+
+format-connected-prefix = " "
+
+format-connected-background = ${colors.background-alt}
+format-connected = "  <label-connected>  "
+format-connected-underline = #9f78e1
+label-connected = "   %essid% "
+label-connected-foreground = ${colors.foreground-alt}
+
+format-disconnected = "    "
+format-disconnected-background = ${colors.background}
+;label-disconnected = %ifname% disconnected
+label-disconnected-foreground = ${colors.foreground}
+
+format-packetloss = <animation-packetloss> <label-connected>
+animation-packetloss-0 = ⚠
+animation-packetloss-0-foreground = ${colors.foreground-alrt}
+animation-packetloss-1 = 📶
+animation-packetloss-1-foreground = ${colors.foreground-alt}
+animation-packetloss-framerate = 500
+
+
+ramp-signal-0 = "    0%"
+ramp-signal-1 = "    25%"
+ramp-signal-2 = "    50%"
+ramp-signal-3 = "    75%"
+ramp-signal-4 = "    100%"
+ramp-signal-foreground = ${colors.foreground-alt}
+
+
+[module/i3]
+
+type = internal/i3
+;
+strip-wsnumbers = true
+;
+;label-focused-padding = 3
+;label-unfocused-padding = 3
+;
+;label-focused-background = ${colors.background-alt}
+label-unfocused-background = ${colors.background}
+;
+;label-mode-padding = 0
+;label-mode-background = ${colors.background}
+;
+;label-visible-underline = #555555
+;label-visible-padding = 4
+
+
+; Available tokens:
+;   %mode%
+; Default: %mode%
+label-mode = %mode%
+label-mode-background = ${colors.background-alrt}
+label-mode-padding = 2
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+;   %output%
+; Default: %icon%  %name%
+label-focused = %name%
+label-focused-background = ${colors.background-alt}
+label-focused-foreground = ${colors.background}
+label-focused-padding = 4
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-unfocused = %name%
+label-unfocused-padding = 4
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-visible = %name%
+label-visible-padding = 4
+
+; Available tokens:
+;   %name%
+;   %icon%
+;   %index%
+; Default: %icon%  %name%
+label-urgent = %name%
+label-urgent-foreground = ${colors.background}
+label-urgent-background = ${colors.background-alrt}
+label-urgent-padding = 4
+
+[module/date]
+type = internal/date
+
+; Seconds to sleep between updates
+interval = 1.0
+
+; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
+; NOTE: if you want to use syntax tags here you need to use %%{...}
+date = %Y-%m-%d%
+
+; Optional time format
+time = %H:%M
+
+; if `date-alt` or `time-alt` is defined, clicking
+; the module will toggle between formats
+date-alt = %A, %d %B %Y
+time-alt = %H:%M
+
+; Available tags:
+;   <label> (default)
+format = <label>
+format-background = ${colors.background}
+format-foreground = ${colors.foreground}
+
+; Available tokens:
+;   %date%
+;   %time%
+; Default: %date%
+label = %time%
+label-padding = 3
+
+
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+animation-charging-foreground = ${self.label-charging-foreground}
+label-charging-foreground=${colors.foreground-alt}
+format-charging-background = ${colors.background-alt}
+format-charging-padding = 3
+
+format-discharging = ⁣<ramp-capacity> <label-discharging>
+label-discharging-foreground=${colors.foreground}
+format-discharging-background = ${colors.background}
+format-discharging-padding = 3
+
+format-full =  Full
+format-full-foreground = ${colors.foreground-alt}
+format-full-background = ${colors.background-alt}
+format-full-padding = 3
+
+ramp-capacity-0 = ""
+ramp-capacity-1 = ""
+ramp-capacity-2 = ""
+ramp-capacity-3 = ""
+ramp-capacity-4 = ""
+
+ramp-capacity-foreground = ${self.label-discharging-foreground}
+
+animation-charging-0 = ""
+animation-charging-1 = ""
+animation-charging-2 = ""
+animation-charging-3 = ""
+animation-charging-4 = ""
+animation-charging-framerate = 750
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+; Sink to be used, if it exists (find using `pacmd list-sinks`, name field)
+; If not, uses default sink
+sink = alsa_output.pci-0000_12_00.3.analog-stereo
+
+; Use PA_VOLUME_UI_MAX (~153%) if true, or PA_VOLUME_NORM (100%) if false
+; Default: true
+use-ui-max = true
+
+; Interval for volume increase/decrease (in percent points) (unreleased)
+; Default: 5
+interval = 5
+
+; Available tags:
+;   <label-volume> (default)
+;   <ramp-volume>
+;   <bar-volume>
+format-volume = "  <ramp-volume> <label-volume>  "
+
+; Available tags:
+;   <label-muted> (default)
+;   <ramp-volume>
+;   <bar-volume>
+;format-muted = <label-muted>
+
+; Available tokens:
+;   %percentage% (default)
+;label-volume = %percentage%%
+
+; Available tokens:
+;   %percentage% (default)
+label-muted = "   Muted  "
+label-muted-foreground = ${colors.foreground}
+
+; Only applies if <ramp-volume> is used
+ramp-volume-0 = "  "
+ramp-volume-1 = "  "
+ramp-volume-2 = "  "
+
+
+[module/backlight]
+type = internal/backlight
+
+; Use the following command to list available cards:
+; $ ls -1 /sys/class/backlight/
+card = intel_backlight
+; Available tags:
+;   <label> (default)
+;   <ramp>
+;   <bar>
+format = "<ramp> <bar>   "
+
+; Available tokens:
+;   %percentage% (default)
+label = %percentage%%
+
+; Only applies if <ramp> is used
+ramp-0 = 🌕
+ramp-1 = 🌔
+ramp-2 = 🌓
+ramp-3 = 🌒
+ramp-4 = 🌑
+
+; Only applies if <bar> is used
+bar-width = 10
+bar-indicator = |
+bar-fill = |
+bar-empty = " "
+
+[module/title]
+type = internal/xwindow
+label-maxlen = 50
