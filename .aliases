@@ -138,7 +138,6 @@ shecan() {
   printf "nameserver 178.22.122.100\nnameserver 185.51.200.2\n" | sudo tee /etc/resolv.conf
 }
 
-
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
   alias "$method"="curl -X '$method' -H 'content-type: application/json'"
 done
@@ -179,7 +178,6 @@ alias ysu='curl --compressed -o- -L https://yarnpkg.com/install.sh | bash'
 
 ## docker-compose
 alias dc='docker-compose'
-
 
 ## git
 alias clone='git clone'
