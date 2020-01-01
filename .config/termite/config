@@ -1,0 +1,66 @@
+[options]
+font = DejaVuSansMono Nerd Font Mono 9
+scroll_on_output    = false
+scroll_on_keystroke = true
+audible_bell        = false
+mouse_autohide      = false
+allow_bold          = true
+dynamic_title       = true
+urgent_on_bell      = true
+clickable_url       = true
+scrollback_lines    = 10000
+search_wrap         = true
+cursor_blink        = off
+cursor_shape        = block
+# icon_name = terminal
+
+# $BROWSER is used by default if set, with xdg-open as a fallback
+#browser = xdg-open
+
+# set size hints for the window
+#size_hints = false
+
+# Hide links that are no longer valid in url select overlay mode
+filter_unmatched_urls = true
+
+[colors]
+foreground = #eeeeee
+background = #293340
+foreground_bold = #f8f8f2
+cursor = #CE20C4
+cursor_foreground = #293340
+highlight = #44475a
+
+# black
+color0  = #293340
+color8  = #556570
+
+# red
+color1  = #E17E85
+color9  = #E17E85
+
+# green
+color2  =  #61BA86
+color10 =  #61BA86
+
+# yellow
+color3  =  #FFEC8E
+color11 =  #FFB68E
+
+# blue
+color4  =  #4CB2FF
+color12 =  #4CB2FF
+
+# magenta
+color5  =  #BE86E3
+color13 =  #BE86E3
+
+# cyan
+color6  =  #2DCED0
+color14 =  #2DCED0
+
+# white
+color7  = #f8f8f8
+color15 = #ffffff
+
+# vim: ft=dosini cms=#%s
