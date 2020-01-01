@@ -1,0 +1,343 @@
+# i3 config file (v4)
+# Please see http://i3wm.org/docs/userguide.html for a complete reference!
+
+# Set mod key (Mod1=<Alt>, Mod4=<Super>)
+set $mod Mod4
+
+# Workspace names
+set $workspace1  1:
+set $workspace2  2:
+set $workspace3  3:
+set $workspace4  4:
+set $workspace5  5:ﱘ
+set $workspace6  6:
+set $workspace7  7:☕
+set $workspace8  8:
+set $workspace9  9:
+set $workspace10 10:
+
+#####################
+##    Interface    ##
+#####################
+
+font xft:DejaVu Sans 10
+
+# Configure border style <normal|1pixel|pixel xx|none|pixel>
+new_window pixel 0
+new_float normal
+hide_edge_borders none
+
+smart_gaps on
+gaps inner 5
+gaps outer 0
+smart_borders on
+
+# Color pallete
+set_from_resource $bg_color             background
+set_from_resource $text_color           foreground
+
+set_from_resource $bg_color_inactive    background
+set_from_resource $text_color_inactive  color8
+
+set_from_resource $bg_color_active      color2
+set_from_resource $text_color_active    background
+
+set_from_resource $text_color_urgent    background
+set_from_resource $bg_color_urgent      color3
+
+set_from_resource $color_indc           color2
+
+set $color_unknown #FF0000
+
+# Theme colors
+# class                 border              background          text                 indicator          child_border
+client.focused          $bg_color           $bg_color           $bg_color_active     $color_indc
+client.focused_inactive $bg_color_inactive  $bg_color_inactive  $text_color_inactive $color_indc
+client.unfocused        $bg_color_inactive  $bg_color_inactive  $text_color_inactive $color_indc
+client.urgent           $bg_color_urgent    $bg_color_urgent    $text_color_urgent   $color_indc
+client.placeholder      $bg_color           $bg_color           $text_color          $color_indc
+
+client.background       $bg_color
+
+####################
+##    Behavior    ##
+####################
+
+workspace_auto_back_and_forth no
+focus_follows_mouse no
+focus_on_window_activation smart
+
+# Use Mouse+$mod to drag floating windows
+floating_modifier $mod
+
+#######################
+##    Keybindings    ##
+#######################
+
+bindsym $mod+Shift+q                        kill
+bindsym $mod+u                              border none
+bindsym $mod+n                              border normal
+
+## Reload
+bindsym $mod+Shift+r                        restart
+bindsym $mod+Ctrl+c                         reload
+
+# Workspace
+
+## Layout Modes
+bindsym $mod+s                              layout stacking
+bindsym $mod+w                              layout tabbed
+bindsym $mod+e                              layout toggle split
+bindsym $mod+f                              fullscreen toggle
+
+bindsym $mod+Shift+space                    floating toggle
+bindsym $mod+Shift+s                        sticky toggle
+bindsym $mod+shift+c                        move absolute position center
+
+## Workspace Navigation
+bindsym $mod+1                              workspace $workspace1
+bindsym $mod+2                              workspace $workspace2; exec --no-startup-id [[ "$(pgrep brave)" ]] || /usr/bin/brave
+bindsym $mod+3                              workspace $workspace3; exec --no-startup-id [[ "$(pgrep codium)" ]] || /usr/bin/code
+bindsym $mod+4                              workspace $workspace4
+bindsym $mod+5                              workspace $workspace5; exec --no-startup-id [[ "$(pgrep -c mocp)" ]] || termite --title 'mocp' -e 'mocp'
+bindsym $mod+6                              workspace $workspace6
+bindsym $mod+7                              workspace $workspace7
+bindsym $mod+8                              workspace $workspace8
+bindsym $mod+9                              workspace $workspace9
+bindsym $mod+0                              workspace $workspace10
+# exec --no-startup-id [[ "$(pgrep telegram-desktop)" ]] || /usr/bin/telegram-desktop
+
+bindsym $mod+Ctrl+Right                     workspace next
+bindsym $mod+Ctrl+Left                      workspace prev
+
+bindsym $mod+BackSpace                      workspace back_and_forth
+
+## Workspace Navigation with Container
+bindsym $mod+Shift+1                        move container to workspace $workspace1; workspace $workspace1
+bindsym $mod+Shift+2                        move container to workspace $workspace2; workspace $workspace2
+bindsym $mod+Shift+3                        move container to workspace $workspace3; workspace $workspace3
+bindsym $mod+Shift+4                        move container to workspace $workspace4; workspace $workspace4
+bindsym $mod+Shift+5                        move container to workspace $workspace5; workspace $workspace5
+bindsym $mod+Shift+6                        move container to workspace $workspace6; workspace $workspace6
+bindsym $mod+Shift+7                        move container to workspace $workspace7; workspace $workspace7
+bindsym $mod+Shift+8                        move container to workspace $workspace8; workspace $workspace8
+bindsym $mod+Shift+9                        move container to workspace $workspace9; workspace $workspace9
+bindsym $mod+Shift+0                        move container to workspace $workspace10; workspace $workspace10
+
+bindsym $mod+Shift+BackSpace                move container to workspace back_and_forth; workspace back_and_forth
+
+## Move to container to another Workspace
+bindsym $mod+Ctrl+1                         move container to workspace $workspace1
+bindsym $mod+Ctrl+2                         move container to workspace $workspace2
+bindsym $mod+Ctrl+3                         move container to workspace $workspace3
+bindsym $mod+Ctrl+4                         move container to workspace $workspace4
+bindsym $mod+Ctrl+5                         move container to workspace $workspace5
+bindsym $mod+Ctrl+6                         move container to workspace $workspace6
+bindsym $mod+Ctrl+7                         move container to workspace $workspace7
+bindsym $mod+Ctrl+8                         move container to workspace $workspace8
+bindsym $mod+Ctrl+9                         move container to workspace $workspace9
+bindsym $mod+Ctrl+0                         move container to workspace $workspace10
+
+## Scratchpad
+bindsym $mod+minus                          scratchpad show
+bindsym $mod+Shift+minus                    move scratchpad
+
+# Pane
+
+## Split
+bindsym $mod+b                              split h
+bindsym $mod+v                              split v
+
+## Focus
+bindsym $mod+h                              focus left
+bindsym $mod+j                              focus down
+bindsym $mod+k                              focus up
+bindsym $mod+l                              focus right
+
+bindsym $mod+Left                           focus left
+bindsym $mod+Down                           focus down
+bindsym $mod+Up                             focus up
+bindsym $mod+Right                          focus right
+
+bindsym $mod+a                              focus parent
+
+## Movement
+bindsym $mod+Shift+h                        move left
+bindsym $mod+Shift+k                        move up
+bindsym $mod+Shift+j                        move down
+bindsym $mod+Shift+l                        move right
+
+bindsym $mod+Shift+Left                     move left
+bindsym $mod+Shift+Down                     move down
+bindsym $mod+Shift+Up                       move up
+bindsym $mod+Shift+Right                    move right
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume                exec --no-startup-id "pactl set-sink-volume 0 +5%"
+bindsym XF86AudioLowerVolume                exec --no-startup-id "pactl set-sink-volume 0 -5%"
+bindsym XF86AudioMute                       exec --no-startup-id "pactl set-sink-mute 0 toggle"
+
+# Screen brightness controls with notification
+bindsym XF86MonBrightnessUp exec light -A 5; exec notify-send 'brightness up'
+bindsym XF86MonBrightnessDown exec light -U 5; exec notify-send 'brightness down'
+
+# Apps
+
+## Essential
+bindsym $mod+Return                         exec termite
+# bindsym $mod+d                              exec --no-startup-id dmenu_recency -l 100 -h 25 -w 300 -nb '#293340' -nf '#eeeeee' -sb '#2DCED0' -sf '#293340'
+bindsym $mod+d exec --no-startup-id rofi -show
+bindsym $mod+z                              exec --no-startup-id morc_menu
+bindsym $mod+Pause                          exec --no-startup-id betterlockscreen -l blur
+
+
+## General
+bindsym $mod+F2                             exec brave
+bindsym $mod+F3                             exec code
+bindsym $mod+F4                             exec nemo
+bindsym $mod+F5                             exec --no-startup-id termite --title 'mocp' -e 'mocp'
+bindsym $mod+Shift+F4                       exec gksu nemo
+
+## Utility
+bindsym $mod+t                              [instance="flyterm"] scratchpad show
+bindsym $mod+shift+t                        exec --no-startup-id termite --name "flyterm" -e tmux attach
+
+bindsym $mod+i                              [title="Todoist"] scratchpad show
+bindsym $mod+shift+i                        exec --no-startup-id todoist
+
+bindsym $mod+p                              [class="pomotroid"] scratchpad show
+bindsym $mod+shift+p                        exec --no-startup-id pomotroid.AppImage
+
+bindsym $mod+Ctrl+t                         exec --no-startup-id compton -b
+bindsym $mod+Ctrl+x             --release   exec --no-startup-id xkill
+bindsym $mod+Shift+d            --release   exec --no-startup-id killall dunst; exec notify-send 'restart dunst'
+bindsym $mod+shift+f            --release   exec --no-startup-id restart-flashfocus; exec notify-send 'restart flash-focus'
+
+## Screenshot
+bindsym Print                   --release   exec --no-startup-id flameshot full -c
+bindsym $mod+Print              --release   exec --no-startup-id flameshot full -p "/home/monster/pictures/screenshots/"
+bindsym $mod+Shift+Print        --release   exec --no-startup-id flameshot gui
+
+bindsym $mod+Ctrl+m                         exec pavucontrol
+
+# Layouts
+bindsym $mod+Shift+w            --release   exec --no-startup-id "i3-msg 'workspace $workspace1; append_layout ~/.config/i3/layouts/fullstacks.json'; fsk-layout"
+
+############################
+##    Windows Behavior    ##
+############################
+
+# Applications workspaces
+assign      [class="(?i)brave"]                     $workspace2
+assign      [class="(?i)code"] $workspace3
+assign      [class="(?i)code" window_type="(?i)DIALOG"] $workspace1
+assign      [title="(?i)mocp"]                      $workspace5
+
+# Floating modes
+for_window [class="(?i)System-config-printer.py"]   floating enable border normal
+for_window [class="(?i)virtualbox"]                 floating enable border normal
+for_window [class="calamares"]                      floating enable border normal
+for_window [class="Clipgrab"]                       floating enable
+for_window [class="Galculator"]                     floating enable border pixel 1
+for_window [class="GParted"]                        floating enable border normal
+for_window [class="Lightdm-settings"]               floating enable
+for_window [class="Lxappearance"]                   floating enable sticky enable border normal
+for_window [class="Manjaro Settings Manager"]       floating enable border normal
+for_window [class="Manjaro-hello"]                  floating enable
+for_window [class="Nitrogen"]                       floating enable sticky enable border normal
+for_window [class="Oblogout"]                       fullscreen enable
+for_window [class="octopi"]                         floating enable
+for_window [class="Pamac-manager"]                  floating enable
+for_window [class="Pavucontrol"]                    floating enable
+for_window [class="qt5ct"]                          floating enable sticky enable border normal
+for_window [class="Qtconfig-qt4"]                   floating enable sticky enable border normal
+for_window [class="Simple-scan"]                    floating enable border normal
+for_window [class="Skype"]                          floating enable border normal
+for_window [class="Timeset-gui"]                    floating enable border normal
+for_window [class="Xfburn"]                         floating enable
+for_window [class="persepoli"]                      floating enable
+for_window [instance="flyterm"]                     move scratchpad
+for_window [instance="flyterm"]                     resize set 650 450
+for_window [instance="flyterm"]                     move absolute position center
+for_window [title="About Pale Moon"]                floating enable
+for_window [title="alsamixer"]                      floating enable border pixel 1
+for_window [title="File Transfer*"]                 floating enable
+for_window [title="i3_help"]                        floating enable sticky enable border normal
+for_window [title="MuseScore: Play Panel"]          floating enable
+for_window [title="Sign in - Google Accounts - Chromium"] floating enable border normal
+for_window [title="Sign in - Google Accounts - Chromium"] resize set 360 600
+for_window [title="Sign in - Google Accounts - Chromium"] move absolute position center
+for_window [title="Page Unresolved"] floating enable
+for_window [title="(?i)friends list"] floating enable resize set 256 256
+for_window [title="(?i)steam - news"] floating enable resize set 256 256
+for_window [class="(?i)dota2"] fullscreen enable
+for_window [class="pomotroid"] move scratchpad
+for_window [class="pomotroid"] move absolute position center
+for_window [title="Todoist"] move scratchpad
+for_window [title="Todoist"] resize set 768 768
+for_window [title="Todoist"] move absolute position center
+
+for_window [window_role="(?i)GtkFileChooserDialog"] floating enable resize set 900 700
+for_window [window_role="(?i)GtkFileChooserDialog"] move absolute position center
+
+#################
+##    Modes    ##
+#################
+
+# System mode
+bindsym $mod+shift+Pause mode "$mode_system"
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+
+mode "$mode_system" {
+    bindsym l           exec --no-startup-id i3exit lock,         mode "default"
+    bindsym s           exec --no-startup-id betterlockscreen -s, mode "default"
+    bindsym u           exec --no-startup-id i3exit switch_user,  mode "default"
+    bindsym e           exec --no-startup-id i3exit logout,       mode "default"
+    bindsym h           exec --no-startup-id i3exit hibernate,    mode "default"
+    bindsym r           exec --no-startup-id i3exit reboot,       mode "default"
+    bindsym Shift+s     exec --no-startup-id i3exit shutdown,     mode "default"
+
+    bindsym Return      mode "default"
+    bindsym Escape      mode "default"
+}
+
+# Resize mode
+bindsym $mod+r mode "resize"
+
+mode "resize" {
+    bindsym h           resize shrink width  10 px or 10 ppt
+    bindsym j           resize grow   height 10 px or 10 ppt
+    bindsym k           resize shrink height 10 px or 10 ppt
+    bindsym l           resize grow   width  10 px or 10 ppt
+
+    bindsym Left        resize shrink width  1 px or 1 ppt
+    bindsym Down        resize grow   height 1 px or 1 ppt
+    bindsym Up          resize shrink height 1 px or 1 ppt
+    bindsym Right       resize grow   width  1 px or 1 ppt
+
+    bindsym Return      mode "default"
+    bindsym Escape      mode "default"
+}
+
+#####################
+##    Autostart    ##
+#####################
+
+# Essensial
+exec        --no-startup-id     /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec        --no-startup-id     nitrogen --restore; sleep 1; compton -b
+exec        --no-startup-id     nm-applet
+exec        --no-startup-id     xfce4-power-manager
+exec        --no-startup-id     clipit
+exec        --no-startup-id     xautolock -time 10 -locker betterlockscreen -l blur
+exec_always --no-startup-id     restart-polybar -r skill
+exec_always --no-startup-id     restart-flashfocus
+exec        --no-startup-id     "$HOME/.conky/start-conky.sh --dark"
+exec        --no-startup-id     redshift -l "36.850282":"54.3680226"
+exec        --no-startup-id     setxkbmap -layout us,ir -option grp:shifts_toggle
+exec_always --no-startup-id     swapcaps
+
+# Initiate Workspace
+exec        --no-startup-id     termite --name "flyterm" -e tmux attach
+exec        --no-startup-id     numlockx on
+# exec        --no-startup-id     5min
