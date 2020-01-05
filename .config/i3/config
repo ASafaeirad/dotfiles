@@ -172,35 +172,37 @@ bindsym $mod+Shift+Down                     move down
 bindsym $mod+Shift+Up                       move up
 bindsym $mod+Shift+Right                    move right
 
+bindsym Mod1+Tab                            workspace next
+bindsym Mod1+Shift+Tab                      workspace prev
+
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume                exec --no-startup-id "pactl set-sink-volume 0 +5%"
 bindsym XF86AudioLowerVolume                exec --no-startup-id "pactl set-sink-volume 0 -5%"
 bindsym XF86AudioMute                       exec --no-startup-id "pactl set-sink-mute 0 toggle"
 
 # Screen brightness controls with notification
-bindsym XF86MonBrightnessUp exec light -A 5; exec notify-send 'brightness up'
-bindsym XF86MonBrightnessDown exec light -U 5; exec notify-send 'brightness down'
+# bindsym XF86MonBrightnessUp exec light -A 5; exec notify-send 'brightness up'
+# bindsym XF86MonBrightnessDown exec light -U 5; exec notify-send 'brightness down'
 
 # Apps
 
 ## Essential
-bindsym $mod+Return                         exec termite
-# bindsym $mod+d                              exec --no-startup-id dmenu_recency -l 100 -h 25 -w 300 -nb '#293340' -nf '#eeeeee' -sb '#2DCED0' -sf '#293340'
-bindsym $mod+d exec --no-startup-id rofi -show
+bindsym $mod+Return                         exec --no-startup-id termite
+bindsym $mod+Shift+Return                   exec --no-startup-id termite -d "`xcwd`"
+
+bindsym $mod+d                              exec --no-startup-id dmenu_recency -l 100 -h 25 -w 300
+# bindsym $mod+d exec --no-startup-id rofi -show
 bindsym $mod+z                              exec --no-startup-id morc_menu
 bindsym $mod+Pause                          exec --no-startup-id betterlockscreen -l blur
 
-
 ## General
-bindsym $mod+F2                             exec brave
-bindsym $mod+F3                             exec code
-bindsym $mod+F4                             exec nemo
+bindsym $mod+F2                             exec --no-startup-id brave
+bindsym $mod+F3                             exec --no-startup-id code
+bindsym $mod+F4                             exec --no-startup-id pcmanfm
 bindsym $mod+F5                             exec --no-startup-id termite --title 'mocp' -e 'mocp'
-bindsym $mod+Shift+F4                       exec gksu nemo
+bindsym $mod+Shift+F4                       exec --no-startup-id gksu pcmanfm
 
 ## Utility
-bindsym $mod+t                              [instance="flyterm"] scratchpad show
-bindsym $mod+shift+t                        exec --no-startup-id termite --name "flyterm" -e tmux attach
 
 bindsym $mod+i                              [title="Todoist"] scratchpad show
 bindsym $mod+shift+i                        exec --no-startup-id todoist
@@ -230,7 +232,6 @@ bindsym $mod+Shift+w            --release   exec --no-startup-id "i3-msg 'worksp
 # Applications workspaces
 assign      [class="(?i)brave"]                     $workspace2
 assign      [class="(?i)code"] $workspace3
-assign      [class="(?i)code" window_type="(?i)DIALOG"] $workspace1
 assign      [title="(?i)mocp"]                      $workspace5
 
 # Floating modes
@@ -256,9 +257,6 @@ for_window [class="Skype"]                          floating enable border norma
 for_window [class="Timeset-gui"]                    floating enable border normal
 for_window [class="Xfburn"]                         floating enable
 for_window [class="persepoli"]                      floating enable
-for_window [instance="flyterm"]                     move scratchpad
-for_window [instance="flyterm"]                     resize set 650 450
-for_window [instance="flyterm"]                     move absolute position center
 for_window [title="About Pale Moon"]                floating enable
 for_window [title="alsamixer"]                      floating enable border pixel 1
 for_window [title="File Transfer*"]                 floating enable
@@ -279,6 +277,26 @@ for_window [title="Todoist"] move absolute position center
 
 for_window [window_role="(?i)GtkFileChooserDialog"] floating enable resize set 900 700
 for_window [window_role="(?i)GtkFileChooserDialog"] move absolute position center
+
+#################
+##   flyterm   ##
+#################
+
+exec                       --no-startup-id    termite --name "flyterm" -e tmux attach
+bindsym $mod+shift+t  exec --no-startup-id 		termite --name "flyterm" -e tmux attach
+bindsym $mod+t                                [instance="flyterm"] scratchpad show
+for_window																    [instance="flyterm"] move scratchpad
+for_window 																	  [instance="flyterm"] resize set 650 450
+for_window 																		[instance="flyterm"] move absolute position center
+
+#################
+##   Webcam    ##
+#################
+
+bindsym $mod+c [title="video0 - mpv"] scratchpad show
+for_window [title="video0 - mpv"] floating enable
+for_window [title="video0 - mpv"] sticky enable
+for_window [title="video0 - mpv"] move scratchpad
 
 #################
 ##    Modes    ##
@@ -338,6 +356,5 @@ exec        --no-startup-id     setxkbmap -layout us,ir -option grp:shifts_toggl
 exec_always --no-startup-id     swapcaps
 
 # Initiate Workspace
-exec        --no-startup-id     termite --name "flyterm" -e tmux attach
 exec        --no-startup-id     numlockx on
 # exec        --no-startup-id     5min
