@@ -51,6 +51,7 @@ alias afind='ack -il'
 alias path='echo -e ${PATH//:/\\n} | sort'
 alias history=omz_history
 alias grub-update='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+alias cpwd='pwd | xsel -i --clipboard'
 
 # process
 alias find-gpu='ps aux | grep gpu-process | grep'
@@ -82,8 +83,8 @@ process() {
 }
 
 # wireguard
-alias down='wg-quick down ~/wg0.conf'
-alias up='down; wg-quick up ~/wg0.conf'
+alias down='nmcli c down wg-ayza'
+alias up='nmcli c up wg-ayza'
 
 # config files
 alias hosts='sudoedit /etc/hosts'
@@ -158,7 +159,7 @@ alias npmd='npm install -D'
 alias npmo='npm outdated'
 alias npmp='npm publish'
 alias npmv='npm -v'
-alias cleannm='find . -name "node_modules" -type d -exec rm -rf {} \;'
+alias cleannm='find . -name "node_modules" -type d -exec sudo rm -rf {} \;'
 
 # yarn
 alias y='yarn'
@@ -182,12 +183,12 @@ alias drmi='sudo docker rmi $(sudo docker images -a --filter=dangling=true -q)'
 alias drm='sudo docker rm $(sudo docker ps --filter=status=exited --filter=status=created -q)'
 
 ## git
-alias clone='git clone'
-alias gss='git status -s'
-alias gsss='git status'
+# alias clone='git clone'
+alias gs='git status -s'
+# alias gsss='git status'
 
-alias ga='git add'
-alias gaa='git add --all'
+# alias ga='git add'
+# alias gaa='git add --all'
 
 alias gb='git branch'
 alias gbr='git branch --remote'

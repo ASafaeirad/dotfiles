@@ -18,6 +18,9 @@ message/rfc822=userapp-Thunderbird.desktop
 application/pdf=epdfview.desktop
 application/x-bittorrent=deluge.desktop
 x-scheme-handler/tg=telegramdesktop.desktop
+image/gif=viewnior.desktop
+video/mp4=vlc.desktop
+video/x-matroska=vlc.desktop
 
 [Added Associations]
 x-scheme-handler/http=userapp-brave.desktop;
@@ -38,3 +41,6 @@ x-scheme-handler/mailto=userapp-Thunderbird.desktop;
 message/rfc822=userapp-Thunderbird.desktop;
 application/pdf=epdfview.desktop;
 application/x-bittorrent=deluge.desktop;
+image/gif=viewnior.desktop;
+video/mp4=vlc.desktop;
+video/x-matroska=vlc.desktop;
