@@ -63,3 +63,4 @@ bindkey '^[[B' history-substring-search-down
 
 [[ -f "$HOME/.aliases" ]] && . "$HOME/.aliases"
 [[ -f "$HOME/.profile" ]] && . "$HOME/.profile"
+

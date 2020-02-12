@@ -101,6 +101,7 @@
 	pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
 	pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
 	total = "!f() { git log $@ --numstat | perl -ne '$i+=$1 and $d+=$2 if /^(\\d+)\\s+(\\d+)/; END { print \"$i insertion(s), $d deletion(s)\n\"}'; }; f"
+	stash-staged = "!bash -c \"git stash --keep-index; git stash push -m \"staged\" --keep-index; git stash pop stash@{1}\""
 
 [color]
 	diff = auto
@@ -130,6 +131,7 @@
 	# set up 'git pull' to rebase instead of merge
 	autosetuprebase = always
 [diff]
+	tool = icdiff
 	renames = copies
 	mnemonicprefix = true
 	compactionHeuristic = true
@@ -140,7 +142,7 @@
 	whitespace = nowarn
 [core]
 	excludesfile = /home/monster/.gitignore_global
-	pager = less -FXRS -x2
+	pager = diff-so-fancy | less --tabs=4 -RFX
 	editor = nvim
 	whitespace = cr-at-eol
 [rerere]
@@ -154,3 +156,6 @@
 [pager]
 	# diff = "diff-so-fancy | less --tabs=4 -RFX"
 	# show = "diff-so-fancy | less --tabs=4 -RFX"
+[difftool "icdiff"]
+	cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
+

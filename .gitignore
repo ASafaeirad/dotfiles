@@ -9,13 +9,17 @@
 .wakatime.log
 .wakatime.db
 .wakatime.cfg
+.zsh_history
+.zcompdump*
+.xsession-errors*
+
 
 .config/Hardcode-Tray/
 .config/Mousepad/
 .config/chromium/
 .config/coc/
 .config/configstore/
-.config/persepolis_donwload_manager/
+.config/persepolis_download_manager/
 .config/pulse/
 
 .config/BraveSoftware/Brave-Browser/
@@ -30,6 +34,7 @@
 .config/skypeforlinux/
 .config/Hardcode/
 .config/marktext/
+.config/Insomnia/
 
 .local/share/TelegramDesktop/
 .local/share/skypeforlinux/
