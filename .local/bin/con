@@ -1,0 +1,27 @@
+#!/bin/bash
+
+ADAPTER="wlp2s0"
+
+is-connected() {
+  local ic
+
+  ic="$(nmcli connection | grep "$1" | awk '{print $4}')"
+
+  if [ "$ADAPTER" == "$ic" ]; then
+    return 1
+  else
+    return 0
+  fi
+}
+
+is-connected "$1"
+connected=$?
+
+if [ $connected -eq 0 ]; then
+  nmcli connection up "$1"
+else
+  nmcli connection down "$1"
+  notify-send "Disconnected from $1 VPN"
+fi
+
+unset $ADAPTER

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+clear
+printf "\n\n\n"
+figlet -f DOS\ Rebel -d /usr/share/figlet/fonts "$@" | lolcat
+
+#printf "\tjoin us on @full_stacks"
+printf "\n\n\n"

@@ -1,0 +1,39 @@
+conky.config = {
+	alignment = 'top_right',
+	background = true,
+	default_color = 'eeeeee',
+	cpu_avg_samples = 2,
+	double_buffer = true,
+	font = 'DejaVu Sans:size=8',
+	font2 = 'DejaVu Sans:bold:size=8',
+	draw_shades = false,
+	gap_x = 32,
+	gap_y = 130,
+	minimum_width = 160,
+	maximum_width = 160,
+	no_buffers = true,
+	own_window = true,
+	own_window_type = 'override',
+	own_window_transparent = true,
+	update_interval = 2.0,
+	use_xft = true,
+}
+conky.text = [[
+${voffset 0}${font2}CPU$alignr$cpu%
+${voffset 8}${font}${top name 1}$alignr${top cpu 1}%
+${top name 2}$alignr${top cpu 2}%
+${top name 3}$alignr${top cpu 3}%
+${top name 4}$alignr${top cpu 4}%
+${top name 4}$alignr${top cpu 5}%
+#
+${voffset 12}${font2}RAM$alignr$memperc%$font
+${voffset 8}${top_mem name 1}$alignr${top_mem mem_res 1}
+${top_mem name 2}$alignr${top_mem mem_res 2}
+${top_mem name 3}$alignr${top_mem mem_res 3}
+${top_mem name 4}$alignr${top_mem mem_res 4}
+${top_mem name 5}$alignr${top_mem mem_res 5}
+#
+${voffset 12}${font2}Swap$alignr${swap}/ ${swapfree}
+#
+
+]]

@@ -1,0 +1,22 @@
+#!/bin/bash
+
+CHEATSPATH="$HOME/.cheat"
+
+if [ $# -eq 0 ]; then
+  echo "No arguments supplied"
+fi
+
+[ ! -d "$CHEATSPATH" ] && mkdir -p "$CHEATSPATH"
+
+if [ "$1" = "-d" ]; then
+  [ -f "$CHEATSPATH/$2" ] && rm "$CHEATSPATH/$2"
+  exit 0
+fi
+
+CHEAT="$CHEATSPATH/$1"
+
+if [ ! -f "$CHEAT" ]; then
+  touch "$CHEAT"
+fi
+
+code "$CHEAT"
