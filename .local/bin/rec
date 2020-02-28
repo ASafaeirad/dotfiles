@@ -1,0 +1,108 @@
+#!/bin/bash
+
+#--- Edit these default values.
+OUTDIR=/home/monster/videos/records
+
+#--- Check for necessary utils
+type xwininfo &>/dev/null || {
+  echo "xwininfo not found! please install it."
+  exit 1
+}
+type ffmpeg &>/dev/null || {
+  echo "ffmpeg not found! please install it."
+  exit 1
+}
+type bc &>/dev/null || {
+  echo "bc not found! please install it."
+  exit 1
+}
+
+while [[ $# -gt 0 ]]
+do
+key="$1"
+
+case $key in
+    -f|--fullscreen)
+    FULLSCREEN=true
+    shift
+    ;;
+    -s|--sound)
+    SOUND=true
+    shift
+    ;;
+    *)
+    POSITIONAL+=("$1") # save it in an array for later
+    shift # past argument
+    ;;
+esac
+done
+
+#--- Timestamp format
+TIMESTAMP=$(date +%F-%R)
+
+FULLWIDTH=$(xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f1)
+FULLHEIGHT=$(xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f2)
+
+#--- Video settings for recording
+OUTHEIGHT=$FULLHEIGHT
+FPS=60
+VBITRATE=8000k
+ABITRATE=96k
+
+VCODEC="libx264 -preset ultrafast -tune animation -b:v $VBITRATE"
+
+#--- File output settings
+mkdir -p $OUTDIR
+FILEOUT="-y $OUTDIR/capture.mp4"
+
+if [ "$FULLSCREEN" = "true" ]; then
+  FULLRES="${FULLWIDTH}x$FULLHEIGHT"
+  INRES=$(echo "-s $FULLRES -r $FPS -i :0.0")
+
+  OUTHEIGHT=$(echo "scale=0;$OUTHEIGHT/2*2" | bc)
+  OUTWIDTH=$(echo "scale=1;$OUTHEIGHT/${FULLHEIGHT}*${FULLWIDTH}" | bc)
+  OUTWIDTH=$(echo "scale=0;$OUTWIDTH/2*2" | bc)
+
+  VIDEOSRC="-f x11grab"
+  OUTRES="-s ${OUTWIDTH}x${OUTHEIGHT}"
+else
+  echo Select the target window.
+  unset x y w h
+  read -r X Y W H < <(slop -f "%x %y %w %h")
+
+  INRES=$(echo "-s ${W}x$H -r $FPS -i :0.0+$X,$Y")
+
+  if [ "$W" -lt "$OUTWIDTH" ]; then
+    OUTWIDTH=$W
+  fi
+
+  if [ "$H" -lt "$OUTHEIGHT" ]; then
+    OUTHEIGHT=$H
+  fi
+
+  OUTHEIGHT=$(echo "scale=0;$OUTHEIGHT/2*2" | bc)
+  OUTWIDTH=$(echo "scale=1;$OUTHEIGHT/$H*$W" | bc)
+  OUTWIDTH=$(echo "scale=0;$OUTWIDTH/2*2" | bc)
+
+  VIDEOSRC="-f x11grab"
+  OUTRES="-s ${OUTWIDTH}x${OUTHEIGHT}"
+fi
+
+if [ "$SOUND" == "true" ]; then
+  AUDIOSRC="-f alsa -ac 2 -i pulse"
+  ACODEC="libmp3lame -b:a $ABITRATE -ar 44100"
+  AUDIOCODEC="-acodec $ACODEC -threads auto"
+fi
+# NOW THE FUN BEGINS ==========================================================================
+ffmpeg \
+  $VIDEOSRC $INRES \
+  $AUDIOSRC \
+  $AUDIOCODEC \
+  -vcodec $VCODEC $OUTRES -threads auto \
+  $FILEOUT
+
+#--- rename the resulting capture file if applicable
+echo "Please type a name for the recording."
+read RENAMETO
+[[ "$RENAMETO" = "" ]] && RENAMETO=capture
+mv "$OUTDIR/capture.mp4" "$OUTDIR/$RENAMETO-$TIMESTAMP.mp4"
