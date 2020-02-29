@@ -26,8 +26,12 @@ case $key in
     FULLSCREEN=true
     shift
     ;;
-    -s|--sound)
+    -a|--audio)
     SOUND=true
+    shift
+    ;;
+    -v|--use-vcodec)
+    USE_VCODEC=true
     shift
     ;;
     *)
@@ -48,8 +52,6 @@ OUTHEIGHT=$FULLHEIGHT
 FPS=60
 VBITRATE=8000k
 ABITRATE=96k
-
-VCODEC="libx264 -preset ultrafast -tune animation -b:v $VBITRATE"
 
 #--- File output settings
 mkdir -p $OUTDIR
@@ -93,12 +95,25 @@ if [ "$SOUND" == "true" ]; then
   ACODEC="libmp3lame -b:a $ABITRATE -ar 44100"
   AUDIOCODEC="-acodec $ACODEC -threads auto"
 fi
+
+if [ "$USE_VCODEC" == "true" ]; then
+  VCODEC="libx264 -preset ultrafast -tune animation -b:v $VBITRATE"
+  VIDEOCODEC="-vcodec $VCODEC $OUTRES -threads auto"
+fi
+
 # NOW THE FUN BEGINS ==========================================================================
+echo "ffmpeg \n
+  $VIDEOSRC $INRES \n
+  $AUDIOSRC \n
+  $AUDIOCODEC \n
+  $VIDEOCODEC \n
+  $FILEOUT"
+
 ffmpeg \
   $VIDEOSRC $INRES \
   $AUDIOSRC \
   $AUDIOCODEC \
-  -vcodec $VCODEC $OUTRES -threads auto \
+  $VIDEOCODEC \
   $FILEOUT
 
 #--- rename the resulting capture file if applicable

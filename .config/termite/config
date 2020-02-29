@@ -1,5 +1,5 @@
 [options]
-font = DejaVuSansMono Nerd Font Mono 9
+font = Input Mono 9
 scroll_on_output    = false
 scroll_on_keystroke = true
 audible_bell        = false
@@ -25,14 +25,14 @@ filter_unmatched_urls = true
 
 [colors]
 foreground = #eeeeee
-background = #293340
+background = #313744
 foreground_bold = #f8f8f2
 cursor = #CE20C4
-cursor_foreground = #293340
+cursor_foreground = #313744
 highlight = #44475a
 
 # black
-color0  = #293340
+color0  = #313744
 color8  = #556570
 
 # red

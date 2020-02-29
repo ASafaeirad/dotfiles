@@ -1,10 +1,10 @@
 [colors]
-background      = #293340
+background      = #313744
 background-alt  = #2DCED0
 background-alrt = #E60053
 
 foreground      = #eeeeee
-foreground-alt  = #293340
+foreground-alt  = #313744
 
 error=#f00
 

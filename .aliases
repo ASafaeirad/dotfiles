@@ -183,7 +183,7 @@ alias drmi='sudo docker rmi $(sudo docker images -a --filter=dangling=true -q)'
 alias drm='sudo docker rm $(sudo docker ps --filter=status=exited --filter=status=created -q)'
 
 ## git
-# alias clone='git clone'
+alias clone='git clone'
 alias gs='git status -s'
 # alias gsss='git status'
 

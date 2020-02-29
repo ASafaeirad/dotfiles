@@ -1,5 +1,8 @@
 call plug#begin(stdpath('data') . '/plugged')
 	Plug 'neoclide/coc.nvim', {'branch': 'release'}
+	Plug 'dense-analysis/ale'
+	Plug 'sonph/onehalf', {'rtp': 'vim/'}
+	Plug 'ayu-theme/ayu-vim' " or other package manager
 	Plug 'scrooloose/nerdtree'
 	"Plug 'tsony-tsonev/nerdtree-git-plugin'
 	Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -18,8 +21,19 @@ let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark='soft'
 let g:gruvbox_invert_selection=0
 
+" IndentLine {{
+let g:indentLine_char = ''
+let g:indentLine_first_char = ''
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_setColors = 0
+" }}
+
+" let ayucolor="mirage" " for mirage version of theme
+" colorscheme ayu
+colorscheme onehalfdark
+
+
 try
-   colorscheme gruvbox
 catch
 endtry
 

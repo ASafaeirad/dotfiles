@@ -69,7 +69,7 @@ endif
 set ruler
 
 " Height of the command bar
-set cmdheight=2
+set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -114,7 +114,7 @@ if has("gui_macvim")
 endif
 
 " Add a bit extra margin to the left
-set foldcolumn=1
+set foldcolumn=0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
