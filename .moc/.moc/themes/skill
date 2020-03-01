@@ -1,0 +1,38 @@
+# mocp-theme-skill by skill
+# MOC theme for use with a skill-theme terminal color scheme
+
+background            = default default
+frame                 = default default
+window_title          = yellow  default
+directory             = default default
+selected_directory    = yellow  default
+playlist              = blue    default
+selected_playlist     = default default bold
+file                  = default default
+selected_file         = cyan    default
+marked_file           = default default bold
+marked_selected_file  = cyan    default bold
+info                  = default default
+selected_info         = default default
+marked_selected_info  = cyan    default bold
+marked_info           = cyan    default bold
+status                = cyan    default
+title                 = cyan    default bold
+state                 = default default
+current_time          = cyan    default
+time_left             = yellow  default
+total_time            = default default
+time_total_frames     = default default
+sound_parameters      = default default
+legend                = default default
+disabled              = default default
+enabled               = default default bold
+empty_mixer_bar       = cyan    default
+filled_mixer_bar      = black   cyan
+empty_time_bar        = cyan    default
+filled_time_bar       = default cyan
+entry                 = yellow  default
+entry_title           = red     default
+error                 = red     default bold
+message               = yellow  default
+plist_time            = cyan    default bold
