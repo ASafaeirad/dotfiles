@@ -14,8 +14,6 @@ export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
 export BROWSER=/usr/bin/brave
 export XDG_CONFIG_HOME="$HOME/.config"
 
-[[ -f "$HOME/.aliases" ]] && . "$HOME/.aliases"
-
 append_path "$HOME/.local/bin"
 
 if test "$(yarn --version 2>/dev/null)"; then
@@ -26,3 +24,9 @@ fi
 if test "$(go version 2>/dev/null)"; then
   export GOPATH=$HOME/go
 fi
+
+# Export nvm and load NVM
+if [ -d /home/skill/.nvm ]; then
+  export NVM_DIR="/home/skill/.nvm"
+fi
+

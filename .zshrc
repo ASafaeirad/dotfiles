@@ -1,3 +1,5 @@
+[[ -f "$HOME/.profile" ]] && . "$HOME/.profile"
+
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export ZSH="$HOME/.oh-my-zsh"
@@ -62,5 +64,4 @@ bindkey '^[[B' history-substring-search-down
 [[ -f "$ZSH/oh-my-zsh.sh" ]] && . "$ZSH/oh-my-zsh.sh"
 
 [[ -f "$HOME/.aliases" ]] && . "$HOME/.aliases"
-[[ -f "$HOME/.profile" ]] && . "$HOME/.profile"
 

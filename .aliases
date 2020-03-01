@@ -3,7 +3,7 @@
 WIFI_ADAPTOR="wlp2s0"
 
 # config
-alias config='git --git-dir "$HOME/.dotfiles.git" --work-tree "$HOME"'
+alias config='git --git-dir "$HOME/.files.git" --work-tree "$HOME"'
 
 # clear
 alias c='clear'
@@ -83,8 +83,8 @@ process() {
 }
 
 # wireguard
-alias down='nmcli c down wg-ayza'
-alias up='nmcli c up wg-ayza'
+alias down='nmcli c down wg-ali'
+alias up='nmcli c up wg-ali'
 
 # config files
 alias hosts='sudoedit /etc/hosts'

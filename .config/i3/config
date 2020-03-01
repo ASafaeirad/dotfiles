@@ -97,7 +97,7 @@ bindsym $mod+shift+c                        move absolute position center
 ## Workspace Navigation
 bindsym $mod+1                              workspace $workspace1
 bindsym $mod+2                              workspace $workspace2; exec --no-startup-id [[ "$(pgrep brave)" ]] || /usr/bin/brave
-bindsym $mod+3                              workspace $workspace3; exec --no-startup-id [[ "$(pgrep code)" ]] || /usr/bin/code
+bindsym $mod+3                              workspace $workspace3; exec --no-startup-id [[ "$(pgrep codium)" ]] || /usr/bin/code
 bindsym $mod+4                              workspace $workspace4
 bindsym $mod+5                              workspace $workspace5; exec --no-startup-id [[ "$(pgrep -c mocp)" ]] || termite --title 'mocp' -e 'mocp'
 bindsym $mod+6                              workspace $workspace6
