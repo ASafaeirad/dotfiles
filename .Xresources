@@ -50,7 +50,7 @@ Xft.lcdfilter: lcddefault
 *color15:                        #999999
 
 Xcursor.theme:                capitaine-cursors-light
-Xcursor.size:                 0
+Xcursor.size:                 16 
 
 URxvt.perl-ext-common: default,resize-font
 URxvt.resize.font.smaller: C-=

@@ -36,6 +36,7 @@
 .config/Hardcode/
 .config/marktext/
 .config/Insomnia/
+.config/VirtualBox/
 
 .local/share/TelegramDesktop/
 .local/share/skypeforlinux/
@@ -44,6 +45,12 @@
 .local/share/xorg/
 .local/share/clipit/
 .local/share/application/
+.local/lib/python*
+.local/share/fonts/*
+.local/share/lutris/
+
+!.local/share/fonts/fonts.conf
+
 
 # global patterns
 

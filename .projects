@@ -3,11 +3,15 @@
 alias northcamp='cd /home/monster/projects/northcamp'
 alias dotfiles='cd /home/monster/projects/dotfiles/smachine'
 alias tuts='cd /home/monster/videos/tutorials/'
+alias tg='cd /home/monster/downloads/Telegram\ Desktop'
+alias cards='vim /home/monster/documents/info/card.yml'
+alias monster='cd /home/monster'
 
 alias fem='cd ~/northcamp/dev/app/fullstacks'
 alias dwn='cd /home/monster/downloads'
 alias dnd='cd /home/monster/projects/dnd'
 alias libs='cd ~/northcamp/dev/libs'
+alias bot='cd ~/northcamp/dev/app/tg-bot'
 
 alias api='yarn workspace @fullstacks/api'
 alias dal='yarn workspace @fullstacks/dal'

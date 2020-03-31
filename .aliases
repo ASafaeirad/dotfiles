@@ -33,11 +33,14 @@ alias ls='ls --color'
 alias mkdir='mkdir -pv'
 
 # super user commands
+alias usermod='sudo usermod'
 alias chmod='sudo chmod'
+alias chown='sudo chown'
 alias dhcpcd='sudo dhcpcd'
 alias pacman-mirror='sudo pacman-mirror'
 alias systemctl='sudo systemctl'
 alias pacman='lazy-pacman'
+alias cpssh='cat ~/.ssh/id_rsa.pub | xsel -i --clipboard'
 
 # path shorcuts
 alias ~='cd ~'
@@ -83,8 +86,8 @@ process() {
 }
 
 # wireguard
-alias down='nmcli c down wg-ali'
-alias up='nmcli c up wg-ali'
+alias down='nmcli c down'
+alias up='nmcli c up'
 
 # config files
 alias hosts='sudoedit /etc/hosts'
@@ -110,6 +113,7 @@ alias lless='l | less'
 alias laless='ll | less'
 alias rd=rmdir
 alias open='xdg-open'
+
 mk() {
   mkdir "$1" && cd "$1"
 }
@@ -149,7 +153,7 @@ alias pacr='pacman -R'
 alias pacls='pacman -Qi'
 
 # npm
-alias loadnvm=". /usr/share/nvm/init-nvm.sh"
+alias loadnvm=". $NVM_DIR/nvm.sh"
 alias npmls='npm ls --depth 0'
 alias npmr='npm remove'
 alias npni='npm install'
@@ -181,6 +185,7 @@ alias ysu='curl --compressed -o- -L https://yarnpkg.com/install.sh | bash'
 alias dc='docker-compose'
 alias drmi='sudo docker rmi $(sudo docker images -a --filter=dangling=true -q)'
 alias drm='sudo docker rm $(sudo docker ps --filter=status=exited --filter=status=created -q)'
+alias dps='docker ps -a'
 
 ## git
 alias clone='git clone'
