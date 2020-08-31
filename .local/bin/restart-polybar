@@ -1,4 +1,4 @@
 #!/bin/bash
 
-killall polybar
+killall polybar 2> /dev/null
 polybar "$@" &

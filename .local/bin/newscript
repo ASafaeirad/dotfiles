@@ -7,20 +7,20 @@ if [ $# -eq 0 ]
     exit 0
 fi
 
-SCRIPTPATH="$HOME/.local/bin"
+SCRIPT_PATH="$HOME/.local/bin"
 
-[ ! -d "$SCRIPTPATH" ] && mkdir -p "$SCRIPTPATH"
+[ ! -d "$SCRIPT_PATH" ] && mkdir -p "$SCRIPT_PATH"
 
 if [ "$1" = "-d" ]; then
-  [ -f "$SCRIPTPATH/$2" ] && rm "$SCRIPTPATH/$2"
+  [ -f "$SCRIPT_PATH/$2" ] && rm "$SCRIPT_PATH/$2"
   exit 0
 fi
 
-SCRIPT="$SCRIPTPATH/$1"
+SCRIPT="$SCRIPT_PATH/$1"
 
 if [ ! -f "$SCRIPT" ]; then
   echo "#!/bin/bash" > "$SCRIPT"
   chmod +x "$SCRIPT"
 fi
 
-code "$SCRIPT"
+$EDITOR "$SCRIPT"

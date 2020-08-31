@@ -1,0 +1,10 @@
+[Nemo Action]
+
+Active=true
+Name=Add to VLC %F
+Comment=This is a test for Nemo actions.  Action will be applied to %N
+Exec=vlc %F
+Icon-Name=vlc
+Selection=notnone
+Extensions=any
+Quote=double

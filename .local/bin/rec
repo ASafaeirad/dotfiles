@@ -16,29 +16,32 @@ type bc &>/dev/null || {
   echo "bc not found! please install it."
   exit 1
 }
+type slop &>/dev/null || {
+  echo "slop not found! please install it."
+  exit 1
+}
 
-while [[ $# -gt 0 ]]
-do
-key="$1"
+while [[ $# -gt 0 ]]; do
+  key="$1"
 
-case $key in
-    -f|--fullscreen)
+  case $key in
+  -f | --fullscreen)
     FULLSCREEN=true
     shift
     ;;
-    -a|--audio)
+  -a | --audio)
     SOUND=true
     shift
     ;;
-    -v|--use-vcodec)
+  -v | --use-vcodec)
     USE_VCODEC=true
     shift
     ;;
-    *)
+  *)
     POSITIONAL+=("$1") # save it in an array for later
-    shift # past argument
+    shift              # past argument
     ;;
-esac
+  esac
 done
 
 #--- Timestamp format
@@ -46,16 +49,16 @@ TIMESTAMP=$(date +%F-%R)
 
 FULLWIDTH=$(xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f1)
 FULLHEIGHT=$(xrandr --current | grep '*' | uniq | awk '{print $1}' | cut -d 'x' -f2)
+OUTHEIGHT=$FULLHEIGHT
 
 #--- Video settings for recording
-OUTHEIGHT=$FULLHEIGHT
-FPS=60
+FPS=25
 VBITRATE=8000k
 ABITRATE=96k
 
 #--- File output settings
 mkdir -p $OUTDIR
-FILEOUT="-y $OUTDIR/capture.mp4"
+FILEOUT="$OUTDIR/capture"
 
 if [ "$FULLSCREEN" = "true" ]; then
   FULLRES="${FULLWIDTH}x$FULLHEIGHT"
@@ -65,59 +68,60 @@ if [ "$FULLSCREEN" = "true" ]; then
   OUTWIDTH=$(echo "scale=1;$OUTHEIGHT/${FULLHEIGHT}*${FULLWIDTH}" | bc)
   OUTWIDTH=$(echo "scale=0;$OUTWIDTH/2*2" | bc)
 
-  VIDEOSRC="-f x11grab"
   OUTRES="-s ${OUTWIDTH}x${OUTHEIGHT}"
+
 else
   echo Select the target window.
-  unset x y w h
   read -r X Y W H < <(slop -f "%x %y %w %h")
-
-  INRES=$(echo "-s ${W}x$H -r $FPS -i :0.0+$X,$Y")
-
-  if [ "$W" -lt "$OUTWIDTH" ]; then
-    OUTWIDTH=$W
-  fi
+  let W=$W/2*2
+  let H=$H/2*2
+  INRES="-s ${W}x$H -r $FPS -i :0.0+$X,$Y -show_region 1"
 
   if [ "$H" -lt "$OUTHEIGHT" ]; then
     OUTHEIGHT=$H
   fi
-
   OUTHEIGHT=$(echo "scale=0;$OUTHEIGHT/2*2" | bc)
   OUTWIDTH=$(echo "scale=1;$OUTHEIGHT/$H*$W" | bc)
   OUTWIDTH=$(echo "scale=0;$OUTWIDTH/2*2" | bc)
 
-  VIDEOSRC="-f x11grab"
   OUTRES="-s ${OUTWIDTH}x${OUTHEIGHT}"
 fi
 
 if [ "$SOUND" == "true" ]; then
   AUDIOSRC="-f alsa -ac 2 -i pulse"
-  ACODEC="libmp3lame -b:a $ABITRATE -ar 44100"
-  AUDIOCODEC="-acodec $ACODEC -threads auto"
+  # ACODEC="libmp3lame -b:a $ABITRATE -ar 44100"
+  # AUDIOCODEC="-acodec $ACODEC -threads auto"
+  REC_ACODEC="-acodec pcm_s16le -y"
+  OUT_ACODEC="-acodec mp3"
 fi
 
 if [ "$USE_VCODEC" == "true" ]; then
   VCODEC="libx264 -preset ultrafast -tune animation -b:v $VBITRATE"
+  VCODEC="copy"
+  VCODEC="h264"
+  VCODEC="libx264 -crf 26"
   VIDEOCODEC="-vcodec $VCODEC $OUTRES -threads auto"
 fi
 
-# NOW THE FUN BEGINS ==========================================================================
-echo "ffmpeg \n
-  $VIDEOSRC $INRES \n
-  $AUDIOSRC \n
-  $AUDIOCODEC \n
-  $VIDEOCODEC \n
-  $FILEOUT"
+# ffmpeg -f alsa -i pulse -f x11grab -r 25 -s 1280x720 -i :0.0+0,24 -acodec pcm_s16le
+# -vcodec libx264 -vpre lossless_ultrafast -threads 0 output.mkv
 
 ffmpeg \
-  $VIDEOSRC $INRES \
-  $AUDIOSRC \
-  $AUDIOCODEC \
-  $VIDEOCODEC \
-  $FILEOUT
+  -f alsa -i pulse \
+  -f x11grab -r 25 -s 1366x768 -i :0.0+0,0 \
+  -acodec pcm_s16le \
+  -vcodec libx264 -preset ultrafast -threads 0 \
+  "$FILEOUT.mkv"
 
-#--- rename the resulting capture file if applicable
+ffmpeg \
+  -channel_layout stereo \
+  -i "$FILEOUT.mkv" \
+  -vcodec libx264 -preset slow -crf 22 -threads 0 \
+  $OUT_ACODEC \
+  "$FILEOUT.mp4"
+
 echo "Please type a name for the recording."
 read RENAMETO
 [[ "$RENAMETO" = "" ]] && RENAMETO=capture
-mv "$OUTDIR/capture.mp4" "$OUTDIR/$RENAMETO-$TIMESTAMP.mp4"
+mv "$FILEOUT.mp4" "$OUTDIR/$RENAMETO.mp4"
+mv "$FILEOUT.mkv" "$OUTDIR/$RENAMETO.mkv"

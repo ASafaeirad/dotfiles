@@ -1,0 +1,62 @@
+#!/bin/bash
+
+TMP_NAME=$(mktemp -u ~/Downloads/capture.XXXXXX)
+
+TMP_AVI="${TMP_NAME}.avi"
+TMP_GIF="${TMP_NAME}.gif"
+TMP_GIF_OPTIMIZED="${TMP_NAME}_optimized.gif"
+
+print_usage() {
+  echo -e "Usage: screencapture [-t]\n\n\t-t seconds    capture time (default: 10)\n\t-o file    output file"
+}
+
+cleanup() {
+  rm -f $TMP_AVI
+  rm -f $TMP_GIF
+}
+
+control_c() { # run if user hits control-c
+  echo -en "\n*** Ouch! Exiting ***\n"
+  cleanup
+  exit $?
+}
+
+# trap keyboard interrupt (control-c)
+trap control_c SIGINT
+
+LENGTH=10
+
+while getopts ":t:o:h" OPTION; do
+  case "${OPTION}" in
+  t)
+    LENGTH=${OPTARG}
+    ;;
+  o)
+    TMP_GIF_OPTIMIZED=${OPTARG}
+    ;;
+  h)
+    print_usage
+    exit 0
+    ;;
+  *) # echo "Incorrect options provided" exit 1 ;;
+    echo "unknown option: $OPTION"
+    exit 1
+    ;;
+  esac
+done
+
+echo "Recording screen ($LENGTH seconds)"
+
+ffcast -s lag 1 % ffmpeg -f x11grab -t $LENGTH -show_region 1 -framerate 20 -video_size %s -i %D+%c -codec:v huffyuv -vf crop="iw-mod(iw\\,2):ih-mod(ih\\,2)" $TMP_AVI
+
+echo "Converting to GIF"
+convert -quality 100% -layers Optimize $TMP_AVI $TMP_GIF
+
+echo "Optimizing GIF"
+gifsicle $TMP_GIF --colors 50 -l -O3 -o $TMP_GIF_OPTIMIZED
+
+cleanup
+
+echo "Wrote $TMP_GIF_OPTIMIZED"
+
+BROWSER=chromium:firefox xdg-open "file://$(realpath $TMP_GIF_OPTIMIZED)"

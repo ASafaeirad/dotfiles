@@ -3,13 +3,13 @@
 ## @@@@@@@@@@@@@@@@@@@@@@
 
 # Opacity of window during flash.
-flash-opacity: 0.9
+flash-opacity: 0.8
 
 # Windows are restored to this opacity value at the end of a flash.
 default-opacity: 1
 
 # Length of flash in milliseconds.
-time: 220
+time: 320
 
 # If true, flashes are not faded out. This will improve performance but flashes
 # won't be smooth.

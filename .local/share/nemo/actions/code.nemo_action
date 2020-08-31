@@ -1,0 +1,10 @@
+[Nemo Action]
+
+Active=true
+Name=Code Here
+Comment=Open Code in %P
+Exec=code "%F"
+Icon-Name=code-oss
+Selection=none
+Extensions=any
+Qoute=double

@@ -1,0 +1,18 @@
+# configuration file for betterlockscreen
+
+insidecolor=ff000000
+ringcolor=ffffffff
+keyhlcolor=2dced0
+bshlcolor=d23c3dff
+separatorcolor=00000000
+insidevercolor=00000000
+insidewrongcolor=d23c3dff
+ringvercolor=ffffffff
+ringwrongcolor=ffffffff
+verifcolor=ffffffff
+timecolor=ffffffff
+datecolor=3DCED0
+loginbox=00000066
+font="DejaVu-Sans"
+locktext='Hello, World!'
+lock_timeout=5

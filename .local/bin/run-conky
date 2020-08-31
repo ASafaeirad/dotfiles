@@ -1,0 +1,3 @@
+#!/bin/bash
+conky "$HOME/.local/share/conky/stat.dark.pacsave" &
+

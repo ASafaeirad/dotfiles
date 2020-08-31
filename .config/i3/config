@@ -56,7 +56,6 @@ client.focused_inactive $bg_color_inactive  $bg_color_inactive  $text_color_inac
 client.unfocused        $bg_color_inactive  $bg_color_inactive  $text_color_inactive $color_indc
 client.urgent           $bg_color_urgent    $bg_color_urgent    $text_color_urgent   $color_indc
 client.placeholder      $bg_color           $bg_color           $text_color          $color_indc
-
 client.background       $bg_color
 
 ####################
@@ -100,7 +99,7 @@ bindsym $mod+2                              workspace $workspace2; exec --no-sta
 bindsym $mod+3                              workspace $workspace3
 #; exec --no-startup-id [[ "$(pgrep codium)" ]] || /usr/bin/code
 bindsym $mod+4                              workspace $workspace4
-bindsym $mod+5                              workspace $workspace5; exec --no-startup-id [[ "$(pgrep -c mocp)" ]] || termite --title 'mocp' -e 'mocp'
+bindsym $mod+5                              workspace $workspace5; exec --no-startup-id [[ "$(pgrep -c mocp)" ]] || termite --title 'mocp' -e run-mocp
 bindsym $mod+6                              workspace $workspace6
 bindsym $mod+7                              workspace $workspace7
 bindsym $mod+8                              workspace $workspace8
@@ -200,7 +199,7 @@ bindsym $mod+Pause                          exec --no-startup-id betterlockscree
 bindsym $mod+F2                             exec --no-startup-id brave
 bindsym $mod+F3                             exec --no-startup-id code
 bindsym $mod+F4                             exec --no-startup-id pcmanfm
-bindsym $mod+F5                             exec --no-startup-id termite --title 'mocp' -e 'mocp'
+bindsym $mod+F5                             exec --no-startup-id termite --title 'mocp' -e run-mocp
 bindsym $mod+Shift+F4                       exec --no-startup-id gksu pcmanfm
 
 ## Utility
@@ -279,6 +278,9 @@ for_window [title="Todoist"] move absolute position center
 
 for_window [window_role="(?i)GtkFileChooserDialog"] floating enable resize set 900 700
 for_window [window_role="(?i)GtkFileChooserDialog"] move absolute position center
+for_window [class="VirtualBox Machine"] fullscreen enable
+for_window [class="VirtualBox Machine"] resize set 1366 700
+for_window [class="VirtualBox Machine"] move absolute position center
 
 #################
 ##   flyterm   ##
@@ -288,8 +290,21 @@ exec                       --no-startup-id    termite --name "flyterm" -e tmux a
 bindsym $mod+shift+t  exec --no-startup-id 		termite --name "flyterm" -e tmux attach
 bindsym $mod+t                                [instance="flyterm"] scratchpad show
 for_window																    [instance="flyterm"] move scratchpad
-for_window 																	  [instance="flyterm"] resize set 650 450
+for_window 																	  [instance="flyterm"] resize set 660 450
 for_window 																		[instance="flyterm"] move absolute position center
+
+#################
+##  ssh proxy  ##
+#################
+
+exec                       --no-startup-id    termite --name "ssh-proxy" -e "ssh -D 6000 -C -N wg"
+bindsym $mod+shift+m  exec --no-startup-id 		termite --name "ssh-proxy" -e "ssh -D 6000 -C -N wg"
+bindsym $mod+m                                [instance="ssh-proxy"] scratchpad show
+for_window																    [instance="ssh-proxy"] move scratchpad
+for_window 																	  [instance="ssh-proxy"] resize set 300 300
+for_window 																		[instance="ssh-proxy"] move absolute position 0 0
+
+
 
 #################
 ##   Webcam    ##
@@ -345,18 +360,12 @@ mode "resize" {
 
 # Essensial
 exec        --no-startup-id     /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec        --no-startup-id     nitrogen --restore; sleep 1; compton -b
-exec        --no-startup-id     nm-applet
-exec        --no-startup-id     xfce4-power-manager
-exec        --no-startup-id     clipit
-exec        --no-startup-id     xautolock -time 10 -locker betterlockscreen -l blur
 exec_always --no-startup-id     restart-polybar -r skill
 exec_always --no-startup-id     restart-flashfocus
-exec        --no-startup-id     "$HOME/.conky/start-conky.sh --dark"
-exec        --no-startup-id     redshift -l "36.850282":"54.3680226"
-exec        --no-startup-id     setxkbmap -layout us,ir -option grp:shifts_toggle
-exec_always --no-startup-id     swapcaps
 
-# Initiate Workspace
-exec        --no-startup-id     numlockx on
-# exec        --no-startup-id     5min
+####################
+##   Smartsept    ##
+####################
+assign [title="ApiLogs"] $workspace1
+assign [title="WebLogs"] $workspace1
+
