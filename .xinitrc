@@ -15,3 +15,4 @@ fi
 . $HOME/.config/X11/Xprofile
 
 ssh-agent i3
+

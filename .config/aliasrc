@@ -124,6 +124,7 @@ alias projectrc='vim ~/.config/shortcuts'
 alias reload='source ~/.config/aliasrc'
 alias dnsrc='sudo vim /etc/resolv.conf'
 alias sshrc='vim ~/.ssh/config'
+alias fontrc='vim ~/.config/fontconfig/'
 alias xreload='xrdb ~/.Xresources'
 alias retor='sudo systemctl restart tor'
 
