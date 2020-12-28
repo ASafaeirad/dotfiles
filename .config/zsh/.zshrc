@@ -31,6 +31,7 @@ plugins=(
 	forgit
 )
 
+
 ## Options section
 setopt nocheckjobs                 # Don't warn about running processes when exiting
 setopt numericglobsort             # Sort filenames numerically when it makes sense

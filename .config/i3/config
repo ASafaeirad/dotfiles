@@ -107,6 +107,7 @@ bindsym $mod+9                              workspace $workspace9
 bindsym $mod+0                              workspace $workspace10
 # exec --no-startup-id [[ "$(pgrep telegram-desktop)" ]] || /usr/bin/telegram-desktop
 
+
 bindsym $mod+Ctrl+Right                     workspace next
 bindsym $mod+Ctrl+Left                      workspace prev
 
@@ -160,6 +161,7 @@ bindsym $mod+Up                             focus up
 bindsym $mod+Right                          focus right
 
 bindsym $mod+a                              focus parent
+bindsym $mod+space                          focus mode_toggle
 
 ## Movement
 bindsym $mod+Shift+h                        move left
@@ -190,14 +192,14 @@ bindsym XF86AudioMute                       exec --no-startup-id "pactl set-sink
 bindsym $mod+Return                         exec --no-startup-id termite
 bindsym $mod+Shift+Return                   exec --no-startup-id termite -d "`xcwd`"
 
-bindsym $mod+d                              exec --no-startup-id dmenu_recency -l 100 -h 25 -w 300
+bindsym $mod+d                              exec --no-startup-id sdmenu -l 100 -h 25 -w 300
 # bindsym $mod+d exec --no-startup-id rofi -show
 bindsym $mod+z                              exec --no-startup-id morc_menu
 bindsym $mod+Pause                          exec --no-startup-id betterlockscreen -l blur
 
 ## General
 bindsym $mod+F2                             exec --no-startup-id brave
-bindsym $mod+F3                             exec --no-startup-id code
+bindsym $mod+F3                             exec --no-startup-id scode
 bindsym $mod+F4                             exec --no-startup-id pcmanfm
 bindsym $mod+F5                             exec --no-startup-id termite --title 'mocp' -e run-mocp
 bindsym $mod+Shift+F4                       exec --no-startup-id gksu pcmanfm
@@ -232,7 +234,7 @@ bindsym $mod+Shift+w            --release   exec --no-startup-id "i3-msg 'worksp
 # Applications workspaces
 assign      [class="(?i)brave"]                     $workspace2
 assign      [class="(?i)firefox"]                   $workspace2
-assign      [class="(?i)code"] $workspace3
+assign      [class="(?i)code" window_type="normal"] $workspace3
 assign      [title="(?i)mocp"]                      $workspace5
 
 # Floating modes
@@ -368,4 +370,4 @@ exec_always --no-startup-id     restart-flashfocus
 ####################
 assign [title="ApiLogs"] $workspace1
 assign [title="WebLogs"] $workspace1
-
+assign [title="IoTLogs"] $workspace1

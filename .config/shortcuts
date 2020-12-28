@@ -13,13 +13,14 @@ alias parma='cd $MONSTER/projects/dnd/thesis/parma'
 alias books='cd $MONSTER/books'
 
 alias cards='vim $MONSTER/documents/info/card.yml'
+alias infos='vim $MONSTER/documents/info/info.json'
 
 alias libs='cd $HOME/dev/libs'
 alias devs='cd $HOME/dev/projects'
-alias rewire='cd $HOME/dev/rewire'
-alias fsk='cd $HOME/fullstacks/dnd'
+alias rewire='cd $HOME/dev/skill'
+alias fsk='cd $HOME/fullstacks/'
 
-alias dotfiles='cd $HOME/dev/rewire/initiator'
+alias dotfiles='cd $HOME/dev/skill/initiator'
 alias fem='cd $HOME/dev/projects/fullstacks'
 alias bot='cd $HOME/dev/projects/guardian'
 alias sm='cd $HOME/smartsept/smartsept && s'

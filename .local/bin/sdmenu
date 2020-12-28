@@ -1,0 +1,100 @@
+#!/bin/bash
+
+CONFIG_PATH="${XDG_CONFIG_HOME:-$HOME/.config}/dmenu/dmenurc"
+
+if ! [ -f "$CONFIG_PATH" ]; then
+	cp /usr/share/dmenu/dmenurc "$CONFIG_PATH"
+fi
+
+. "$CONFIG_PATH"
+
+if [ -z "$TERMINAL_CMD" ]; then
+  if [ "$(which terminal)" ]; then
+  TERMINAL_CMD="terminal -e"
+  elif [ "$(which urxvt)" ]; then
+  TERMINAL_CMD="urxvt -e"
+  elif [ "$(which termite)" ]; then
+  TERMINAL_CMD="termite -e"
+  elif [ "$(which terminator)" ]; then
+  TERMINAL_CMD="terminator -e"
+  elif [ "$(which gnome-terminal)" ]; then
+  TERMINAL_CMD="gnome-terminal -e"
+  elif [ "$(which lxterminal)" ]; then
+  TERMINAL_CMD="lxterminal -e"
+  elif [ "$(which sakura)" ]; then
+  TERMINAL_CMD="sakura -e"
+  elif [ "$(which xfce4-terminal)" ]; then
+  TERMINAL_CMD="xfce4-terminal -e"
+  elif [ "$(which xterm)" ]; then
+  TERMINAL_CMD="xterm -e"
+  fi
+fi
+
+dmenu_cmd="dmenu $DMENU_OPTIONS"
+max_recent=199 # Number of recent commands to track
+
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/dmenu-recent"
+RECENT_CACHE="$CACHE_DIR/recent"
+RESET_CACHE="$CACHE_DIR/all"
+known_types=" background terminal terminal_hold "
+
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/dmenu-recent"
+mkdir -p "$CACHE_DIR"
+mkdir -p "$CONFIG_DIR"
+touch "$RECENT_CACHE"
+
+# Without this, it won't remember $type
+GREP_OPTIONS='--color=never'
+
+IFS=:
+if stest -dqr -n "$RESET_CACHE" $PATH 2>/dev/null; then
+    stest -flx $PATH | sort -u | grep -vxFf "$RECENT_CACHE" > "$RESET_CACHE"
+fi
+
+IFS=" "
+cmd=$(cat "$RECENT_CACHE" "$RESET_CACHE" | $dmenu_cmd -p run: "$@") || exit
+
+if ! grep -qx "$cmd" "$RECENT_CACHE" &> /dev/null; then
+    grep -vx "$cmd" "$RESET_CACHE" > "$RESET_CACHE.$$"
+    if -s "$RESET_CACHE.$$"; then
+        mv "$RESET_CACHE.$$" "$RESET_CACHE"
+    else
+        rm "$RESET_CACHE.$$"
+    fi
+fi
+
+if [[ ! $cmd == *[[]* ]]; then
+    echo "$cmd" > "$RECENT_CACHE.$$"
+    grep -vx "$cmd" "$RECENT_CACHE" | head -n "$max_recent" >> "$RECENT_CACHE.$$"
+    mv "$RECENT_CACHE.$$"  "$RECENT_CACHE"
+fi
+
+# Figure out how to run the command based on the command name, disregarding
+# arguments, if any.
+word0=${cmd%% *}
+match="^$word0$"
+
+get_type () {
+    while type=$(echo $known_types | xargs -n1 | $dmenu_cmd -p Type:); do
+        [[ $known_types =~ " $type " ]] || continue
+        echo "$word0" >> "$CONFIG_DIR/$type"
+        break
+    done
+    echo $type
+}
+
+if ! type=$(grep -lx "$match" -R "$CONFIG_DIR"); then
+    type=$(get_type)
+else 
+    type=${type##*/}
+    if ! [[ $known_types =~ " $type " ]]; then
+        rm "$CONFIG_DIR/$type"
+        type=$(get_type)
+    fi
+fi
+
+[[ "$type" = "background" ]] && exec $cmd
+[[ "$type" = "terminal" ]] && exec $TERMINAL_CMD "$cmd"
+[[ "$type" = "terminal_hold" ]] &&
+    exec $TERMINAL_CMD sh -c "$cmd && echo Press Enter to kill me... && read line"
+
