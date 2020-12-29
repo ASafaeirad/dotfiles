@@ -1,0 +1,34 @@
+FILES=(
+  .config/Kvantum
+  .config/clipit
+  .config/dunst
+  .config/gtk-3.0
+  .config/mimeapps.list
+  .config/morc_menu
+  .config/nitrogen
+  .config/pcmanfm
+  .config/ranger
+  .config/user-dirs.locale
+  .config/user-dirs.dirs
+  .local/share/moc/themes/
+  .dmenurc
+  .profile
+  .xinitrc
+  .yarnrc
+	.config/picom.conf
+	.zshrc
+	.xinitrc
+	.Xresources
+	.moc
+	.moonchild\ productions
+	.i3
+	.lesshst
+)
+
+BACKUP="$HOME/dotfiles_backup"
+
+for file in "${FILES[@]}"
+do
+  mkdir -pv "$BACKUP/$(dirname $file)"
+  mv $file "$BACKUP/$file"
+done

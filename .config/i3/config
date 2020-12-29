@@ -299,8 +299,8 @@ for_window 																		[instance="flyterm"] move absolute position center
 ##  ssh proxy  ##
 #################
 
-exec                       --no-startup-id    termite --name "ssh-proxy" -e "ssh -D 6000 -C -N wg"
-bindsym $mod+shift+m  exec --no-startup-id 		termite --name "ssh-proxy" -e "ssh -D 6000 -C -N wg"
+exec                       --no-startup-id    termite --name "ssh-proxy" -e "ssh -D 6000 -C -N bot"
+bindsym $mod+shift+m  exec --no-startup-id 		termite --name "ssh-proxy" -e "ssh -D 6000 -C -N bot"
 bindsym $mod+m                                [instance="ssh-proxy"] scratchpad show
 for_window																    [instance="ssh-proxy"] move scratchpad
 for_window 																	  [instance="ssh-proxy"] resize set 300 300

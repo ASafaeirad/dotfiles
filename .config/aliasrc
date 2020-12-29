@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WIFI_ADAPTOR="wlan0"
+WIFI_ADAPTOR="wlp3s0"
 
 # config
 alias config='git --git-dir "$HOME/.files.git" --work-tree "$HOME"'
@@ -152,7 +152,7 @@ mk() {
 alias getip="curl -s -S https://icanhazip.com"
 alias mac="getMac $WIFI_ADAPTOR"
 alias ping='ping -i 1 -O'
-alias scanip='nmap -sn 192.168.43.0/24'
+alias scanip='nmap -sn 192.168.1.0/24'
 
 port() {
   sudo netstat -tulpn | grep :"$1"
@@ -228,7 +228,8 @@ alias drmi='sudo docker rmi $(sudo docker images -a --filter=dangling=true -q)'
 alias drm='sudo docker rm $(sudo docker ps --filter=status=exited --filter=status=created -q)'
 alias dps='docker ps -a'
 alias dim='docker images | tail -n +2 | sort'
-alias trash='git add . && git commit --no-edit --amend --no-verify && git push -f --force-with-lease'
+alias trash='git add . && git commit -m 'debug' --no-verify && git push'
+alias trash!='git add . && git commit --amend --no-edit --no-verify && git push -f --force-with-lease'
 
 ## docker
 alias d='ALL_PROXY=socks5://localhost:6000 docker'

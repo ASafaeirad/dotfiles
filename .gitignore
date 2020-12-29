@@ -14,10 +14,16 @@
 !.config/flameshot/
 !.config/flashfocus/
 !.config/fontconfig/
+<<<<<<< Updated upstream
 !.config/gh/
 .config/gh/hosts.yml
 !.config/gtk-2.0/
 .config/gtk-2.0/gtkfilechooser.ini
+=======
+!.config/gh/config.yml
+!.config/git/
+!.config/gtk-2.0/gtkrc-2.0
+>>>>>>> Stashed changes
 !.config/gtk-3.0/
 !.config/htop/
 !.config/hyper
@@ -53,6 +59,7 @@
 !.config/bookmarkrc
 !.config/user-dirs.dirs
 !.config/user-dirs.locale
+!.config/backup
 
 # local
 !.local/

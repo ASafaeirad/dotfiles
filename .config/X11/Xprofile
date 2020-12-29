@@ -17,7 +17,7 @@ redshift -l '36.850282:54.3680226' &
 # keybinding for keyboard layout
 setxkbmap -layout us,ir -option grp:shifts_toggle &
 # turnon numlock
-numlockx on &
+# numlockx on &
 # swap esc/caps
 swapcaps &
 sudo light -S 100 &

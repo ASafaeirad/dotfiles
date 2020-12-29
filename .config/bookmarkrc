@@ -20,8 +20,7 @@ alias devs='cd $HOME/dev/projects'
 alias rewire='cd $HOME/dev/skill'
 alias fsk='cd $HOME/fullstacks/'
 
-alias dotfiles='cd $HOME/dev/skill/initiator'
 alias fem='cd $HOME/dev/projects/fullstacks'
 alias bot='cd $HOME/dev/projects/guardian'
-alias sm='cd $HOME/smartsept/smartsept && s'
+alias sm='cd $HOME/dev/smartsept/smartsept'
 
