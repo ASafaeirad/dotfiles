@@ -9,7 +9,9 @@
 !.config/Dharkael/
 !.config/dmenu/
 !.config/docker/
+!.config/doom/
 !.config/dunstrc/
+!.config/flameshot/
 !.config/flashfocus/
 !.config/fontconfig/
 !.config/gh/config.yml
