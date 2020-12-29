@@ -45,6 +45,7 @@
 !.config/zsh/
 !.config/aliasrc
 !.config/betterlockscreenrc
+!.config/cleanup
 !.config/dircolors
 !.config/env
 !.config/inputrc
@@ -58,10 +59,11 @@
 .local/*
 !.local/bin/
 .local/bin/applications/
-!.local/share/applications/
-!.local/conky/
-!.local/nemo/actions/
-!.local/nemo/scripts/
+!.local/share/
+.local/share/*
+!.local/share/conky/
+!.local/share/rewire/
+!.local/share/nemo/
 !.local/share/fonts/fonts.conf
 
 # global patterns
