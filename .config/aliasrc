@@ -60,8 +60,7 @@ alias unlock-pacman="sudo rm /var/lib/pacman/db.lck"
 alias ~='cd ~'
 alias ..='cd ..'
 alias dt='cd ~/desktop'
-alias bookmarkrc="vim $HOME/.config/shortcuts"
-[[ -f "$HOME/.config/shortcuts" ]] && . "$HOME/.config/shortcuts"
+alias bookmarkrc="vim $HOME/.config/bookmarkrc"
 
 # sysadmin
 alias findstr='grep -rnw'
