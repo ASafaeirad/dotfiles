@@ -4,12 +4,11 @@
 !.config/
 .config/*
 !.config/ack/
-!.config/autostart/
 !.config/clipit/
-!.config/coc/
 !.config/colorls/
 !.config/Dharkael/
 !.config/dmenu/
+!.config/docker/
 !.config/dunstrc/
 !.config/flashfocus/
 !.config/fontconfig/
@@ -53,6 +52,7 @@
 !.local/
 .local/*
 !.local/bin/
+.local/bin/applications/
 !.local/share/applications/
 !.local/conky/
 !.local/nemo/actions/

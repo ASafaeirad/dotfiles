@@ -1,0 +1,8 @@
+#!/bin/bash
+
+pkill -f fullstacks_
+
+termite -t fullstacks_api     -d ~/northcamp/dev/app/fullstacks -e 'yarn dev:api' &
+termite -t fullstacks_codebox -d ~/northcamp/dev/app/fullstacks -e 'yarn dev:box' &
+termite -t fullstacks_web     -d ~/northcamp/dev/app/fullstacks -e 'yarn dev:web' &
+termite -t fullstacks_htop    -e htop &
