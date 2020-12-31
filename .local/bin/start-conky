@@ -1,0 +1,6 @@
+#!/bin/bash
+
+pkill --exact conky 
+conky -c $HOME/.local/share/conky/date.light.pacsave
+conky -c $HOME/.local/share/conky/stats.light.pacsave
+

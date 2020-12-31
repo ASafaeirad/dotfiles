@@ -22,10 +22,9 @@ set nofoldenable            " don't fold by default
 set foldlevel=1
 
 " use XDG style
-set directory=$XDG_DATA_HOME/nvim/swap
-set undodir=$XDG_DATA_HOME/nvim/undo
-set backupdir=$XDG_DATA_HOME/nvim/backup
-set viewdir=$XDG_DATA_HOME/nvim/view
-set viminfo+='1000,n$XDG_DATA_HOME/nvim/viminfo
+set directory=$XDG_CACHE_HOME/vim,~/,/tmp " swp files
+set backupdir=$XDG_CACHE_HOME/vim,~/,/tmp " bak files
+set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+set undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp
 
 

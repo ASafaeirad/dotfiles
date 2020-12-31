@@ -35,7 +35,6 @@ s() {
   [ -f ./.skill/env ] && . ./.skill/env
 }
 
-
 # enhance commands
 alias :q='exit'
 alias cp="cp -i"
@@ -53,7 +52,7 @@ alias pacman-mirrors='sudo pacman-mirrors'
 alias systemctl='sudo systemctl'
 alias pacman='lazy-pacman'
 alias cpssh='cat ~/.ssh/id_rsa.pub | xsel -i --clipboard'
-alias x="sudo chmod +x" 
+alias x="sudo chmod +x"
 alias unlock-pacman="sudo rm /var/lib/pacman/db.lck"
 
 # path shorcuts
@@ -71,7 +70,7 @@ alias cpwd='pwd | xsel -i --clipboard'
 alias clocksync='sudo ntpdate 1.ro.pool.ntp.org'
 
 font() {
- fc-list -v | grep -e "family:.*$1" | sort | uniq 
+  fc-list -v | grep -e "family:.*$1" | sort | uniq
 }
 
 which-font() {

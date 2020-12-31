@@ -1,26 +1,15 @@
 #!/bin/sh
 
-# set wallpaper
 nitrogen --restore &
-# network-manager applet
 nm-applet &
-# power-manager
 xfce4-power-manager &
-# clipboard-manager
 clipit &
-# runs better-screenlock after 10 minute
 xautolock -time 10 -locker "betterlockscreen -l blur" &
-# start conky
 # start-conky
-# start redshift
 redshift -l '36.850282:54.3680226' &
-# keybinding for keyboard layout
 setxkbmap -layout us,ir -option grp:shifts_toggle &
-# turnon numlock
 # numlockx on &
-# swap esc/caps
 swapcaps &
-sudo light -S 100 &
 picom -b
 
 xrdb -load ~/.config/X11/Xresources
