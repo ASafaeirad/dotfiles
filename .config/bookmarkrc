@@ -9,7 +9,7 @@ alias dwn='cd $MONSTER/downloads'
 alias dnd='cd $MONSTER/projects/dnd'
 alias doc='cd $MONSTER/documents/'
 alias profile='cd $MONSTER/documents/info'
-alias parma='cd $MONSTER/projects/dnd/thesis/parma'
+alias thes='cd $HOME/dev/thesis/'
 alias books='cd $MONSTER/books'
 
 alias cards='vim $MONSTER/documents/info/card.yml'
@@ -17,7 +17,7 @@ alias infos='vim $MONSTER/documents/info/info.json'
 
 alias libs='cd $HOME/dev/libs'
 alias devs='cd $HOME/dev/projects'
-alias rewire='cd $HOME/dev/skill'
+alias rewire='cd $HOME/dev/rewire'
 alias fsk='cd $HOME/fullstacks/'
 
 alias fem='cd $HOME/dev/projects/fullstacks'

@@ -175,7 +175,7 @@
 	gpgsign = true
 [gpg]
 	program = gpg2
-[http]
-  proxy = socks5h://127.0.0.1:6000
+# [http]
+#   proxy = socks5h://127.0.0.1:6000
 [pull]
 	rebase = true

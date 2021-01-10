@@ -1,13 +1,13 @@
 #!/bin/sh
 
 export EDITOR=/usr/bin/nvim
-export VISUAL=/usr/bin/code
+export SUDOEDITOR=$EDITOR
+# export VISUAL=/usr/bin/code
 export TERM="termite"
 export TERMINAL="termite -e"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export BROWSER=/usr/bin/brave
 export GPG_TTY=$(tty)
-export EDITOR="nvim"
 export READER="zathura"
 
 # ~/ Clean-up:

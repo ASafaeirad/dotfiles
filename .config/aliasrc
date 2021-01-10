@@ -46,7 +46,7 @@ alias mkdir='mkdir -pv'
 # super user commands
 alias usermod='sudo usermod'
 alias chmod='sudo chmod'
-alias chown='sudo chown'
+alias chown='chown'
 alias dhcpcd='sudo dhcpcd'
 alias pacman-mirrors='sudo pacman-mirrors'
 alias systemctl='sudo systemctl'
@@ -231,14 +231,18 @@ alias trash='git add . && git commit -m 'debug' --no-verify && git push'
 alias trash!='git add . && git commit --amend --no-edit --no-verify && git push -f --force-with-lease'
 
 ## docker
+dip() {
+	docker container inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $1 | tr -d '\n' | xsel -i -b
+}
 alias d='ALL_PROXY=socks5://localhost:6000 docker'
 
 ## git
-alias clone='gh repo clone'
+alias clone='git clone'
 alias gs='git status -s'
 alias gss='git status'
 
-# alias ga='git add'
+alias ga='git add'
+alias ga.='git add .'
 # alias gaa='git add --all'
 
 alias gb='git branch -v'
