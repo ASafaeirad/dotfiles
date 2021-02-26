@@ -1,0 +1,12 @@
+cache=/home/skill/.cache/npm
+tmp=/run/user/1000/npm
+init-module=/home/skill/.config/npm/config/npm-init.js
+sign-git-tag=true
+init-author-name=frontendmonster
+init-author-email=frontendmonster@gmail.com
+init-license=MIT
+color=always
+depth=0
+init-version=0.0.0
+save=true
+ignore-engines=true
