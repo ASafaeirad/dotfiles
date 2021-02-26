@@ -199,7 +199,7 @@ bindsym $mod+Pause                          exec --no-startup-id betterlockscree
 
 ## General
 bindsym $mod+F2                             exec --no-startup-id brave
-bindsym $mod+F3                             exec --no-startup-id scode
+bindsym $mod+F3                             exec --no-startup-id code
 bindsym $mod+F4                             exec --no-startup-id pcmanfm
 bindsym $mod+F5                             exec --no-startup-id termite --title 'mocp' -e run-mocp
 bindsym $mod+Shift+F4                       exec --no-startup-id gksu pcmanfm
@@ -239,7 +239,7 @@ assign      [title="(?i)mocp"]                      $workspace5
 
 # Floating modes
 for_window [class="(?i)System-config-printer.py"]   floating enable border normal
-# for_window [class="(?i)virtualbox"]                 floating enable border normal
+for_window [class="(?i)virtualbox"]                 floating enable
 for_window [class="calamares"]                      floating enable border normal
 for_window [class="Clipgrab"]                       floating enable
 for_window [class="Galculator"]                     floating enable border pixel 1
@@ -299,8 +299,8 @@ for_window 																		[instance="flyterm"] move absolute position center
 ##  ssh proxy  ##
 #################
 
-exec                       --no-startup-id    termite --name "ssh-proxy" -e "ssh -D 6000 -C -N bot"
-bindsym $mod+shift+m  exec --no-startup-id 		termite --name "ssh-proxy" -e "ssh -D 6000 -C -N bot"
+exec                       --no-startup-id    restart-proxy
+bindsym $mod+shift+m  exec --no-startup-id 		restart-proxy
 bindsym $mod+m                                [instance="ssh-proxy"] scratchpad show
 for_window																    [instance="ssh-proxy"] move scratchpad
 for_window 																	  [instance="ssh-proxy"] resize set 300 300

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #--- Edit these default values.
-OUTDIR=/home/monster/videos/records
+OUTDIR=$HOME/videos/records
 
 #--- Check for necessary utils
 type xwininfo &>/dev/null || {

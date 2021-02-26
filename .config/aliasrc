@@ -46,7 +46,7 @@ alias mkdir='mkdir -pv'
 # super user commands
 alias usermod='sudo usermod'
 alias chmod='sudo chmod'
-alias chown='chown'
+alias chown='sudo chown'
 alias dhcpcd='sudo dhcpcd'
 alias pacman-mirrors='sudo pacman-mirrors'
 alias systemctl='sudo systemctl'
