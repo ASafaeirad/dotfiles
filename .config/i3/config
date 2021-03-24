@@ -242,7 +242,7 @@ bindsym $mod+shift+g            --release   exec --no-startup-id /home/skill/.lo
 assign      [class="(?i)brave"]                     $workspace2
 assign      [class="(?i)code" window_type="normal"] $workspace3
 assign      [title="(?i)mocp"]                      $workspace5
-assign      [class="rx_bgdbmehlmdmddlgneophbcddadgknlpm"] $workspace1 # linear
+assign      [class="crx_bgdbmehlmdmddlgneophbcddadgknlpm"] $workspace1 # linear
 
 # Floating modes
 for_window [class="(?i)System-config-printer.py"]   floating enable border normal
@@ -280,7 +280,6 @@ for_window [class="(?i)dota2"] fullscreen enable
 for_window [class="pomotroid"] move scratchpad
 for_window [class="pomotroid"] move position center
 
-for_window [window_role="(?i)GtkFileChooserDialog"] floating enable resize set 900 700
 for_window [window_role="(?i)GtkFileChooserDialog"] move position center
 for_window [window_role="(?i)pop-up"] floating enable resize set 900 700
 for_window [window_role="(?i)pop-up"] move position center
@@ -289,6 +288,9 @@ for_window [class="VirtualBox Machine"] floating disable
 for_window [instance="Oracle VM VirtualBox Manager"] move position center
 for_window [instance="windows-10 [Running] - Oracle VM VirtualBox"] floating disable
 for_window [instance="windows-10 [Running] - Oracle VM VirtualBox"] fullscreen enable
+for_window [window_role="(?i)GtkFileChooserDialog"] floating enable resize set 900 700
+for_window [class="crx_bgdbmehlmdmddlgneophbcddadgknlpm"] floating disable
+for_window [class="crx_bgdbmehlmdmddlgneophbcddadgknlpm"] fullscreen enable
 
 #################
 ##   flyterm   ##

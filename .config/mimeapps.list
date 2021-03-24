@@ -31,7 +31,8 @@ x-scheme-handler/ftp=brave.desktop;
 x-scheme-handler/http=brave.desktop;
 x-scheme-handler/https=brave.desktop;
 x-scheme-handler/mailto=userapp-Thunderbird.desktop;
-x-scheme-handler/tg=userapp-Telegram Desktop-24GYT0.desktop;userapp-Telegram Desktop-TT24U0.desktop;
+x-scheme-handler/tg=userapp-Telegram Desktop-24GYT0.desktop;userapp-Telegram Desktop-TT24U0.desktop;userapp-Telegram Desktop-YGPR80.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=typora.desktop;
 
 [Default Applications]
 application/javascript=visual-studio-code.desktop
@@ -69,5 +70,5 @@ x-scheme-handler/mailspring=mailspring.desktop
 x-scheme-handler/mailto=userapp-Thunderbird.desktop
 x-scheme-handler/postman=Postman.desktop
 x-scheme-handler/ssh=Hyper.desktop
-x-scheme-handler/tg=userapp-Telegram Desktop-TT24U0.desktop
+x-scheme-handler/tg=userapp-Telegram Desktop-YGPR80.desktop
 x-scheme-handler/webcal=brave-browser.desktop
