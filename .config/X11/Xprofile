@@ -7,7 +7,7 @@ export SSH_AUTH_SOCK
 # disable bell for x applications
 xset b off 
 
-xautolock -time 10 -locker "sklock" -corners -+-- -cornerdelay 3 &
+xautolock -time 30 -locker "sklock" -corners -000 -cornerdelay 3 &
 xss-lock sklock &
 
 nitrogen --restore &
@@ -17,6 +17,7 @@ clipit &
 redshift -l '36.850282:54.3680226' &
 setxkbmap -layout us,ir -option grp:shifts_toggle &
 picom -b
+restart-flashfocus
 
 # numlockx on &
 # swapcaps &
