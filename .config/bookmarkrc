@@ -1,49 +1,53 @@
 #!/bin/bash
 
+
 # tools
 alias figma='open_d "https://figma.com"'
 alias loc3='open_d "https://localhost:3000/"'
 alias tenf='open_d "https://www.edclub.com/sportal/program-3.game"'
 alias g='open_d "https://github.com/frontendmonster"'
+alias gcodeit='open_d "https://github.com/fullstacksjs/codeit"'
 gmail() {
 	local GU=${1:-'0'}
 	open_d "https://mail.google.com/mail/u/$GU/"
 }
 
+DEVS="$HOME/devs"
 alias tg='cd $HOME/downloads/Telegram\ Desktop'
 alias dwn='cd $HOME/downloads'
-alias dnd='cd $HOME/dev/dnd'
+alias dnd='cd $DEVS/dnd'
 alias docs='cd $HOME/docs/'
-alias thes='cd $HOME/dev/thesis/'
 alias books='cd $HOME/docs/books'
-alias cheats='cd $HOME/dev/rewire/initiator/resources/'
 
 INFO="$HOME/docs/info"
 alias cards='vim $INFO/card.yml'
 alias infos='vim $INFO/info.yml'
 
-alias libs='cd $HOME/dev/libs'
-alias devs='cd $HOME/dev/projects'
-alias rewire='cd $HOME/dev/rewire'
+alias libs='cd $DEVS/libs'
+alias devs='cd $DEVS/projects'
+alias rewire='cd $DEVS/rewire'
 
-alias fem='cd $HOME/dev/projects/fullstacks'
-alias bot='cd $HOME/dev/projects/guardian'
-alias sm='cd $HOME/dev/smartsept/'
-alias sma='cd $HOME/dev/smartsept/app'
+alias fem='cd $DEVS/projects/fullstacks'
+alias bot='cd $DEVS/projects/guardian'
+alias sm='cd $DEVS/smartsept/'
+alias sma='cd $DEVS/smartsept/app'
 
-FSK="$HOME/fullstacks"
+FSK="$DEVS/fullstacks"
 alias f='cd $FSK'
 alias fdev='cd $FSK/projects'
 alias fexp='cd $FSK/exploration'
-alias codeit='cd $FSK/projects/codeit'
+alias codeit='cd $DEVS/projects/codeit'
 
-EG="$HOME/devs/eg"
+EG="$DEVS/eg"
 alias eg='cd $EG'
 alias sus='cd $EG/eg-frontend'
 
-alias cal=   'open_d "https://calendar.google.com/calendar/u/2/r"'
-alias docs=  'open_d "https://user.staging.estateguru.co/documentation/index.html"'
-alias invs=  'open_d "https://projects.invisionapp.com/d/main#/projects/prototypes/21369560"'
-alias stand= 'open_d "https://meet.google.com/het-feup-ygi?authuser=2"'
-alias sprint='open_d "https://estateguru.atlassian.net/secure/RapidBoard.jspa?rapidView=5&projectKey=EGNEW"'
+EG_GUSER=1
+alias cal='open_d "https://calendar.google.com/calendar/u/$EG_GUSER/r"'
+alias docs='open_d "https://user.staging.estateguru.co/documentation/index.html"'
+alias invs='open_d "https://projects.invisionapp.com/d/main#/console/21667879/458543491/preview"'
+alias invn='open_d "https://projects.invisionapp.com/d/main#/console/21543748/455519571/preview"'
+alias egdaily='open_d "https://meet.google.com/het-feup-ygi?authuser=$EG_GUSER"'
+alias egsprint='open_d "https://estateguru.atlassian.net/secure/RapidBoard.jspa?rapidView=5&projectKey=EGNEW"'
+alias egdemo=' open_d "https://meet.google.com/awb-pewu-iyj?pli=1&authuser=$EG_GUSER"'
 
