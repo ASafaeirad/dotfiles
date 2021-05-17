@@ -2,6 +2,7 @@ if &compatible
   set nocompatible
 endif
 
+source ~/.config/nvim/partials/colorscheme.vim
 source ~/.config/nvim/partials/plugins.vim
 source ~/.config/nvim/partials/init.vim
 source ~/.config/nvim/partials/abbrevations.vim
