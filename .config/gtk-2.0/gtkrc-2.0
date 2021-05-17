@@ -2,7 +2,7 @@
 # Any customization should be done in ~/.gtkrc-2.0.mine instead.
 
 include "/home/skill/.gtkrc-2.0.mine"
-gtk-theme-name="Flat-Remix-GTK-Yellow-Dark-Solid"
+gtk-theme-name="Flat-Remix-GTK-Yellow-Dark"
 gtk-icon-theme-name="Flat-Remix-Yellow-Dark"
 gtk-font-name="DejaVu Sans 10"
 gtk-cursor-theme-name="xcursor-breeze-snow"
