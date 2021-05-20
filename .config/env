@@ -61,7 +61,6 @@ function append_path() {
   fi
 }
 
-
 if [ -d "$XDG_CONFIG_HOME/volta" ]; then
 	export VOLTA_HOME="$XDG_CONFIG_HOME/volta"
 	append_path "$VOLTA_HOME/bin"
