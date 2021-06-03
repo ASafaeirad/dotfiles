@@ -16,6 +16,7 @@ call plug#begin(stdpath('data') . '/plugged')
 	Plug 'christoomey/vim-tmux-navigator'
 	Plug 'morhetz/gruvbox'
 	Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
+	Plug 'maxmellon/vim-jsx-pretty'
 call plug#end()
 
 let g:gruvbox_italic=1
