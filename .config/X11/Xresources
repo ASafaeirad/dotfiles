@@ -9,7 +9,7 @@ Xft.lcdfilter: lcddefault
 *cursorBlink:                     false
 *scrollBar:                       false
 
-*background:                      #313744
+*background:                      #23252E
 *foreground:                      #eeeeee
 *fading:                          8
 *fadeColor:                       #333333
@@ -30,7 +30,7 @@ Xft.lcdfilter: lcddefault
 *color10:                        #61BA86
 
 !! yellow dark/light
-*color3:                         #FFB68E
+*color3:                         #F6CA52
 *color11:                        #FFEC8E
 
 !! blue dark/light

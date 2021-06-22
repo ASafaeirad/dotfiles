@@ -26,5 +26,3 @@ set directory=$XDG_CACHE_HOME/vim,~/,/tmp " swp files
 set backupdir=$XDG_CACHE_HOME/vim,~/,/tmp " bak files
 set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 set undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp
-
-
