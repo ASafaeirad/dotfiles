@@ -1,0 +1,86 @@
+#!/usr/bin/env node
+const fs = require("fs");
+const path = require("path");
+
+function main() {
+  const [arg] = process.argv.slice(2);
+
+  switch (arg) {
+    case "-h":
+    case "--help":
+      printHelp();
+      break;
+    case undefined:
+      printHelp();
+      break;
+    default:
+      const filePath = validatePath(getAbsolutePath(arg));
+      const pruned = prune(filePath);
+      fs.writeFileSync(filePath, pruned);
+  }
+}
+
+function printHelp() {
+  process.stdout.write(
+    [
+      "Utility to remove duplicate entries in history files",
+      "",
+      "Usage: pruneh <file>",
+      "",
+    ].join("\n")
+  );
+}
+
+function fail(message) {
+  process.stderr.write(`Error: ${message}\n`);
+  process.exit(1);
+}
+
+function validatePath(absolutePath) {
+  if (!fs.existsSync(absolutePath)) fail("File not exists");
+  if (!fs.statSync(absolutePath).isFile()) fail("You should provide a file");
+  return absolutePath;
+}
+
+function getAbsolutePath(filePath) {
+  return path.isAbsolute(filePath)
+    ? filePath
+    : path.resolve(process.cwd(), filePath);
+}
+
+function filterCommands(obj) {
+  return (
+    obj.cmd.match(/^[\x00-\x7F]+$/) &&
+    !obj.cmd.match(/OA$/) &&
+    obj.cmd.length > 2
+  );
+}
+
+function parseHistoryLine(entry) {
+  return entry.match(/(?<time>\d+):(?<num>\d);(?<cmd>.*)/s)?.groups;
+}
+
+function uniqueCommandReducer(acc, entry) {
+  acc.set(entry.cmd.toLowerCase().trim(), entry);
+  return acc;
+}
+
+function prune(filePath) {
+  const history = fs.readFileSync(filePath, "utf-8");
+  const uniqueEntiresMap = history
+    .split("\n:")
+    .map(parseHistoryLine)
+    .filter(Boolean)
+    .filter(filterCommands)
+    .reduce(uniqueCommandReducer, new Map());
+  const uniqueCommands = [...uniqueEntiresMap.values()];
+
+  const uniqueHistory = uniqueCommands
+    .sort((a, b) => a.time - b.time)
+    .map((entry) => `: ${entry.time}:${entry.num};${entry.cmd}`)
+    .join("\n");
+
+  return uniqueHistory;
+}
+
+main();

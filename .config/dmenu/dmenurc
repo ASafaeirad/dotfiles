@@ -2,13 +2,13 @@
 DMENU_FN="DejaVuSansMono-9"
 
 ## background colour for unselected menu-items
-DMENU_NB="#313744"
+DMENU_NB="#272A34"
 
 ## textcolour for unselected menu-items
 DMENU_NF="#EEEEEE"
 
 ## background colour for selected menu-items
-DMENU_SB="#2DCED0"
+DMENU_SB="#F6CA52"
 
 ## textcolour for selected menu-items
 DMENU_SF="#313744"
