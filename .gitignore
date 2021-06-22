@@ -66,6 +66,7 @@
 .local/*
 !.local/bin/
 .local/bin/applications/
+.local/bin/automations/
 !.local/share/
 .local/share/*
 !.local/share/conky/

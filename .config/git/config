@@ -1,5 +1,5 @@
 [user]
-	name = frontendmonster
+	name = Alireza Safaierad
 	email = frontendmonster@gmail.com
 	signingkey = 43359AB7733BD76C
 [github]
@@ -170,6 +170,7 @@
 [pager]
 	diff = "diff-so-fancy | less --tabs=4 -RFX"
 	show = "diff-so-fancy | less --tabs=4 -RFX"
+	branch = "less --tabs=4 -RFX"
 [difftool "icdiff"]
 	cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
 [commit]
@@ -184,3 +185,8 @@
 	forceSignAnnotated = true
 [init]
 	defaultBranch = main
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
