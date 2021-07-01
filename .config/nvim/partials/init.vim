@@ -172,10 +172,12 @@ set tabstop=2
 set lbr
 set tw=500
 
-set ai "Auto indent
-set si "Smart indent
+set autoindent
+set smartindent
 set wrap "Wrap lines
 
+set list
+set listchars=trail:·,precedes:«,extends:»,tab:▸\ 
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -259,8 +261,8 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 map 0 ^
 
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
 nmap <M-k> mz:m-2<cr>`z
+nmap <M-j> mz:m+<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
@@ -300,8 +302,7 @@ map <leader>s? z=
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
@@ -368,3 +369,6 @@ function! VisualSelection(direction, extra_filter) range
     let @/ = l:pattern
     let @" = l:saved_reg
 endfunction
+
+nnoremap <Leader>R :source $MYVIMRC<CR>
+
