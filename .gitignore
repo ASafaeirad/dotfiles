@@ -1,36 +1,49 @@
 /*/
+.steampid
+.steampath
 
 # config
 !.config/
 .config/*
 !.config/ack/
+!.config/aliasrc
+!.config/backup
+!.config/betterlockscreenrc
+!.config/bookmarkrc
+!.config/cleanup
 !.config/clipit/
 !.config/colorls/
 !.config/Dharkael/
+!.config/dircolors
 !.config/dmenu/
 !.config/docker/
 !.config/doom/
 !.config/dunstrc/
+!.config/env
 !.config/flameshot/
 !.config/flashfocus/
 !.config/fontconfig/
-<<<<<<< Updated upstream
 !.config/gh/
+!.config/gh/config.yml
 .config/gh/hosts.yml
+!.config/git/
 !.config/gtk-2.0/
 .config/gtk-2.0/gtkfilechooser.ini
-=======
-!.config/gh/config.yml
-!.config/git/
 !.config/gtk-2.0/gtkrc-2.0
->>>>>>> Stashed changes
 !.config/gtk-3.0/
 !.config/htop/
 !.config/hyper
 .config/hyper/.hyper_plugins
 !.config/i3/
+!.config/inputrc
 !.config/Kvantum/
+!.config/mimeapps.list
 !.config/moc/
+.config/moc/softmixer
+.config/moc/playlist.m3u
+.config/moc/pid
+.config/moc/last_directory
+.config/moc/equalizer
 !.config/morc_menu/
 !.config/neofetch/
 !.config/nitrogen/
@@ -45,21 +58,12 @@
 !.config/termite/
 !.config/tmux/
 .config/tmux/plugins
+!.config/user-dirs.dirs
+!.config/user-dirs.locale
 !.config/vlc/vlcrc
 !.config/wget/
 !.config/X11/
 !.config/zsh/
-!.config/aliasrc
-!.config/betterlockscreenrc
-!.config/cleanup
-!.config/dircolors
-!.config/env
-!.config/inputrc
-!.config/mimeapps.list
-!.config/bookmarkrc
-!.config/user-dirs.dirs
-!.config/user-dirs.locale
-!.config/backup
 
 # local
 !.local/
