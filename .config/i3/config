@@ -28,7 +28,7 @@ new_float normal
 hide_edge_borders none
 
 smart_gaps on
-gaps inner 5
+gaps inner 0
 gaps outer 0
 smart_borders on
 
@@ -95,9 +95,8 @@ bindsym $mod+shift+c                        move absolute position center
 
 ## Workspace Navigation
 bindsym $mod+1                              workspace $workspace1
-bindsym $mod+2                              workspace $workspace2; exec --no-startup-id [[ "$(pgrep brave)" ]] || /usr/bin/brave
+bindsym $mod+2                              workspace $workspace2
 bindsym $mod+3                              workspace $workspace3
-#; exec --no-startup-id [[ "$(pgrep codium)" ]] || /usr/bin/code
 bindsym $mod+4                              workspace $workspace4
 bindsym $mod+5                              workspace $workspace5; exec --no-startup-id [[ "$(pgrep -c mocp)" ]] || termite --title 'mocp' -e run-mocp
 bindsym $mod+6                              workspace $workspace6
@@ -105,7 +104,6 @@ bindsym $mod+7                              workspace $workspace7
 bindsym $mod+8                              workspace $workspace8
 bindsym $mod+9                              workspace $workspace9
 bindsym $mod+0                              workspace $workspace10
-# exec --no-startup-id [[ "$(pgrep telegram-desktop)" ]] || /usr/bin/telegram-desktop
 
 
 bindsym $mod+Ctrl+Right                     workspace next
@@ -186,6 +184,7 @@ bindsym XF86AudioMute                       exec --no-startup-id "pactl set-sink
 # bindsym XF86MonBrightnessUp exec light -A 5; exec notify-send 'brightness up'
 # bindsym XF86MonBrightnessDown exec light -U 5; exec notify-send 'brightness down'
 
+
 # Apps
 
 ## Essential
@@ -210,22 +209,29 @@ bindsym $mod+i                              [title="Todoist"] scratchpad show
 bindsym $mod+shift+i                        exec --no-startup-id todoist
 
 bindsym $mod+p                              [class="pomotroid"] scratchpad show
-bindsym $mod+shift+p                        exec --no-startup-id pomotroid.AppImage
+bindsym $mod+shift+p                        exec --no-startup-id pomotroid
 
 bindsym $mod+Ctrl+t                         exec --no-startup-id compton -b
 bindsym $mod+Ctrl+x             --release   exec --no-startup-id xkill
 bindsym $mod+Shift+d            --release   exec --no-startup-id killall dunst; exec notify-send 'restart dunst'
-bindsym $mod+shift+f            --release   exec --no-startup-id restart-flashfocus; exec notify-send 'restart flash-focus'
 
 ## Screenshot
 bindsym Print                   --release   exec --no-startup-id flameshot full -c
-bindsym $mod+Print              --release   exec --no-startup-id flameshot full -p "/home/monster/pictures/screenshots/"
+bindsym $mod+Print              --release   exec --no-startup-id flameshot full -p "XDG_PICTURES_DIR/screenshots/"
 bindsym $mod+Shift+Print        --release   exec --no-startup-id flameshot gui
 
 bindsym $mod+Ctrl+m                         exec pavucontrol
 
 # Layouts
-bindsym $mod+Shift+w            --release   exec --no-startup-id "i3-msg 'workspace $workspace1; append_layout ~/.config/i3/layouts/fullstacks.json'; fsk-layout"
+# bindsym $mod+Shift+w            --release   exec --no-startup-id "i3-msg 'workspace $workspace1; append_layout ~/.config/i3/layouts/fullstacks.json'; fsk-layout"
+
+##########################
+##      Automation      ##
+##########################
+
+bindsym $mod+shift+f            --release   exec --no-startup-id /home/skill/.local/bin/automations/email
+bindsym $mod+shift+g            --release   exec --no-startup-id /home/skill/.local/bin/automations/estateguru
+
 
 ############################
 ##    Windows Behavior    ##
@@ -233,13 +239,14 @@ bindsym $mod+Shift+w            --release   exec --no-startup-id "i3-msg 'worksp
 
 # Applications workspaces
 assign      [class="(?i)brave"]                     $workspace2
-assign      [class="(?i)firefox"]                   $workspace2
 assign      [class="(?i)code" window_type="normal"] $workspace3
 assign      [title="(?i)mocp"]                      $workspace5
+assign      [class="rx_bgdbmehlmdmddlgneophbcddadgknlpm"] $workspace1 # linear
 
 # Floating modes
 for_window [class="(?i)System-config-printer.py"]   floating enable border normal
 for_window [class="(?i)virtualbox"]                 floating enable
+for_window [class="(?i)nm-connection-editor"]       floating enable
 for_window [class="calamares"]                      floating enable border normal
 for_window [class="Clipgrab"]                       floating enable
 for_window [class="Galculator"]                     floating enable border pixel 1
@@ -281,8 +288,10 @@ for_window [title="Todoist"] move absolute position center
 for_window [window_role="(?i)GtkFileChooserDialog"] floating enable resize set 900 700
 for_window [window_role="(?i)GtkFileChooserDialog"] move absolute position center
 for_window [class="VirtualBox Machine"] fullscreen enable
-for_window [class="VirtualBox Machine"] resize set 1366 700
-for_window [class="VirtualBox Machine"] move absolute position center
+for_window [class="VirtualBox Machine"] floating disable
+for_window [instance="Oracle VM VirtualBox Manager"] move absolute position center
+for_window [instance="windows-10 [Running] - Oracle VM VirtualBox"] floating disable
+for_window [instance="windows-10 [Running] - Oracle VM VirtualBox"] fullscreen enable
 
 #################
 ##   flyterm   ##
@@ -300,7 +309,7 @@ for_window 																		[instance="flyterm"] move absolute position center
 #################
 
 exec                       --no-startup-id    restart-proxy
-bindsym $mod+shift+m  exec --no-startup-id 		restart-proxy
+bindsym $mod+shift+m  exec --no-startup-id 		sleep 1 && ~/.local/bin/automations/parsian
 bindsym $mod+m                                [instance="ssh-proxy"] scratchpad show
 for_window																    [instance="ssh-proxy"] move scratchpad
 for_window 																	  [instance="ssh-proxy"] resize set 300 300
@@ -312,6 +321,7 @@ for_window 																		[instance="ssh-proxy"] move absolute position 0 0
 ##   Webcam    ##
 #################
 
+bindsym $mod+Shift+w exec webcam
 bindsym $mod+c [title="video0 - mpv"] scratchpad show
 for_window [title="video0 - mpv"] floating enable
 for_window [title="video0 - mpv"] sticky enable
