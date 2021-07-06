@@ -3,7 +3,7 @@
 WIFI_ADAPTOR="wlp3s0"
 
 # config
-alias config='git --git-dir "$HOME/.files.git" --work-tree "$HOME"'
+alias config='git --git-dir "$HOME/.config/dotfiles.git" --work-tree "$HOME"'
 
 # clear
 alias c='clear'
@@ -22,10 +22,12 @@ alias clare='clear'
 
 # enhance tools
 [ -x "$(command -v bat)" ] && alias cat="bat"
+[ -x "$(command -v curlie)" ] && alias curl="curlie"
 [ -x "$(command -v nvim)" ] && alias vim="nvim"
 
 # utility
 alias swclicks='xmodmap -e "pointer = 3 2 1"'
+alias tv="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1"
 
 # npx commands
 alias oao='npx oao'
@@ -39,6 +41,7 @@ s() {
 alias :q='exit'
 alias cp="cp -i"
 alias df='df -h'
+alias dff="df | grep -E '/dev/nvme0n1p[12]'"
 alias grep='grep --color'
 alias ls='ls --color'
 alias mkdir='mkdir -pv'
@@ -54,6 +57,7 @@ alias pacman='lazy-pacman'
 alias cpssh='cat ~/.ssh/id_rsa.pub | xsel -i --clipboard'
 alias x="sudo chmod +x"
 alias unlock-pacman="sudo rm /var/lib/pacman/db.lck"
+alias orphan='pacman -Rs $(pacman -Qqtd)'
 
 # path shorcuts
 alias ~='cd ~'
@@ -129,7 +133,7 @@ alias reload='source ~/.config/aliasrc'
 alias dnsrc='sudo vim /etc/resolv.conf'
 alias sshrc='vim ~/.ssh/config'
 alias fontrc='vim ~/.config/fontconfig/'
-alias xreload='xrdb ~/.Xresources'
+alias xreload='xrdb ~/.config/X11/Xresources'
 alias retor='sudo systemctl restart tor'
 alias sgit="git config --global http.proxy 'socks5h://127.0.0.1:6000'"
 alias unsgit='git config --global --unset http.proxy'
@@ -145,6 +149,11 @@ alias open='xdg-open'
 
 mk() {
   mkdir "$1" && cd "$1"
+}
+
+tmp() {
+	local TD="$(mktemp --directory)"
+	cd $TD
 }
 
 # network
@@ -198,6 +207,9 @@ alias npmd='npm install -D'
 alias npmo='npm outdated'
 alias npmp='npm publish'
 alias npmv='npm -v'
+nvers() {
+	npm show $1 versions
+}
 alias ncu='npm-check -u'
 alias nrc='npm run commit'
 alias cleannm='find . -name "node_modules" -type d -exec sudo rm -rf {} \;'
@@ -242,8 +254,7 @@ alias gs='git status -s'
 alias gss='git status'
 
 alias ga='git add'
-alias ga.='git add .'
-# alias gaa='git add --all'
+alias gaa='git add . && git status -s'
 
 alias gb='git branch -v'
 alias gbr='git branch --remote'
@@ -257,7 +268,7 @@ alias 'gc!'='git commit -v --amend --no-edit'
 alias gcam='git commit -a -m'
 alias gcm='git commit -m'
 
-alias gcb='git switch -c'
+alias gswc='git switch -c'
 alias gco='git checkout'
 alias gsw='git switch'
 
@@ -289,14 +300,8 @@ alias grrm='git remote remove'
 alias grset='git remote set-url'
 alias grup='git remote update'
 alias grv='git remote -v'
-
-alias gsta='git stash save'
-alias gstaa='git stash apply'
-alias gstc='git stash clear'
-alias gstd='git stash drop'
-alias gstl='git stash list'
-alias gstp='git stash pop'
-alias gsts='git stash show --text'
+alias gro='git remote add origin'
+alias groot='git commit -m "root" --allow-empty'
 
 alias grb='git rebase'
 alias grba='git rebase --abort'
@@ -339,3 +344,15 @@ ex() {
     echo "'$1' is not a valid file"
   fi
 }
+
+batt() {
+	BAT=${1:-BAT0}
+	capacity=$(head /sys/class/power_supply/$BAT/charge_full)
+	design=$(head /sys/class/power_supply/$BAT/charge_full_design)
+	bc <<<"scale=2; $capacity / $design"
+}
+
+compress() {
+  ffmpeg -i "$1" -codec:v libx264 -preset medium -crf 23 "$1.mp4"
+}
+
