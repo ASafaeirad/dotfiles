@@ -116,28 +116,24 @@ alias up='nmcli c up'
 
 # config files
 alias hosts='sudoedit /etc/hosts'
+alias dnsrc='sudoedit /etc/resolv.conf'
 alias profilerc='vim ~/.profile'
-alias gitrc='vim ~/.config/git/config'
 alias bashrc='vim ~/.bashrc'
-alias zalias='vim ~/.config/aliasrc'
-alias envrc='vim ~/.config/env'
-alias mocrc='vim ~/.config/moc/config'
-alias zshrc='vim ~/.config/zsh/.zshrc'
-alias npmrc='vim ~/.config/npm/npmrc'
-alias vimrc='vim ~/.config/nvim/init.vim'
-alias vimplug='vim ~/.config/nvim/plugins.vim'
-alias tmuxrc='vim $XDG_CONFIG_HOME/tmux/tmux.conf'
-alias i3rc='vim ~/.config/i3/config'
-alias projectrc='vim ~/.config/shortcuts'
-alias reload='source ~/.config/aliasrc'
-alias dnsrc='sudo vim /etc/resolv.conf'
 alias sshrc='vim ~/.ssh/config'
-alias fontrc='vim ~/.config/fontconfig/'
-alias xreload='xrdb ~/.config/X11/Xresources'
-alias retor='sudo systemctl restart tor'
-alias sgit="git config --global http.proxy 'socks5h://127.0.0.1:6000'"
-alias unsgit='git config --global --unset http.proxy'
-alias nit='npm init -y && npm install -D @fullstacksjs/eslint-config eslint typescript prettier'
+alias gitrc='vim $XDG_CONFIG_HOME/git/config'
+alias zalias='vim $XDG_CONFIG_HOME/aliasrc'
+alias envrc='vim $XDG_CONFIG_HOME/env'
+alias mocrc='vim $XDG_CONFIG_HOME/moc/config'
+alias zshrc='vim $XDG_CONFIG_HOME/zsh/.zshrc'
+alias npmrc='vim $XDG_CONFIG_HOME/npm/npmrc'
+alias vimrc='vim $XDG_CONFIG_HOME/nvim/init.vim'
+alias vimplug='vim $XDG_CONFIG_HOME/nvim/plugins.vim'
+alias tmuxrc='vim $XDG_CONFIG_HOME/tmux/tmux.conf'
+alias i3rc='vim $XDG_CONFIG_HOME/i3/config'
+alias projectrc='vim $XDG_CONFIG_HOME/shortcuts'
+alias reload='source $XDG_CONFIG_HOME/aliasrc'
+alias fontrc='vim $XDG_CONFIG_HOME/fontconfig/'
+alias xreload='xrdb $XDG_CONFIG_HOME/X11/Xresources'
 
 # file system
 alias l='colorls --tree=0 -a --sd'
@@ -152,8 +148,8 @@ mk() {
 }
 
 tmp() {
-	local TD="$(mktemp --directory)"
-	cd $TD
+  local TD="$(mktemp --directory)"
+  cd $TD
 }
 
 # network
@@ -208,7 +204,7 @@ alias npmo='npm outdated'
 alias npmp='npm publish'
 alias npmv='npm -v'
 nvers() {
-	npm show $1 versions
+  npm show $1 versions
 }
 alias ncu='npm-check -u'
 alias nrc='npm run commit'
@@ -244,7 +240,7 @@ alias trash!='git add . && git commit --amend --no-edit --no-verify && git push 
 
 ## docker
 dip() {
-	docker container inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $1 | tr -d '\n' | xsel -i -b
+  docker container inspect --format="{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $1 | tr -d '\n' | xsel -i -b
 }
 alias d='ALL_PROXY=socks5://localhost:6000 docker'
 
@@ -346,10 +342,10 @@ ex() {
 }
 
 batt() {
-	BAT=${1:-BAT0}
-	capacity=$(head /sys/class/power_supply/$BAT/charge_full)
-	design=$(head /sys/class/power_supply/$BAT/charge_full_design)
-	bc <<<"scale=2; $capacity / $design"
+  BAT=${1:-BAT0}
+  capacity=$(head /sys/class/power_supply/$BAT/charge_full)
+  design=$(head /sys/class/power_supply/$BAT/charge_full_design)
+  bc <<<"scale=2; $capacity / $design"
 }
 
 compress() {
