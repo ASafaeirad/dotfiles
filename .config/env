@@ -74,6 +74,11 @@ if test "$(yarn --version 2>/dev/null)"; then
 	append_path $(yarn global bin --offline)
 fi
 
+export SDKMAN_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/sdkman"
+if [ -d $SDKMAN_DIR ] && [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]; then
+	source "$SDKMAN_DIR/bin/sdkman-init.sh"
+fi
+
 if test "$(go version 2>/dev/null)"; then
   export GOPATH=${XDG_DATA_HOME}/go
 fi
