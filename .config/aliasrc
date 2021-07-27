@@ -27,13 +27,19 @@ alias clare='clear'
 
 # utility
 alias swclicks='xmodmap -e "pointer = 3 2 1"'
-alias tv="xrandr --output HDMI1 --mode 1920x1080 --right-of eDP1"
-alias mm="xrandr --output HDMI1 --mode 1920x1080 --left-of eDP1"
+alias tv="xrandr --output HDMI-2 --mode 1920x1080 --right-of eDP-1"
+mm() {
+	HDMI_BAR=$(pgrep --full HDMI)
+  [[ "" !=  "$HDMI_BAR" ]] && kill $HDMI_BAR
+	xrandr --output HDMI-2 --mode 1920x1080 --left-of eDP-1
+	polybar -r HDMI </dev/null &>/dev/null &
+}
 
 # npx commands
 alias oao='npx oao'
 alias np='npx np'
 alias nx='npx nx'
+alias tsc='npx tsc'
 alias cra='npx create-react-app'
 s() {
   [ -f ./.skill/env ] && . ./.skill/env
@@ -133,7 +139,7 @@ alias vimplug='vim $XDG_CONFIG_HOME/nvim/plugins.vim'
 alias tmuxrc='vim $XDG_CONFIG_HOME/tmux/tmux.conf'
 alias i3rc='vim $XDG_CONFIG_HOME/i3/config'
 alias projectrc='vim $XDG_CONFIG_HOME/shortcuts'
-alias reload='source $XDG_CONFIG_HOME/aliasrc'
+alias reload='source $XDG_CONFIG_HOME/aliasrc && source $XDG_CONFIG_HOME/bookmarkrc'
 alias fontrc='vim $XDG_CONFIG_HOME/fontconfig/'
 alias xreload='xrdb $XDG_CONFIG_HOME/X11/Xresources'
 
@@ -185,7 +191,7 @@ setd() {
 }
 
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-  alias "$method"="curl -X '$method' -H 'content-type: application/json'"
+  alias "$method"="curlie -X '$method' -H 'content-type: application/json'"
 done
 
 # Other packages
@@ -194,7 +200,6 @@ alias pacr='pacman -R'
 alias pacls='pacman -Qi'
 
 # npm
-alias loadnvm=". $NVM_DIR/nvm.sh"
 alias npmls='npm ls --depth 0'
 alias npmr='npm remove'
 alias npmi='npm install'
@@ -215,7 +220,6 @@ alias renpm='rm -rf node_modules && npm i'
 alias monore='find . -name "node_modules" -type d -exec sudo rm -rf {} \; ; npx lerna bootstrap && npm install'
 
 # yarn
-alias y='yarn'
 alias yrs='yarn start'
 alias yrd='yarn run dev'
 alias ya='yarn add'
@@ -342,6 +346,11 @@ ex() {
   fi
 }
 
+fix_perms() {
+	find . -type f ! -path '*/node_modules/*' -exec chmod 0664 {} \;
+  find . -type d ! -path '*/node_modules/*' -exec chmod 0775 {} \;
+}
+
 batt() {
   BAT=${1:-BAT0}
   capacity=$(head /sys/class/power_supply/$BAT/charge_full)
@@ -350,10 +359,15 @@ batt() {
 }
 
 open_d() {
-	open "$1" </dev/null &>/dev/null &
+	open "$@" </dev/null &>/dev/null &
 }
 
 compress() {
   ffmpeg -i "$1" -codec:v libx264 -preset medium -crf 23 "$1.mp4"
 }
 
+createWireguard() {
+	ssh -t ubuntu@$1 "curl -O https://raw.githubusercontent.com/angristan/wireguard-install/master/wireguard-install.sh; chmod +x wireguard-install.sh; sudo ./wireguard-install.sh"
+  scp ubuntu@$1:/home/ubuntu/wg0-client-iran.conf ~/desktop/iran.conf
+  nmcli connection import type wireguard file ~/desktop/iran.conf
+}
