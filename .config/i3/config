@@ -1,8 +1,8 @@
 # i3 config file (v4)
-# Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-# Set mod key (Mod1=<Alt>, Mod4=<Super>)
 set $mod Mod4
+
+bindsym $mod+Return exec --no-startup-id alacritty
 
 # Workspace names
 set $workspace1  1:
@@ -73,58 +73,55 @@ floating_modifier $mod
 ##    Keybindings    ##
 #######################
 
-bindsym $mod+Shift+q                        kill
-bindsym $mod+u                              border none
-bindsym $mod+n                              border normal
-
-## Reload
-bindsym $mod+Shift+r                        restart
-bindsym $mod+Ctrl+c                         reload
-
-# Workspace
+bindsym $mod+shift+q      kill
+bindsym $mod+shift+r      restart
+bindsym $mod+Ctrl+c       reload
 
 ## Layout Modes
-bindsym $mod+s                              layout stacking
-bindsym $mod+w                              layout tabbed
-bindsym $mod+e                              layout toggle split
-bindsym $mod+f                              fullscreen toggle
+bindsym $mod+s           layout stacking
+bindsym $mod+w           layout tabbed
+bindsym $mod+e           layout toggle split
+bindsym $mod+f           fullscreen toggle
 
-bindsym $mod+Shift+space                    floating toggle
-bindsym $mod+Shift+s                        sticky toggle
-bindsym $mod+shift+c                        move position center
+bindsym $mod+u            border none
+bindsym $mod+n            border normal
+
+bindsym $mod+shift+space floating toggle
+bindsym $mod+shift+s     sticky toggle
+bindsym $mod+shift+c     move position center
 
 ## Workspace Navigation
-bindsym $mod+1                              workspace $workspace1
-bindsym $mod+2                              workspace $workspace2
-bindsym $mod+3                              workspace $workspace3
-bindsym $mod+4                              workspace $workspace4
-bindsym $mod+5                              workspace $workspace5; exec --no-startup-id [[ "$(pgrep -c mocp)" ]] || termite --title 'mocp' -e run-mocp
-bindsym $mod+6                              workspace $workspace6
-bindsym $mod+7                              workspace $workspace7
-bindsym $mod+8                              workspace $workspace8
-bindsym $mod+9                              workspace $workspace9
-bindsym $mod+0                              workspace $workspace10
+bindsym $mod+1           workspace $workspace1
+bindsym $mod+2           workspace $workspace2
+bindsym $mod+3           workspace $workspace3
+bindsym $mod+4           workspace $workspace4
+bindsym $mod+5           workspace $workspace5
+bindsym $mod+6           workspace $workspace6
+bindsym $mod+7           workspace $workspace7
+bindsym $mod+8           workspace $workspace8
+bindsym $mod+9           workspace $workspace9
+bindsym $mod+0           workspace $workspace10
 
-bindsym $mod+m move workspace to output left
+bindsym $mod+m           move workspace to output left
 
-bindsym $mod+Ctrl+Right                     workspace next
-bindsym $mod+Ctrl+Left                      workspace prev
+bindsym $mod+Ctrl+L      workspace next
+bindsym $mod+Ctrl+H      workspace prev
 
-bindsym $mod+BackSpace                      workspace back_and_forth
+bindsym $mod+BackSpace   workspace back_and_forth
 
 ## Workspace Navigation with Container
-bindsym $mod+Shift+1                        move container to workspace $workspace1; workspace $workspace1
-bindsym $mod+Shift+2                        move container to workspace $workspace2; workspace $workspace2
-bindsym $mod+Shift+3                        move container to workspace $workspace3; workspace $workspace3
-bindsym $mod+Shift+4                        move container to workspace $workspace4; workspace $workspace4
-bindsym $mod+Shift+5                        move container to workspace $workspace5; workspace $workspace5
-bindsym $mod+Shift+6                        move container to workspace $workspace6; workspace $workspace6
-bindsym $mod+Shift+7                        move container to workspace $workspace7; workspace $workspace7
-bindsym $mod+Shift+8                        move container to workspace $workspace8; workspace $workspace8
-bindsym $mod+Shift+9                        move container to workspace $workspace9; workspace $workspace9
-bindsym $mod+Shift+0                        move container to workspace $workspace10; workspace $workspace10
+bindsym $mod+shift+1                        move container to workspace $workspace1; workspace $workspace1
+bindsym $mod+shift+2                        move container to workspace $workspace2; workspace $workspace2
+bindsym $mod+shift+3                        move container to workspace $workspace3; workspace $workspace3
+bindsym $mod+shift+4                        move container to workspace $workspace4; workspace $workspace4
+bindsym $mod+shift+5                        move container to workspace $workspace5; workspace $workspace5
+bindsym $mod+shift+6                        move container to workspace $workspace6; workspace $workspace6
+bindsym $mod+shift+7                        move container to workspace $workspace7; workspace $workspace7
+bindsym $mod+shift+8                        move container to workspace $workspace8; workspace $workspace8
+bindsym $mod+shift+9                        move container to workspace $workspace9; workspace $workspace9
+bindsym $mod+shift+0                        move container to workspace $workspace10; workspace $workspace10
 
-bindsym $mod+Shift+BackSpace                move container to workspace back_and_forth; workspace back_and_forth
+bindsym $mod+shift+BackSpace                move container to workspace back_and_forth; workspace back_and_forth
 
 ## Move to container to another Workspace
 bindsym $mod+Ctrl+1                         move container to workspace $workspace1
@@ -140,7 +137,7 @@ bindsym $mod+Ctrl+0                         move container to workspace $workspa
 
 ## Scratchpad
 bindsym $mod+minus                          scratchpad show
-bindsym $mod+Shift+minus                    move scratchpad
+bindsym $mod+shift+minus                    move scratchpad
 
 # Pane
 
@@ -163,18 +160,18 @@ bindsym $mod+a                              focus parent
 bindsym $mod+space                          focus mode_toggle
 
 ## Movement
-bindsym $mod+Shift+h                        move left
-bindsym $mod+Shift+k                        move up
-bindsym $mod+Shift+j                        move down
-bindsym $mod+Shift+l                        move right
+bindsym $mod+shift+h                        move left
+bindsym $mod+shift+k                        move up
+bindsym $mod+shift+j                        move down
+bindsym $mod+shift+l                        move right
 
-bindsym $mod+Shift+Left                     move left
-bindsym $mod+Shift+Down                     move down
-bindsym $mod+Shift+Up                       move up
-bindsym $mod+Shift+Right                    move right
+bindsym $mod+shift+Left                     move left
+bindsym $mod+shift+Down                     move down
+bindsym $mod+shift+Up                       move up
+bindsym $mod+shift+Right                    move right
 
 bindsym Mod1+Tab                            workspace next
-bindsym Mod1+Shift+Tab                      workspace prev
+bindsym Mod1+shift+Tab                      workspace prev
 
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume                exec --no-startup-id "pactl set-sink-volume 0 +5%"
@@ -189,8 +186,7 @@ bindsym XF86AudioMute                       exec --no-startup-id "pactl set-sink
 # Apps
 
 ## Essential
-bindsym $mod+Return                         exec --no-startup-id termite
-bindsym $mod+Shift+Return                   exec --no-startup-id termite -d "`xcwd`"
+bindsym $mod+shift+Return                   exec --no-startup-id alacritty -d "`xcwd`"
 
 bindsym $mod+d                              exec --no-startup-id sdmenu -l 100 -h 25 -w 300
 # bindsym $mod+d exec --no-startup-id rofi -show
@@ -201,48 +197,45 @@ bindsym $mod+Delete                         exec --no-startup-id sklock
 bindsym $mod+F2                             exec --no-startup-id brave
 bindsym $mod+F3                             exec --no-startup-id code
 bindsym $mod+F4                             exec --no-startup-id pcmanfm
-bindsym $mod+F5                             exec --no-startup-id termite --title 'mocp' -e run-mocp
-bindsym $mod+Shift+F4                       exec --no-startup-id gksu pcmanfm
+bindsym $mod+F5                             exec --no-startup-id alacritty --title 'mocp' -e run-mocp
+bindsym $mod+shift+F4                       exec --no-startup-id gksu pcmanfm
 
 ## Utility
-
-bindsym $mod+i                              [title="Todoist"] scratchpad show
-bindsym $mod+shift+i                        exec --no-startup-id todoist
 
 bindsym $mod+p                              [class="pomotroid"] scratchpad show
 bindsym $mod+shift+p                        exec --no-startup-id pomotroid
 
-bindsym $mod+Ctrl+t                         exec --no-startup-id compton -b
+bindsym $mod+Ctrl+t                         exec --no-startup-id picom -b
 bindsym $mod+Ctrl+x             --release   exec --no-startup-id xkill
-bindsym $mod+Shift+d            --release   exec --no-startup-id killall dunst; exec notify-send 'restart dunst'
+bindsym $mod+shift+d            --release   exec --no-startup-id killall dunst; exec notify-send 'restart dunst'
 
 ## Screenshot
 bindsym Print                   --release   exec --no-startup-id flameshot full -c
-bindsym $mod+Print              --release   exec --no-startup-id flameshot full -p "XDG_PICTURES_DIR/screenshots/"
-bindsym $mod+Shift+Print        --release   exec --no-startup-id flameshot gui
+bindsym $mod+Print              --release   exec --no-startup-id flameshot full -p "$XDG_PICTURES_DIR/screenshots/"
+bindsym $mod+shift+Print        --release   exec --no-startup-id flameshot gui
 
 bindsym $mod+Ctrl+m                         exec pavucontrol
 
 # Layouts
-# bindsym $mod+Shift+w            --release   exec --no-startup-id "i3-msg 'workspace $workspace1; append_layout ~/.config/i3/layouts/fullstacks.json'; fsk-layout"
+# bindsym $mod+shift+w            --release   exec --no-startup-id "i3-msg 'workspace $workspace1; append_layout ~/.config/i3/layouts/fullstacks.json'; fsk-layout"
 
 ##########################
 ##      Automation      ##
 ##########################
 
-bindsym $mod+shift+f            --release   exec --no-startup-id /home/skill/.local/bin/automations/email
-bindsym $mod+shift+g            --release   exec --no-startup-id /home/skill/.local/bin/automations/estateguru
-
+bindsym $mod+shift+f  --release exec --no-startup-id ~/.local/bin/automations/email
+bindsym $mod+shift+g  --release exec --no-startup-id ~/.local/bin/automations/estateguru
+bindsym $mod+shift+m  --release exec --no-startup-id ~/.local/bin/automations/parsian
 
 ############################
 ##    Windows Behavior    ##
 ############################
 
 # Applications workspaces
-assign      [class="(?i)brave"]                     $workspace2
-assign      [class="(?i)code" window_type="normal"] $workspace3
-assign      [title="(?i)mocp"]                      $workspace5
-assign      [class="crx_bgdbmehlmdmddlgneophbcddadgknlpm"] $workspace1 # linear
+assign      [instance="crx_bgdbmehlmdmddlgneophbcddadgknlpm"] $workspace1
+assign      [class="(?i)brave"]                               $workspace2
+assign      [class="(?i)code" window_type="normal"]           $workspace3
+assign      [title="(?i)mocp"]                                $workspace5
 
 # Floating modes
 for_window [class="(?i)System-config-printer.py"]   floating enable border normal
@@ -289,37 +282,30 @@ for_window [instance="Oracle VM VirtualBox Manager"] move position center
 for_window [instance="windows-10 [Running] - Oracle VM VirtualBox"] floating disable
 for_window [instance="windows-10 [Running] - Oracle VM VirtualBox"] fullscreen enable
 for_window [window_role="(?i)GtkFileChooserDialog"] floating enable resize set 900 700
-for_window [class="crx_bgdbmehlmdmddlgneophbcddadgknlpm"] floating disable
-for_window [class="crx_bgdbmehlmdmddlgneophbcddadgknlpm"] fullscreen enable
+for_window [instance="crx_bgdbmehlmdmddlgneophbcddadgknlpm"] floating disable
+for_window [instance="crx_bgdbmehlmdmddlgneophbcddadgknlpm"] fullscreen enable
 
 #################
 ##   flyterm   ##
 #################
 
-exec                       --no-startup-id    termite --name "flyterm" -e tmux attach
-bindsym $mod+shift+t  exec --no-startup-id 		termite --name "flyterm" -e tmux attach
-bindsym $mod+t                                [instance="flyterm"] scratchpad show
-for_window																    [instance="flyterm"] move scratchpad
-for_window 																		[instance="flyterm"] move position absolute center
-for_window 																	  [instance="flyterm"] resize set 660 450
+exec                        --no-startup-id alacritty --class "flyterm" -e tmux new-session -s flyterm
+bindsym $mod+shift+t  exec  --no-startup-id alacritty --class "flyterm" -e tmux attach
 
-#################
-##  ssh proxy  ##
-#################
-
-# exec                       --no-startup-id    restart-proxy
-bindsym $mod+shift+m  exec --no-startup-id 		sleep 1 && ~/.local/bin/automations/parsian
-
+bindsym $mod+t        [instance="^flyterm"] scratchpad show
+for_window            [instance="^flyterm"] move scratchpad
+for_window            [instance="^flyterm"] move position absolute center
+for_window            [instance="^flyterm"] resize set 660 450
 
 #################
 ##   Webcam    ##
 #################
 
-bindsym $mod+Shift+w exec --no-stratup-id webcam
-bindsym $mod+c [title="video0 - mpv"] scratchpad show
-for_window [title="video0 - mpv"] floating enable
-for_window [title="video0 - mpv"] sticky enable
-for_window [title="video0 - mpv"] move scratchpad
+bindsym $mod+shift+w exec --no-startup-id webcam
+bindsym $mod+c       [title="video0 - mpv"] scratchpad show
+for_window           [title="video0 - mpv"] floating enable
+for_window           [title="video0 - mpv"] sticky enable
+for_window           [title="video0 - mpv"] move scratchpad
 
 #################
 ##    Modes    ##
@@ -327,7 +313,7 @@ for_window [title="video0 - mpv"] move scratchpad
 
 # System mode
 bindsym $mod+shift+Delete mode "$mode_system"
-set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (shift+s)hutdown
 
 mode "$mode_system" {
     bindsym l           exec --no-startup-id i3exit lock,         mode "default"
@@ -336,7 +322,7 @@ mode "$mode_system" {
     bindsym e           exec --no-startup-id i3exit logout,       mode "default"
     bindsym h           exec --no-startup-id i3exit hibernate,    mode "default"
     bindsym r           exec --no-startup-id i3exit reboot,       mode "default"
-    bindsym Shift+s     exec --no-startup-id i3exit shutdown,     mode "default"
+    bindsym shift+s     exec --no-startup-id i3exit shutdown,     mode "default"
 
     bindsym Return      mode "default"
     bindsym Escape      mode "default"
@@ -351,6 +337,11 @@ mode "resize" {
     bindsym k           resize shrink height 10 px or 10 ppt
     bindsym l           resize grow   width  10 px or 10 ppt
 
+    bindsym shift+h     resize shrink width  100 px or 100 ppt
+    bindsym shift+j     resize grow   height 100 px or 100 ppt
+    bindsym shift+k     resize shrink height 100 px or 100 ppt
+    bindsym shift+l     resize grow   width  100 px or 100 ppt
+
     bindsym Left        resize shrink width  1 px or 1 ppt
     bindsym Down        resize grow   height 1 px or 1 ppt
     bindsym Up          resize shrink height 1 px or 1 ppt
@@ -364,6 +355,5 @@ mode "resize" {
 ##    Autostart    ##
 #####################
 
-# Essensial
 exec_always --no-startup-id     restart-polybar -r skill
 exec_always --no-startup-id     restart-polybar -r HDMI
