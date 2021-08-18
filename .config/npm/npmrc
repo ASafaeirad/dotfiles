@@ -1,4 +1,5 @@
-cache=/home/skill/.cache/npm
+prefix=/home/skill/.local/share/npm
+cache=/storage/.cache/npm
 tmp=/run/user/1000/npm
 init-module=/home/skill/.config/npm/config/npm-init.js
 sign-git-tag=true
