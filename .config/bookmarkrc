@@ -5,6 +5,10 @@ alias figma='open_d "https://figma.com"'
 alias loc3='open_d "https://localhost:3000/"'
 alias tenf='open_d "https://www.edclub.com/sportal/program-3.game"'
 alias g='open_d "https://github.com/frontendmonster"'
+gmail() {
+	local GU=${1:-'0'}
+	open_d "https://mail.google.com/mail/u/$GU/"
+}
 
 alias tg='cd $HOME/downloads/Telegram\ Desktop'
 alias dwn='cd $HOME/downloads'
