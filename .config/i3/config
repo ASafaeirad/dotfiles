@@ -11,7 +11,7 @@ set $workspace3  3:
 set $workspace4  4:
 set $workspace5  5:
 set $workspace6  6:
-set $workspace7  7:
+set $workspace7  7:
 set $workspace8  8:
 set $workspace9  9:
 set $workspace10 10:
@@ -91,7 +91,7 @@ bindsym $mod+f                              fullscreen toggle
 
 bindsym $mod+Shift+space                    floating toggle
 bindsym $mod+Shift+s                        sticky toggle
-bindsym $mod+shift+c                        move absolute position center
+bindsym $mod+shift+c                        move position center
 
 ## Workspace Navigation
 bindsym $mod+1                              workspace $workspace1
@@ -105,6 +105,7 @@ bindsym $mod+8                              workspace $workspace8
 bindsym $mod+9                              workspace $workspace9
 bindsym $mod+0                              workspace $workspace10
 
+bindsym $mod+m move workspace to output left
 
 bindsym $mod+Ctrl+Right                     workspace next
 bindsym $mod+Ctrl+Left                      workspace prev
@@ -194,7 +195,7 @@ bindsym $mod+Shift+Return                   exec --no-startup-id termite -d "`xc
 bindsym $mod+d                              exec --no-startup-id sdmenu -l 100 -h 25 -w 300
 # bindsym $mod+d exec --no-startup-id rofi -show
 bindsym $mod+z                              exec --no-startup-id morc_menu
-bindsym $mod+Pause                          exec --no-startup-id betterlockscreen -l blur
+bindsym $mod+Pause                          exec --no-startup-id betterlockscreen -l
 
 ## General
 bindsym $mod+F2                             exec --no-startup-id brave
@@ -272,24 +273,20 @@ for_window [title="alsamixer"]                      floating enable border pixel
 for_window [title="File Transfer*"]                 floating enable
 for_window [title="i3_help"]                        floating enable sticky enable border normal
 for_window [title="MuseScore: Play Panel"]          floating enable
-for_window [title="Sign in - Google Accounts - Chromium"] floating enable border normal
-for_window [title="Sign in - Google Accounts - Chromium"] resize set 360 600
-for_window [title="Sign in - Google Accounts - Chromium"] move absolute position center
 for_window [title="Page Unresolved"] floating enable
 for_window [title="(?i)friends list"] floating enable resize set 256 256
 for_window [title="(?i)steam - news"] floating enable resize set 256 256
 for_window [class="(?i)dota2"] fullscreen enable
 for_window [class="pomotroid"] move scratchpad
-for_window [class="pomotroid"] move absolute position center
-for_window [title="Todoist"] move scratchpad
-for_window [title="Todoist"] resize set 768 768
-for_window [title="Todoist"] move absolute position center
+for_window [class="pomotroid"] move position center
 
 for_window [window_role="(?i)GtkFileChooserDialog"] floating enable resize set 900 700
-for_window [window_role="(?i)GtkFileChooserDialog"] move absolute position center
+for_window [window_role="(?i)GtkFileChooserDialog"] move position center
+for_window [window_role="(?i)pop-up"] floating enable resize set 900 700
+for_window [window_role="(?i)pop-up"] move position center
 for_window [class="VirtualBox Machine"] fullscreen enable
 for_window [class="VirtualBox Machine"] floating disable
-for_window [instance="Oracle VM VirtualBox Manager"] move absolute position center
+for_window [instance="Oracle VM VirtualBox Manager"] move position center
 for_window [instance="windows-10 [Running] - Oracle VM VirtualBox"] floating disable
 for_window [instance="windows-10 [Running] - Oracle VM VirtualBox"] fullscreen enable
 
@@ -301,27 +298,22 @@ exec                       --no-startup-id    termite --name "flyterm" -e tmux a
 bindsym $mod+shift+t  exec --no-startup-id 		termite --name "flyterm" -e tmux attach
 bindsym $mod+t                                [instance="flyterm"] scratchpad show
 for_window																    [instance="flyterm"] move scratchpad
+for_window 																		[instance="flyterm"] move position absolute center
 for_window 																	  [instance="flyterm"] resize set 660 450
-for_window 																		[instance="flyterm"] move absolute position center
 
 #################
 ##  ssh proxy  ##
 #################
 
-exec                       --no-startup-id    restart-proxy
+# exec                       --no-startup-id    restart-proxy
 bindsym $mod+shift+m  exec --no-startup-id 		sleep 1 && ~/.local/bin/automations/parsian
-bindsym $mod+m                                [instance="ssh-proxy"] scratchpad show
-for_window																    [instance="ssh-proxy"] move scratchpad
-for_window 																	  [instance="ssh-proxy"] resize set 300 300
-for_window 																		[instance="ssh-proxy"] move absolute position 0 0
-
 
 
 #################
 ##   Webcam    ##
 #################
 
-bindsym $mod+Shift+w exec webcam
+bindsym $mod+Shift+w exec --no-stratup-id webcam
 bindsym $mod+c [title="video0 - mpv"] scratchpad show
 for_window [title="video0 - mpv"] floating enable
 for_window [title="video0 - mpv"] sticky enable
@@ -373,11 +365,4 @@ mode "resize" {
 # Essensial
 exec        --no-startup-id     /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always --no-startup-id     restart-polybar -r skill
-exec_always --no-startup-id     restart-flashfocus
-
-####################
-##   Smartsept    ##
-####################
-assign [title="ApiLogs"] $workspace1
-assign [title="WebLogs"] $workspace1
-assign [title="IoTLogs"] $workspace1
+exec_always --no-startup-id     restart-polybar -r HDMI1

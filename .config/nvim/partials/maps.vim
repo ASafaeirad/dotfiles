@@ -7,3 +7,5 @@ nmap <leader>d "_d
 vnoremap <leader>p "_dP
 vnoremap <leader>c "_c
 map <leader><Bslash> :NERDTreeToggle<CR>
+nnoremap <M-j> "ddd"dp
+nnoremap <A-k> "ddd"dP

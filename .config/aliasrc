@@ -274,7 +274,6 @@ alias push='git push'
 alias 'push!'='git push origin $(git_current_branch) --force --no-force-with-lease'
 alias pushu='git push --set-upstream origin $(git_current_branch)'
 
-alias g='git'
 alias gcount='git shortlog -sn'
 alias gl='git log --oneline --decorate'
 alias glog='git log --oneline --color --decorate --graph --all | emojify | less -r'
