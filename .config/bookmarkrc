@@ -1,16 +1,17 @@
 #!/bin/bash
 
-export MONSTER='/home/monster'
+# tools
+alias figma='open_d "https://figma.com"'
+alias loc3='open_d "https://localhost:3000/"'
+alias tenf='open_d "https://www.edclub.com/sportal/program-3.game"'
+alias g='open_d "https://github.com/frontendmonster"'
 
-alias monster='cd $MONSTER'
-alias tuts='cd $MONSTER/videos/tutorials/'
 alias tg='cd $HOME/downloads/Telegram\ Desktop'
 alias dwn='cd $HOME/downloads'
 alias dnd='cd $HOME/dev/dnd'
-alias doc='cd $MONSTER/documents/'
-alias profile='cd $MONSTER/documents/info'
+alias docs='cd $HOME/docs/'
 alias thes='cd $HOME/dev/thesis/'
-alias books='cd $MONSTER/books'
+alias books='cd $HOME/docs/books'
 alias cheats='cd $HOME/dev/rewire/initiator/resources/'
 
 INFO="$HOME/docs/info"
@@ -38,10 +39,7 @@ alias sus='cd $EG/user-service'
 
 alias cal=   'open_d "https://calendar.google.com/calendar/u/2/r"'
 alias docs=  'open_d "https://user.staging.estateguru.co/documentation/index.html"'
-alias loc3=  'open_d "https://localhost:3000/"'
-alias tenf=  'open_d "https://www.edclub.com/sportal/program-3.game"'
 alias invs=  'open_d "https://projects.invisionapp.com/d/main#/projects/prototypes/21369560"'
 alias stand= 'open_d "https://meet.google.com/het-feup-ygi?authuser=2"'
-alias figma= 'open_d "https://figma.com"'
 alias sprint='open_d "https://estateguru.atlassian.net/secure/RapidBoard.jspa?rapidView=5&projectKey=EGNEW"'
 
