@@ -27,7 +27,8 @@ alias clare='clear'
 
 # utility
 alias swclicks='xmodmap -e "pointer = 3 2 1"'
-alias tv="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1"
+alias tv="xrandr --output HDMI1 --mode 1920x1080 --right-of eDP1"
+alias mm="xrandr --output HDMI1 --mode 1920x1080 --left-of eDP1"
 
 # npx commands
 alias oao='npx oao'
@@ -247,9 +248,9 @@ alias d='ALL_PROXY=socks5://localhost:6000 docker'
 ## git
 alias clone='git clone'
 alias gs='git status -s'
-alias gss='git status'
+# alias gss='git status'
 
-alias ga='git add'
+# alias ga='git add'
 alias gaa='git add . && git status -s'
 
 alias gb='git branch -v'
@@ -299,7 +300,7 @@ alias grv='git remote -v'
 alias gro='git remote add origin'
 alias groot='git commit -m "root" --allow-empty'
 
-alias grb='git rebase'
+# alias grb='git rebase'
 alias grba='git rebase --abort'
 alias grbc='git rebase --continue'
 alias grbs='git rebase --skip'
@@ -346,6 +347,10 @@ batt() {
   capacity=$(head /sys/class/power_supply/$BAT/charge_full)
   design=$(head /sys/class/power_supply/$BAT/charge_full_design)
   bc <<<"scale=2; $capacity / $design"
+}
+
+open_d() {
+	open "$1" </dev/null &>/dev/null &
 }
 
 compress() {
