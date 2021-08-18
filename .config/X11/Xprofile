@@ -5,11 +5,11 @@ nm-applet &
 xfce4-power-manager &
 clipit &
 xautolock -time 10 -locker "betterlockscreen -l" -corners -+-- -cornerdelay 3 &
-# start-conky
 redshift -l '36.850282:54.3680226' &
 setxkbmap -layout us,ir -option grp:shifts_toggle &
+picom -b
 # numlockx on &
 # swapcaps &
-picom -b
+# start-conky
 
 xrdb -load ~/.config/X11/Xresources
