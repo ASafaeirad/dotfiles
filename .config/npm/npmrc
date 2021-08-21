@@ -1,8 +1,10 @@
 prefix=/home/skill/.local/share/npm
+cache=/home/skill/.cache/npm
 tmp=/run/user/1000/npm
+store-dir=/home/skill/.local/share/pnpm-store
 init-module=/home/skill/.config/npm/config/npm-init.js
 sign-git-tag=true
-init-author-name=frontendmonster
+init-author-name=Alireza Safaeirad
 init-author-email=frontendmonster@gmail.com
 init-license=MIT
 color=always
