@@ -11,6 +11,19 @@ FILES=(
   .config/user-dirs.locale
   .config/user-dirs.dirs
   .local/share/moc/themes/
+  .bash_history
+  .bash_logout
+  .bash_profile
+  .bashrc
+  .dir_colors
+  .dmenurc
+  .dmrc
+  .emacs.d/
+  .gimp-2.8/
+  .screenlayout/
+  .urxvt/
+  .vim/
+  .gtkrc-2.0
   .dmenurc
   .profile
   .xinitrc
@@ -18,6 +31,10 @@ FILES=(
 	.config/picom.conf
 	.zshrc
 	.xinitrc
+  .Xauthority
+  .Xclients
+  .xsession-errors
+  .xsession-errors.old
 	.Xresources
 	.moc
 	.moonchild\ productions
