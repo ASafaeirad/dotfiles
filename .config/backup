@@ -29,6 +29,9 @@ BACKUP="$HOME/dotfiles_backup"
 
 for file in "${FILES[@]}"
 do
-  mkdir -pv "$BACKUP/$(dirname $file)"
-  mv $file "$BACKUP/$file"
+  if [ -f "$file" ] || [ -d "$file" ]; then
+    mkdir -p "$BACKUP/$(dirname "$file")"
+    echo "Backup $file"
+    mv "$file" "$BACKUP/$file"
+  fi
 done
