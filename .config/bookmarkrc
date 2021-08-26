@@ -37,9 +37,9 @@ alias fdev='cd $FSK/projects'
 alias fexp='cd $FSK/exploration'
 alias codeit='cd $FSK/projects/codeit'
 
-EG="$HOME/dev/eg"
+EG="$HOME/devs/eg"
 alias eg='cd $EG'
-alias sus='cd $EG/user-service'
+alias sus='cd $EG/eg-frontend'
 
 alias cal=   'open_d "https://calendar.google.com/calendar/u/2/r"'
 alias docs=  'open_d "https://user.staging.estateguru.co/documentation/index.html"'
