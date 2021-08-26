@@ -1,0 +1,8 @@
+#!/bin/bash
+
+mv Desktop/ desktop/
+mv Documents/ docs/
+mv Downloads/ downloads/
+mv Music/ music/
+mv Pictures/ pics/
+mv Videos/ videos/
