@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WIFI_ADAPTOR="wlp3s0"
+WIFI_ADAPTOR="wlp58s0"
 
 # config
 alias config='git --git-dir "$HOME/.config/dotfiles.git" --work-tree "$HOME"'
@@ -33,6 +33,7 @@ alias mm="xrandr --output HDMI1 --mode 1920x1080 --left-of eDP1"
 # npx commands
 alias oao='npx oao'
 alias np='npx np'
+alias nx='npx nx'
 alias cra='npx create-react-app'
 s() {
   [ -f ./.skill/env ] && . ./.skill/env
@@ -55,7 +56,7 @@ alias dhcpcd='sudo dhcpcd'
 alias pacman-mirrors='sudo pacman-mirrors'
 alias systemctl='sudo systemctl'
 alias pacman='lazy-pacman'
-alias cpssh='cat ~/.ssh/id_rsa.pub | xsel -i --clipboard'
+alias cpssh='cat ~/.ssh/id_ed25519.pub | xsel -i --clipboard'
 alias x="sudo chmod +x"
 alias unlock-pacman="sudo rm /var/lib/pacman/db.lck"
 alias orphan='pacman -Rs $(pacman -Qqtd)'
