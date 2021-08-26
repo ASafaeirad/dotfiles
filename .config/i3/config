@@ -5,16 +5,16 @@
 set $mod Mod4
 
 # Workspace names
-set $workspace1  1:
-set $workspace2  2:
-set $workspace3  3:
-set $workspace4  4:
-set $workspace5  5:
-set $workspace6  6:
-set $workspace7  7:
-set $workspace8  8:
-set $workspace9  9:
-set $workspace10 10:
+set $workspace1  1:
+set $workspace2  2:
+set $workspace3  3:
+set $workspace4  4:
+set $workspace5  5:
+set $workspace6  6:
+set $workspace7  7:
+set $workspace8  8:
+set $workspace9  9:
+set $workspace10 10:
 
 #####################
 ##    Interface    ##
@@ -195,7 +195,7 @@ bindsym $mod+Shift+Return                   exec --no-startup-id termite -d "`xc
 bindsym $mod+d                              exec --no-startup-id sdmenu -l 100 -h 25 -w 300
 # bindsym $mod+d exec --no-startup-id rofi -show
 bindsym $mod+z                              exec --no-startup-id morc_menu
-bindsym $mod+Pause                          exec --no-startup-id betterlockscreen -l
+bindsym $mod+Del                            exec --no-startup-id betterlockscreen -l
 
 ## General
 bindsym $mod+F2                             exec --no-startup-id brave
@@ -324,7 +324,7 @@ for_window [title="video0 - mpv"] move scratchpad
 #################
 
 # System mode
-bindsym $mod+shift+Pause mode "$mode_system"
+bindsym $mod+shift+Delete mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
 
 mode "$mode_system" {
