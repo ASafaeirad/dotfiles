@@ -363,6 +363,5 @@ mode "resize" {
 #####################
 
 # Essensial
-exec        --no-startup-id     /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec_always --no-startup-id     restart-polybar -r skill
 exec_always --no-startup-id     restart-polybar -r HDMI1
