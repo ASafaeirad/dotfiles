@@ -78,6 +78,10 @@
 !.local/share/nemo/
 !.local/share/fonts/fonts.conf
 
+# .ssh
+!.ssh/
+.ssh/*
+!.ssh/config
 # global patterns
 
 .zcompdump*
