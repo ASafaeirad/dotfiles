@@ -4,14 +4,20 @@ eval $(gnome-keyring-daemon --start) &
 export SSH_AUTH_SOCK
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
+# disable bell for x applications
+xset b off 
+
+xautolock -time 10 -locker "sklock" -corners -+-- -cornerdelay 3 &
+xss-lock sklock &
+
 nitrogen --restore &
 nm-applet &
 xfce4-power-manager &
 clipit &
-xautolock -time 10 -locker "betterlockscreen -l" -corners -+-- -cornerdelay 3 &
 redshift -l '36.850282:54.3680226' &
 setxkbmap -layout us,ir -option grp:shifts_toggle &
 picom -b
+
 # numlockx on &
 # swapcaps &
 # start-conky
