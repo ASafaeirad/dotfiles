@@ -7,6 +7,7 @@ alias config='git --git-dir "$HOME/.config/dotfiles.git" --work-tree "$HOME"'
 
 # clear
 alias c='clear'
+alias clwer='clear'
 alias cc='clear'
 alias cear='clear'
 alias cler='clear'
@@ -28,11 +29,12 @@ alias clare='clear'
 # utility
 alias swclicks='xmodmap -e "pointer = 3 2 1"'
 alias tv="xrandr --output HDMI-2 --mode 1920x1080 --right-of eDP-1"
+
 mm() {
-	HDMI_BAR=$(pgrep --full HDMI)
+  HDMI_BAR=$(pgrep --full HDMI)
   [[ "" !=  "$HDMI_BAR" ]] && kill $HDMI_BAR
-	xrandr --output HDMI-2 --mode 1920x1080 --left-of eDP-1
-	polybar -r HDMI </dev/null &>/dev/null &
+  xrandr --output HDMI-2 --mode 1920x1080 --left-of eDP-1
+  polybar -r HDMI </dev/null &>/dev/null &
 }
 
 # npx commands
@@ -137,6 +139,8 @@ alias npmrc='vim $XDG_CONFIG_HOME/npm/npmrc'
 alias vimrc='vim $XDG_CONFIG_HOME/nvim/init.vim'
 alias vimplug='vim $XDG_CONFIG_HOME/nvim/plugins.vim'
 alias tmuxrc='vim $XDG_CONFIG_HOME/tmux/tmux.conf'
+alias rangerrc='vim $XDG_CONFIG_HOME/ranger/rc.conf'
+alias alacrittyrc='vim $XDG_CONFIG_HOME/alacritty/alacritty.yml'
 alias i3rc='vim $XDG_CONFIG_HOME/i3/config'
 alias projectrc='vim $XDG_CONFIG_HOME/shortcuts'
 alias reload='source $XDG_CONFIG_HOME/aliasrc && source $XDG_CONFIG_HOME/bookmarkrc'
@@ -144,10 +148,10 @@ alias fontrc='vim $XDG_CONFIG_HOME/fontconfig/'
 alias xreload='xrdb $XDG_CONFIG_HOME/X11/Xresources'
 
 # file system
-alias l='colorls --tree=0 -a --sd'
 alias lsa='ls -AF --group-directories-first'
 alias lless='l | less'
 alias laless='ll | less'
+alias l='ls -lah --group-directories-first'
 alias rd=rmdir
 alias open='xdg-open'
 
@@ -355,7 +359,7 @@ ex() {
 }
 
 fix_perms() {
-	find . -type f ! -path '*/node_modules/*' -exec chmod 0664 {} \;
+  find . -type f ! -path '*/node_modules/*' -exec chmod 0664 {} \;
   find . -type d ! -path '*/node_modules/*' -exec chmod 0775 {} \;
 }
 
