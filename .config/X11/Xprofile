@@ -17,7 +17,7 @@ clipit &
 redshift -l '36.850282:54.3680226' &
 setxkbmap -layout us,ir -option grp:shifts_toggle &
 picom -b
-restart-flashfocus
+restart-flashfocus &
 
 # numlockx on &
 # swapcaps &
