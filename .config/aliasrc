@@ -164,6 +164,9 @@ tmp() {
   cd $TD
 }
 
+# logs
+alias i3logs="DISPLAY=:0 i3-dump-log"
+
 # network
 alias getip="curl -s -S https://icanhazip.com"
 alias mac="getMac $WIFI_ADAPTOR"
