@@ -79,6 +79,7 @@
 	lt = describe --tags --abbrev=0
 
 	wip = commit -m 'WIP' --no-verify
+	root= commit -m 'root' --allow-empty
 
 	# assume aliases
 	assume = update-index --assume-unchanged
