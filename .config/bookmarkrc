@@ -38,7 +38,7 @@ alias sma='cd $DEVS/smartsept/app'
 FSK="$DEVS/fullstacks"
 alias f='cd $FSK'
 alias fdev='cd $FSK/projects'
-alias fexp='cd $FSK/exploration'
+alias fexp='cd $DEVS/projects/exploration'
 alias codeit='cd $DEVS/projects/codeit'
 
 EG="$DEVS/eg"
@@ -48,13 +48,17 @@ alias egportal='cd $EG/portal'
 
 EG_GUSER=1
 alias cal='open_d "https://calendar.google.com/calendar/u/$EG_GUSER/r"'
-alias docs='open_d "https://user.staging.estateguru.co/documentation/index.html"'
-alias invs='open_d "https://projects.invisionapp.com/d/main#/console/21667879/458543491/preview"'
+alias egdocs='open_d "https://user.staging.estateguru.co/documentation/index.html"'
+alias invs='open_d "https://projects.invisionapp.com/d/main#/console/21667879/458543554/preview"'
 alias invn='open_d "https://projects.invisionapp.com/d/main#/console/21543748/455519571/preview"'
 alias inva='open_d "https://projects.invisionapp.com/d/main#/projects/prototypes/21172373"'
 alias egdaily='open_d "https://meet.google.com/qih-ktbp-onw?authuser=$EG_GUSER"'
 alias egsprint='open_d "https://estateguru.atlassian.net/secure/RapidBoard.jspa?rapidView=5&projectKey=EGNEW"'
 alias egboard='open_d "https://estateguru.atlassian.net/jira/software/c/projects/EGNEW/boards/5?assignee=608abece83b8c6006b0aabc3"'
-alias egdemo='open_d "https://meet.google.com/awb-pewu-iyj?pli=1&authuser=$EG_GUSER"'
+alias egdemo='open_d "https://meet.google.com/swe-khcg-jxc?pli=1&authuser=$EG_GUSER"'
 alias egconf='open_d "https://estateguru.atlassian.net/wiki/spaces/ES/pages/3263889409/User+Service+E2E+Test+Reports"'
+alias egg='open_d "https://github.com/estateguru/user-service-react"'
 alias q='open_d "https://quillbot.com/"'
+function egt() {
+  open_d "https://estateguru.atlassian.net/browse/EGNEW-$1"
+}

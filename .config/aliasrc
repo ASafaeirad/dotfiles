@@ -23,7 +23,7 @@ alias clare='clear'
 
 # enhance tools
 [ -x "$(command -v bat)" ] && alias cat="bat"
-[ -x "$(command -v curlie)" ] && alias curl="curlie"
+# [ -x "$(command -v curlie)" ] && alias curl="curlie"
 [ -x "$(command -v nvim)" ] && alias vim="nvim"
 
 # utility
