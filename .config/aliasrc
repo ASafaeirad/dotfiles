@@ -142,7 +142,7 @@ alias tmuxrc='vim $XDG_CONFIG_HOME/tmux/tmux.conf'
 alias rangerrc='vim $XDG_CONFIG_HOME/ranger/rc.conf'
 alias alacrittyrc='vim $XDG_CONFIG_HOME/alacritty/alacritty.yml'
 alias i3rc='vim $XDG_CONFIG_HOME/i3/config'
-alias projectrc='vim $XDG_CONFIG_HOME/shortcuts'
+alias polybarrc='vim $XDG_CONFIG_HOME/polybar/config.ini'
 alias reload='source $XDG_CONFIG_HOME/aliasrc && source $XDG_CONFIG_HOME/bookmarkrc'
 alias fontrc='vim $XDG_CONFIG_HOME/fontconfig/'
 alias xreload='xrdb $XDG_CONFIG_HOME/X11/Xresources'
@@ -327,6 +327,7 @@ alias gdc='gd --cached'
 ## tools
 alias pscale="docker run -e HOME=/tmp -v $HOME/.config/planetscale:/tmp/.config/planetscale --user $(id -u):$(id -g) --rm -it --network host planetscale/pscale:latest"
 alias sskey="screenkey -t 2 -s small --vis-shift &>/dev/null &"
+alias genpass="openssl rand -base64 32"
 
 
 lazy-pacman() {
