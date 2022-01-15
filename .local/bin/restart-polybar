@@ -6,4 +6,4 @@ for i in /sys/class/hwmon/hwmon*/temp*_input; do
         export HWMON_PATH="$i"
     fi
 done
-polybar "$@" &
+polybar --config="$XDG_CONFIG_HOME/polybar/config.ini" "$@" &

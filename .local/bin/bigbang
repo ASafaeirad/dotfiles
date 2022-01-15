@@ -1,7 +1,0 @@
-#!/bin/bash
-
-git init
-npm init -y
-touch README.md
-cp -R $HOME/dev/rewire/template/. ./
-npm install --save-dev eslint prettier typescript @fullstacksjs/eslint-config
