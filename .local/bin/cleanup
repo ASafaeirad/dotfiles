@@ -1,6 +1,6 @@
 #!/bin/bash
+
 rm $XDG_CONFIG_HOME/gtk-3.0/bookmarks
 rm $XDG_CONFIG_HOME/nitrogen/bg-saved.cfg
 rm $XDG_CONFIG_HOME/nitrogen.cfg
-echo '' > $XDG_CONFIG_HOME/shortcutsrc
-
+echo '' >$XDG_CONFIG_HOME/shortcutsrc

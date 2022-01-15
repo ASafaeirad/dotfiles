@@ -29,24 +29,23 @@ FILES=(
   .profile
   .xinitrc
   .yarnrc
-	.config/picom.conf
-	.zshrc
-	.xinitrc
+  .config/picom.conf
+  .zshrc
+  .xinitrc
   .Xauthority
   .Xclients
   .xsession-errors
   .xsession-errors.old
-	.Xresources
-	.moc
-	.moonchild\ productions
-	.i3
-	.lesshst
+  .Xresources
+  .moc
+  .moonchild\ productions
+  .i3
+  .lesshst
 )
 
 BACKUP="$HOME/dotfiles_backup"
 
-for file in "${FILES[@]}"
-do
+for file in "${FILES[@]}"; do
   if [ -f "$file" ] || [ -d "$file" ]; then
     mkdir -p "$BACKUP/$(dirname "$file")"
     echo "Backup $file"
