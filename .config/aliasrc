@@ -279,6 +279,7 @@ alias gcam='git commit -a -m'
 alias gcm='git commit -m'
 
 alias gswc='git switch -c'
+alias gwip='git wip'
 alias gco='git checkout'
 alias gsw='git switch'
 
