@@ -1,6 +1,7 @@
 #!/bin/bash
 
 WIFI_ADAPTOR="wlp58s0"
+WALLPAPER="$HOME/pics/wallpapers/skill.png"
 
 # config
 alias config='git --git-dir "$HOME/.config/dotfiles.git" --work-tree "$HOME"'
@@ -32,9 +33,11 @@ alias tv="xrandr --output HDMI-2 --mode 1920x1080 --right-of eDP-1"
 
 mm() {
   HDMI_BAR=$(pgrep --full HDMI)
+  xrandr --output HDMI-2 --mode 1920x1080 --left-of eDP-1 &> /dev/null
   [[ "" !=  "$HDMI_BAR" ]] && kill $HDMI_BAR
-  xrandr --output HDMI-2 --mode 1920x1080 --left-of eDP-1
-  polybar -r HDMI </dev/null &>/dev/null &
+  polybar --config="$XDG_CONFIG_HOME/polybar/config.ini"  -r HDMI &> /dev/null &
+  nitrogen --head=0 --set-zoom-fill "$WALLPAPER" 2> /dev/null
+  nitrogen --head=1 --set-zoom-fill "$WALLPAPER" 2> /dev/null
 }
 
 # npx commands
