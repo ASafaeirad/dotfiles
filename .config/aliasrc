@@ -83,6 +83,7 @@ alias findstr='grep -rnw'
 alias afind='ack -il'
 alias path='echo -e ${PATH//:/\\n} | sort'
 alias history=omz_history
+alias historyrc='vim ~/.local/share/history'
 alias cpwd='pwd | xsel -i --clipboard'
 alias clocksync='sudo ntpdate 1.ro.pool.ntp.org'
 
@@ -293,10 +294,9 @@ alias pushu='git push --set-upstream origin $(git_current_branch)'
 
 alias gcount='git shortlog -sn'
 alias gl='git log --oneline --decorate'
-alias glog='git log --oneline --color --decorate --graph --all | emojify | less -r'
-alias gloga="git log --graph --color --pretty=format:'%C(yellow)%h%Creset %C(bold blue)%an%C(reset) - %s - %Creset %C(yellow)%d%Creset %C(green)(%cr)%Creset' --abbrev-commit --date=relative --all | emojify | less -r"
+alias glog='git lg | emojify | less -r'
+alias gloga="git lg --pretty=format:'%C(yellow)%h%Creset %C(bold blue)%an%C(reset) - %s - %Creset %C(yellow)%d%Creset %C(green)(%cr)%Creset' --abbrev-commit --date=relative | emojify | less -r"
 alias gls='git log --stat'
-alias glsg='git log --graph --decorate --all'
 
 alias gm='git merge'
 alias gma='git merge --abort'
