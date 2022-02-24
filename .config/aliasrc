@@ -1,7 +1,8 @@
 #!/bin/bash
 
 WIFI_ADAPTOR="wlp58s0"
-WALLPAPER="$HOME/pics/wallpapers/skill.png"
+WALLPAPER="$HOME/pics/wallpapers/gray.png"
+BG="#3C3F4A"
 
 # config
 alias config='git --git-dir "$HOME/.config/dotfiles.git" --work-tree "$HOME"'
@@ -32,12 +33,9 @@ alias swclicks='xmodmap -e "pointer = 3 2 1"'
 alias tv="xrandr --output HDMI-2 --mode 1920x1080 --right-of eDP-1"
 
 mm() {
-  HDMI_BAR=$(pgrep --full HDMI)
   xrandr --output HDMI-2 --mode 1920x1080 --left-of eDP-1 &> /dev/null
-  [[ "" !=  "$HDMI_BAR" ]] && kill $HDMI_BAR
-  polybar --config="$XDG_CONFIG_HOME/polybar/config.ini"  -r HDMI &> /dev/null &
-  nitrogen --head=0 --set-zoom-fill "$WALLPAPER" 2> /dev/null
-  nitrogen --head=1 --set-zoom-fill "$WALLPAPER" 2> /dev/null
+  nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG" 2> /dev/null
+  nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG" 2> /dev/null
 }
 
 # npx commands
@@ -265,7 +263,10 @@ alias d='ALL_PROXY=socks5://localhost:6000 docker'
 ## git
 alias clone='git clone'
 alias gs='git status -s'
-# alias gss='git status'
+alias gss='git status'
+alias gsl='git stash list'
+
+alias gfp='git fetch --prune'
 
 # alias ga='git add'
 alias gaa='git add . && git status -s'
