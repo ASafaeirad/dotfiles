@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mocp -O MOCDir="$XDG_CONFIG_HOME"/moc
