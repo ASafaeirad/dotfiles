@@ -13,7 +13,7 @@ xss-lock sklock &
 nitrogen --restore &
 nm-applet &
 xfce4-power-manager &
-clipit &
+copyq &
 redshift -l '36.850282:54.3680226' &
 setxkbmap -layout us,ir -option grp:shifts_toggle &
 picom -b
