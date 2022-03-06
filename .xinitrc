@@ -13,4 +13,5 @@ fi
 
 . $HOME/.config/X11/Xprofile
 
-ssh-agent i3
+# ssh-agent awesome --shmlog-size=26214400
+awesome
