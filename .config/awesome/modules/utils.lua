@@ -1,4 +1,6 @@
 local awful = require("awful")
+local debug = require("gears.debug")
+local naughty = require("naughty")
 
 local sutils = {}
 function sutils.focus_next()
@@ -37,6 +39,26 @@ function sutils.dec_width()
     awful.tag.incmwfact(-0.05)
 end
 
+function sutils.inc_client_width(c)
+    c:relative_move(0, 0, 20, 0)
+end
+
+function sutils.dec_client_width(c)
+    c:relative_move(0, 0, -20, 0)
+end
+
+function sutils.inc_client_height(c)
+    c:relative_move(0, 0, 0, 20)
+end
+
+function sutils.dec_client_height(c)
+    c:relative_move(0, 0, 0, -20)
+end
+
+function sutils.center(c)
+    awful.placement.centered(c)
+end
+
 function sutils.minimize(c)
     c.minimized = true
 end
@@ -46,7 +68,7 @@ function sutils.inc_master_width()
 end
 
 function sutils.dec_master_width()
-    awful.tag.incnmaster(1, nil, true)
+    awful.tag.incnmaster(-1, nil, true)
 end
 
 function sutils.kill(c)
@@ -102,6 +124,39 @@ end
 function sutils.toggle_fullscreen(c)
     c.fullscreen = not c.fullscreen
     c:raise()
+end
+
+function sutils.is_empty(t)
+    for _, c in t:clients() do
+        return false
+    end
+    return true
+end
+
+function sutils.toggle_fly()
+    for _, c in ipairs(client.get()) do
+        local is_fly = awful.rules.match(c, {
+            instance = "flyterm"
+        })
+
+        if not is_fly then
+            goto continue
+        end
+
+        c:move_to_tag(awful.tag.selected())
+        if c.minimized then
+            c.minimized = false
+            client.focus = c
+            c:raise()
+        else
+            c.minimized = true
+        end
+        ::continue::
+    end
+end
+
+function sutils.set_wallpaper(s)
+    awful.spawn('nitrogen --restore', false)
 end
 
 return sutils
