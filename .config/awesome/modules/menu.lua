@@ -55,7 +55,7 @@ function initMenu(s)
     s.padding = {
         top = dpi(4)
     }
-    awful.tag({"sh", "web", "dev", "file", "music", "video", "slack", "discord", "tel"}, s, awful.layout.suit.tile)
+    awful.tag({"S", "W", "C", "F", "M", "V", "S", "D", "T"}, s, awful.layout.suit.tile)
 
     s.mypromptbox = awful.widget.prompt()
 

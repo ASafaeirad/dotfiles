@@ -143,14 +143,20 @@ function sutils.toggle_fly()
             goto continue
         end
 
-        c:move_to_tag(awful.tag.selected())
-        if c.minimized then
+
+        local t = awful.screen.focused().selected_tag.index
+        local fly_t = c.first_tag.index
+
+        if fly_t ~= t or c.minimized then
             c.minimized = false
             client.focus = c
             c:raise()
         else
             c.minimized = true
         end
+
+        c:move_to_tag(awful.tag.selected())
+        c.ontop = true
         ::continue::
     end
 end
