@@ -1,48 +1,18 @@
 local awful = require('awful')
 local gears = require('gears')
 local wibox = require('wibox')
-local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
-local sutils = loadrc('utils')
-
+local utils = require('modules.utils')
 require("awful.hotkeys_popup.keys")
 
-local my_awesome_menu = {
-  {"hotkeys", function() hotkeys_popup.show_help(nil, awful.screen.focused()) end},
-  {"manual", terminal .. " -e man awesome"}, {"edit config", editor_cmd .. " " .. awesome.conffile},
-  {"restart", awesome.restart}, {"quit", function() awesome.quit() end}
-}
+local module = {}
 
-menubar.utils.terminal = terminal
-
--- {{{ Wibar
-
--- Create a wibox for each screen and add it
-local taglist_buttons = gears.table.join(awful.button({}, 1, function(t)
-    t:view_only()
-end), awful.button({}, 3, awful.tag.viewtoggle), awful.button({}, 4, function(t)
-    awful.tag.viewnext(t.screen)
-end), awful.button({}, 5, function(t)
-    awful.tag.viewprev(t.screen)
-end))
-
-local tasklist_buttons = gears.table.join(awful.button({}, 1, function(c)
-    if c == client.focus then
-        c.minimized = true
-    else
-        c:emit_signal("request::activate", "tasklist", {
-            raise = true
-        })
-    end
-end), awful.button({}, 3, function()
-    awful.menu.client_list({
-        theme = {
-            width = 250
-        }
-    })
-end), awful.button({}, 4, focus_next), awful.button({}, 5, focus_prev))
+local taglist_buttons = gears.table.join(
+    awful.button({}, 1, function(t) t:view_only() end),
+    awful.button({}, 3, awful.tag.viewtoggle)
+)
 
 local date = wibox.widget.textclock(" %a %b %d ")
 local time = wibox.widget.textclock("%H:%M", 10)
@@ -50,12 +20,12 @@ local time = wibox.widget.textclock("%H:%M", 10)
 local tray = wibox.widget.systray()
 tray:set_base_size(12)
 
-function initMenu(s)
-    sutils.set_wallpaper(s)
+function module.init(s)
+    utils.set_wallpaper(s)
     s.padding = {
         top = dpi(4)
     }
-    awful.tag({"S", "W", "C", "F", "M", "V", "S", "D", "T"}, s, awful.layout.suit.tile)
+    awful.tag(tags, s, awful.layout.suit.tile)
 
     s.mypromptbox = awful.widget.prompt()
 
@@ -82,12 +52,6 @@ function initMenu(s)
             id = 'background_role',
             widget = wibox.container.background
         }
-    }
-
-    s.mytasklist = awful.widget.tasklist {
-        screen = s,
-        filter = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
     }
 
     s.mywibox = awful.wibar({
@@ -137,3 +101,4 @@ function initMenu(s)
     }
 end
 
+return module
