@@ -1,19 +1,21 @@
 local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
+local naughty = require("naughty")
 local dpi = xresources.apply_dpi
 local xrdb = xresources.get_current_theme()
 local gfs = require("gears.filesystem")
+local utils = require("modules.utils")
 local themes_path = gfs.get_themes_dir()
+local nconf = naughty.config
 
--- inherit default theme
 local theme = dofile(themes_path.."default/theme.lua")
--- load vector assets' generators for this theme
 
 theme.font          = "sans 8"
 theme.accent        = xrdb.color11
 theme.error         = xrdb.color9
 theme.fg            = xrdb.foreground
 theme.bg            = xrdb.background
+theme.bg1            = "#323643"
 theme.mute          = xrdb.color8
 
 theme.bg_normal     = theme.bg
@@ -42,32 +44,31 @@ theme.menu_submenu_icon = themes_path.."default/submenu.png"
 theme.menu_height = dpi(16)
 theme.menu_width  = dpi(100)
 
--- You can add as many variables as
--- you wish and access them by using
--- beautiful.variable in your rc.lua
---theme.bg_widget = "#cc0000"
+-- nconf.defaults.border_width = 0
+-- nconf.defaults.margin = 16
+-- nconf.defaults.shape = helpers.rrect(6)
+-- nconf.defaults.text = "Boo!"
+-- nconf.defaults.timeout = 3
+-- nconf.presets.critical.bg = "#FE634E"
+-- nconf.presets.critical.fg = "#fefefa"
+-- nconf.presets.low.bg = "#1771F1"
+nconf.padding = 20
+nconf.spacing = 8
+nconf.presets.normal.bg = theme.bg1
+-- nconf.defaults.icon_size = 64
+-- theme.notification_font = "Inter 12.5"
+
 
 -- Recolor Layout icons:
 theme = theme_assets.recolor_layout(theme, theme.fg_normal)
 
 -- Recolor titlebar icons:
 --
-local function darker(color_value, darker_n)
-    local result = "#"
-    for s in color_value:gmatch("[a-fA-F0-9][a-fA-F0-9]") do
-        local bg_numeric_value = tonumber("0x"..s) - darker_n
-        if bg_numeric_value < 0 then bg_numeric_value = 0 end
-        if bg_numeric_value > 255 then bg_numeric_value = 255 end
-        result = result .. string.format("%2.2x", bg_numeric_value)
-    end
-    return result
-end
-
 theme = theme_assets.recolor_titlebar(
     theme, theme.fg_normal, "normal"
 )
 theme = theme_assets.recolor_titlebar(
-    theme, darker(theme.fg_normal, -60), "normal", "hover"
+    theme, utils.darker(theme.fg_normal, -60), "normal", "hover"
 )
 theme = theme_assets.recolor_titlebar(
     theme, xrdb.color1, "normal", "press"
@@ -76,7 +77,7 @@ theme = theme_assets.recolor_titlebar(
     theme, theme.fg_focus, "focus"
 )
 theme = theme_assets.recolor_titlebar(
-    theme, darker(theme.fg_focus, -60), "focus", "hover"
+    theme, utils.darker(theme.fg_focus, -60), "focus", "hover"
 )
 theme = theme_assets.recolor_titlebar(
     theme, xrdb.color1, "focus", "press"
@@ -85,11 +86,6 @@ theme = theme_assets.recolor_titlebar(
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = nil
-
--- Generate Awesome icon:
-theme.awesome_icon = theme_assets.awesome_icon(
-    theme.menu_height, theme.bg_focus, theme.fg_focus
-)
 
 -- Generate taglist squares:
 local taglist_square_size = dpi(0)

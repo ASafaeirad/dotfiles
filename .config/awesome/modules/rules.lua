@@ -1,5 +1,5 @@
 local awful = require("awful")
-local keys = loadrc("keys")
+local keys = require("modules.keys")
 
 local rules = {{
     rule = {},
@@ -26,14 +26,11 @@ local rules = {{
 }, {
     rule = { instance = "flyterm" },
     properties = { floating = true },
-    callback = function(c)
-        c:geometry({ width = 600, height = 400 })
-    end
-}, {
-    rule = { class = "Brave-browser" }, properties = { tag = "web" }
-}, {
-    rule = { class = "Code" }, properties = { tag = "dev" }
-}}
--- }}}
+    callback = function(c) c:geometry({ width = 600, height = 400 }) end
+},
+   { rule = { class = "Brave-browser" }, properties = { tag = tags[2] } },
+   { rule = { class = "Code" }, properties = { tag = tags[3] } },
+   { rule = { class = "TelegramDesktop" }, properties = { tag = tags[9] } }
+}
 
 return rules

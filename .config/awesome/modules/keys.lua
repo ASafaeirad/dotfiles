@@ -1,30 +1,30 @@
-local awful = require("awful")
-local gears = require("gears")
-local sutils = loadrc("utils")
+local awful   = require("awful")
+local gears   = require("gears")
+local naughty = require("naughty")
+local utils   = require("modules.utils")
 
 local keys = {}
 local modkey = "Mod4"
 
 keys.global_keys = gears.table.join(
-    awful.key({modkey}, "Left",      awful.tag.viewprev),
-    awful.key({modkey}, "Right",     awful.tag.viewnext),
     awful.key({modkey}, "BackSpace", awful.tag.history.restore),
     awful.key({modkey}, "u",         awful.client.urgent.jumpto),
-    awful.key({modkey}, "Tab",       sutils.go_back),
+    awful.key({modkey}, "Tab",       utils.go_back),
+    awful.key({ modkey, "Shift" }, ";", function () naughty.notify({ title = "Test Title", text = "Test Notification", }) end),
 
-    awful.key({modkey}, "l",         sutils.focus_next),
-    awful.key({modkey}, "h",         sutils.focus_prev),
-    awful.key({modkey, "Shift", "Shift"}, "j", sutils.screen_next),
-    awful.key({modkey, "Shift", "Shift"}, "k", sutils.screen_prev),
+    awful.key({modkey}, "l",         utils.focus_next),
+    awful.key({modkey}, "h",         utils.focus_prev),
+    awful.key({modkey, "Shift", "Shift"}, "j", utils.screen_next),
+    awful.key({modkey, "Shift", "Shift"}, "k", utils.screen_prev),
 
-    awful.key({modkey, "Shift"}, "l", sutils.inc_width),
-    awful.key({modkey, "Shift"}, "h", sutils.dec_width),
-    awful.key({modkey, "Control"}, "l", sutils.swap_next),
-    awful.key({modkey, "Control"}, "h", sutils.swap_prev),
+    awful.key({modkey, "Shift"}, "l", utils.inc_width),
+    awful.key({modkey, "Shift"}, "h", utils.dec_width),
+    awful.key({modkey, "Control"}, "l", utils.swap_next),
+    awful.key({modkey, "Control"}, "h", utils.swap_prev),
 
     awful.key({modkey, "Control"}, "r", awesome.restart),
 
-    awful.key({modkey}, "t", sutils.toggle_fly),
+    awful.key({modkey}, "t", utils.toggle_fly),
     awful.key({modkey, "Shift"}, "t",     function() awful.spawn("alacritty --class \"flyterm\" -e tmux attach") end),
 
     awful.key({},       "Print",          function() awful.spawn("flameshot full -c") end),
@@ -64,7 +64,11 @@ for i = 1, 9 do
     awful.key({modkey, "Shift"}, "#" .. i + 9, function()
         if client.focus then
             local tag = client.focus.screen.tags[i]
-            if tag then client.focus:move_to_tag(tag) end
+            if tag then
+                client.focus:move_to_tag(tag)
+                tag:view_only()
+            end
+
         end
     end),
 
@@ -78,20 +82,19 @@ end
 
 
 keys.client_keys = gears.table.join(
-    awful.key({modkey},        "space",      awful.client.floating.toggle),
-    awful.key({modkey},            "f",      sutils.toggle_fullscreen),
-    awful.key({modkey, "Shift"},   "q",      sutils.kill),
-    awful.key({modkey, "Control"}, "Return", sutils.move_master),
-    awful.key({modkey},            "m",      sutils.move_screen),
-    -- awful.key({modkey},            "t",      sutils.toggle_keep_top),
-    awful.key({modkey},            "n",      sutils.minimize),
-    awful.key({modkey, "Shift"},   "n",      sutils.restore),
-    awful.key({modkey},            "o",      sutils.toggle_maximize),
-    awful.key({modkey, "Ctrl", "Shift"},            "l",      sutils.inc_client_width),
-    awful.key({modkey, "Ctrl", "Shift"},            "h",      sutils.dec_client_width),
-    awful.key({modkey, "Ctrl", "Shift"},            "j",      sutils.inc_client_height),
-    awful.key({modkey, "Ctrl", "Shift"},            "k",      sutils.dec_client_height),
-    awful.key({modkey, "Shift"}, "c",      sutils.center)
+    awful.key({modkey},        "space",       awful.client.floating.toggle),
+    awful.key({modkey},            "f",       utils.toggle_fullscreen),
+    awful.key({modkey, "Shift"},   "q",       utils.kill),
+    awful.key({modkey, "Control"}, "Return",  utils.move_master),
+    awful.key({modkey},            "m",       utils.move_screen),
+    awful.key({modkey},            "n",       utils.minimize),
+    awful.key({modkey, "Shift"},   "n",       utils.restore),
+    awful.key({modkey},            "o",       utils.toggle_maximize),
+    awful.key({modkey, "Ctrl", "Shift"}, "l", utils.inc_client_width),
+    awful.key({modkey, "Ctrl", "Shift"}, "h", utils.dec_client_width),
+    awful.key({modkey, "Ctrl", "Shift"}, "j", utils.inc_client_height),
+    awful.key({modkey, "Ctrl", "Shift"}, "k", utils.dec_client_height),
+    awful.key({modkey, "Shift"}, "c",         utils.center)
 )
 
 keys.client_buttons = gears.table.join(
