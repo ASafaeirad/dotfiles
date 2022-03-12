@@ -98,16 +98,12 @@ end
 
 function module.go_back()
     awful.client.focus.history.previous()
-    if client.focus then
-        client.focus:raise()
-    end
+    if client.focus then client.focus:raise() end
 end
 
 function module.restore()
-    local tag = awful.tag.selected()
-    for i=1, #tag:clients() do
-        local c = tag:clients()[i]
-        naughty.notify({ title = "Test Title", text = tostring(c.name), })
+    local c = awful.client.restore(s)
+    if c then
         c.minimized=false
         c:emit_signal("request::activate", "key.unminimize", { raise = true })
     end
