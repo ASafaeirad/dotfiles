@@ -4,6 +4,7 @@ local wibox = require('wibox')
 local hotkeys_popup = require("awful.hotkeys_popup")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
+local battery_widget = require("battery-widget")
 local utils = require('modules.utils')
 require("awful.hotkeys_popup.keys")
 
@@ -16,6 +17,9 @@ local taglist_buttons = gears.table.join(
 
 local date = wibox.widget.textclock(" %a %b %d ")
 local time = wibox.widget.textclock("%H:%M", 10)
+local batt = battery_widget { 
+
+}
 
 local tray = wibox.widget.systray()
 tray:set_base_size(12)
@@ -82,6 +86,7 @@ function module.init(s)
                     layout = wibox.layout.fixed.horizontal,
                     spacing = dpi(8),
                     awful.widget.keyboardlayout(),
+                    batt,
                     date,
                     {
                         tray,
