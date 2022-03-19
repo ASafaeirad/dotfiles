@@ -387,9 +387,3 @@ compress() {
   ffmpeg -i "$1" -codec:v libx264 -preset medium -crf 23 "$1.mp4"
 }
 
-createWireguard() {
-	ssh -t ubuntu@$1 "curl -O https://raw.githubusercontent.com/angristan/wireguard-install/master/wireguard-install.sh; chmod +x wireguard-install.sh; sudo ./wireguard-install.sh"
-  scp ubuntu@$1:/home/ubuntu/wg0-client-iran.conf ~/desktop/iran.conf
-  nmcli connection import type wireguard file ~/desktop/iran.conf
-}
-
