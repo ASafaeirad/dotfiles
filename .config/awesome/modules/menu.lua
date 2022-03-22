@@ -6,9 +6,21 @@ local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
 local battery_widget = require("battery-widget")
 local utils = require('modules.utils')
+local colors = require('modules.colors')
 require("awful.hotkeys_popup.keys")
 
 local module = {}
+
+local function fa_icon(code, color)
+  color = color or ""
+  return wibox.widget{
+    font = "Font Awesome 6 Free 8",
+    markup = ' <span>' .. code .. '</span> ',
+    align  = 'center',
+    valign = 'center',
+    widget = wibox.widget.textbox
+  }
+end
 
 local taglist_buttons = gears.table.join(
     awful.button({}, 1, function(t) t:view_only() end),
@@ -17,8 +29,23 @@ local taglist_buttons = gears.table.join(
 
 local date = wibox.widget.textclock(" %a %b %d ")
 local time = wibox.widget.textclock("%H:%M", 10)
-local batt = battery_widget { 
-
+local batt = battery_widget {
+  ac_prefix = "",
+  battery_prefix = {
+    { 10, "" },
+    { 25, "" },
+    { 50, "" },
+    { 75, "" },
+    { 99, "" }
+  },
+  percent_colors =  {
+    { 20,  colors.error  },
+    { 99,  colors.fg     },
+    { 999, colors.accent },
+  },
+  alert_threshold = 10,
+  alert_title = "Dead",
+  alert_text = "${AC_BAT}${time_est}"
 }
 
 local tray = wibox.widget.systray()
@@ -88,6 +115,7 @@ function module.init(s)
                     awful.widget.keyboardlayout(),
                     batt,
                     date,
+                    time,
                     {
                         tray,
                         valign = "center",
@@ -96,12 +124,12 @@ function module.init(s)
                     }
                 }
             },
-            {
-                time,
-                valign = "center",
-                halign = "center",
-                layout = wibox.container.place
-            }
+            -- {
+            --     time,
+            --     valign = "center",
+            --     halign = "center",
+            --     layout = wibox.container.place
+            -- }
         }
     }
 end

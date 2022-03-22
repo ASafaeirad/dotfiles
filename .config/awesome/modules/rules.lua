@@ -14,7 +14,7 @@ local rules = {{
 }, {
     rule_any = {
         instance = {"copyq", "pinentry"},
-        class = {"Arandr", "Blueman-manager", "Gpick", "Kruler", "MessageWin", "Sxiv", "Tor Browser", "Wpa_gui", "veromix", "xtightvncviewer"},
+        class = {"Arandr", "Blueman-manager", "Gpick", "Kruler", "MessageWin", "Sxiv", "Tor Browser", "Wpa_gui", "veromix", "xtightvncviewer", "persepolis" },
         name = {"Event Tester"},
         role = {"pop-up"}
     },
