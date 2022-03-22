@@ -2,21 +2,17 @@ local theme_assets = require("beautiful.theme_assets")
 local xresources = require("beautiful.xresources")
 local naughty = require("naughty")
 local dpi = xresources.apply_dpi
-local xrdb = xresources.get_current_theme()
 local gfs = require("gears.filesystem")
 local utils = require("modules.utils")
+local colors = require("modules.colors")
 local themes_path = gfs.get_themes_dir()
 local nconf = naughty.config
 
 local theme = dofile(themes_path.."default/theme.lua")
 
 theme.font          = "sans 8"
-theme.accent        = xrdb.color11
-theme.error         = xrdb.color9
-theme.fg            = xrdb.foreground
-theme.bg            = xrdb.background
-theme.bg1            = "#323643"
-theme.mute          = xrdb.color8
+theme.fg            = colors.fg
+theme.bg            = colors.bg
 
 theme.bg_normal     = theme.bg
 theme.bg_focus      = theme.bg
@@ -25,15 +21,15 @@ theme.bg_minimize   = theme.bg
 theme.bg_systray    = theme.bg
 
 theme.fg_normal     = theme.fg
-theme.fg_focus      = theme.accent
-theme.fg_urgent     = theme.error
-theme.fg_minimize   = theme.mute
-theme.taglist_fg_empty = theme.mute
+theme.fg_focus      = colors.accent
+theme.fg_urgent     = colors.error
+theme.fg_minimize   = colors.mute
+theme.taglist_fg_empty = colors.mute
 
 theme.border_width  = dpi(2)
-theme.border_normal = theme.accent
-theme.border_focus  = theme.accent
-theme.border_marked = xrdb.color10
+theme.border_normal = colors.accent
+theme.border_focus  = colors.accent
+theme.border_marked = "#FF0000"
 
 theme.useless_gap   = dpi(2)
 theme.systray_icon_spacing = dpi(6)
@@ -54,7 +50,7 @@ theme.menu_width  = dpi(100)
 -- nconf.presets.low.bg = "#1771F1"
 nconf.padding = 20
 nconf.spacing = 8
-nconf.presets.normal.bg = theme.bg1
+nconf.presets.normal.bg = colors.bg1
 -- nconf.defaults.icon_size = 64
 -- theme.notification_font = "Inter 12.5"
 
@@ -71,7 +67,7 @@ theme = theme_assets.recolor_titlebar(
     theme, utils.darker(theme.fg_normal, -60), "normal", "hover"
 )
 theme = theme_assets.recolor_titlebar(
-    theme, xrdb.color1, "normal", "press"
+    theme, colors.x, "normal", "press"
 )
 theme = theme_assets.recolor_titlebar(
     theme, theme.fg_focus, "focus"
@@ -80,7 +76,7 @@ theme = theme_assets.recolor_titlebar(
     theme, utils.darker(theme.fg_focus, -60), "focus", "hover"
 )
 theme = theme_assets.recolor_titlebar(
-    theme, xrdb.color1, "focus", "press"
+    theme, colors.x, "focus", "press"
 )
 
 -- Define the icon theme for application icons. If not set then the icons

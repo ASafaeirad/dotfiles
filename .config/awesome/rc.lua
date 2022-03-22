@@ -14,8 +14,6 @@ local keys = require("modules.keys")
 local rules = require("modules.rules")
 local menu = require("modules.menu")
 
-
-
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 screen.connect_signal("property::geometry", utils.set_wallpaper)
 

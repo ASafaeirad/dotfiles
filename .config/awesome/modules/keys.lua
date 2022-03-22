@@ -84,12 +84,12 @@ end
 keys.client_keys = gears.table.join(
     awful.key({modkey},        "space",       awful.client.floating.toggle),
     awful.key({modkey},            "f",       utils.toggle_fullscreen),
+    awful.key({modkey, "Shift"},   "f",       utils.toggle_maximize),
     awful.key({modkey, "Shift"},   "q",       utils.kill),
     awful.key({modkey, "Control"}, "Return",  utils.move_master),
     awful.key({modkey},            "m",       utils.move_screen),
     awful.key({modkey},            "n",       utils.minimize),
     awful.key({modkey, "Shift"},   "n",       utils.restore),
-    awful.key({modkey},            "o",       utils.toggle_maximize),
     awful.key({modkey, "Ctrl", "Shift"}, "l", utils.inc_client_width),
     awful.key({modkey, "Ctrl", "Shift"}, "h", utils.dec_client_width),
     awful.key({modkey, "Ctrl", "Shift"}, "j", utils.inc_client_height),
