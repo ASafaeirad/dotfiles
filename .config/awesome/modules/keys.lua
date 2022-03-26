@@ -2,6 +2,7 @@ local awful   = require("awful")
 local gears   = require("gears")
 local naughty = require("naughty")
 local utils   = require("modules.utils")
+local volume  = require('volume-widget.volume-widget')
 
 local keys = {}
 local modkey = "Mod4"
@@ -11,6 +12,8 @@ keys.global_keys = gears.table.join(
     awful.key({modkey}, "u",         awful.client.urgent.jumpto),
     awful.key({modkey}, "Tab",       utils.go_back),
     awful.key({ modkey, "Shift" }, ";", function () naughty.notify({ title = "Test Title", text = "Test Notification", }) end),
+    awful.key({}, "XF86AudioRaiseVolume", function() volume:down() end),
+    awful.key({}, "XF86AudioLowerVolume", function() volume:up() end),
 
     awful.key({modkey}, "l",         utils.focus_next),
     awful.key({modkey}, "h",         utils.focus_prev),
@@ -88,6 +91,7 @@ keys.client_keys = gears.table.join(
     awful.key({modkey, "Shift"},   "q",       utils.kill),
     awful.key({modkey, "Control"}, "Return",  utils.move_master),
     awful.key({modkey},            "m",       utils.move_screen),
+    awful.key({modkey, "Shift"},   "m",       function () awful.screen.focus_relative(1) end),
     awful.key({modkey},            "n",       utils.minimize),
     awful.key({modkey, "Shift"},   "n",       utils.restore),
     awful.key({modkey, "Ctrl", "Shift"}, "l", utils.inc_client_width),
