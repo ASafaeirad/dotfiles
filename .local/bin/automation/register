@@ -1,0 +1,80 @@
+#!/bin/bash
+
+RND=$(openssl rand -hex 3)
+
+function skey() {
+	xdotool key --delay 200 $@
+}
+
+function stype() {
+	xdotool type $@
+}
+
+function register() {
+	skey Escape f p f d
+	stype "pokev$RND@pantabi.com"
+	skey Enter
+	sleep 1
+	./scripts/ssh register
+	skey "ctrl+l" "ctrl+v" Enter
+	sleep 2
+	skey f f
+	stype "Aa1234567."
+	skey Enter
+}
+
+function personal_info() {
+	skey f d
+	stype Alireza
+	skey Tab
+	stype Safaeirad
+	skey Tab
+	stype Iran
+	skey Enter Tab Tab
+	stype Tehran
+	skey Tab Tab Tab Enter
+}
+
+function phone() {
+	skey f j
+	stype "9010827200"
+	skey Enter
+	sleep 2
+	./scripts/ssh code
+	skey "ctrl+v"
+}
+
+function identity() {
+	skey f k
+}
+
+function select_first() {
+	skey Down Down Enter Tab
+}
+
+function private_inv() {
+	skey f f f d
+	select_first
+	select_first
+	select_first
+	select_first
+	select_first
+	select_first
+}
+
+pushd $HOME/devs/eg/frontend/ || exit 1
+
+sleep 1
+register
+sleep 2.5
+personal_info
+sleep 2
+phone
+sleep 2
+identity
+sleep 2
+private_inv
+
+popd || exit 1
+
+unalias sendkey

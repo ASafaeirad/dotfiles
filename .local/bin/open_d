@@ -1,0 +1,4 @@
+#!/bin/bash
+
+xdg-open "$@" </dev/null &>/dev/null &
+

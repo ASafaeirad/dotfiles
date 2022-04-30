@@ -330,7 +330,6 @@ alias count-line='git total --numstat -- . ":(exclude)yarn.lock"'
 alias gdc='gd --cached'
 
 ## tools
-alias pscale="docker run -e HOME=/tmp -v $HOME/.config/planetscale:/tmp/.config/planetscale --user $(id -u):$(id -g) --rm -it --network host planetscale/pscale:latest"
 alias sskey="screenkey -t 2 -s small --vis-shift &>/dev/null &"
 alias genpass="openssl rand -base64 32"
 
@@ -377,10 +376,6 @@ batt() {
   capacity=$(head /sys/class/power_supply/$BAT/charge_full)
   design=$(head /sys/class/power_supply/$BAT/charge_full_design)
   bc <<<"scale=2; $capacity / $design"
-}
-
-open_d() {
-	open "$@" </dev/null &>/dev/null &
 }
 
 compress() {
