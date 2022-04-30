@@ -1,0 +1,8 @@
+#!/bin/bash
+
+CONFIG_HOME=$HOME/.config/planetscale
+
+[[ -d $CONFIG_HOME ]] || mkdir -p "$CONFIG_HOME"
+
+
+docker run -e HOME=/tmp -v "$CONFIG_HOME":/tmp/.config/planetscale --user $(id -u):$(id -g) --rm -it -p 3306:3306/tcp planetscale/pscale:latest "$@"

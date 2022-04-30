@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]
+  then
+    echo "Usage: newscript [-d] filename"
+    echo "-d     deletes the file"
+    exit 0
+fi
+
+SCRIPT_PATH="$HOME/.local/bin/menus"
+
+[ ! -d "$SCRIPT_PATH" ] && mkdir -p "$SCRIPT_PATH"
+
+if [ "$1" = "-d" ]; then
+  [ -f "$SCRIPT_PATH/$2" ] && rm "$SCRIPT_PATH/$2"
+  exit 0
+fi
+
+MENU="$SCRIPT_PATH/$1"
+
+if [ ! -f "$MENU" ]; then
+  echo "#!/bin/bash" > "$MENU"
+  chmod +x "$MENU"
+fi
+
+$EDITOR "$MENU"
+

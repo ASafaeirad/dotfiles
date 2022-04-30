@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]
+  then
+    echo "Usage: newscript [-d] filename"
+    echo "-d     deletes the file"
+    exit 0
+fi
+
+AUTO_PATH="$HOME/.local/bin/automation"
+
+[ ! -d "$AUTO_PATH" ] && mkdir -p "$AUTO_PATH"
+
+if [ "$1" = "-d" ]; then
+  [ -f "$AUTO_PATH/$2" ] && rm "$AUTO_PATH/$2"
+  exit 0
+fi
+
+AUTO="$AUTO_PATH/$1"
+
+if [ ! -f "$AUTO" ]; then
+  echo "#!/bin/bash" > "$AUTO"
+  chmod +x "$AUTO"
+fi
+
+$EDITOR "$AUTO"
+
