@@ -15,8 +15,6 @@
 	diff = diff --ignore-space-at-eol -b -w --ignore-blank-lines
 
 	#shortcuts
-	co = checkout
-	cob = checkout -b
 	s = status --short
 	ss  = status
 	b = branch -v
@@ -26,7 +24,6 @@
 	addnw = "!sh -c 'git diff -U0 -w --no-color \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero -'"
 
 	# rebase commands
-	cont = rebase --continue
 	conf = "!git s | grep ^U"
 
   # logs
@@ -61,17 +58,9 @@
 	# current branch
 	cbr = rev-parse --abbrev-ref HEAD
 
-	# submodule shortcuts
-	si = submodule init
-	su = submodule update
-	sub = "!git submodule sync && git submodule update"
-
 	# show number of commits per contributer, sorted
 	count = shortlog -sn
-
 	undo = reset --soft HEAD~1
-	amend = commit -a --amend
-
 	cleanup = "!git remote prune origin && git gc && git clean -df && git stash clear"
 
 	# rebase the current branch with changes from upstream remote
@@ -112,9 +101,7 @@
 	# remove grep - Remove found files that are NOT under version control
 	rg = "!sh -c 'git ls-files --others --exclude-standard | grep $1 | xargs rm' -"
 
-	# Kaleidoscope commands
 	remotes = remote -v
-
 	# check out a local copy of a PR. https://gist.github.com/gnarf/5406589
 	pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
 	pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
@@ -185,8 +172,6 @@
 	gpgsign = true
 [gpg]
 	program = gpg2
-# [http]
-#   proxy = socks5h://127.0.0.1:6000
 [pull]
 	rebase = true
 [tag]
