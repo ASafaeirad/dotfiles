@@ -7,6 +7,7 @@
 .config/*
 !.config/ack/
 !.config/aliasrc
+!.config/awesome/
 !.config/backup
 !.config/betterlockscreenrc
 !.config/bookmarkrc
@@ -19,6 +20,9 @@
 !.config/docker/
 !.config/doom/
 !.config/dunstrc/
+!.config/emacs
+.config/emacs/*
+!.config/emacs/init.el
 !.config/env
 !.config/flameshot/
 !.config/flashfocus/
