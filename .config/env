@@ -3,8 +3,8 @@
 export EDITOR=/usr/bin/nvim
 export SUDOEDITOR=$EDITOR
 # export VISUAL=/usr/bin/code
-export TERM="termite"
-export TERMINAL="termite -e"
+export TERM="xterm-256color"
+export TERMINAL="alacritty"
 export QT_QPA_PLATFORMTHEME="qt5ct"
 export BROWSER=/usr/bin/brave
 export GPG_TTY=$(tty)
@@ -45,6 +45,7 @@ export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 export RXVT_SOCKET="$XDG_RUNTIME_DIR"/urxvtd
 export GRADLE_USER_HOME="$XDG_DATA_HOME"/gradle
 export VSCODE_PORTABLE="$XDG_DATA_HOME"/vscode
+export SDKMAN_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/sdkman"
 
 # .netrc
 export NETRC="${XDG_DATA_HOME}/netrc"
@@ -57,31 +58,34 @@ alias yarn="yarn --use-yarnrc $XDG_CONFIG_HOME/yarn/config"
 
 function append_path() {
   if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
-    PATH="${PATH:+"$PATH:"}$1"
+    PATH="$PATH:$1"
+  fi
+}
+
+function prepend_path() {
+  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+    PATH="$1:$PATH"
   fi
 }
 
 if [ -d "$XDG_CONFIG_HOME/volta" ]; then
-	export VOLTA_HOME="$XDG_CONFIG_HOME/volta"
-	append_path "$VOLTA_HOME/bin"
+  export VOLTA_HOME="$XDG_CONFIG_HOME/volta"
+  prepend_path "$VOLTA_HOME/bin"
 fi
 
-append_path "$HOME/.local/bin"
-append_path "$HOME/.local/bin/applications"
-append_path "$HOME/.config/emacs/bin"
+prepend_path "$HOME/.local/bin"
+prepend_path "$HOME/.local/bin/menus"
+prepend_path "$HOME/.local/bin/applications"
+prepend_path "$HOME/.emacs.d/bin"
 
 if test "$(yarn --version 2>/dev/null)"; then
-	append_path $(yarn global bin --offline)
+  append_path $(yarn global bin --offline)
 fi
 
-export SDKMAN_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/sdkman"
-if [ -d $SDKMAN_DIR ] && [ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]; then
-	source "$SDKMAN_DIR/bin/sdkman-init.sh"
-fi
 
 if test "$(go version 2>/dev/null)"; then
   export GOPATH=${XDG_DATA_HOME}/go
 fi
 
 eval $(dircolors "$XDG_CONFIG_HOME"/dircolors)
- 
+
