@@ -9,7 +9,6 @@ source ~/.config/nvim/partials/abbrevations.vim
 source ~/.config/nvim/partials/snippets.vim
 source ~/.config/nvim/partials/maps.vim
 
-set path+=**
 set number
 set relativenumber
 

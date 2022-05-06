@@ -37,11 +37,12 @@ colorscheme ayu
 " colorscheme onehalfdark
 
 let NERDTreeShowHidden=1
+
 let NERDTreeQuitOnOpen=1
 
 
 " Open empty vim with NerdTree
  if has("autocmd")
-   autocmd StdinReadPre * let s:std_in=1
-   autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+	autocmd StdinReadPre * let s:std_in=1
+	autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
  endif

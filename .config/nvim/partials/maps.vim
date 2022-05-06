@@ -1,3 +1,4 @@
+nmap <leader>R :source $MYVIMRC<CR>
 vnoremap <C-c> "+y
 inoremap <C-v> <F10><C-r>+<F10>
 nmap <leader>o o<Esc>d$
@@ -9,16 +10,32 @@ vnoremap <leader>c "_c
 vnoremap p "_dP
 map <leader><Bslash> :NERDTreeToggle<CR>
 
-" Move lines via Alt-VIM keys
-nnoremap <A-j> :m .+1<CR>==
-nnoremap <A-k> :m .-2<CR>==
-inoremap <A-j> <Esc>:m .+1<CR>==gi
-inoremap <A-k> <Esc>:m .-2<CR>==gi
-vnoremap <A-j> :m '>+1<CR>gv=gv
-vnoremap <A-k> :m '<-2<CR>gv=gv
+" Remap VIM 0 to first non-blank character
+map 0 ^
 
-nnoremap <A-J> ""Y""Pj
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+nmap <M-k> mz:m-2<cr>`z
+nmap <M-j> mz:m+<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+if has("mac") || has("macunix")
+  nmap <D-j> <M-j>
+  nmap <D-k> <M-k>
+  vmap <D-j> <M-j>
+  vmap <D-k> <M-k>
+endif
+
+nmap <C-b> 
 nnoremap <A-K> ""Y""pk
+nnoremap <A-J> ""Y""Pj
 vnoremap <A-J> y'>p
-vnoremap <A-K> y'>P
+"vnoremap <A-K> y'>P
+
+" let g:VM_maps = {}
+" let g:VM_maps['Find Under']         = '<C-b>'
+" let g:VM_maps['Find Subword Under'] = '<C-b>'
+" let g:VM_maps['Find Word']          = '<C-b>'
+
+" nnoremap <silent> gcc :call NERDComment('n', 'toggle')<CR>
 
