@@ -1,19 +1,21 @@
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export ZSH="$HOME/.config/oh-my-zsh"
+export MANPATH="/usr/local/man:$MANPATH"
 
+# ENABLE_CORRECTION="true"
+CASE_SENSITIVE="false"
+HYPHEN_INSENSITIVE="false"
 ZSH_THEME="skill"
 DISABLE_AUTO_UPDATE="true"
 COMPLETION_WAITING_DOTS="true"
 HIST_STAMPS="yyyy-mm-dd"
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=100000
+SAVEHIST=100000
+
 
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS=true
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -27,7 +29,8 @@ plugins=(
   zsh-autosuggestions
   zsh-completions
   history-substring-search
-	forgit
+  forgit
+  vi-mode
 )
 
 
@@ -36,7 +39,10 @@ setopt nocheckjobs                 # Don't warn about running processes when exi
 setopt numericglobsort             # Sort filenames numerically when it makes sense
 setopt appendhistory               # Immediately append history instead of overwriting
 setopt histignorealldups           # If a new command is a duplicate, remove the older one
-zstyle ':completion:*' rehash true # automatically find new executables in path
+# zstyle ':completion:*' rehash true # automatically find new executables in path
+zstyle ':completion:*' menu yes select
+
+
 WORDCHARS=${WORDCHARS//\/[&.;]/}   # Don't consider certain characters part of the word
 
 # Speed up completions
@@ -45,7 +51,7 @@ zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
 ## Keybindings section
-bindkey -e
+bindkey -v
 bindkey '^H' backward-kill-word # delete previous word with ctrl+backspace
 bindkey '^z' undo
 bindkey '^b' backward-word
