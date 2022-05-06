@@ -1,17 +1,19 @@
 #!/bin/bash
 
+BOOK="$HOME/docs/books/TPP.pdf"
+
 # tools
 alias figma='open_d "https://figma.com"'
 alias loc3='open_d "https://localhost:3000/"'
 alias tenf='open_d "https://www.edclub.com/sportal/program-3.game"'
 alias monkey='open_d https://monkeytype.com/'
-alias g='open_d "https://github.com/frontendmonster"'
+alias g='open_d "https://github.com/ASafaeirad"'
 alias gcodeit='open_d "https://github.com/fullstacksjs/codeit"'
 alias muicons='open_d "https://mui.com/components/material-icons/"'
 
 gmail() {
-	local GU=${1:-'0'}
-	open_d "https://mail.google.com/mail/u/$GU/"
+  local GU=${1:-'0'}
+  open_d "https://mail.google.com/mail/u/$GU/"
 }
 
 DEVS="$HOME/devs"
@@ -27,7 +29,7 @@ alias infos='vim $INFO/info.yml'
 
 alias libs='cd $DEVS/libs'
 alias devs='cd $DEVS'
-alias projects='cd $DEVS/projects'
+alias projx='cd $DEVS/projects'
 alias rewire='cd $DEVS/rewire'
 
 alias fem='cd $DEVS/projects/fullstacks'
@@ -46,19 +48,16 @@ alias eg='cd $EG'
 alias egfront='cd $EG/frontend'
 alias egportal='cd $EG/portal'
 
-EG_GUSER=1
-alias cal='open_d "https://calendar.google.com/calendar/u/$EG_GUSER/r"'
-alias egdocs='open_d "https://user.staging.estateguru.co/documentation/index.html"'
-alias invs='open_d "https://projects.invisionapp.com/d/main#/console/21667879/458543554/preview"'
-alias invn='open_d "https://projects.invisionapp.com/d/main#/console/21543748/455519571/preview"'
-alias inva='open_d "https://projects.invisionapp.com/d/main#/projects/prototypes/21172373"'
-alias egdaily='open_d "https://meet.google.com/qih-ktbp-onw?authuser=$EG_GUSER"'
-alias egsprint='open_d "https://estateguru.atlassian.net/secure/RapidBoard.jspa?rapidView=5&projectKey=EGNEW"'
-alias egboard='open_d "https://estateguru.atlassian.net/jira/software/c/projects/EGNEW/boards/5?assignee=608abece83b8c6006b0aabc3"'
-alias egdemo='open_d "https://meet.google.com/swe-khcg-jxc?pli=1&authuser=$EG_GUSER"'
-alias egconf='open_d "https://estateguru.atlassian.net/wiki/spaces/ES/pages/3263889409/User+Service+E2E+Test+Reports"'
-alias egg='open_d "https://github.com/estateguru/user-service-react"'
-alias q='open_d "https://quillbot.com/"'
-function egt() {
+egt() {
   open_d "https://estateguru.atlassian.net/browse/EGNEW-$1"
 }
+
+eglocal() {
+  echo $1 | sed 's/https:\/\/user.staging.estateguru.co\/user/https:\/\/localhost:4200/' | xsel -ib
+}
+
+eread() {
+  zathura "$BOOK" </dev/null &>/dev/null &
+}
+
+alias q='open_d "https://quillbot.com/"'
