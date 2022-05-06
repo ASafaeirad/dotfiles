@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: react-component
+# uuid: react-compoent
+# key: !rc
+# --
+
+type Props {};
+
+export const `(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`: React.FC<Props> = () => {
+  $0
+}
