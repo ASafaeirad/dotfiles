@@ -44,10 +44,15 @@ keys.global_keys = gears.table.join(
     awful.key({modkey}, "F2",             function() awful.spawn("brave") end),
     awful.key({modkey}, "F3",             function() awful.spawn("code") end),
     awful.key({modkey}, "F4",             function() awful.spawn(terminal .. " -e ranger") end),
+    awful.key({modkey}, "F5",             function() awful.spawn(terminal .. " -e mus") end),
 
     awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("pactl set-sink-volume 0 +5%", false) end),
     awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("pactl set-sink-volume 0 -5%", false) end),
-    awful.key({}, "XF86AudioMute", function () awful.util.spawn("pactl set-sink-mute 0 toggle", false) end)
+    awful.key({}, "XF86AudioMute", function () awful.util.spawn("pactl set-sink-mute 0 toggle", false) end),
+
+    awful.key({modkey, "Ctrl"}, "p", function () awful.util.spawn("/home/skill/.local/bin/automation/register") end),
+    awful.key({modkey, "Ctrl", "Shift"}, "p", function () awful.util.spawn("pkill register") end),
+    awful.key({modkey, "Shift"}, "e",         function () awful.util.spawn("egmenu") end)
 )
 
 for i = 1, 9 do

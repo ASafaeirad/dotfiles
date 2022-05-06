@@ -104,8 +104,8 @@ end
 function module.restore()
     local c = awful.client.restore(s)
     if c then
-        c.minimized=false
-        c:emit_signal("request::activate", "key.unminimize", { raise = true })
+        client.focus = c
+        c:raise()
     end
 end
 
