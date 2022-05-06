@@ -4,17 +4,33 @@ set $mod Mod4
 
 bindsym $mod+Return exec --no-startup-id alacritty
 
-# Workspace names
-set $workspace1  1:
-set $workspace2  2:
-set $workspace3  3:
-set $workspace4  4:
-set $workspace5  5:
+
+#####################
+##    Workspace    ##
+#####################
+
+# set $workspace1  1:
+# set $workspace2  2:
+# set $workspace3  3:
+# set $workspace4  4:
+# set $workspace5  5:
+# set $workspace6  6:
+# set $workspace7  7:
+# set $workspace8  8:
+# set $workspace9  9:
+# set $workspace10 10:
+
+set $workspace1  1:obs
+set $workspace2  2:web
+set $workspace3  3:code
+set $workspace4  4:file
+set $workspace5  5:music
 set $workspace6  6:
-set $workspace7  7:
+set $workspace7  7:slack
 set $workspace8  8:
-set $workspace9  9:
-set $workspace10 10:
+set $workspace9  9:dis
+set $workspace10 10:tel
+
 
 #####################
 ##    Interface    ##
@@ -27,10 +43,14 @@ new_window pixel 0
 new_float normal
 hide_edge_borders none
 
-smart_gaps on
-gaps inner 0
-gaps outer 0
-smart_borders on
+# smart_gaps on
+gaps inner 10
+gaps top   38
+
+border_radius 4
+
+# gaps outer 0
+# smart_borders 15
 
 # Color pallete
 set_from_resource $bg_color             background
@@ -294,8 +314,8 @@ bindsym $mod+shift+t  exec  --no-startup-id alacritty --class "flyterm" -e tmux 
 
 bindsym $mod+t        [instance="^flyterm"] scratchpad show
 for_window            [instance="^flyterm"] move scratchpad
-for_window            [instance="^flyterm"] move position absolute center
 for_window            [instance="^flyterm"] resize set 660 450
+for_window            [instance="^flyterm"] move position absolute center
 
 #################
 ##   Webcam    ##
