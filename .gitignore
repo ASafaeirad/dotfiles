@@ -6,6 +6,7 @@
 !.config/
 .config/*
 !.config/ack/
+!.config/alacritty
 !.config/aliasrc
 !.config/awesome/
 !.config/backup
@@ -14,6 +15,10 @@
 !.config/cleanup
 !.config/clipit/
 !.config/colorls/
+!.config/copyq/
+.config/copyq/*
+!.config/copyq/copyq.conf
+!.config/copyq/themes
 !.config/Dharkael/
 !.config/dircolors
 !.config/dmenu/
@@ -67,6 +72,7 @@
 !.config/vlc/vlcrc
 !.config/wget/
 !.config/X11/
+!.config/zathura/
 !.config/zsh/
 
 # local
