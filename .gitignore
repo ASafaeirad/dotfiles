@@ -64,6 +64,7 @@
 !.config/picom/
 !.config/polybar/
 !.config/ranger/
+!.config/rofi/
 !.config/termite/
 !.config/tmux/
 .config/tmux/plugins
