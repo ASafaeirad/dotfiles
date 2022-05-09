@@ -69,6 +69,7 @@ alias cpssh='cat ~/.ssh/id_ed25519.pub | xsel -i --clipboard'
 alias x="sudo chmod +x"
 alias unlock-pacman="sudo rm /var/lib/pacman/db.lck"
 alias orphan='pacman -Rs $(pacman -Qqtd)'
+alias gpgreload='gpg-connect-agent reloadagent /bye'
 
 # path shorcuts
 alias ~='cd ~'

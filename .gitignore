@@ -88,6 +88,9 @@
 !.local/share/rewire/
 !.local/share/nemo/
 !.local/share/fonts/fonts.conf
+!.local/share/gnupg
+.local/share/gnupg/*
+!.local/share/gnupg/gpg-agent.conf
 
 # .ssh
 !.ssh/
