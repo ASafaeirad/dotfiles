@@ -14,13 +14,6 @@ set relativenumber
 
 set pastetoggle=<F10>
 
-" code folding settings
-set noexpandtab             " insert tabs rather than spaces for <Tab>
-set foldmethod=syntax       " fold based on indent
-set foldnestmax=10          " deepest fold is 10 levels
-set nofoldenable            " don't fold by default
-set foldlevel=1
-
 " use XDG style
 set directory=$XDG_CACHE_HOME/vim,~/,/tmp " swp files
 set backupdir=$XDG_CACHE_HOME/vim,~/,/tmp " bak files
