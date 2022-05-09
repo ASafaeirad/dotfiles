@@ -27,6 +27,7 @@ window {
   width: 30%;
   border: 1;
   border-color: @dark;
+  anchor: center;
 }
 
 prompt {
@@ -36,7 +37,6 @@ prompt {
 }
 
 entry {
-  placeholder: "> Search";
   background-color: inherit;
   placeholder-color: @fade;
   expand: true;
@@ -52,18 +52,19 @@ inputbar {
 }
 
 listview {
-  columns: 1;
+  require-input: true;
+  fixed-height: false;
   lines: 5;
   cycle: false;
   dynamic: true;
   layout: vertical;
   spacing: 24px;
-  padding: 24px 0;
+  padding: 24px 0 0;
 }
 
 mainbox {
   children: [ inputbar, listview ];
-  padding: 20px 20px 10px;
+  padding: 20px;
 }
 
 element {
@@ -77,7 +78,6 @@ textbox-custom {
 
 element-icon {
   size: 32px;
-  content: "Boobbb";
   horizontal-align: 0.5;
 }
 
@@ -96,3 +96,5 @@ element-icon {
 element selected {
   color: @accent;
 }
+
+/* vim:ft=css
