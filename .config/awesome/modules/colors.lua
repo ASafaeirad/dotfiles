@@ -10,5 +10,7 @@ module.fg      = xrdb.foreground
 module.bg      = xrdb.background
 module.bg1     = "#323643"
 module.mute    = xrdb.color8
+module.success = xrdb.color10
+module.muter   = "#000000"
 
 return module

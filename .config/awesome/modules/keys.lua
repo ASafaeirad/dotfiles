@@ -1,10 +1,10 @@
-local awful   = require("awful")
-local gears   = require("gears")
-local naughty = require("naughty")
-local utils   = require("modules.utils")
-local volume  = require("volume-widget")
+local awful       = require("awful")
+local gears       = require("gears")
+local naughty     = require("naughty")
+local utils       = require("modules.utils")
+local volume      = require("widgets.volume")
+local brightness  = require("widgets.brightness")
 
--- local volume = Volume:new({})
 local keys = {}
 local modkey = "Mod4"
 
@@ -13,9 +13,12 @@ keys.global_keys = gears.table.join(
     awful.key({modkey}, "u",         awful.client.urgent.jumpto),
     awful.key({modkey}, "Tab",       utils.go_back),
     awful.key({ modkey, "Shift" }, ";", function () naughty.notify({ title = "Test Title", text = "Test Notification", }) end),
-    awful.key({}, "XF86AudioMute", function() volume:update() end),
-    awful.key({}, "XF86AudioRaiseVolume", function() volume:update() end),
-    awful.key({}, "XF86AudioLowerVolume", function() volume:update() end),
+
+    awful.key({}, "XF86MonBrightnessUp",    function () brightness:inc() end),
+    awful.key({}, "XF86MonBrightnessDown",  function () brightness:dec() end),
+    awful.key({}, "XF86AudioMute",          function () volume:update() end),
+    awful.key({}, "XF86AudioRaiseVolume",   function () volume:update() end),
+    awful.key({}, "XF86AudioLowerVolume",   function () volume:update() end),
 
     awful.key({modkey}, "l",         utils.focus_next),
     awful.key({modkey}, "h",         utils.focus_prev),
