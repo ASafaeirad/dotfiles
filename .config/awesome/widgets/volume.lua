@@ -1,14 +1,12 @@
 local wibox = require("wibox")
 local awful = require("awful")
-local naughty = require("naughty")
 local colors = require("modules.colors")
-local shape = require("gears.shape")
 
 require("math")
 require("string")
 
-local Volume = {}
-Volume.__index = Volume
+local volume = {}
+volume.__index = volume
 
 local function run(command)
     local prog = io.popen(command)
@@ -17,8 +15,8 @@ local function run(command)
     return result
 end
 
-function Volume:new(args)
-    local obj = setmetatable({}, Volume)
+function volume:new(args)
+    local obj = setmetatable({}, volume)
     obj.step = args.step or 5
     obj.device = args.device or "Master"
     obj.color = args.color or "white"
@@ -27,6 +25,7 @@ function Volume:new(args)
     obj.widget = wibox.widget {
         max_value = 100,
         thickness = 2,
+        rounded_edge = true,
         start_angle = 4.71238898, -- 2pi*3/4
         forced_height = 12,
         forced_width = 12,
@@ -55,34 +54,34 @@ function Volume:new(args)
     return obj
 end
 
-function Volume:update_tooltip()
-    return string.sub(self:get_volume(), 0, 2) .. "% Volume"
+function volume:update_tooltip()
+    return string.sub(self:get_volume(), 0, 2) .. "% volume"
 end
 
-function Volume:update()
-    local volume = self:get_volume()
+function volume:update()
+    local value = self:get_volume()
     local is_muted = self:is_muted()
 
     if is_muted then
         self.widget.colors = { self.mute_color }
-        self.widget.value = volume
     else
         self.widget.colors = { self.color }
-        self.widget.value = volume
     end
+
+    self.widget.value = value
 end
 
-function Volume:is_muted()
+function volume:is_muted()
     local result = run("amixer get " .. self.device)
     return string.find(result, "%[off%]")
 end
 
-function Volume:get_volume()
+function volume:get_volume()
     local result = run("amixer get " .. self.device)
     return string.gsub(string.match(result, "%[%d*%%%]"), "%D", "")
 end
 
-return Volume:new({
+return volume:new({
     step = 10,
     mute_color = colors.error,
     color = colors.fg
