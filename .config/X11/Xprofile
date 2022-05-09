@@ -1,26 +1,25 @@
 #!/bin/sh
 
-eval $(gnome-keyring-daemon --start) &
+# eval $(gnome-keyring-daemon --start) &
+# /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 export SSH_AUTH_SOCK
-/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 # disable bell for x applications
-xset b off 
+xset b off
 
-xautolock -time 30 -locker "sklock" -corners -000 -cornerdelay 3 &
-xss-lock sklock &
+# xautolock -time 30 -locker "sklock" -corners -000 -cornerdelay 3 &
+# xss-lock sklock &
+# nm-applet &
+# xfce4-power-manager &
+# numlockx on &
+# start-conky
 
 nitrogen --restore &
-nm-applet &
-xfce4-power-manager &
 copyq &
 redshift -l '36.850282:54.3680226' &
 setxkbmap -layout us,ir -option grp:shifts_toggle &
 picom -b
 restart-flashfocus &
-
-# numlockx on &
-# swapcaps &
-# start-conky
+swapcaps &
 
 xrdb -load ~/.config/X11/Xresources
