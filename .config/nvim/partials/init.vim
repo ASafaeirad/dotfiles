@@ -141,26 +141,23 @@ set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use spaces instead of tabs
-set expandtab
-
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 4 spaces
-set shiftwidth=2
-set tabstop=2
-
 " Linebreak on 500 characters
 set lbr
 set tw=500
 
 set autoindent
 set smartindent
-set wrap "Wrap lines
+set expandtab ts=2 sw=2
+set wrap
 
 set list
 set listchars=trail:·,precedes:«,extends:»,tab:▸\ 
+
+" code folding settings
+set foldmethod=syntax       " fold based on indent
+set foldnestmax=10          " deepest fold is 10 levels
+set nofoldenable            " don't fold by default
+set foldlevel=1
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
