@@ -7,7 +7,7 @@ local dpi = xresources.apply_dpi
 local battery_widget = require("battery-widget")
 local utils = require('modules.utils')
 local colors = require('modules.colors')
-local volume = require("volume-widget.volume-widget")
+local volume = require("volume-widget")
 
 require("awful.hotkeys_popup.keys")
 
