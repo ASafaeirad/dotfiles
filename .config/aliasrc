@@ -1,11 +1,8 @@
 #!/bin/bash
 
-WIFI_ADAPTOR="wlp58s0"
-WALLPAPER="$HOME/pics/wallpapers/gray.png"
-BG="#3C3F4A"
-
-# config
-alias config='git --git-dir "$HOME/.config/dotfiles.git" --work-tree "$HOME"'
+edit() {
+  $EDITOR "$@"
+}
 
 # clear
 alias c='clear'
@@ -33,9 +30,15 @@ alias swclicks='xmodmap -e "pointer = 3 2 1"'
 alias tv="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1"
 
 mm() {
-  xrandr --output HDMI-1 --mode 1920x1080 --left-of eDP-1 &> /dev/null
-  nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG" 2> /dev/null
-  nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG" 2> /dev/null
+  xrandr --output HDMI-1 --mode 1920x1080 --left-of eDP-1 &>/dev/null
+  nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
+  nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
+}
+
+egmm() {
+  xrandr --output HDMI-1 --mode 3440x1440 --scale 1 --above eDP-1
+  nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
+  nitrogen --head=1 --set-zoom-fill "$HOME/pics/Wallpaper-3-1.png" --set-color="$BG_COLOR" 2>/dev/null
 }
 
 # npx commands
@@ -52,11 +55,13 @@ s() {
 alias :q='exit'
 alias cp="cp -i"
 alias df='df -h'
-alias dff="df | grep -E '/dev/nvme0n1p'"
+function dff() {
+  df | awk '/\/dev\/nvme0/ && ! /boot/ { print $6, $3"/"$2 }'
+}
 alias grep='grep --color'
 alias ls='ls --color'
 alias mkdir='mkdir -pv'
-function l() { 
+function l() {
   local level="${1:-1}"
   shift
   exa -all --no-permissions --no-time --no-user --tree --group-directories-first --no-filesize --color always -l --ignore-glob="node_modules" --level "$level" "$@" | less -XFR
@@ -70,24 +75,30 @@ alias dhcpcd='sudo dhcpcd'
 alias pacman-mirrors='sudo pacman-mirrors'
 alias systemctl='systemctl'
 alias pacman='lazy-pacman'
-alias cpssh='cat ~/.ssh/id_ed25519.pub | xsel -i --clipboard'
+alias cpssh='gpg --export-ssh-key frontendmonster@gmail.com | xsel -i --clipboard'
 alias x="sudo chmod +x"
 alias unlock-pacman="sudo rm /var/lib/pacman/db.lck"
 alias orphan='pacman -Rs $(pacman -Qqtd)'
 alias gpgreload='gpg-connect-agent reloadagent /bye'
+function users() {
+  awk -F ':' '{print $1}' /etc/passwd
+}
+
+function shells() {
+  awk -F '/' '/^\// {print $NF}' /etc/shells | uniq | sort
+}
 
 # path shorcuts
 alias ~='cd ~'
 alias ..='cd ..'
 alias dt='cd ~/desktop'
-alias bookmarkrc="vim $HOME/.config/bookmarkrc"
 
 # sysadmin
 alias findstr='grep -rnw'
 alias afind='ack -il'
 alias path='echo -e ${PATH//:/\\n} | sort'
+alias fpath="echo $fpath | tr ' ' '\n' | sort"
 alias history=omz_history
-alias historyrc='vim ~/.local/share/history'
 alias cpwd='pwd | xsel -i --clipboard'
 alias clocksync='sudo ntpdate 1.ro.pool.ntp.org'
 
@@ -135,25 +146,28 @@ alias up='nmcli c up'
 # config files
 alias hosts='sudoedit /etc/hosts'
 alias dnsrc='sudoedit /etc/resolv.conf'
-alias profilerc='vim ~/.profile'
-alias bashrc='vim ~/.bashrc'
-alias sshrc='vim ~/.ssh/config'
-alias gitrc='vim $XDG_CONFIG_HOME/git/config'
-alias zalias='vim $XDG_CONFIG_HOME/aliasrc'
-alias envrc='vim $XDG_CONFIG_HOME/env'
-alias mocrc='vim $XDG_CONFIG_HOME/moc/config'
-alias zshrc='vim $XDG_CONFIG_HOME/zsh/.zshrc'
-alias npmrc='vim $XDG_CONFIG_HOME/npm/npmrc'
-alias vimrc='vim $XDG_CONFIG_HOME/nvim/init.vim'
-alias vimplug='vim $XDG_CONFIG_HOME/nvim/plugins.vim'
-alias tmuxrc='vim $XDG_CONFIG_HOME/tmux/tmux.conf'
-alias rangerrc='vim $XDG_CONFIG_HOME/ranger/rc.conf'
-alias alacrittyrc='vim $XDG_CONFIG_HOME/alacritty/alacritty.yml'
-alias i3rc='vim $XDG_CONFIG_HOME/i3/config'
-alias polybarrc='vim $XDG_CONFIG_HOME/polybar/config.ini'
+alias historyrc='edit ~/.local/share/history'
+alias bookmarkrc='edit $HOME/.config/bookmarkrc'
+alias profilerc='edit ~/.profile'
+alias bashrc='edit ~/.bashrc'
+alias sshrc='edit ~/.ssh/config'
+alias gitrc='edit $XDG_CONFIG_HOME/git/config'
+alias zalias='edit $XDG_CONFIG_HOME/aliasrc'
+alias envrc='edit $XDG_CONFIG_HOME/env'
+alias mocrc='edit $XDG_CONFIG_HOME/moc/config'
+alias zshrc='edit $XDG_CONFIG_HOME/zsh/.zshrc'
+alias npmrc='edit $XDG_CONFIG_HOME/npm/npmrc'
+alias vimrc='edit $XDG_CONFIG_HOME/nvim/init.vim'
+alias vimplug='edit $XDG_CONFIG_HOME/nvim/plugins.vim'
+alias tmuxrc='edit $XDG_CONFIG_HOME/tmux/tmux.conf'
+alias rangerrc='edit $XDG_CONFIG_HOME/ranger/rc.conf'
+alias alacrittyrc='edit $XDG_CONFIG_HOME/alacritty/alacritty.yml'
+alias i3rc='edit $XDG_CONFIG_HOME/i3/config'
+alias polybarrc='edit $XDG_CONFIG_HOME/polybar/config.ini'
 alias reload='source $XDG_CONFIG_HOME/aliasrc && source $XDG_CONFIG_HOME/bookmarkrc'
-alias fontrc='vim $XDG_CONFIG_HOME/fontconfig/'
+alias fontrc='edit $XDG_CONFIG_HOME/fontconfig/'
 alias xreload='xrdb $XDG_CONFIG_HOME/X11/Xresources'
+alias gpgrc='edit $GNUPGHOME/gpg-agent.conf'
 
 # file system
 alias lsa='ls -AF --group-directories-first'
@@ -289,7 +303,7 @@ alias gcam='git commit -a -m'
 alias gcm='git commit -m'
 
 alias gswc='git switch -c'
-alias gswd='git switch dev'
+alias gswd='git switch dev && git pull'
 alias gwip='git wip'
 alias gco='git checkout'
 alias gsw='git switch'
@@ -339,7 +353,6 @@ alias gdc='gd --cached'
 alias sskey="screenkey -t 2 -s small --vis-shift &>/dev/null &"
 alias genpass="openssl rand -base64 32"
 
-
 lazy-pacman() {
   case $1 in
   -S | -D | -S[^sih]* | -R* | -U*)
@@ -387,4 +400,3 @@ batt() {
 compress() {
   ffmpeg -i "$1" -codec:v libx264 -preset medium -crf 23 "$1.mp4"
 }
-
