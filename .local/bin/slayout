@@ -1,0 +1,3 @@
+#!/bin/bash
+
+setxkbmap -layout us,ir -option grp:shifts_toggle
