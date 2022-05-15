@@ -1,0 +1,26 @@
+super + Return
+  alacritty
+
+super + F{2,3,4,5}
+  {brave,code,pcmanfm,terminal -e mus}
+
+super + ctrl + {x,m,s,v}
+  {xkill,pavucontrol,copyq show, brave}
+
+super + shift + {space, s, e}
+  {rofi -show drun, powermenu, egmenu}
+
+super + {_, control, shift} + p
+  {flameshot full -c, flameshot full -p $(xdg-user-dir PICTURES)/screenshots/, flameshot gui}
+
+super + shift + t
+  alacritty --class flyterm -e tmux attach
+
+XF86Audio{LowerVolume,RaiseVolume,Mute}
+  amixer set Master {10%-, 10%+, toggle}
+
+XF86MonBrightness{Down,Up}
+  light {-U,-A} 5
+
+# super + ctrl + {_, shift} + p
+#   {/home/skill/.local/bin/automation/register, pkill register}

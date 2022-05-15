@@ -42,11 +42,8 @@ function volume:new(args)
     })
     obj.tooltip:add_to_object(obj.widget)
 
-    -- Check the volume every 5 seconds
     obj.timer = timer({ timeout = 5 })
-    obj.timer:connect_signal("timeout", function()
-        obj:update()
-    end)
+    obj.timer:connect_signal("timeout", function() obj:update() end)
     obj.timer:start()
 
     obj:update()
@@ -69,6 +66,19 @@ function volume:update()
     end
 
     self.widget.value = value
+end
+
+function volume:up()
+    run("amixer set " .. self.device .. " " .. self.step .. "%+")
+end
+
+function volume:down()
+    run("amixer set " .. self.device .. " " .. self.step .. "%-")
+end
+
+function volume:mute()
+    run("amixer set " .. self.device .. " toggle")
+    self:update()
 end
 
 function volume:is_muted()
