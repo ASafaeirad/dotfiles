@@ -2,8 +2,6 @@ local awful = require("awful")
 local wibox = require("wibox")
 local watch = require("awful.widget.watch")
 local spawn = require("awful.spawn")
-local naughty = require("naughty")
-local beautiful = require("beautiful")
 local colors = require("modules.colors")
 
 local get_brightness_cmd
@@ -23,7 +21,7 @@ local function worker(user_args)
   local tooltip = args.tooltip or false
 
   get_brightness_cmd = 'light -G'
-  set_brightness_cmd = 'light -S %d' -- <level>
+  set_brightness_cmd = 'light -S %d'
   inc_brightness_cmd = 'light -A ' .. step
   dec_brightness_cmd = 'light -U ' .. step
 
@@ -49,13 +47,16 @@ local function worker(user_args)
     widget:set_value(brightness_level)
   end
 
+  function brightness_widget:update()
+    spawn.easy_async(get_brightness_cmd, function(out)
+      update_widget(brightness_widget.widget, out)
+    end)
+  end
+
   function brightness_widget:set(value)
     current_level = value
-    spawn.easy_async(string.format(set_brightness_cmd, value), function()
-      spawn.easy_async(get_brightness_cmd, function(out)
-        update_widget(brightness_widget.widget, out)
-      end)
-    end)
+    -- spawn.easy_async(string.format(set_brightness_cmd, value), function() end)
+    brightness_widget:update()
   end
 
   local old_level = 0
@@ -76,19 +77,13 @@ local function worker(user_args)
   end
 
   function brightness_widget:inc()
-    spawn.easy_async(inc_brightness_cmd, function()
-      spawn.easy_async(get_brightness_cmd, function(out)
-        update_widget(brightness_widget.widget, out)
-      end)
-    end)
+    -- spawn.easy_async(string.format(inc_brightness_cmd, value), function() end)
+    brightness_widget:update()
   end
 
   function brightness_widget:dec()
-    spawn.easy_async(dec_brightness_cmd, function()
-      spawn.easy_async(get_brightness_cmd, function(out)
-        update_widget(brightness_widget.widget, out)
-      end)
-    end)
+    -- spawn.easy_async(string.format(dec_brightness_cmd, value), function() end)
+    brightness_widget:update()
   end
 
   brightness_widget.widget:buttons(
@@ -111,6 +106,9 @@ local function worker(user_args)
     }
   end
 
+  local brightness_timer = timer({ timeout = 5 })
+  brightness_timer:connect_signal("timeout", function() brightness_widget:update() end)
+  brightness_timer:start()
   return brightness_widget.widget
 end
 

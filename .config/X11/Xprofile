@@ -21,5 +21,6 @@ slayout &
 picom -b
 restart-flashfocus &
 swapcaps &
+sxhkd &
 
 xrdb -load ~/.config/X11/Xresources
