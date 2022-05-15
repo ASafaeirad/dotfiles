@@ -65,6 +65,7 @@
 !.config/polybar/
 !.config/ranger/
 !.config/rofi/
+!.config/sxhkd
 !.config/termite/
 !.config/tmux/
 .config/tmux/plugins
