@@ -2,7 +2,25 @@
 
 EG_GUSER=1
 
-LIST=("Calendar" "Board" "Code" "Backlog" "Frontend" "Staging" "Preprod" "Bamboo" "US Github Repo" "US Pull Request" "Daily Standup" "Figma Questionnaire" "Internal" "US Docs")
+LIST=(
+  "Calendar"
+  "Board"
+  "Code"
+  "Backlog"
+  "Local"
+  "Staging"
+  "Preprod"
+  "Bamboo"
+  "US Github Repo"
+  "US Pull Request"
+  "Daily Standup"
+  "Figma Questionnaire"
+  "Internal"
+  "US Docs"
+  "Gmail"
+  "Planning"
+  "Demo"
+)
 
 print_list() { printf "%s\n" "$@"; }
 
@@ -12,45 +30,54 @@ SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "Estateguru")
 
 case "$SELECTED" in
 Calendar)
-	xdg-open "https://calendar.google.com/calendar/u/$EG_GUSER/r"
-	;;
+  xdg-open "https://calendar.google.com/calendar/u/$EG_GUSER/r"
+  ;;
 Board)
-	xdg-open "https://estateguru.atlassian.net/jira/software/c/projects/US/boards/17"
-	;;
+  xdg-open "https://estateguru.atlassian.net/jira/software/c/projects/US/boards/17"
+  ;;
 Backlog)
-	xdg-open "https://estateguru.atlassian.net/jira/software/c/projects/US/boards/17/backlog"
-	;;
-Frontend)
-	xdg-open "https://localhost:4200"
-	;;
+  xdg-open "https://estateguru.atlassian.net/jira/software/c/projects/US/boards/17/backlog"
+  ;;
+Local)
+  xdg-open "https://localhost:4200"
+  ;;
 Staging)
-	xdg-open "https://user.staging.estateguru.co/user"
-	;;
+  xdg-open "https://user.staging.estateguru.co/user"
+  ;;
 Preprod)
-	xdg-open "https://stg.estateguru.co/user"
-	;;
+  xdg-open "https://stg.estateguru.co/user"
+  ;;
 Code)
-	code "$HOME/devs/eg/frontend"
-	;;
+  code "$HOME/devs/eg/frontend"
+  ;;
 Bamboo)
-	xdg-open "https://estateguru.bamboohr.com/"
-	;;
+  xdg-open "https://estateguru.bamboohr.com/"
+  ;;
 "US Github Repo")
-	xdg-open "https://github.com/estateguru/user-service-react"
-	;;
+  xdg-open "https://github.com/estateguru/user-service-react"
+  ;;
 "US Pull Request")
-	xdg-open "https://github.com/estateguru/user-service-react/pulls"
-	;;
+  xdg-open "https://github.com/estateguru/user-service-react/pulls"
+  ;;
 "Daily Standup")
-	xdg-open "https://meet.google.com/qih-ktbp-onw?authuser=$EG_GUSER"
-	;;
+  xdg-open "https://meet.google.com/qih-ktbp-onw?authuser=$EG_GUSER"
+  ;;
 "Figma Questionnaire")
-	xdg-open "https://www.figma.com/file/uLpxUUOeDBDiW2hiAVLsYx/EDE-370_account_profile_settings_013?node-id=2%3A4199"
-	;;
+  xdg-open "https://www.figma.com/file/uLpxUUOeDBDiW2hiAVLsYx/EDE-370_account_profile_settings_013?node-id=2%3A4199"
+  ;;
 "Internal")
-	xdg-open "https://meet.google.com/ptg-adkz-wrg?authuser=$EG_GUSER"
-	;;
+  xdg-open "https://meet.google.com/ptg-adkz-wrg?authuser=$EG_GUSER"
+  ;;
 "US Docs")
-	xdg-open "https://user.staging.estateguru.co/documentation/index.html"
-	;;
+  xdg-open "https://user.staging.estateguru.co/documentation/index.html"
+  ;;
+"Gmail")
+  xdg-open "https://mail.google.com/mail/u/$EG_GUSER"
+  ;;
+"Planning")
+  xdg-open "https://meet.google.com/rer-vbhn-ask?authuser=$EG_GUSER"
+  ;;
+"Demo")
+  xdg-open "https://meet.google.com/rra-vouo-kap?authuser=$EG_GUSER"
+  ;;
 esac
