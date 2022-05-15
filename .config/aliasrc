@@ -24,16 +24,16 @@ alias celar='clear'
 alias clare='clear'
 
 # enhance tools
-[ -x "$(command -v bat)" ] && alias cat="bat"
-# [ -x "$(command -v curlie)" ] && alias curl="curlie"
-[ -x "$(command -v nvim)" ] && alias vim="nvim"
+[ -x "$(command -v bat)"    ] && alias cat="bat"
+[ -x "$(command -v curlie)" ] && alias curl="curlie"
+[ -x "$(command -v nvim)"   ] && alias vim="nvim"
 
 # utility
 alias swclicks='xmodmap -e "pointer = 3 2 1"'
-alias tv="xrandr --output HDMI-2 --mode 1920x1080 --right-of eDP-1"
+alias tv="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1"
 
 mm() {
-  xrandr --output HDMI-2 --mode 1920x1080 --left-of eDP-1 &> /dev/null
+  xrandr --output HDMI-1 --mode 1920x1080 --left-of eDP-1 &> /dev/null
   nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG" 2> /dev/null
   nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG" 2> /dev/null
 }
@@ -56,6 +56,11 @@ alias dff="df | grep -E '/dev/nvme0n1p'"
 alias grep='grep --color'
 alias ls='ls --color'
 alias mkdir='mkdir -pv'
+function l() { 
+  local level="${1:-1}"
+  shift
+  exa -all --no-permissions --no-time --no-user --tree --group-directories-first --no-filesize --color always -l --ignore-glob="node_modules" --level "$level" "$@" | less -XFR
+}
 
 # super user commands
 alias usermod='sudo usermod'
@@ -63,7 +68,7 @@ alias chmod='sudo chmod'
 alias chown='sudo chown'
 alias dhcpcd='sudo dhcpcd'
 alias pacman-mirrors='sudo pacman-mirrors'
-alias systemctl='sudo systemctl'
+alias systemctl='systemctl'
 alias pacman='lazy-pacman'
 alias cpssh='cat ~/.ssh/id_ed25519.pub | xsel -i --clipboard'
 alias x="sudo chmod +x"
@@ -154,7 +159,6 @@ alias xreload='xrdb $XDG_CONFIG_HOME/X11/Xresources'
 alias lsa='ls -AF --group-directories-first'
 alias lless='l | less'
 alias laless='ll | less'
-alias l='ls -lah --group-directories-first'
 alias rd=rmdir
 alias open='xdg-open'
 
@@ -200,7 +204,7 @@ setd() {
   printf "nameserver 1.1.1.1\nnameserver 4.2.2.4\n" | sudo tee /etc/resolv.conf
 }
 
-for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+for method in GET HEAD POST PUT PATCH DELETE TRACE OPTIONS; do
   alias "$method"="curlie -X '$method' -H 'content-type: application/json'"
 done
 
@@ -285,6 +289,7 @@ alias gcam='git commit -a -m'
 alias gcm='git commit -m'
 
 alias gswc='git switch -c'
+alias gswd='git switch dev'
 alias gwip='git wip'
 alias gco='git checkout'
 alias gsw='git switch'

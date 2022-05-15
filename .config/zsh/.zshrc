@@ -48,7 +48,8 @@ WORDCHARS=${WORDCHARS//\/[&.;]/}   # Don't consider certain characters part of t
 # Speed up completions
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
+
 
 ## Keybindings section
 bindkey -v
@@ -66,6 +67,7 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 [[ -f "$ZSH/oh-my-zsh.sh" ]] && . "$ZSH/oh-my-zsh.sh"
+unalias l
 [[ -f "${XDG_CONFIG_HOME}/aliasrc" ]] && . "${XDG_CONFIG_HOME}/aliasrc"
 [[ -f "${XDG_CONFIG_HOME}/bookmarkrc" ]] && . "${XDG_CONFIG_HOME}/bookmarkrc"
 
