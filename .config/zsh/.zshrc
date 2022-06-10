@@ -42,6 +42,7 @@ setopt histignorealldups           # If a new command is a duplicate, remove the
 # zstyle ':completion:*' rehash true # automatically find new executables in path
 zstyle ':completion:*' menu yes select
 
+# Setup a custom completions directory
 
 WORDCHARS=${WORDCHARS//\/[&.;]/}   # Don't consider certain characters part of the word
 
@@ -59,7 +60,10 @@ bindkey '^b' backward-word
 bindkey '^w' forward-word # ctrl+backspace
 bindkey '5~' kill-word    # ctrl+del
 
-autoload -U compinit && compinit -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
+
+fpath=($HOME/.local/share/zsh/completions $fpath)
+
+
 bindkey '^ ' autosuggest-accept
 
 zmodload zsh/terminfo
@@ -67,7 +71,16 @@ bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
 
 [[ -f "$ZSH/oh-my-zsh.sh" ]] && . "$ZSH/oh-my-zsh.sh"
+
+autoload compinit && compinit -i -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
 unalias l
 [[ -f "${XDG_CONFIG_HOME}/aliasrc" ]] && . "${XDG_CONFIG_HOME}/aliasrc"
 [[ -f "${XDG_CONFIG_HOME}/bookmarkrc" ]] && . "${XDG_CONFIG_HOME}/bookmarkrc"
+
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/skill/.local/share/sdkman"
+[[ -s "/home/skill/.local/share/sdkman/bin/sdkman-init.sh" ]] && source "/home/skill/.local/share/sdkman/bin/sdkman-init.sh"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+bindkey -M vicmd '^e' edit-command-line
 

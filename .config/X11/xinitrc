@@ -11,6 +11,28 @@ if test -z "$DBUS_SESSION_BUS_ADDRESS"; then
   eval 'dbus-launch --sh-syntax --exit-with-session'
 fi
 
-. $HOME/.config/X11/Xprofile
+eval $(gnome-keyring-daemon --start) &
+# /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+# disable bell for x applications
+xset b off
+
+# xautolock -time 30 -locker "sklock" -corners -000 -cornerdelay 3 &
+# xss-lock sklock &
+# nm-applet &
+# xfce4-power-manager &
+
+numlockx on &
+nitrogen --restore &
+copyq &
+redshift -l '36.850282:54.3680226' &
+slayout &
+picom -b
+restart-flashfocus &
+swapcaps &
+sxhkd &
+
+xrdb -load ~/.config/X11/Xresources
+
 
 exec awesome
