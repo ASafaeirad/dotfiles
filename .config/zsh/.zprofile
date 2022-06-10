@@ -9,3 +9,5 @@ if [ "$(tty)" = "/dev/tty1" ] && ! pidof Xorg >/dev/null 2>&1; then
   exec startx "$XDG_CONFIG_HOME/X11/xinitrc"
 fi
 
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
