@@ -37,5 +37,4 @@ vnoremap <A-J> y'>p
 " let g:VM_maps['Find Subword Under'] = '<C-b>'
 " let g:VM_maps['Find Word']          = '<C-b>'
 
-" nnoremap <silent> gcc :call NERDComment('n', 'toggle')<CR>
 
