@@ -1,188 +1,183 @@
 [user]
-	name = Alireza Safaierad
-	email = frontendmonster@gmail.com
-	signingkey = 43359AB7733BD76C
+  name = Alireza Safaierad
+  email = frontendmonster@gmail.com
+  signingkey = 43359AB7733BD76C
 [github]
-	user = frontendmonster
+  user = frontendmonster
 [credential]
-	helper = /usr/bin/pass-git-helper
+  helper = /usr/bin/pass-git-helper
+  cache = 3600
 [alias]
-	la = "!git config -l | grep alias | cut -c 7-"
+  la = "!git config -l | grep alias | cut -c 7-"
 
-	delete-merged-branches = "!f() { git checkout --quiet master && git branch --merged | grep --invert-match '\\*' | xargs -n 1 git branch --delete; git checkout --quiet @{-1}; }; f"
+  delete-merged-branches = "!f() { git checkout --quiet main && git branch --merged | grep --invert-match '\\*' | xargs -n 1 git branch --delete; git checkout --quiet @{-1}; }; f"
 
-	# enhance
-	diff = diff --ignore-space-at-eol -b -w --ignore-blank-lines
+  # enhance
+  diff = diff --ignore-space-at-eol -b -w --ignore-blank-lines
 
-	#shortcuts
-	s = status --short
-	ss  = status
-	b = branch -v
+  addnw = "!sh -c 'git diff -U0 -w --no-color \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero -'"
 
-	cnv = commit --no-verify
-	pnv = push --no-verify
-	addnw = "!sh -c 'git diff -U0 -w --no-color \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero -'"
-
-	# rebase commands
-	conf = "!git s | grep ^U"
+  # rebase commands
+  conf = "!git status --short | grep ^U"
 
   # logs
-	l = log --graph --pretty=format:'%C(yellow)%h%Creset %C(bold blue)%an%C(reset) - %s - %Creset %C(yellow)%d%Creset %C(green)(%cr)%Creset' --abbrev-commit --date=relative
-	lg  = log --graph --branches --remotes --tags --oneline --decorate --color
-	lga = log --graph --all --oneline --decorate --color
-	lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
-	lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
-	lg3 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+  l = log --graph --pretty=format:'%C(yellow)%h%Creset %C(bold blue)%an%C(reset) - %s - %Creset %C(yellow)%d%Creset %C(green)(%cr)%Creset' --abbrev-commit --date=relative
+  lg = log --graph --branches --remotes --tags --oneline --decorate --color
+  lg2 = log --graph --oneline --decorate --color
+  lga = log --graph --all --oneline --decorate --color
+  lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+  lg3 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+  lg4 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''          %C(white)%s%C(reset)%n''          %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
 
-	first ="rev-list --max-parents=0 HEAD"
+  first = "rev-list --max-parents=0 HEAD"
 
-	# show what I did today
-	day = "!sh -c 'git log --reverse --no-merges --branches=* --date=local --after=\"yesterday 11:59PM\" --author=\"`git config --get user.name`\"'"
+  # show what I did today
+  day = "!sh -c 'git log --reverse --no-merges --branches=* --date=local --after=\"yesterday 11:59PM\" --author=\"`git config --get user.name`\"'"
 
-	# show the committers in the last 100 commits, sorted by who has commited the most
-	review = "!git log --no-merges --pretty=%an | head -n 100 | sort | uniq -c | sort -nr"
+  # show the committers in the last 100 commits, sorted by who has commited the most
+  review = "!git log --no-merges --pretty=%an | head -n 100 | sort | uniq -c | sort -nr"
 
-	# order files by number of commits, ascending
-	# Written by Corey Haines
-	# Scriptified by Gary Bernhardt
-	# Show churn for a time range:
-	#   $ git churn --since='1 month ago'
-	churn = "!f() { git log --all -M -C --name-only --format='format:' \"$@\" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print \"count\tfile\"} {print $1 \"\t\" $2}' | sort -g; }; f"
+  # order files by number of commits, ascending
+  # Written by Corey Haines
+  # Scriptified by Gary Bernhardt
+  # Show churn for a time range:
+  #   $ git churn --since='1 month ago'
+  churn = "!f() { git log --all -M -C --name-only --format='format:' \"$@\" | sort | grep -v '^$' | uniq -c | sort | awk 'BEGIN {print \"count\tfile\"} {print $1 \"\t\" $2}' | sort -g; }; f"
 
-	# show all deleted files in the repo
-	deleted = "!git log --diff-filter=D --summary | grep delete"
+  # show all deleted files in the repo
+  deleted = "!git log --diff-filter=D --summary | grep delete"
 
-	# create an empty commit
-	empty = commit --allow-empty
+  # create an empty commit
+  empty = commit --allow-empty
 
-	# current branch
-	cbr = rev-parse --abbrev-ref HEAD
+  # show number of commits per contributer, sorted
+  count = shortlog -sn
+  undo = reset --soft HEAD~1
+  cleanup = "!git remote prune origin && git gc && git clean -df && git stash clear"
 
-	# show number of commits per contributer, sorted
-	count = shortlog -sn
-	undo = reset --soft HEAD~1
-	cleanup = "!git remote prune origin && git gc && git clean -df && git stash clear"
+  # rebase the current branch with changes from upstream remote
+  update = !git fetch upstream && git rebase upstream/`git rev-parse --abbrev-ref HEAD`
 
-	# rebase the current branch with changes from upstream remote
-	update = !git fetch upstream && git rebase upstream/`git rev-parse --abbrev-ref HEAD`
+  # tag aliases
+  # show the last tag
+  lt = describe --tags --abbrev=0
 
-	# tag aliases
-	# show the last tag
-	lt = describe --tags --abbrev=0
+  wip = commit -m 'WIP' --no-verify
+  root = commit -m 'root' --allow-empty
 
-	wip = commit -m 'WIP' --no-verify
-	root= commit -m 'root' --allow-empty
+  # assume aliases
+  assume = update-index --assume-unchanged
+  unassume = update-index --no-assume-unchanged
+  assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+  unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
 
-	# assume aliases
-	assume = update-index --assume-unchanged
-	unassume = update-index --no-assume-unchanged
-	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
-	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+  # clean up all
+  forget = "!git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D"
 
-	# clean up all
-	forget = "!git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D"
+  # show the most recently touched branches
+  recent = "!git for-each-ref --sort='-committerdate' --format='%(color:red)%(refname)%(color:reset)%09%(committerdate)' refs/heads | sed -e 's-refs/heads/--' | less -XFR"
+  latest = "!git for-each-ref --sort='-committerdate' --format='%(color:red)%(refname)%(color:reset)%09%(committerdate)' refs/remotes | sed -e 's-refs/remotes/origin/--' | less -XFR"
 
-	# show the most recently touched branches
-	recent = "!git for-each-ref --sort='-committerdate' --format='%(color:red)%(refname)%(color:reset)%09%(committerdate)' refs/heads | sed -e 's-refs/heads/--' | less -XFR"
-	latest = "!git for-each-ref --sort='-committerdate' --format='%(color:red)%(refname)%(color:reset)%09%(committerdate)' refs/remotes | sed -e 's-refs/remotes/origin/--' | less -XFR"
+  # grep commands
 
-	# grep commands
+  # 'diff grep'
+  dg = "!sh -c 'git ls-files -m | grep $1 | xargs git diff' -"
+  # diff grep changes between two commits
+  dgc = "!sh -c 'git ls-files | grep $1 | xargs git diff $2 $3 -- ' -"
+  # 'checkout grep'
+  cg = "!sh -c 'git ls-files -m | grep $1 | xargs git checkout ' -"
+  # add grep
+  ag = "!sh -c 'git ls-files -m -o --exclude-standard | grep $1 | xargs git add --all' -"
+  # add all
+  aa = !git ls-files -d | xargs git rm && git ls-files -m -o --exclude-standard | xargs git add
+  # remove grep - Remove found files that are NOT under version control
+  rg = "!sh -c 'git ls-files --others --exclude-standard | grep $1 | xargs rm' -"
 
-	# 'diff grep'
-	dg = "!sh -c 'git ls-files -m | grep $1 | xargs git diff' -"
-	# diff grep changes between two commits
-	dgc = "!sh -c 'git ls-files | grep $1 | xargs git diff $2 $3 -- ' -"
-	# 'checkout grep'
-	cg = "!sh -c 'git ls-files -m | grep $1 | xargs git checkout ' -"
-	# add grep
-	ag = "!sh -c 'git ls-files -m -o --exclude-standard | grep $1 | xargs git add --all' -"
-	# add all
-	aa = !git ls-files -d | xargs git rm && git ls-files -m -o --exclude-standard | xargs git add
-	# remove grep - Remove found files that are NOT under version control
-	rg = "!sh -c 'git ls-files --others --exclude-standard | grep $1 | xargs rm' -"
+  remotes = remote -v
+  tags = tag --list
+  # check out a local copy of a PR. https://gist.github.com/gnarf/5406589
+  pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+  pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+  total = "!f() { git log $@ --numstat | perl -ne '$i+=$1 and $d+=$2 if /^(\\d+)\\s+(\\d+)/; END { print \"$i insertion(s), $d deletion(s)\n\"}'; }; f"
+  stash-staged = "!bash -c \"git stash --keep-index; git stash push -m \"staged\" --keep-index; git stash pop stash@{1}\""
 
-	remotes = remote -v
-	tags = tag --list
-	# check out a local copy of a PR. https://gist.github.com/gnarf/5406589
-	pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
-	pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
-	total = "!f() { git log $@ --numstat | perl -ne '$i+=$1 and $d+=$2 if /^(\\d+)\\s+(\\d+)/; END { print \"$i insertion(s), $d deletion(s)\n\"}'; }; f"
-	stash-staged = "!bash -c \"git stash --keep-index; git stash push -m \"staged\" --keep-index; git stash pop stash@{1}\""
+  ls = "!git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | sed -n 's/^blob //p' | sort --numeric-sort --key=2 | cut -c 1-12,41- | $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest"
 
-	ls = "!git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' | sed -n 's/^blob //p' | sort --numeric-sort --key=2 | cut -c 1-12,41- | $(command -v gnumfmt || echo numfmt) --field=2 --to=iec-i --suffix=B --padding=7 --round=nearest"
-
-	find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
-	show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+  find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+  show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
 
 [color]
-	diff = auto
-	status = auto
-	branch = auto
-	interactive = auto
-	ui = auto
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  ui = auto
 [color "branch"]
-	current = green bold
-	local = green
-	remote = red bold
+  current = green bold
+  local = green
+  remote = red bold
 [color "diff"]
-	meta = yellow bold
-	frag = magenta bold
-	old = red bold
-	new = green bold
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
 [color "status"]
-	added = cyan bold
-	changed = yellow bold
-	untracked = red bold
+  added = cyan bold
+  changed = yellow bold
+  untracked = red bold
 [color "sh"]
-	branch = yellow
+  branch = yellow
 [push]
-	# push will only do the current branch, not all branches
-	default = current
-	followTags = true
+  default = current
+  followTags = true
 [branch]
-	# set up 'git pull' to rebase instead of merge
-	autosetuprebase = always
+  # set up 'git pull' to rebase instead of merge
+  autosetuprebase = always
 [diff]
-	tool = icdiff
-	renames = copies
-	mnemonicprefix = true
-	compactionHeuristic = true
+  tool = icdiff
+  renames = copies
+  mnemonicprefix = true
+  compactionHeuristic = true
 [difftool]
-	prompt = false
+  prompt = false
 [apply]
-	# do not warn about missing whitespace at EOF
-	whitespace = nowarn
+  # do not warn about missing whitespace at EOF
+  whitespace = nowarn
 [core]
-	editor = nvim
-	whitespace = cr-at-eol
+  editor = nvim
+  whitespace = cr-at-eol
 [rerere]
-	enabled = true
+  enabled = true
 [grep]
-	extendRegexp = true
-	lineNumber = true
+  extendRegexp = true
+  lineNumber = true
 [rebase]
-	instructionFormat = "[%an - %ar] %s"
-	autoStash = true
+  instructionFormat = "[%an - %ar] %s"
+  autoStash = true
 [pager]
-	diff = "diff-so-fancy | less --tabs=4 -RFX"
-	show = "diff-so-fancy | less --tabs=4 -RFX"
-	branch = "less --tabs=4 -RFX"
+  diff = "diff-so-fancy | less --tabs=4 -RFX"
+  show = "diff-so-fancy | less --tabs=4 -RFX"
+  tag = "less --tabs=4 -RFX"
+  branch = "less --tabs=4 -RFX"
 [difftool "icdiff"]
-	cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
+  cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
 [commit]
-	gpgsign = true
+  gpgsign = true
 [gpg]
-	program = gpg2
+  program = gpg2
 [pull]
-	rebase = true
+  rebase = true
 [tag]
-	forceSignAnnotated = true
+  forceSignAnnotated = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
 [filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
 [merge]
-	conflictstyle = zdiff3
+  conflictstyle = zdiff3
+  tool = code-insiders
+[mergetool "code-insiders"]
+  cmd = code-insiders --wait --merge $REMOTE $LOCAL $BASE $MERGED
