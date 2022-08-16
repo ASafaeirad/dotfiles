@@ -1,6 +1,6 @@
 configuration {
   modi: "drun";
-  font: "DejaVuSansMono Nerd Font 10";
+  font: "DejaVuSansMono Nerd Font Mono 10";
   show-icons: false;
   icon-theme: "Papirus";
   display-drun: "";
@@ -52,7 +52,7 @@ inputbar {
 }
 
 listview {
-  require-input: true;
+  require-input: false;
   fixed-height: false;
   lines: 5;
   cycle: false;
