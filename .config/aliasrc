@@ -30,7 +30,7 @@ alias swclicks='xmodmap -e "pointer = 3 2 1"'
 alias tv="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1"
 
 mm() {
-  xrandr --output HDMI-1 --mode 1920x1080 --left-of eDP-1 &>/dev/null
+  xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1 &>/dev/null
   nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
   nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
 }
@@ -46,7 +46,7 @@ alias oao='npx oao'
 alias np='npx np'
 alias nx='npx nx'
 alias tsc='npx tsc'
-alias cra='npx create-react-app'
+alias heroku='npx heroku'
 s() {
   [ -f ./.skill/env ] && . ./.skill/env
 }
@@ -61,9 +61,10 @@ function dff() {
 alias grep='grep --color'
 alias ls='ls --color'
 alias mkdir='mkdir -pv'
+
 function l() {
-  local level="${1:-1}"
-  shift
+  local level=${2:-1}
+  set -- "${@:1:1}" "${@:3}"
   exa -all --no-permissions --no-time --no-user --tree --group-directories-first --no-filesize --color always -l --ignore-glob="node_modules" --level "$level" "$@" | less -XFR
 }
 
@@ -108,6 +109,10 @@ font() {
 
 which-font() {
   FC_DEBUG=4 pango-view -q -t $1 2>&1 | grep -o 'family: "[^"]\+' | cut -c 10- | tail -n 1
+}
+
+which-mime() {
+  XDG_UTILS_DEBUG_LEVEL=10 xdg-mime query default "$@"
 }
 
 # process
@@ -164,10 +169,13 @@ alias rangerrc='edit $XDG_CONFIG_HOME/ranger/rc.conf'
 alias alacrittyrc='edit $XDG_CONFIG_HOME/alacritty/alacritty.yml'
 alias i3rc='edit $XDG_CONFIG_HOME/i3/config'
 alias polybarrc='edit $XDG_CONFIG_HOME/polybar/config.ini'
-alias reload='source $XDG_CONFIG_HOME/aliasrc && source $XDG_CONFIG_HOME/bookmarkrc'
 alias fontrc='edit $XDG_CONFIG_HOME/fontconfig/'
-alias xreload='xrdb $XDG_CONFIG_HOME/X11/Xresources'
 alias gpgrc='edit $GNUPGHOME/gpg-agent.conf'
+alias xinitrc='edit $XDG_CONFIG_HOME/X11/xinitrc'
+
+alias reload='source $XDG_CONFIG_HOME/aliasrc && source $XDG_CONFIG_HOME/bookmarkrc'
+alias xreload='xrdb $XDG_CONFIG_HOME/X11/Xresources'
+alias resx='pkill sxhkd && sxhkd &'
 
 # file system
 alias lsa='ls -AF --group-directories-first'
@@ -222,6 +230,20 @@ for method in GET HEAD POST PUT PATCH DELETE TRACE OPTIONS; do
   alias "$method"="curlie -X '$method' -H 'content-type: application/json'"
 done
 
+cors() {
+  curl "$1" \
+    -H "Accept: application/json, text/plain, */*" \
+    -H "Origin: $2" \
+    -H "Sec-Fetch-Mode: cors" \
+    -X OPTIONS \
+    -i
+}
+
+l1() {
+  local EXT=${2:-"ts"}
+  find "$1" -name "*.$EXT" -type f -exec basename {} ".$EXT" \; | xsel -ib
+}
+
 # Other packages
 alias pac='pacman -S'
 alias pacr='pacman -R'
@@ -231,7 +253,7 @@ alias pacls='pacman -Qi'
 alias npmls='npm ls --depth 0'
 alias npmr='npm remove'
 alias npmi='npm install'
-alias npmg='npm install -g'
+alias npmg='npm install --location=global'
 alias npms='npm start'
 alias npmb='npm run build'
 alias npmt='npm test'
@@ -247,21 +269,6 @@ alias nrc='npm run commit'
 alias cleannm='find . -name "node_modules" -type d -exec sudo rm -rf {} \;'
 alias renpm='rm -rf node_modules && rm ./package-lock.json && npm i'
 alias monore='find . -name "node_modules" -type d -exec sudo rm -rf {} \; ; npx lerna bootstrap && npm install'
-
-# yarn
-alias yrs='yarn start'
-alias yrd='yarn run dev'
-alias ya='yarn add'
-alias yad='yarn add --dev'
-alias yrc='yarn run commit'
-alias yrt='yarn run test'
-alias yrtw='yarn run test:watch'
-alias yrb='yarn run build'
-alias yr='yarn remove'
-alias ycc='yarn cache clean'
-alias yui='yarn upgrade-interactive --latest'
-alias yws='yarn workspace'
-alias ysu='curl --compressed -o- -L https://yarnpkg.com/install.sh | bash'
 
 ## docker-compose
 alias dc='docker-compose'
@@ -284,7 +291,7 @@ alias clone='git clone'
 alias gs='git status -s'
 alias gss='git status'
 alias gsl='git stash list'
-
+alias gf='git fetch'
 alias gfp='git fetch --prune'
 
 # alias ga='git add'
