@@ -22,4 +22,5 @@ nnoremap N Nzzzv
 vnoremap < <gv
 vnoremap > >gv
 vnoremap p "_dP
-
+map L $
+map H ^

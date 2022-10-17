@@ -57,6 +57,7 @@ export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java
 export LEIN_HOME="$XDG_DATA_HOME"/lein # Leiningen
 export PYTHONPYCACHEPREFIX="${XDG_CACHE_HOME}/python"
 export PYTHONUSERBASE="${XDG_DATA_HOME}/python"
+export DENO_INSTALL="$HOME/.local"
 
 # .netrc
 export NETRC="${XDG_DATA_HOME}/netrc"

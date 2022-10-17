@@ -39,12 +39,12 @@
 (setq display-line-numbers-type 'relative)
 
 (after! org
-  (setq org-directory "~/docs/orgs"
+  (setq org-directory "~/docs/notes"
         org-hide-emphasis-markers t))
-
-
 (setq deft-directory "~/docs/notes")
-(setq fancy-splash-image "~/desktop/deer-light.png")
+(setq org-agenda-files '("~/docs/notes"))
+
+(setq fancy-splash-image "~/.config/doom/assets/deer-light.png")
 (custom-set-faces!
   '(doom-dashboard-footer      :inherit font-lock-comment-face)
   '(doom-dashboard-footer-icon :inherit all-the-icons-yellow)
