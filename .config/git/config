@@ -32,12 +32,19 @@
   first = "rev-list --max-parents=0 HEAD"
 
   # show what I did today
-  day = "!sh -c 'git log --reverse --no-merges --branches=* --date=local --after=\"yesterday 11:59PM\" --author=\"`git config --get user.name`\"'"
+  logdaylog="!git log --oneline --no-merges --date=local"
+  yesterday = "!git logdaylog --since='yesterday 00:00AM'"
+  day = "!git logdaylog --since='today 00:00AM'"
+  week = "!git logdaylog --since='last week'"
+  sprint = "!git logdaylog --since='last 2 week'"
 
-  # show the committers in the last 100 commits, sorted by who has commited the most
-  review = "!git log --no-merges --pretty=%an | head -n 100 | sort | uniq -c | sort -nr"
+  logreview="!git log --no-merges --pretty=%an \"$1\"^ \"$1\" # | sort | uniq -c | sort -nr"
+  review = "!git logreview"
+  review-week = "!git logreview --since='last week'"
+  review-sprint = "!git logreview --since='last 2 week'"
 
   # order files by number of commits, ascending
+  #
   # Written by Corey Haines
   # Scriptified by Gary Bernhardt
   # Show churn for a time range:
@@ -130,6 +137,7 @@
 [push]
   default = current
   followTags = true
+  autoSetupRemote = true
 [branch]
   # set up 'git pull' to rebase instead of merge
   autosetuprebase = always
