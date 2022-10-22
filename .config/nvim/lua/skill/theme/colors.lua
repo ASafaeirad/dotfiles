@@ -9,13 +9,13 @@ local colors = {
 	base1 = "#1c1e1e",
 	base2 = "#202328",
 	base3 = "#272a34",
-	base4 = "#3f444a",
+	base4 = "#4b5258",
 	base5 = "#5b6268",
 	base6 = "#73797e",
 	base7 = "#9ca0a4",
 	base8 = "#dfdfdf",
 
-  -- Color
+	-- Color
 	grey = "#3f444a",
 	red = "#ff7272",
 	orange = "#ffa478",

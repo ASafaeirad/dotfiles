@@ -1,5 +1,5 @@
 vim.g.neovide_cursor_vfx_mode = "pixiedust"
-vim.g.neovide_transparency = 0.8
+vim.g.neovide_transparency = 0.9
 vim.g.neovide_floating_blur_amount_x = 2
 vim.g.neovide_floating_blur_amount_y = 2
 
@@ -17,11 +17,13 @@ vim.g.neovide_scale_factor = 1.0
 
 vim.cmd([[
   let g:gui_font_size = 12
-  silent! execute('set guifont=Input\ Mono,DejaVuSansMono\ Nerd\ Font\ Mono,VimFile:h'.g:gui_font_size)
+  let g:font_family = 'JetBrainsMono\ Nerd\ Font\ Mono,DejaVuSansMono\ Nerd\ Font\ Mono,VimFile'
+
+  silent! execute('set guifont ='.g:font_family.':h'.g:gui_font_size)
 
   function! ResizeFont(delta)
     let g:gui_font_size = g:gui_font_size + a:delta
-    execute('set guifont=Input\ Mono,DejaVuSansMono\ Nerd\ Font\ Mono,VimFile:h'.g:gui_font_size)
+    execute('set guifont ='.g:font_family.':h'.g:gui_font_size)
   endfunction
 
   function! ResetFont()

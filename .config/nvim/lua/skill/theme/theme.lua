@@ -1,6 +1,74 @@
 local M = {}
 local utils = require("skill.theme.utils")
-local palette = require("skill.theme.colors")
+
+local color = {
+	dark1 = {
+		bg = "#2b3339",
+		fg = "#ffffff",
+
+		bg_alt = "#272f35",
+		fg_alt = "#5b6268",
+
+		base0 = "#1b2229",
+		base1 = "#1c1e1e",
+		base2 = "#202328",
+		base3 = "#272a34",
+		base4 = "#353945",
+		base5 = "#3c4152",
+		base6 = "#454851",
+		base7 = "#5a5f6f",
+		base8 = "#dfdfdf",
+
+		-- Color
+		grey = "#3f444a",
+		red = "#ff7272",
+		orange = "#ffa478",
+		green = "#83c092",
+		teal = "#4db5bd",
+		yellow = "#ffcb42",
+		blue = "#51afef",
+		dark_blue = "#2257a0",
+		magenta = "#c678dd",
+		violet = "#a9a1e1",
+		cyan = "#83d6ff",
+		dark_cyan = "#5699af",
+	},
+	dark2 = {
+		bg = "#23252e",
+		fg = "#ffffff",
+
+		bg_alt = "#1c1e25",
+		fg_alt = "#5b6268",
+
+		base0 = "#1b2229",
+		base1 = "#1c1e1e",
+		base2 = "#202328",
+		base3 = "#272a34",
+		base4 = "#353945",
+		base5 = "#3c4152",
+		base6 = "#454851",
+		base7 = "#5a5f6f",
+		base8 = "#dfdfdf",
+
+		-- Color
+		grey = "#3f444a",
+		red = "#ff7272",
+		orange = "#ffa478",
+		green = "#c6ff90",
+		teal = "#4db5bd",
+		yellow = "#ffd667",
+		blue = "#51afef",
+		dark_blue = "#2257a0",
+		magenta = "#c678dd",
+		violet = "#a9a1e1",
+		cyan = "#83d6ff",
+		dark_cyan = "#5699af",
+	},
+}
+
+local palette = color.dark2
+
+-- local palette = require("skill.theme.colors")
 
 local function set_hl(group, values)
 	vim.api.nvim_set_hl(0, group, values)
@@ -53,10 +121,10 @@ M.set_colorscheme = function()
 	set_hl("NormalPopupSubtle", { bg = palette.bg_alt, fg = palette.base6 })
 	set_hl("EndOfBuffer", { bg = "bg", fg = "bg" })
 
-	set_hl("Visual", { bg = palette.base4 })
+	set_hl("Visual", { bg = palette.base5 })
 	set_hl("VisualBold", { bg = palette.dark_blue, bold = true })
 
-	set_hl("LineNr", { bg = "bg", fg = palette.grey })
+	set_hl("LineNr", { bg = "bg", fg = palette.base6 })
 	set_hl("Cursor", { bg = palette.yellow })
 	set_hl("CursorLine", { bg = palette.bg_alt })
 	set_hl("CursorLineNr", { bg = palette.bg_alt, fg = "fg" })
@@ -84,7 +152,7 @@ M.set_colorscheme = function()
 	set_hl("TabLineSel", { bg = "bg", fg = palette.blue, bold = true })
 	set_hl("TabLineFill", { bg = palette.base1, bold = true })
 
-	set_hl("StatusLine", { bg = palette.base3, fg = palette.base8 })
+	set_hl("StatusLine", { bg = palette.bg_alt, fg = palette.base8 })
 	set_hl("StatusLineNC", { bg = palette.bg_alt, fg = palette.base6 })
 	set_hl("StatusLinePart", { bg = palette.bg_alt, fg = palette.base6, bold = true })
 	set_hl("StatusLinePartNC", { link = "StatusLinePart" })
@@ -98,7 +166,7 @@ M.set_colorscheme = function()
 	--------------------------------------------
 	--- Search, Highlight, Conceal, Messages ---
 	--------------------------------------------
-	set_hl("Search", { bg = palette.dark_blue, fg = "fg" })
+	set_hl("Search", { bg = palette.green, fg = "#000000" })
 	set_hl("Substitute", { fg = palette.red, bold = true, strikethrough = true })
 	set_hl("IncSearch", { bg = palette.yellow, fg = "bg", bold = true })
 	set_hl("IncSearchCursor", { reverse = true })
@@ -161,8 +229,8 @@ M.set_colorscheme = function()
 	set_hl("URL", { link = "Link" })
 	set_hl("Underlined", { fg = utils.mix(palette.blue, palette.cyan, 0.5), underline = true })
 
-	set_hl("Comment", { fg = palette.base5, italic = config.ui.italic_comments })
-	set_hl("CommentBold", { fg = palette.base5, bold = true })
+	set_hl("Comment", { fg = palette.base7, italic = config.ui.italic_comments })
+	set_hl("CommentBold", { fg = palette.base7, bold = true })
 	set_hl("SpecialComment", { fg = palette.base7, bold = true })
 
 	set_hl("Macro", { fg = palette.violet })
@@ -375,7 +443,7 @@ M.set_colorscheme = function()
 	------------------------
 	if config.plugins.indent_blankline then
 		set_hl("IndentBlanklineChar", { fg = palette.base3, nocombine = true })
-		set_hl("IndentBlanklineContextChar", { fg = palette.base4, nocombine = true })
+		set_hl("IndentBlanklineContextChar", { fg = palette.base5, nocombine = true })
 		set_hl("IndentBlanklineSpaceChar", { link = "IndentBlanklineChar" })
 		set_hl("IndentBlanklineSpaceCharBlankline", { link = "IndentBlanklineChar" })
 	end
@@ -452,7 +520,7 @@ M.set_colorscheme = function()
 		set_hl("TelescopeResultsBorder", { link = "TelescopeBorder" })
 		set_hl("TelescopePreviewBorder", { link = "TelescopeBorder" })
 		set_hl("TelescopeMatching", { fg = palette.yellow, bold = true })
-		set_hl("TelescopeSelection", { link = "VisualBold" })
+		set_hl("TelescopeSelection", { bg = palette.base6 })
 		set_hl("TelescopeSelectionCaret", { fg = palette.blue })
 	end
 
@@ -498,8 +566,8 @@ M.set_colorscheme = function()
 	end
 
 	if config.plugins.nvim_tree then
-		set_hl("NvimTreeFolderName", { fg = palette.fg, bold = false })
-		set_hl("NvimTreeFolderIcon", { fg = "#666666" })
+		set_hl("NvimTreeFolderName", { fg = palette.fg })
+		set_hl("NvimTreeFolderIcon", { fg = palette.orange })
 		set_hl("NvimTreeFileIcon", { fg = "#666666" })
 		set_hl("NvimTreeRootFolder", { fg = palette.yellow, bold = true })
 		set_hl("NvimTreeEmptyFolderName", { fg = palette.white, bold = true })
@@ -509,6 +577,7 @@ M.set_colorscheme = function()
 		set_hl("NvimTreeOpenedFile", { fg = palette.fg_alt })
 		set_hl("NvimTreeSpecialFile", { fg = "fg" })
 		set_hl("NvimTreeMarkdownFile", { fg = "fg" })
+
 		set_hl("NvimTreeGitDirty", { link = "DiffModifiedGutter" })
 		set_hl("NvimTreeGitStaged", { link = "DiffModifiedGutter" })
 		set_hl("NvimTreeGitMerge", { link = "DiffModifiedGutter" })
@@ -517,6 +586,16 @@ M.set_colorscheme = function()
 		set_hl("NvimTreeGitDeleted", { link = "DiffRemovedGutter" })
 		set_hl("NvimTreeIndentMarker", { link = "IndentGuide" })
 		set_hl("NvimTreeOpenedFolderName", { link = "NvimTreeFolderName" })
+
+		set_hl("LspDiagnosticsError", { link = "TextError" })
+		set_hl("LspDiagnosticsWarning", { link = "TextWarning" })
+		set_hl("LspDiagnosticsInformation", { link = "TextInfo" })
+		set_hl("LspDiagnosticsHint", { link = "TextInfo" })
+
+		set_hl("NvimTreeLspDiagnosticsError", { link = "TextError" })
+		set_hl("NvimTreeLspDiagnosticsWarning", { link = "TextWarning" })
+		set_hl("NvimTreeLspDiagnosticsInformation", { link = "TextInfo" })
+		set_hl("NvimTreeLspDiagnosticsHint", { link = "Normal" })
 	end
 
 	if config.plugins.lspsaga then
@@ -552,5 +631,8 @@ M.set_colorscheme = function()
 		set_hl("LspLinesDiagBorder", { link = "Bold" })
 	end
 end
+
+M.set_colorscheme()
+M.palette = palette
 
 return M
