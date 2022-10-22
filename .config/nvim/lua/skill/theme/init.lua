@@ -1,3 +1,1 @@
-local theme = require "skill.theme.theme"
-
-theme.set_colorscheme()
+require("skill.theme.theme").set_colorscheme()

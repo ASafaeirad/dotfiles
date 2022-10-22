@@ -60,8 +60,15 @@ keymap("x", "<M-k>", ":move '<-2<CR>gv-gv", opts)
 
 keymap("n", "<leader>ff", "<cmd>Telescope find_files<CR>", opts)
 keymap("n", "<leader>ft", "<cmd>Telescope live_grep<CR>", opts)
-keymap("n", "<leader><leader>", "<Cmd>lua require('telescope').extensions.frecency.frecency({ workspace = 'CWD' })<CR>", opts)
+keymap(
+	"n",
+	"<leader><leader>",
+	"<Cmd>lua require('telescope').extensions.frecency.frecency({ workspace = 'CWD' })<CR>",
+	opts
+)
 
 keymap("!", "<S-Insert>", "<C-R>+", {})
 keymap("!", "<C-v>", "<C-R>+", {})
 keymap("n", "<Leader>q", ":Bdelete<CR>", opts)
+
+keymap("n", "<leader>gg", ":LazyGit<CR>", opts)
