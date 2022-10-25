@@ -12,7 +12,7 @@ local color = {
 		base0 = "#1b2229",
 		base1 = "#1c1e1e",
 		base2 = "#202328",
-		base3 = "#272a34",
+		base3 = "#2e323d",
 		base4 = "#353945",
 		base5 = "#3c4152",
 		base6 = "#454851",
@@ -43,7 +43,7 @@ local color = {
 		base0 = "#1b2229",
 		base1 = "#1c1e1e",
 		base2 = "#202328",
-		base3 = "#272a34",
+		base3 = "#303440",
 		base4 = "#353945",
 		base5 = "#3c4152",
 		base6 = "#454851",
@@ -483,7 +483,9 @@ M.set_colorscheme = function()
 	end
 
 	if config.plugins.vim_illuminate then
-		set_hl("illuminatedWord", { underline = true })
+		set_hl("IlluminatedWordText", { bg = palette.base3 })
+		set_hl("IlluminatedWordRead", { bg = palette.base3 })
+		set_hl("IlluminatedWordWrite", { bg = palette.base3 })
 	end
 
 	if config.plugins.barbar then
