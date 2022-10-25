@@ -7,14 +7,6 @@ packer.startup(function(use)
 	use({ "wbthomason/packer.nvim" })
 	use({ "nvim-lua/plenary.nvim" })
 	use({ "moll/vim-bbye" })
-	use({ "folke/neodev.nvim", module = "neodev" })
-	use({
-		"RRethy/vim-hexokinase",
-		run = "make hexokinase",
-		setup = function()
-			vim.g.Hexokinase_highlighters = { "virtual" }
-		end,
-	})
 	use({
 		"numToStr/Comment.nvim",
 		config = function()
@@ -22,13 +14,15 @@ packer.startup(function(use)
 		end,
 	})
 	use({ "JoosepAlviste/nvim-ts-context-commentstring" })
+
+	-- UI
 	use({
-		"kyazdani42/nvim-tree.lua",
-		config = function()
-			require("skill.plugins.nvim-tree").config()
+		"RRethy/vim-hexokinase",
+		run = "make hexokinase",
+		setup = function()
+			vim.g.Hexokinase_highlighters = { "virtual" }
 		end,
 	})
-
 	use({
 		"nvim-lualine/lualine.nvim",
 		config = function()
@@ -41,11 +35,17 @@ packer.startup(function(use)
 			require("skill.plugins.indent-blankline").config()
 		end,
 	})
+	use({
+		"kyazdani42/nvim-tree.lua",
+		config = function()
+			require("skill.plugins.nvim-tree").config()
+		end,
+	})
 
 	-- Completions
-	use({ "hrsh7th/cmp-buffer" }) -- buffer completions
-	use({ "hrsh7th/cmp-path" }) -- path completions
-	use({ "saadparwaiz1/cmp_luasnip" }) -- snippet completions
+	use({ "hrsh7th/cmp-buffer" })
+	use({ "hrsh7th/cmp-path" })
+	use({ "saadparwaiz1/cmp_luasnip" })
 	use({ "hrsh7th/cmp-nvim-lsp" })
 	use({ "hrsh7th/cmp-nvim-lua" })
 	use({
@@ -53,18 +53,22 @@ packer.startup(function(use)
 		config = function()
 			require("skill.plugins.completions").config()
 		end,
-	}) -- The completion plugin
-
-	-- Snippets
-	use({ "L3MON4D3/LuaSnip" }) --snippet engine
+	})
+	use({ "folke/neodev.nvim", module = "neodev" })
+	use({ "L3MON4D3/LuaSnip" })
 
 	-- LSP
-	use({ "neovim/nvim-lspconfig" }) -- enable LSP
-	use({ "williamboman/mason.nvim" }) -- simple to use language server installer
+	use({ "neovim/nvim-lspconfig" })
+	use({ "williamboman/mason.nvim" })
 	use({ "williamboman/mason-lspconfig.nvim" })
-	use({ "jose-elias-alvarez/null-ls.nvim" }) -- for formatters and linters
+	use({ "jose-elias-alvarez/null-ls.nvim" })
 	use({ "jayp0521/mason-null-ls.nvim" })
-	-- use { "RRethy/vim-illuminate", commit = "a2e8476af3f3e993bb0d6477438aad3096512e42" }
+	use({
+		"RRethy/vim-illuminate",
+		config = function()
+			require("skill.plugins.illuminate").setup()
+		end,
+	})
 
 	-- Telescope
 	use({ "BurntSushi/ripgrep" })
@@ -129,8 +133,6 @@ packer.startup(function(use)
 	-- use { "goolord/alpha-nvim", commit = "0bb6fc0646bcd1cdb4639737a1cee8d6e08bcc31" }
 	-- use {"folke/which-key.nvim"}
 
-	-- Automatically set up your configuration after cloning packer.nvim
-	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
 	end
