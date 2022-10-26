@@ -10,12 +10,25 @@ packer.startup(function(use)
 	use({
 		"numToStr/Comment.nvim",
 		config = function()
-			require("skill.plugins.comment").config()
+			require("skill.plugins.comment").setup()
 		end,
 	})
 	use({ "JoosepAlviste/nvim-ts-context-commentstring" })
 
 	-- UI
+	use({
+		"Shatur/neovim-session-manager",
+		config = function()
+			require("skill.plugins.session-manager").setup()
+		end,
+	})
+	use({
+		"goolord/alpha-nvim",
+		config = function()
+			require("skill.plugins.alpha").setup()
+		end,
+	})
+
 	use({
 		"RRethy/vim-hexokinase",
 		run = "make hexokinase",
@@ -23,18 +36,21 @@ packer.startup(function(use)
 			vim.g.Hexokinase_highlighters = { "virtual" }
 		end,
 	})
+
 	use({
 		"nvim-lualine/lualine.nvim",
 		config = function()
-			require("skill.plugins.lualine")
+			require("skill.plugins.lualine").setup()
 		end,
 	})
+
 	use({
 		"lukas-reineke/indent-blankline.nvim",
 		config = function()
 			require("skill.plugins.indent-blankline").config()
 		end,
 	})
+
 	use({
 		"kyazdani42/nvim-tree.lua",
 		config = function()
@@ -84,6 +100,7 @@ packer.startup(function(use)
 		requires = { "kkharji/sqlite.lua" },
 	})
 	use({ "nvim-telescope/telescope-media-files.nvim" })
+	use({ "nvim-telescope/telescope-ui-select.nvim" })
 	use({
 		"nvim-telescope/telescope.nvim",
 		config = function()
@@ -132,7 +149,6 @@ packer.startup(function(use)
 
 	use({ "wakatime/vim-wakatime" })
 
-	-- use { "akinsho/toggleterm.nvim", commit = "2a787c426ef00cb3488c11b14f5dcf892bbd0bda" }
 	-- use { "ahmedkhalf/project.nvim", commit = "628de7e433dd503e782831fe150bb750e56e55d6" }
 	-- use { "goolord/alpha-nvim", commit = "0bb6fc0646bcd1cdb4639737a1cee8d6e08bcc31" }
 	-- use {"folke/which-key.nvim"}

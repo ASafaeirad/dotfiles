@@ -1,6 +1,6 @@
 local M = {}
 
-local function config()
+local function setup()
 	require("Comment").setup({
 		{
 			---Add a space b/w comment and the line
@@ -30,6 +30,6 @@ local function config()
 	})
 end
 
-M.config = config
+M.setup = setup
 
 return M
