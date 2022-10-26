@@ -19,6 +19,15 @@ local function config()
 			enable = true,
 			update_cwd = true,
 		},
+		filters = {
+			dotfiles = false,
+			custom = { "^\\.git" },
+		},
+		git = {
+			enable = true,
+			ignore = true,
+			show_on_dirs = false,
+		},
 		renderer = {
 			root_folder_modifier = ":t",
 			icons = {
