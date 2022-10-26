@@ -588,6 +588,8 @@ M.set_colorscheme = function()
 		set_hl("NvimTreeGitDeleted", { link = "DiffRemovedGutter" })
 		set_hl("NvimTreeIndentMarker", { link = "IndentGuide" })
 		set_hl("NvimTreeOpenedFolderName", { link = "NvimTreeFolderName" })
+		set_hl("NvimTreeGitIgnored", { fg = palette.base7 })
+		set_hl("NvimTreeFileIgnored", { fg = palette.base7 })
 
 		set_hl("LspDiagnosticsError", { link = "TextError" })
 		set_hl("LspDiagnosticsWarning", { link = "TextWarning" })
