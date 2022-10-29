@@ -23,6 +23,9 @@
 !.config/dircolors
 !.config/dmenu/
 !.config/docker/
+.config/docker/.buildNodeID
+.config/docker/.token_seed
+.config/docker/.token_seed.lock
 !.config/doom/
 !.config/dunstrc/
 !.config/emacs
@@ -58,6 +61,7 @@
 !.config/nitrogen/
 !.config/npm/
 !.config/nvim/
+.config/nvim/plugin/
 !.config/pacmanfm/
 !.config/pass-git-helper/
 !.config/persepolis_download_manager/persepolis.conf
