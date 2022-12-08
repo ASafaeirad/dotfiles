@@ -1,15 +1,15 @@
 font:
   normal:
-    family: "Input Mono"
+    family: "All"
     style: Regular
   bold:
-    family: "Input Mono"
+    family: "All"
     style: Bold
   italic:
-    family: "Input Mono"
+    family: "All"
     style: Italic
   bold_italic:
-    family: "Input Mono"
+    family: "All"
     style: Bold Italic
   size: 11.0
   offset:

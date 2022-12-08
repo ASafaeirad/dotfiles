@@ -5,7 +5,7 @@ window:
   dynamic_padding: true
   decorations: none
   dynamic_title: true
-  gtk_theme_variant: "dark"
+  decorations_theme_variant: "dark"
   decorations: none
 
 scrolling:
