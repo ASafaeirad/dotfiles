@@ -1,11 +1,10 @@
 local awful = require('awful')
 local gears = require('gears')
 local wibox = require('wibox')
-local hotkeys_popup = require("awful.hotkeys_popup")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
-local battery_widget = require("widgets.battery-legacy")
 local battery = require("widgets.battery")
+local naughty = require("naughty")
 
 local utils = require('modules.utils')
 local colors = require('modules.colors')
@@ -24,40 +23,77 @@ local taglist_buttons = gears.table.join(
 
 local date = wibox.widget.textclock(" %a %b %d ")
 local time = wibox.widget.textclock("%H:%M", 10)
-local batt = battery_widget {
-  ac_prefix = "",
-  battery_prefix = {
-    { 10, "" },
-    { 25, "" },
-    { 50, "" },
-    { 75, "" },
-    { 99, "" }
-  },
-  percent_colors = {
-    { 20, colors.error },
-    { 99, colors.fg },
-    { 999, colors.accent },
-  },
-  alert_threshold = 10,
-  alert_title = "Dead",
-  alert_text = "${AC_BAT}${time_est}"
-}
 
 local tray = wibox.widget.systray()
 tray:set_base_size(12)
 tray.forced_height = 16
 
-function module.init(s)
-  utils.set_wallpaper(s)
-  s.padding = {
+function module.init(screen)
+  -- Save and restore tags, when monitor setup is changed
+  local tag_store = {}
+  -- tag.connect_signal("request::screen", function(t)
+  --   local fallback_tag = nil
+
+  --   -- find tag with same name on any other screen
+  --   for other_screen in screen do
+  --     if other_screen ~= t.screen then
+  --       fallback_tag = awful.tag.find_by_name(other_screen, t.name)
+  --       if fallback_tag ~= nil then
+  --         break
+  --       end
+  --     end
+  --   end
+
+    -- no tag with same name exists, chose random one
+  --   if fallback_tag == nil then
+  --     fallback_tag = awful.tag.find_fallback()
+  --   end
+
+  --   if not (fallback_tag == nil) then
+  --     local output = next(t.screen.outputs)
+
+  --     if tag_store[output] == nil then
+  --       tag_store[output] = {}
+  --     end
+
+  --     clients = t:clients()
+  --     tag_store[output][t.name] = clients
+
+  --     for _, c in ipairs(clients) do
+  --       c:move_to_tag(fallback_tag)
+  --     end
+  --   end
+  -- end)
+
+  screen:connect_signal("added", function(s)
+    local output = next(s.outputs)
+    naughty.notify({ text = output .. " Connected" })
+
+    tags = tag_store[output]
+    if not (tags == nil) then
+      naughty.notify({ text = "Restoring Tags" })
+
+      for _, tag in ipairs(s.tags) do
+        clients = tags[tag.name]
+        if not (clients == nil) then
+          for _, client in ipairs(clients) do
+            client:move_to_tag(tag)
+          end
+        end
+      end
+    end
+  end)
+
+  utils.set_wallpaper(screen)
+  screen.padding = {
     top = dpi(4)
   }
-  awful.tag(tags, s, awful.layout.suit.tile)
+  awful.tag(tags, screen, awful.layout.suit.tile)
 
-  s.mypromptbox = awful.widget.prompt()
+  screen.mypromptbox = awful.widget.prompt()
 
-  s.mytaglist = awful.widget.taglist {
-    screen = s,
+  screen.mytaglist = awful.widget.taglist {
+    screen = screen,
     filter = awful.widget.taglist.filter.all,
     buttons = taglist_buttons,
     widget_template = {
@@ -78,17 +114,17 @@ function module.init(s)
     }
   }
 
-  s.mywibox = awful.wibar({
+  screen.mywibox = awful.wibar({
     position = "top",
-    width = s.geometry.width - dpi(8),
+    width = screen.geometry.width - dpi(8),
     height = dpi(35),
-    screen = s,
+    screen = screen,
     stretch = false,
     margins = dpi(10)
   })
-  s.mywibox.y = dpi(4)
+  screen.mywibox.y = dpi(4)
 
-  s.mywibox:setup {
+  screen.mywibox:setup {
     right = dpi(36),
     left = dpi(16),
     layout = wibox.container.margin,
@@ -96,7 +132,7 @@ function module.init(s)
       layout = wibox.layout.stack,
       {
         layout = wibox.layout.align.horizontal,
-        { layout = wibox.layout.fixed.horizontal, s.mytaglist, s.mypromptbox },
+        { layout = wibox.layout.fixed.horizontal, screen.mytaglist, screen.mypromptbox },
         nil,
         {
           layout = wibox.layout.fixed.horizontal,
