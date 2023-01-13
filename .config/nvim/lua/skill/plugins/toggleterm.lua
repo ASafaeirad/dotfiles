@@ -14,25 +14,25 @@ local function setup()
 		shade_filetypes = {},
 		autochdir = false,
 		highlights = {
-			-- Normal = {
-			-- 	guibg = "<VALUE-HERE>",
-			-- },
+			Normal = {
+				link = "Normal",
+			},
 			NormalFloat = {
 				link = "Normal",
 			},
 			FloatBorder = {
-				link = "Type",
+				link = "Normal",
 				-- guibg = "<VALUE-HERE>",
 			},
 		},
 		-- shading_factor = "1", -- the degree by which to darken to terminal colour, default: 1 for dark backgrounds, 3 for light
-		shade_terminals = true,
+		shade_terminals = false,
 		start_in_insert = true,
 		insert_mappings = true,
 		terminal_mappings = true,
 		persist_size = true,
 		persist_mode = true,
-		direction = "float",
+		direction = "horizontal",
 		close_on_exit = true,
 		shell = vim.o.shell,
 		auto_scroll = true,

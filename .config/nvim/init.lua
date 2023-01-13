@@ -12,6 +12,6 @@ vim.cmd([[
 
 vim.g.formatters = { "prettierd", "stylua" }
 vim.g.linters = { "eslint_d" }
-vim.g.lsp_servers = { "sumneko_lua", "jsonls", "tsserver", "html" }
+vim.g.lsp_servers = { "sumneko_lua", "jsonls", "tsserver", "html", "prismals" }
 
 require("skill")

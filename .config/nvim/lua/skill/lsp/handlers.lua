@@ -22,11 +22,24 @@ M.setup = function()
 		severity_sort = true,
 		float = {
 			focusable = false,
+			close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+			max_width = 80,
 			style = "minimal",
 			border = "rounded",
 			source = "always",
 			header = "",
 			prefix = "",
+			format = function(diagnostic)
+				if diagnostic.source == "eslint" then
+					return string.format("%s\n\n%s", diagnostic.message, diagnostic.user_data.lsp.code)
+				end
+
+				if diagnostic.source == "eslint_d" then
+					return string.format("%s\n\n%s", diagnostic.message, diagnostic.code)
+				end
+
+				return string.format("%s [%s]", diagnostic.message, diagnostic.source)
+			end,
 		},
 	}
 

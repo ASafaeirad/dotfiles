@@ -1,3 +1,5 @@
+require("skill.globals")
+require("skill.disable_builtins")
 require("skill.options")
 require("skill.keymaps")
 require("skill.theme")

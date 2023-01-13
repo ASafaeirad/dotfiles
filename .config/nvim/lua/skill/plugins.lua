@@ -90,7 +90,8 @@ packer.startup(function(use)
 
 	-- Telescope
 	use({ "BurntSushi/ripgrep" })
-	use({ "nvim-telescope/telescope-fzy-native.nvim" })
+	-- use({ "nvim-telescope/telescope-fzy-native.nvim" })
+	use({ "nvim-telescope/telescope-smart-history.nvim", requires = { "kkharji/sqlite.lua" } })
 	use({
 		"nvim-telescope/telescope-fzf-native.nvim",
 		run = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
@@ -110,6 +111,7 @@ packer.startup(function(use)
 
 	use({
 		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
 		config = function()
 			require("skill.plugins.nvim-treesitter").config()
 		end,
@@ -149,9 +151,14 @@ packer.startup(function(use)
 
 	use({ "wakatime/vim-wakatime" })
 
-	-- use { "ahmedkhalf/project.nvim", commit = "628de7e433dd503e782831fe150bb750e56e55d6" }
-	-- use { "goolord/alpha-nvim", commit = "0bb6fc0646bcd1cdb4639737a1cee8d6e08bcc31" }
-	-- use {"folke/which-key.nvim"}
+	use({ "mg979/vim-visual-multi" })
+
+	use({
+		"anuvyklack/hydra.nvim",
+		config = function()
+			require("skill.plugins.hydra").setup()
+		end,
+	})
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()

@@ -1,19 +1,11 @@
 vim.g.neovide_cursor_vfx_mode = "pixiedust"
-vim.g.neovide_transparency = 0.9
-vim.g.neovide_floating_blur_amount_x = 2
-vim.g.neovide_floating_blur_amount_y = 2
+vim.g.neovide_transparency = 1
+-- vim.g.neovide_cursor_trail_legnth = 0
+-- vim.g.neovide_cursor_animation_length = 0
+-- vim.g.neovide_floating_blur_amount_x = 0
+-- vim.g.neovide_floating_blur_amount_y = 0
 
 vim.g.neovide_scale_factor = 1.0
-
--- let g:neovide_scale_factor = g:neovide_scale_factor * a:delta
--- vim.cmd([[
---   let g:neovide_scale_factor=1.0
---   function! ChangeScaleFactor(delta)
---     set guifont = "Input Mono,DejaVuSansMono Nerd Font Mono,VimFile:h12",
---   endfunction
---   nnoremap <expr><C-=> ChangeScaleFactor(1.25)
---   nnoremap <expr><C--> ChangeScaleFactor(1/1.25)
--- ]])
 
 vim.cmd([[
   let g:gui_font_size = 12

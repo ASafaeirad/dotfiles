@@ -10,7 +10,7 @@ local M = {}
 
 local null_servers = vim.tbl_deep_extend("force", vim.g.formatters, vim.g.linters)
 
-local function setup()
+function M.setup()
 	mason_null_ls.setup({
 		ensure_installed = null_servers,
 		automatic_installation = false,
@@ -18,6 +18,7 @@ local function setup()
 
 	local formatting = null_ls.builtins.formatting
 	local diagnostics = null_ls.builtins.diagnostics
+	local code_actions = null_ls.builtins.code_actions
 
 	-- Format on save
 	local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
@@ -27,6 +28,7 @@ local function setup()
 			formatting.prettierd,
 			formatting.stylua,
 			diagnostics.eslint_d,
+			code_actions.eslint_d,
 		},
 		on_attach = function(current_client, bufnr)
 			if current_client.supports_method("textDocument/formatting") then
@@ -49,5 +51,4 @@ local function setup()
 	})
 end
 
-M.setup = setup
 return M

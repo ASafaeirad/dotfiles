@@ -1,5 +1,66 @@
 local M = {}
 
+local function get_pickers(actions)
+	return {
+		find_files = {
+			theme = "dropdown",
+			hidden = true,
+			previewer = false,
+		},
+		frecency = {
+			previewer = false,
+			theme = "dropdown",
+		},
+		live_grep = {
+			only_sort_text = true,
+			theme = "dropdown",
+		},
+		grep_string = {
+			only_sort_text = true,
+			theme = "dropdown",
+		},
+		buffers = {
+			theme = "dropdown",
+			previewer = false,
+			initial_mode = "normal",
+			mappings = {
+				i = {
+					["<C-d>"] = actions.delete_buffer,
+				},
+				n = {
+					["dd"] = actions.delete_buffer,
+				},
+			},
+		},
+		planets = {
+			show_pluto = true,
+			show_moon = true,
+		},
+		git_files = {
+			theme = "dropdown",
+			hidden = true,
+			previewer = false,
+			show_untracked = true,
+		},
+		lsp_references = {
+			theme = "dropdown",
+			initial_mode = "normal",
+		},
+		lsp_definitions = {
+			theme = "dropdown",
+			initial_mode = "normal",
+		},
+		lsp_declarations = {
+			theme = "dropdown",
+			initial_mode = "normal",
+		},
+		lsp_implementations = {
+			theme = "dropdown",
+			initial_mode = "normal",
+		},
+	}
+end
+
 local function config()
 	local telescope_ok, telescope = pcall(require, "telescope")
 	if not telescope_ok then
@@ -7,14 +68,13 @@ local function config()
 	end
 
 	local actions = require("telescope.actions")
-	local telescopeConfig = require("telescope.config")
-	local vimgrep_arguments = { unpack(telescopeConfig.values.vimgrep_arguments) }
-	table.insert(vimgrep_arguments, "--hidden")
-	table.insert(vimgrep_arguments, "--glob")
-	table.insert(vimgrep_arguments, "!.git/*")
 
 	telescope.setup({
 		defaults = {
+			history = {
+				path = "~/.local/share/nvim/databases/telescope_history.sqlite3",
+				limit = 100,
+			},
 			prompt_prefix = " ",
 			selection_caret = "> ",
 			entry_prefix = "  ",
@@ -22,6 +82,19 @@ local function config()
 			selection_strategy = "reset",
 			sorting_strategy = "descending",
 			layout_strategy = "horizontal",
+			file_ignore_patterns = {
+				".git",
+				"node_modules",
+				".cache",
+				"%.o",
+				"%.a",
+				"%.out",
+				"%.class",
+				"%.pdf",
+				"%.mkv",
+				"%.mp4",
+				"%.zip",
+			},
 			mappings = {
 				i = {
 					["<C-u>"] = false,
@@ -53,20 +126,26 @@ local function config()
 				},
 				vertical = { mirror = false },
 			},
-			vimgrep_arguments = vimgrep_arguments,
+			pickers = get_pickers(actions),
 		},
-		pickers = {
-			find_files = {
-				theme = "dropdown",
-				hidden = true,
-				previewer = false,
-			},
+		vimgrep_arguments = {
+			"rg",
+			"--color=never",
+			"--no-heading",
+			"--with-filename",
+			"--line-number",
+			"--column",
+			"--smart-case",
+			"--hidden",
+			"--glob='!{**/node_modules/*,**/.git/*,**/package-lock.json}'",
 		},
+		pickers = get_pickers(actions),
 		extensions = {
 			frecency = {
 				default_workspace = "CWD",
 				show_filter_column = false,
 				ignore_patterns = { "*.git/*", "*node_modules/*" },
+				previewer = false,
 			},
 			fzf = {
 				fuzzy = true, -- false will only do exact matching
@@ -74,41 +153,21 @@ local function config()
 				override_file_sorter = true, -- override the file sorter
 				case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 			},
-			fzy_native = {
-				override_generic_sorter = false,
-				override_file_sorter = true,
-			},
 			media_files = {
 				filetypes = { "png", "webp", "jpg", "jpeg" },
 				find_command = { "rg", "--files", "--hidden", "--glob", "!.git/*" },
 			},
 			["ui-select"] = {
-				require("telescope.themes").get_dropdown({
-					-- even more opts
-				}),
-
-				-- pseudo code / specification for writing custom displays, like the one
-				-- for "codeactions"
-				-- specific_opts = {
-				--   [kind] = {
-				--     make_indexed = function(items) -> indexed_items, width,
-				--     make_displayer = function(widths) -> displayer
-				--     make_display = function(displayer) -> function(e)
-				--     make_ordinal = function(e) -> string
-				--   },
-				--   -- for example to disable the custom builtin "codeactions" display
-				--      do the following
-				--   codeactions = false,
-				-- }
+				require("telescope.themes").get_dropdown({}),
 			},
 		},
 	})
 
 	telescope.load_extension("frecency")
 	telescope.load_extension("fzf")
-	telescope.load_extension("fzy_native")
 	telescope.load_extension("media_files")
 	telescope.load_extension("ui-select")
+	telescope.load_extension("smart_history")
 end
 
 M.config = config

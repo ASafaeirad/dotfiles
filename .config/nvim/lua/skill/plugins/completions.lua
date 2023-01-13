@@ -1,6 +1,6 @@
 local M = {}
 
-local function config()
+function M.config()
 	local cmp_status_ok, cmp = pcall(require, "cmp")
 	if not cmp_status_ok then
 		return
@@ -136,7 +136,5 @@ local function config()
 		},
 	})
 end
-
-M.config = config
 
 return M
