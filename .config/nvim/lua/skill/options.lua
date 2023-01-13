@@ -39,7 +39,7 @@ local options = {
 	cursorline = true, -- highlight the current line
 	guifont = "Input Mono,DejaVuSansMono Nerd Font Mono,VimFile:h12",
 
-	timeoutlen = 300, -- time to wait for a mapped sequence to complete (in milliseconds)
+	timeoutlen = 500, -- time to wait for a mapped sequence to complete (in milliseconds)
 	updatetime = 300, -- faster completion (4000ms default)
 }
 
