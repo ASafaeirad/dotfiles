@@ -1,0 +1,103 @@
+#!/bin/bash
+
+touch .gitignore
+tee .gitignore << EOF > /dev/null
+# OS
+.DS_Store
+Thumbs.db
+
+# IDEs and editors
+/.project
+/.idea
+/.vscode
+
+# environment
+.env.local
+
+# npm
+.npm
+npm-debug.log*
+node_modules/
+*.tgz
+
+# yarn
+.yarn-integrity
+yarn.lock
+yarn-debug.log*
+yarn-error.log*
+EOF
+
+git init > /dev/null
+
+touch .npmrc
+tee .npmrc << EOF > /dev/null
+save-exact=true
+update-notifier=false
+EOF
+
+npm init -y > /dev/null
+npm install -d --silent prettier typescript eslint @fullstacksjs/eslint-config @fullstacksjs/tsconfig
+
+touch .eslintrc
+tee .eslintrc << EOF > /dev/null
+{
+  "root": true,
+  "extends": "@fullstacksjs"
+}
+EOF
+
+touch .prettierrc
+tee .prettierrc << EOF > /dev/null
+{
+  "arrowParens": "always",
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "bracketSameLine": false,
+  "jsxSingleQuote": false,
+  "printWidth": 80,
+  "proseWrap": "always",
+  "quoteProps": "as-needed",
+  "requirePragma": false,
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "useTabs": false
+}
+EOF
+
+touch .editorconfig
+tee .editorconfig << EOL > /dev/null
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+[*.{js,ts,jsx,tsx}]
+quote_type = single
+curly_bracket_next_line = false
+spaces_around_brackets = inside
+indent_brace_style = BSD KNF
+
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false
+EOL
+
+touch tsconfig.json
+tee tsconfig.json << EOF > /dev/null
+{
+  "root": true,
+  "extends": "@fullstacksjs/tsconfig/esm",
+  "exclude": ["node_modules"]
+}
+EOF
+
+echo "Done"

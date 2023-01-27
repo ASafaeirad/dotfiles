@@ -23,14 +23,14 @@ alias clare='clear'
 # enhance tools
 [ -x "$(command -v bat)"    ] && alias cat="bat"
 [ -x "$(command -v curlie)" ] && alias curl="curlie"
-[ -x "$(command -v nvim)"   ] && alias vim="nvim"
+[ -x "$(command -v neovide)"   ] && alias vim="neovide --multigrid"
 
 # utility
 alias swclicks='xmodmap -e "pointer = 3 2 1"'
 alias tv="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1"
 
 mm() {
-  xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1 &>/dev/null
+  xrandr --output HDMI-1 --mode 1920x1080 --left-of eDP-1 &>/dev/null
   nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
   nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
 }
@@ -104,7 +104,7 @@ alias cpwd='pwd | xsel -i --clipboard'
 alias clocksync='sudo ntpdate 1.ro.pool.ntp.org'
 
 font() {
-  fc-list -v | grep -e "family:.*$1" | sort | uniq
+  fc-list -v | grep -i -e "family:.*$1" | sort | uniq
 }
 
 which-font() {
@@ -118,6 +118,9 @@ which-mime() {
 # process
 alias find-gpu='ps aux | grep gpu-process | grep'
 alias fuck='killall -9'
+killport() {
+  kill $(port "$1" | awk '{ print $7 }' | cut -d "/" -f1)
+}
 
 killit() {
   ps aux | grep -v "grep" | grep "$@" | awk '{print $2}' | xargs sudo kill
@@ -141,12 +144,12 @@ process() {
   else
     echo "Process doesn't exist!"
   fi
-
 }
 
-# wireguard
+# nmcli
 alias down='nmcli c down'
 alias up='nmcli c up'
+alias connect='nmcli device wifi connect'
 
 # config files
 alias hosts='sudoedit /etc/hosts'
@@ -162,7 +165,7 @@ alias envrc='edit $XDG_CONFIG_HOME/env'
 alias mocrc='edit $XDG_CONFIG_HOME/moc/config'
 alias zshrc='edit $XDG_CONFIG_HOME/zsh/.zshrc'
 alias npmrc='edit $XDG_CONFIG_HOME/npm/npmrc'
-alias vimrc='edit $XDG_CONFIG_HOME/nvim/init.vim'
+alias vimrc='edit $XDG_CONFIG_HOME/nvim/init.lua'
 alias vimplug='edit $XDG_CONFIG_HOME/nvim/plugins.vim'
 alias tmuxrc='edit $XDG_CONFIG_HOME/tmux/tmux.conf'
 alias rangerrc='edit $XDG_CONFIG_HOME/ranger/rc.conf'
@@ -172,10 +175,11 @@ alias polybarrc='edit $XDG_CONFIG_HOME/polybar/config.ini'
 alias fontrc='edit $XDG_CONFIG_HOME/fontconfig/'
 alias gpgrc='edit $GNUPGHOME/gpg-agent.conf'
 alias xinitrc='edit $XDG_CONFIG_HOME/X11/xinitrc'
+alias sxrc='edit $XDG_CONFIG_HOME/sxhkd/sxhkdrc'
 
 alias reload='source $XDG_CONFIG_HOME/aliasrc && source $XDG_CONFIG_HOME/bookmarkrc'
 alias xreload='xrdb $XDG_CONFIG_HOME/X11/Xresources'
-alias resx='pkill sxhkd && sxhkd &'
+alias resx='pkill sxhkd; sxhkd &'
 
 # file system
 alias lsa='ls -AF --group-directories-first'
@@ -231,12 +235,18 @@ for method in GET HEAD POST PUT PATCH DELETE TRACE OPTIONS; do
 done
 
 cors() {
-  curl "$1" \
+  local URL="$1"
+  shift
+  local ORIGIN="$1" 
+  shift
+
+  curl "$URL" \
     -H "Accept: application/json, text/plain, */*" \
-    -H "Origin: $2" \
+    -H "Origin: $ORIGIN" \
+    -H "Access-Control-Request-Method: POST" \
     -H "Sec-Fetch-Mode: cors" \
     -X OPTIONS \
-    -i
+    -i "$@"
 }
 
 l1() {
@@ -322,10 +332,14 @@ alias pushu='git push --set-upstream origin $(git_current_branch)'
 
 alias gcount='git shortlog -sn'
 alias gl='git log --oneline --decorate'
-alias glog='git lg | emojify | less -r'
-alias gloga="git lg --pretty=format:'%C(yellow)%h%Creset %C(bold blue)%an%C(reset) - %s - %Creset %C(yellow)%d%Creset %C(green)(%cr)%Creset' --abbrev-commit --date=relative | emojify | less -r"
+alias glog='git lg2 | emojify | less -r'
+alias gloga='git lg | emojify | less -r'
+alias glog2="git lg --pretty=format:'%C(yellow)%h%Creset %C(bold blue)%an%C(reset) - %s - %Creset %C(yellow)%d%Creset %C(green)(%cr)%Creset' --abbrev-commit --date=relative | emojify | less -r"
 alias gls='git log --stat'
 
+function gdep() {
+  git tag -a "$1" -m "$1" && git push
+}
 alias gm='git merge'
 alias gma='git merge --abort'
 alias gmt='git mergetool --no-prompt'
