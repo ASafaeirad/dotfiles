@@ -19,8 +19,6 @@ xset b off
 
 # xautolock -time 30 -locker "sklock" -corners -000 -cornerdelay 3 &
 # xss-lock sklock &
-# nm-applet &
-# xfce4-power-manager &
 
 numlockx on &
 nitrogen --restore &

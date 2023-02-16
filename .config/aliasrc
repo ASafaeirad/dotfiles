@@ -27,19 +27,6 @@ alias clare='clear'
 
 # utility
 alias swclicks='xmodmap -e "pointer = 3 2 1"'
-alias tv="xrandr --output HDMI-1 --mode 1920x1080 --right-of eDP-1"
-
-mm() {
-  xrandr --output HDMI-1 --mode 1920x1080 --left-of eDP-1 &>/dev/null
-  nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
-  nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
-}
-
-egmm() {
-  xrandr --output HDMI-1 --mode 3440x1440 --scale 1 --above eDP-1
-  nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
-  nitrogen --head=1 --set-zoom-fill "$HOME/pics/Wallpaper-3-1.png" --set-color="$BG_COLOR" 2>/dev/null
-}
 
 # npx commands
 alias oao='npx oao'
@@ -251,7 +238,7 @@ cors() {
 
 l1() {
   local EXT=${2:-"ts"}
-  find "$1" -name "*.$EXT" -type f -exec basename {} ".$EXT" \; | xsel -ib
+  find "$1" -maxdepth 1 -name "*.$EXT" -type f -exec basename {} ".$EXT" \; | xsel -ib
 }
 
 # Other packages
