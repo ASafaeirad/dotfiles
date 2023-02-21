@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BOOK="$HOME/docs/books/TPP.pdf"
+alias bin="cd $HOME/.local/bin"
 
 # tools
 alias figma='open_d "https://figma.com"'
@@ -24,10 +24,9 @@ alias docs='cd $HOME/docs/'
 alias books='cd $HOME/docs/books'
 
 INFO="$HOME/docs/info"
-alias cards='vim $INFO/card.yml'
-alias infos='vim $INFO/info.yml'
+alias cards='$EDITOR $INFO/card.yml'
+alias infos='$EDITOR $INFO/info.yml'
 
-alias libs='cd $DEVS/libs'
 alias devs='cd $DEVS'
 alias projx='cd $DEVS/projects'
 alias rewire='cd $DEVS/rewire'
@@ -61,3 +60,9 @@ eread() {
 }
 
 alias q='open_d "https://quillbot.com/"'
+
+alias camp='cd $DEVS/camp'
+alias campfront='cd $DEVS/camp/frontend'
+alias campback='cd $DEVS/camp/backend'
+
+alias notion-icons="cd $DEVS/notion-icons"
