@@ -2,10 +2,12 @@
 
 if [ $# -eq 0 ]
   then
-    echo "Usage: newscript [-d] filename"
+    echo "Usage: newmenu [-d|-e] filename"
     echo "-d     deletes the file"
+    echo "-e     edit existing script"
     exit 0
 fi
+
 
 SCRIPT_PATH="$HOME/.local/bin/menus"
 
@@ -16,12 +18,32 @@ if [ "$1" = "-d" ]; then
   exit 0
 fi
 
+if [ "$1" = "-e" ]; then
+  if [ -f "$SCRIPT_PATH/$2" ]; then
+    vim "$SCRIPT_PATH/$2"
+  else
+    echo "File does not exist"
+    exit 1
+  fi
+  exit 0
+fi
+
 MENU="$SCRIPT_PATH/$1"
 
 if [ ! -f "$MENU" ]; then
-  echo "#!/bin/bash" > "$MENU"
+
+  echo '#!/bin/bash
+
+LIST=(
+)
+
+print_list() { printf "%s\n" "$@"; }
+fn_exists() { declare -F "$1" >/dev/null; }
+SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "SKill")
+
+case "$SELECTED" in
+esac' > "$MENU"
   chmod +x "$MENU"
 fi
 
 $EDITOR "$MENU"
-

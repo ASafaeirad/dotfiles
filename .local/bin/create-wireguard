@@ -2,8 +2,6 @@
 
 set -e
 
-ssh -t ubuntu@$1 "curl -O https://raw.githubusercontent.com/angristan/wireguard-install/master/wireguard-install.sh; chmod +x wireguard-install.sh; sudo ./wireguard-install.sh"
-scp ubuntu@$1:/home/ubuntu/wg0-client-iran.conf ~/desktop/iran.conf
+ssh -t root@$1 "curl -O https://raw.githubusercontent.com/angristan/wireguard-install/master/wireguard-install.sh; chmod +x wireguard-install.sh; sudo ./wireguard-install.sh"
+scp root@$1:/root/wg0-client-iran.conf ~/desktop/iran.conf
 nmcli connection import type wireguard file ~/desktop/iran.conf
-
-

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+LIST=(
+  "ESLint"
+)
+
+print_list() { printf "%s\n" "$@"; }
+fn_exists() { declare -F "$1" >/dev/null; }
+SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "SKill")
+
+F_REPO="https://github.com/fullstacksjs"
+
+case "$SELECTED" in
+  ESLint)
+    xdg-open "$F_REPO/eslint-config"
+    ;;
+esac

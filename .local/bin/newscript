@@ -2,8 +2,9 @@
 
 if [ $# -eq 0 ]
   then
-    echo "Usage: newscript [-d] filename"
+    echo "Usage: newscript [-d|-e] filename"
     echo "-d     deletes the file"
+    echo "-e     edit existing script"
     exit 0
 fi
 
@@ -13,6 +14,16 @@ SCRIPT_PATH="$HOME/.local/bin"
 
 if [ "$1" = "-d" ]; then
   [ -f "$SCRIPT_PATH/$2" ] && rm "$SCRIPT_PATH/$2"
+  exit 0
+fi
+
+if [ "$1" = "-e" ]; then 
+  if [ -f "$SCRIPT_PATH/$2" ]; then 
+    $EDITOR "$SCRIPT_PATH/$2"
+  else 
+    echo "File does not exist"
+    exit 1
+  fi
   exit 0
 fi
 

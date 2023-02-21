@@ -38,12 +38,16 @@ EOF
 npm init -y > /dev/null
 npm install -d --silent prettier typescript eslint @fullstacksjs/eslint-config @fullstacksjs/tsconfig
 
-touch .eslintrc
-tee .eslintrc << EOF > /dev/null
-{
-  "root": true,
-  "extends": "@fullstacksjs"
-}
+touch .eslintrc.js
+tee .eslintrc.js << EOF > /dev/null
+const { init } = require('@fullstacksjs/eslint-config/init');
+
+module.exports = init({
+  modules: {
+    auto: true,
+  },
+  root: true,
+});
 EOF
 
 touch .prettierrc

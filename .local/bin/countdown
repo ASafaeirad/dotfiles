@@ -1,0 +1,6 @@
+#!/bin/bash
+
+TIME=${1:-"30m"}
+URL=${2:-"https://www.youtube.com/watch?v=dQw4w9WgXcQ"}
+
+termdown "$TIME" && xdg-open "$URL"
