@@ -1,0 +1,5 @@
+#!/bin/bash
+
+pushd ~/devs/notion-automation/|| exit 1
+./lib/createTask.js
+popd || exit 1

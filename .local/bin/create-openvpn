@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+ssh -t root@$1 "curl -O https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh; chmod +x openvpn-install.sh; sudo ./openvpn-install.sh"
+scp root@$1:/root/iran.ovpn ~/desktop/iran.ovpn

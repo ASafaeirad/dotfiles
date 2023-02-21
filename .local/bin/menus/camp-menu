@@ -1,0 +1,36 @@
+#!/bin/bash
+
+G_USER=2
+
+LIST=(
+  Board
+  Figma
+  Calendar
+  Code
+  Github
+)
+
+print_list() { printf "%s\n" "$@"; }
+
+fn_exists() { declare -F "$1" >/dev/null; }
+
+SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "Camp")
+
+case "$SELECTED" in
+  Board)
+    xdg-open https://linear.app/fullstacksjs
+    ;;
+  Figma)
+    xdg-open https://www.figma.com/file/yOw7LaUiR4wh26oZPPsiqP/Design-system
+    ;;
+  Code)
+    code ~/devs/camp/frontend
+    ;;
+  Github)
+    xdg-open https://github.com/fullstacksjs/the-charity-frontend/
+    ;;
+  Calendar)
+    xdg-open https://calendar.google.com/calendar/u/$G_USER/r
+    ;;
+esac
+

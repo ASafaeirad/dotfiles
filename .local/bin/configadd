@@ -1,5 +1,6 @@
 #!/bin/bash
 
+pushd ~ || exit 1
 DOTIFLES="git --git-dir $XDG_CONFIG_HOME/dotfiles.git --work-tree $HOME"
 
 changed=$(git config --get-color color.status.changed red)
@@ -38,5 +39,6 @@ files=$($DOTIFLES -c color.status=always -c status.relativePaths=true status --s
   sed 's/^.*]  //' |
   sed 's/.* -> //') # for rename case
 
+popd || exit 1
 [[ -n "$files" ]] && echo "$files" | tr '\n' '\0' | xargs --null -I {} -- $DOTIFLES add {} && $DOTIFLES status --short --untracked && exit 0
 echo 'Nothing to add.'
