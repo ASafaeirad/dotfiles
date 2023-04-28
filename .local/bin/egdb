@@ -1,4 +1,0 @@
-#!/bin/bash
-
-mycli -u admin -p#f#U9LXw -h mailtest.ckzfu5sxqa4l.eu-west-1.rds.amazonaws.com
-
