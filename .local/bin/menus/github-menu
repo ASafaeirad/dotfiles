@@ -1,17 +1,55 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 LIST=(
-  "ESLint"
+  ASafaeirad
+  NotionIcons
+  NixSkill
+  Dotfiles
+  CV
+  ESlintConfig
+  Charity
+  Wakatime
+  FullstacksJS
+  TSConfig
+  Toolbox
 )
 
 print_list() { printf "%s\n" "$@"; }
 fn_exists() { declare -F "$1" >/dev/null; }
-SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "SKill")
-
-F_REPO="https://github.com/fullstacksjs"
+SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "GitHub")
 
 case "$SELECTED" in
-  ESLint)
-    xdg-open "$F_REPO/eslint-config"
-    ;;
+ASafaeirad)
+  xdg-open "https://github.com/ASafaeirad/"
+  ;;
+NotionIcons)
+  xdg-open "https://github.com/ASafaeirad/notion-icons"
+  ;;
+NixSkill)
+  xdg-open "https://github.com/ASafaeirad/NixSkill"
+  ;;
+Dotfiles)
+  xdg-open "https://github.com/ASafaeirad/dotfiles"
+  ;;
+CV)
+  xdg-open "https://github.com/ASafaeirad/cv"
+  ;;
+ESlintConfig)
+  xdg-open "https://github.com/fullstacksjs/eslint-config"
+  ;;
+Charity)
+  xdg-open "https://github.com/fullstacksjs/the-charity-frontend"
+  ;;
+Wakatime)
+  xdg-open "https://github.com/fullstacksjs/wakatime"
+  ;;
+FullstacksJS)
+  xdg-open "https://github.com/fullstacksjs/fullstacksjs"
+  ;;
+TSConfig)
+  xdg-open "https://github.com/fullstacksjs/tsconfig"
+  ;;
+Toolbox)
+  xdg-open "https://github.com/fullstacksjs/toolbox"
+  ;;
 esac

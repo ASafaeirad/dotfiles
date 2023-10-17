@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+source "$HOME/.local/bin/menus/_menu"
+
+AUTOMATION="$HOME/.local/bin/automation"
+LIST=$(find $AUTOMATION/* -exec basename {} \;)
+
+
+print_list() { printf "%s\n" "$@"; }
+fn_exists() { declare -F "$1" >/dev/null; }
+SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "Automation")
+
+"$AUTOMATION/$SELECTED"

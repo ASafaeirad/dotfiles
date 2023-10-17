@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+source "$HOME/.local/bin/menus/_menu"
+
+LIST=(
+  @anatine/zod-mock
+  @hookform/resolvers
+  react-hook-form
+  zod
+  mantine
+  graphql-codegen
+  graphql-request
+  vite
+  vitest
+  cypress
+  jsdom
+  eslint-graphql
+  eslint-typescript
+  storybook
+  auth0
+  next
+)
+
+print_list() { printf "%s\n" "$@"; }
+fn_exists() { declare -F "$1" >/dev/null; }
+SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "Changelog")
+
+case "$SELECTED" in
+"@anatine/zod-mock")
+  xdg-open "https://github.com/anatine/zod-plugins/blob/main/packages/zod-mock/CHANGELOG.md"
+  ;;
+"@hookform/resolvers")
+  xdg-open "https://github.com/react-hook-form/resolvers/releases"
+  ;;
+"react-hook-form")
+  xdg-open "https://github.com/react-hook-form/react-hook-form/releases"
+  ;;
+"zod")
+  xdg-open "https://github.com/colinhacks/zod/releases"
+  ;;
+"mantine")
+  xdg-open "https://github.com/mantinedev/mantine/releases"
+  ;;
+"graphql-codegen")
+  xdg-open "https://github.com/dotansimha/graphql-code-generator/releases"
+  ;;
+"graphql-request")
+  xdg-open "https://github.com/jasonkuhrt/graphql-request/releases"
+  ;;
+"vite")
+  xdg-open "https://github.com/vitejs/vite/blob/main/packages/vite/CHANGELOG.md"
+  ;;
+"vitest")
+  xdg-open "https://github.com/vitest-dev/vitest/releases"
+  ;;
+"cypress")
+  xdg-open "https://docs.cypress.io/guides/references/changelog"
+  ;;
+"jsdom")
+  xdg-open "https://github.com/jsdom/jsdom/blob/master/Changelog.md"
+  ;;
+"eslint-graphql")
+  xdg-open "https://github.com/B2o5T/graphql-eslint/releases"
+  ;;
+"eslint-typescript")
+  xdg-open "https://github.com/typescript-eslint/typescript-eslint/releases"
+  ;;
+"storybook")
+  xdg-open "https://github.com/storybookjs/storybook/releases"
+  ;;
+"auth0")
+  xdg-open "https://github.com/auth0/auth0-react/releases"
+  ;;
+"next")
+  xdg-open "https://github.com/vercel/next.js/releases"
+esac

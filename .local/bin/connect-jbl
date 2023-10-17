@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 bluetoothctl disconnect F8:5C:7D:36:0C:7C
 bluetoothctl connect F8:5C:7D:36:0C:7C

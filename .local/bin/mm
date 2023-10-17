@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 CONNECTED_MONITORS=$(xrandr -q| grep "\bconnected" | tail -n +2 | awk '{ print $1 }')
 M_COUNT=$(echo -e $CONNECTED_MONITORS | wc -w)

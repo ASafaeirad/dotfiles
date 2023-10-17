@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
+source "$HOME/.local/bin/menus/_menu"
 shopt -s nullglob globstar
 
 if [[ $1 == "--type" ]]; then
@@ -8,19 +9,18 @@ if [[ $1 == "--type" ]]; then
 fi
 
 PASS_DIR=${PASSWORD_STORE_DIR-~/.password-store}
-PASS_FILES=( "$PASS_DIR"/**/*.gpg )
-RELATIVE_FILENAMES=( "${PASS_FILES[@]#"$PASS_DIR"/}" )
-LIST=( "${RELATIVE_FILENAMES[@]%.gpg}" )
+PASS_FILES=("$PASS_DIR"/**/*.gpg)
+RELATIVE_FILENAMES=("${PASS_FILES[@]#"$PASS_DIR"/}")
+LIST=("${RELATIVE_FILENAMES[@]%.gpg}")
 
 print_list() { printf "%s\n" "$@"; }
 
-PASSWORD=$(print_list "${LIST[@]}" | rofi -dmenu -p "Password" "$@")
+PASSWORD=$(print_list "${LIST[@]}" | _dmenu -p "Password" "$@")
 [[ -n $PASSWORD ]] || exit
 
-pass show -c "$PASSWORD" | head -n1  2>/dev/null
+pass show -c "$PASSWORD" | head -n1 2>/dev/null
 
 if [[ $TYPE -eq 1 ]]; then
-    passw=$(pass show $PASSWORD | head -n1 )
-    xdotool type "$passw"
+    passw=$(pass show $PASSWORD | head -n1)
+    xdotool type $passw
 fi
-

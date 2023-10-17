@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+SELECTED=$(cliphist list | wofi --dmenu | cliphist decode)
+
+wl-copy $SELECTED
+

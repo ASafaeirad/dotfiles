@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+printf "Local IP:\t%s\nMac Addr:\t%s\nGlobal IP:\t%s\n" "$(localip)" "$(mac)" "$(getip)"

@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+shutdown='Bye'
+reboot='Reboot'
+lock='Lock'
+suspend='Suspend'
+logout='Exit'
+hibernate='Hibernate'
+yes='Yes'
+no='No'
+
+confirm_exit() {
+  echo -e "$yes\n$no" | wofi --dmenu --prompt 'Are you Sure?'
+}
+
+show_menu() {
+  echo -e "$lock\n$suspend\n$logout\n$reboot\n$shutdown" | wofi --dmenu -i --prompt "Bye"
+}
+
+confirm() {
+  [[ "$(confirm_exit)" == "$yes" ]] || exit 0
+}
+
+case $(show_menu) in
+"$shutdown")
+  confirm
+  systemctl poweroff
+  ;;
+
+"$reboot")
+  confirm
+  systemctl reboot
+  ;;
+
+"$lock")
+  if [[ -x '/usr/bin/betterlockscreen' ]]; then
+    betterlockscreen -l
+  elif [[ -x '/usr/bin/i3lock' ]]; then
+    i3lock
+  elif [[ -x '/usr/bin/Hyprland' ]]; then
+    swaylock
+  fi
+  ;;
+
+"$suspend")
+  confirm
+  mpc -q pause
+  amixer set Master mute
+  systemctl suspend
+  ;;
+
+"$hibernate")
+  confirm
+  systemctl hibernate
+  ;;
+
+"$logout")
+  loginctl terminate-session ${XDG_SESSION_ID-}
+  ;;
+esac

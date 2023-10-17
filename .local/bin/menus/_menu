@@ -1,0 +1,16 @@
+function wofi_dmenu() {
+  wofi --dmenu "$@"
+}
+
+function rofi_dmenu() {
+  rofi -dmenu "$@"
+}
+
+function _dmenu() {
+
+  if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    wofi_dmenu "$@"
+  else
+    rofi_dmenu "$@"
+  fi
+}

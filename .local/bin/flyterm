@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+SESSION_NAME=flyterm
+
+tmux has-session -t $SESSION_NAME 2>/dev/null
+
+if [ $? != 0 ]; then
+  alacritty --class $SESSION_NAME -e tmux new-session -s flyterm
+else
+  alacritty --class $SESSION_NAME -e tmux attach
+fi

@@ -1,5 +1,5 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-pushd ~/devs/notion-automation/|| exit 1
-./lib/createTask.js
+pushd /home/skill/devs/notion-automation/ || exit 1
+./src/createTask.ts
 popd || exit 1

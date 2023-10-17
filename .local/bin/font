@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+fc-list -v | grep -i -e "family:.*$1" | sort | uniq

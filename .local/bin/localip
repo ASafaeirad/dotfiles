@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ip addr show $WIFI_ADAPTOR | grep 'inet ' | awk '{ print $2 }'
