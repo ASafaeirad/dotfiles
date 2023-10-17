@@ -1,0 +1,34 @@
+{
+  "custom/dot": {
+    "format": "  ",
+    "tooltip": false
+  },
+  "custom/dot-alt": {
+    "format": "  ",
+    "tooltip": false
+  },
+  "custom/left-arrw": {
+    "format": "",
+    "tooltip": false
+  },
+  "custom/right-arrw": {
+    "format": "󪤖",
+    "tooltip": false
+  },
+  "custom/arrow-dec": {
+    "format": " 󪥜 ",
+    "tooltip": false
+  },
+  "custom/app-title-icon": {
+    "format": "{}",
+    "interval": 1,
+    "exec": "~/.config/waybar/scripts/title/icon_check.sh",
+    "tooltip": false
+  },
+  "custom/app-name": {
+    "format": " {}",
+    "interval": 1,
+    "exec": "~/.config/waybar/scripts/title/win_class_way.sh",
+    "tooltip": false
+  }
+}

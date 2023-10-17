@@ -1,0 +1,18 @@
+@import "styles/colors-waybar.css";
+@import "styles/workspace.css";
+@import "styles/custom/dec.css";
+@import "styles/bar.css";
+@import "styles/general.css";
+@import "styles/stock.css";
+@import "styles/custom/launcher.css";
+@import "styles/custom/battery.css";
+@import "styles/custom/apptitle.css";
+@import "styles/custom/clock.css";
+@import "styles/custom/privacycontainer.css";
+@import "styles/custom/maincontainer.css";
+
+* {
+  border: none;
+  font-family: "DejaVuSansM Nerd Font Mono";
+  font-size: 15px;
+}

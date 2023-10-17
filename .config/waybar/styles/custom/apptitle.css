@@ -1,0 +1,25 @@
+@import "../colors-waybar.css";
+
+#custom-app-name,
+#custom-app-title-icon,
+#custom-arrow-dec {
+  background-color: @background;
+}
+
+#custom-arrow-dec {
+  margin-left: 2px;
+  font-size: 20px;
+  color: @green;
+}
+
+#custom-app-title-icon {
+  margin-left: 1px;
+  font-size: 16px;
+  color: @primary;
+}
+
+#custom-app-name {
+  margin-left: 5px;
+  font-size: 14px;
+  color: @on-background;
+}

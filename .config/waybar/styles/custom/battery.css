@@ -1,0 +1,33 @@
+@import "../colors-waybar.css";
+
+#battery {
+  font-size: 18px;
+  color: @red;
+}
+
+#battery.text {
+  font-size: 12px;
+  color: @on-background;
+}
+
+#battery.charging,
+#battery.full,
+#battery.plugged {
+  color: @green;
+  /* background-color: #26a65b; */
+}
+
+#battery.text.charging,
+#battery.text.full,
+#battery.text.plugged {
+  color: @on-background;
+}
+
+#battery.critical:not(.charging) {
+  color: @red;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}

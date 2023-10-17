@@ -1,0 +1,16 @@
+@import "../colors-waybar.css";
+
+label#custom-dot-alt {
+  color: @primary;
+}
+
+label#custom-dot {
+  color: @surface-variant;
+}
+
+label#custom-left-arrw {
+  color: @primary;
+  margin-left: 4px;
+  margin-right: 4px;
+  font-size: 20px;
+}
