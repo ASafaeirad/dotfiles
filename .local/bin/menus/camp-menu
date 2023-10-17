@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source "$HOME/.local/bin/menus/_menu"
+
 G_USER=2
 
 LIST=(
@@ -14,7 +16,7 @@ print_list() { printf "%s\n" "$@"; }
 
 fn_exists() { declare -F "$1" >/dev/null; }
 
-SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "Camp")
+SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "Camp")
 
 case "$SELECTED" in
   Board)

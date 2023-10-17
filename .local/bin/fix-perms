@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+find . -type f ! -path '*/node_modules/*' -exec chmod 0664 {} \;
+find . -type d ! -path '*/node_modules/*' -exec chmod 0775 {} \;

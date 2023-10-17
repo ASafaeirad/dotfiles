@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
+source "$HOME/.local/bin/menus/_menu"
 EG_GUSER=1
 
 LIST=(
@@ -24,13 +25,16 @@ LIST=(
   "Grooming"
   "Linear"
   "Actions"
+  "Lokalise"
+  "Weekly"
+  "Gateway"
 )
 
 print_list() { printf "%s\n" "$@"; }
 
 fn_exists() { declare -F "$1" >/dev/null; }
 
-SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "Estateguru")
+SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "Estateguru")
 
 case "$SELECTED" in
 Calendar)
@@ -52,7 +56,7 @@ Preprod)
   xdg-open "https://stg.estateguru.co/user"
   ;;
 Code)
-  code "$HOME/devs/eg/frontend"
+  code "/home/skill/devs/eg/frontend"
   ;;
 Bamboo)
   xdg-open "https://estateguru.bamboohr.com/"
@@ -96,4 +100,12 @@ Bamboo)
 "Actions")
   xdg-open "https://github.com/estateguru/frontend/actions"
   ;;
+"Lokalise")
+  xdg-open "https://app.lokalise.com/project/6949819561dc2aa8680a05.06066701/?view=multi"
+  ;;
+"Weekly")
+  xdg-open "https://meet.google.com/tzv-fkhn-wue?authuser=$EG_GUSER"
+  ;;
+"Gateway")
+  code "/home/skill/devs/eg/gateway"
 esac

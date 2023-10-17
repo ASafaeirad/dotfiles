@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ip link show "$@" | grep link | awk '{ print $2 }'

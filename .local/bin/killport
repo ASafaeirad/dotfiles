@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+PID=$(port "$1" | awk '{ print $7 }' | cut -d "/" -f1)
+kill "$@" $PID

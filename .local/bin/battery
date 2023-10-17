@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+BAT=${1:-BAT0}
+
+capacity=$(head /sys/class/power_supply/$BAT/charge_full)
+design=$(head /sys/class/power_supply/$BAT/charge_full_design)
+bc <<< "scale=2; $capacity / $design"

@@ -1,117 +1,165 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-FSK_USER=2
-EG_USER=1
+source "$HOME/.local/bin/menus/_menu"
 S_USER=0
-A_USER=3
+EG_USER=1
+A_USER=2
+F_USER=3
+BOOK="$HOME/docs/books/Software Engineering A Practitioners Approach (Roger Pressman, Bruce Maxim).pdf"
+
+function _mail() {
+  xdg-open https://mail.google.com/mail/u/$EG_USER/ &
+  xdg-open https://mail.google.com/mail/u/$S_USER/ &
+  xdg-open https://mail.google.com/mail/u/$A_USER/ &
+  xdg-open https://mail.google.com/mail/u/$F_USER/ &
+}
 
 LIST=(
   "Task"
+  "Blackhole"
+  "Pronounce"
   "Notion"
   "Day"
   "GMail"
   "Read"
+  "Config"
   "God"
-  "Typing"
+  "Type"
   "Monkey"
   "Quillbot"
   "Abit"
   "Time"
   "Figma"
+  "Toolbox"
   "Github"
   "Edit"
   "Calendar"
   "Arvan"
-  "Notion Icon"
+  "NotionIcon"
   "Jira"
-  "Notion Automation",
-  "English",
-  "Wakatime",
+  "NotionAutomation"
+  "English"
+  "Wakatime"
   "ESLint"
+  "Flows"
+  "FullstacksJS"
+  "Tern"
+  "Charity"
+  "Dictionary"
+  "Linear"
 )
 
 print_list() { printf "%s\n" "$@"; }
 
 fn_exists() { declare -F "$1" >/dev/null; }
 
-SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "SKill")
+SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "SKill")
 
 case "$SELECTED" in
-  Notion)
-    notion-app &
-    ;;
-  Monkey)
-    xdg-open https://monkeytype.com/
-    ;;
-  Typing)
-    xdg-open https://www.edclub.com/sportal/program-3.game
-    ;;
-  Quillbot)
-    xdg-open https://quillbot.com/
-    ;;
-  Abit)
-    code ~/devs/abit
-    ;;
-  Time)
-    xdg-open https://www.time.ir/
-    ;;
-  Read)
-    zathura $BOOK
-    ;;
-  God)
-    zathura "$HOME/docs/books/Philosophy/God Delusion.pdf"
-    ;;
-  God2)
-    brave "$HOME/docs/books/Philosophy/God Delusion.pdf"
-    ;;
-  Figma)
-    xdg-open https://www.figma.com/files/recent?fuid=569462856030622272
-    ;;
-  Edit)
-    sudo -H -u skill $TERMINAL -e nvim ~/.local/bin/menus/smenu
-    ;;
-  Github)
-    xdg-open https://github.com/ASafaeirad
-    ;;
-  GMail)
-    xdg-open https://mail.google.com
-    ;;
-  Calendar)
-    xdg-open https://calendar.google.com/calendar/u/$S_USER/r
-    ;;
-  Day)
-    xdg-open https://www.edclub.com/sportal/program-3.game &
-    xdg-open https://github.com/ASafaeirad &
-    xdg-open https://estateguru.atlassian.net/jira/software/c/projects/GR/boards/13 &
-    xdg-open https://mail.google.com/mail/u/$EG_USER/ &
-    xdg-open https://mail.google.com/mail/u/$S_USER/ &
-    xdg-open https://mail.google.com/mail/u/$A_USER/ &
-    xdg-open https://calendar.google.com/calendar/u/$S_USER/r &
-    slack &
-    ;;
-  Arvan)
-    xdg-open https://panel.arvancloud.com/oxKYwdMtHFajxNqVZs5uyw/ecc/ir-thr-w1/servers/create#select_dc
-    ;;
-  "Notion Icon")
-    xdg-open https://www.figma.com/file/ugfhxCVE39O9yt81QjED9t/Notion-Icons
-    ;;
-  Jira)
-    xdg-open https://fullstacksjs.atlassian.net/jira/software/c/projects/FSK/boards/1?selectedIssue=FSK-36
-    ;;
-  "Notion Automation")
-    code ~/devs/notion-automation
-    ;;
-  "Task")
-    task
-    ;;
-  "English")
-    zathura "~/docs/books/English Grammar in Use Book.pdf"
-    ;;
-  "Wakatime")
-    code ~/devs/wakatime
-    ;;
-  "ESLint")
-    code ~/devs/eslint-config
-    ;;
+Charity)
+  code "$HOME/devs/the-charity-frontend"
+  ;;
+Monkey)
+  xdg-open https://monkeytype.com/
+  ;;
+Type)
+  xdg-open https://www.edclub.com/sportal/program-3.game
+  ;;
+Quillbot)
+  xdg-open https://quillbot.com/
+  ;;
+Abit)
+  code "$HOME/devs/abit"
+  ;;
+Time)
+  xdg-open https://www.time.ir/
+  ;;
+Read)
+  zathura "$BOOK"
+  ;;
+God)
+  zathura "$HOME/docs/books/Philosophy/God Delusion.pdf"
+  ;;
+God2)
+  brave "$HOME/docs/books/Philosophy/God Delusion.pdf"
+  ;;
+Figma)
+  xdg-open https://www.figma.com/files/recent?fuid=569462856030622272
+  ;;
+Edit)
+  sudo -H -u skill $TERMINAL -e nvim $HOME/.local/bin/menus/smenu
+  ;;
+Github)
+  xdg-open https://github.com/ASafaeirad
+  ;;
+GMail)
+  _mail
+  ;;
+Calendar)
+  xdg-open https://calendar.google.com/calendar/u/$S_USER/r
+  ;;
+Day)
+  xdg-open https://www.edclub.com/sportal/program-3.game &
+  xdg-open https://github.com/ASafaeirad &
+  xdg-open https://estateguru.atlassian.net/jira/software/c/projects/GR/boards/13 &
+  xdg-open https://calendar.google.com/calendar/u/$S_USER/r &
+  slack &
+  ;;
+Arvan)
+  xdg-open https://panel.arvancloud.com/oxKYwdMtHFajxNqVZs5uyw/ecc/ir-thr-w1/servers/create#select_dc
+  ;;
+Jira)
+  xdg-open https://fullstacksjs.atlassian.net/jira/software/c/projects/FSK/boards/1?selectedIssue=FSK-36
+  ;;
+"Notion")
+  notion-app-enhanced
+  ;;
+"NotionIcon")
+  code "$HOME/devs/notion-icons"
+  ;;
+"NotionAutomation")
+  code "$HOME/devs/notion-automation"
+  ;;
+"Task")
+  task
+  ;;
+"English")
+  zathura "$HOME/docs/books/English Grammar in Use Book.pdf"
+  ;;
+"Wakatime")
+  code "$HOME/devs/wakatime"
+  ;;
+"ESLint")
+  code "$HOME/devs/eslint-config"
+  ;;
+"Flows")
+  code "$HOME/devs/flows"
+  ;;
+"FullstacksJS")
+  code "$HOME/devs/fullstacksjs"
+  ;;
+"Tern")
+  code "$HOME/devs/tern"
+  ;;
+"Pronounce")
+  WORD=$(_dmenu)
+  xdg-open "https://youglish.com/pronounce/${WORD}/english/us"
+  ;;
+"Dictionary")
+  WORD=$(_dmenu)
+  xdg-open "https://www.ldoceonline.com/dictionary/${WORD}"
+  xdg-open "https://ozdic.com/collocation/${WORD}"
+  ;;
+"Linear")
+  xdg-open "https://linear.app/fullstacksjs/team/FS/active"
+  ;;
+"Toolbox")
+  code "$HOME/devs/toolbox"
+  ;;
+"Config")
+  code "$HOME/devs/config"
+  ;;
+"Blackhole")
+  code "$HOME/devs/blackhole"
+  ;;
 esac
-

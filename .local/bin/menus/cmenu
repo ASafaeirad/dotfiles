@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+source "$HOME/.local/bin/menus/_menu"
+
+EDITOR=code
+LIST=(
+  Nix
+  Hyprland
+  Waybar
+  Sxhkd
+  Bin
+  Menus
+)
+
+print_list() { printf "%s\n" "$@"; }
+fn_exists() { declare -F "$1" >/dev/null; }
+SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "Configs")
+
+case "$SELECTED" in
+Nix)
+  $EDITOR ~/.config/nix
+  ;;
+Sxhkd)
+  $EDITOR ~/.config/sxhkd/sxhkdrc
+  ;;
+Hyprland)
+  $EDITOR ~/.config/hypr
+  ;;
+Waybar)
+  $EDITOR ~/.config/waybar
+  ;;
+Bin)
+  $EDITOR ~/.local/bin/
+  ;;
+Menus)
+  $EDITOR ~/.local/bin/menus
+  ;;
+esac

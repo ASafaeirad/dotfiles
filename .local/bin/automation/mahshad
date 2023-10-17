@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+xdotool type --delay 100 6104337608068803187
+xdotool key Tab 
+xdotool type --delay 100 0305

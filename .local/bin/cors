@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+URL="$1"
+shift
+ORIGIN="$1"
+shift
+
+curl "$URL" \
+  -H "Accept: application/json, text/plain, */*" \
+  -H "Origin: $ORIGIN" \
+  -H "Access-Control-Request-Method: POST" \
+  -H "Sec-Fetch-Mode: cors" \
+  -X OPTIONS \
+  -i "$@"

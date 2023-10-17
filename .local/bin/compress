@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+ffmpeg -i "$1" -codec:v libx264 -preset medium -crf 23 "$1.mp4"

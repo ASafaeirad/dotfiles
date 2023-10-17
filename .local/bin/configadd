@@ -32,13 +32,13 @@ opts="
   $FORGIT_ADD_FZF_OPTS
 "
 
-files=$($DOTIFLES -c color.status=always -c status.relativePaths=true status --short --untracked |
+files=$($DOTIFLES -c color.status=always -c status.relativePaths=false status --short --untracked |
   grep -F -e "$changed" -e "$unmerged" -e "$untracked" |
   sed -E 's/^(..[^[:space:]]*)[[:space:]]+(.*)$/[\1]  \2/' |
   FZF_DEFAULT_OPTS="$opts" fzf |
   sed 's/^.*]  //' |
   sed 's/.* -> //') # for rename case
 
-popd || exit 1
 [[ -n "$files" ]] && echo "$files" | tr '\n' '\0' | xargs --null -I {} -- $DOTIFLES add {} && $DOTIFLES status --short --untracked && exit 0
+popd || exit 1
 echo 'Nothing to add.'

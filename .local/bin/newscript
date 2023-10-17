@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ $# -eq 0 ]
   then
@@ -21,8 +21,8 @@ if [ "$1" = "-e" ]; then
   if [ -f "$SCRIPT_PATH/$2" ]; then 
     $EDITOR "$SCRIPT_PATH/$2"
   else 
-    echo "File does not exist"
-    exit 1
+    FILE=$(find "$SCRIPT_PATH" -maxdepth 1 -type f -exec basename {} \; | fzf)
+    $EDITOR "$SCRIPT_PATH/$FILE"
   fi
   exit 0
 fi
@@ -30,7 +30,7 @@ fi
 SCRIPT="$SCRIPT_PATH/$1"
 
 if [ ! -f "$SCRIPT" ]; then
-  echo "#!/bin/bash" > "$SCRIPT"
+  echo "#!/usr/bin/env bash" > "$SCRIPT"
   chmod +x "$SCRIPT"
 fi
 

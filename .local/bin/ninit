@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 touch .gitignore
 tee .gitignore << EOF > /dev/null
@@ -36,7 +36,7 @@ update-notifier=false
 EOF
 
 npm init -y > /dev/null
-npm install -d --silent prettier typescript eslint @fullstacksjs/eslint-config @fullstacksjs/tsconfig
+npm install --save-dev --silent prettier cspell husky lint-staged typescript eslint @fullstacksjs/eslint-config @fullstacksjs/tsconfig
 
 touch .eslintrc.js
 tee .eslintrc.js << EOF > /dev/null
@@ -45,6 +45,10 @@ const { init } = require('@fullstacksjs/eslint-config/init');
 module.exports = init({
   modules: {
     auto: true,
+    typescript: {
+      parserProject: './tsconfig.json',
+      resolverProject: './tsconfig.json',
+    },
   },
   root: true,
 });
@@ -103,5 +107,41 @@ tee tsconfig.json << EOF > /dev/null
   "exclude": ["node_modules"]
 }
 EOF
+
+touch lint-staged.config.js
+tee lint-staged.config.js << EOF > /dev/null
+module.exports = {
+  '*.{md,json}': ['prettier --write', 'cspell --no-must-find-files'],
+  '*.{ts,tsx}': ['eslint --fix', 'cspell --no-must-find-files'],
+};
+EOF
+
+touch .cspell.json
+tee .cspell.json << EOF > /dev/null
+{
+  "version": "0.2",
+  "ignorePaths": [
+    "node_modules/",
+    "dist/"
+  ]
+}
+EOF
+
+npx husky-init
+
+tee .husky/commit-msg << EOF > /dev/null
+#!/usr/bin/env sh
+. "\$(dirname "\$0")/_/husky.sh"
+
+npx --no cspell "$1"
+EOF
+
+tee .husky/pre-commit << EOF > /dev/null
+#!/usr/bin/env sh
+. "\$(dirname "\$0")/_/husky.sh"
+
+npx --no lint-staged
+EOF
+
 
 echo "Done"
