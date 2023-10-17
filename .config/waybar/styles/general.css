@@ -1,0 +1,34 @@
+@import "colors-waybar.css";
+
+label#memory,
+label#backlight,
+label#network {
+  margin-top: 6px;
+  margin-bottom: 6px;
+  border-radius: 13px;
+  background-color: @background;
+}
+
+#memory,
+#cpu,
+#disk,
+#temperature,
+#backlight,
+#network,
+#mode,
+#idle_inhibitor {
+  padding: 0 0px;
+  color: @on-background;
+  background-color: @background;
+}
+
+#window {
+  margin: 0 0px;
+  border-radius: 0px;
+  background-color: @background;
+}
+
+#cpu {
+  color: #fb958b;
+  background-color: #bf616a;
+}

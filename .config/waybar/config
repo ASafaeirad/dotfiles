@@ -1,0 +1,151 @@
+{
+  "include": "~/.config/waybar/custom_modules/modules",
+  "layer": "top",
+  "height": 42,
+  "margin-top": 0,
+  "margin-left": 0,
+  "margin-bottom": 0,
+  "margin-right": 0,
+  "spacing": 0,
+  "modules-left": [
+    "hyprland/workspaces",
+    "custom/dot",
+    "custom/app-title-icon",
+    "custom/app-name"
+  ],
+  "modules-right": [
+    "custom/dot",
+    "network",
+    "custom/dot",
+    "battery",
+    "battery#text",
+    "pulseaudio",
+    "pulseaudio#text",
+    "custom/dot-alt",
+    "clock"
+  ],
+  "hyprland/workspaces": {
+    "all-outputs": true,
+    "active-only": false,
+    "on-click": "activate",
+    "format": "{icon}",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+    "format-icons": {
+      "1": "󪤍",
+      "2": "󪤕",
+      "3": "󪥌",
+      "4": "󪥅",
+      "5": "󪤄",
+      "6": "󪤋",
+      "7": "󪤝",
+      "8": "󪤏",
+      "urgent": "󪤳",
+      "default": "󪤾"
+    }
+  },
+  "hyprland/window": {
+    "format": "{}"
+  },
+  "tray": {
+    "icon-size": 28,
+    "spacing": 8
+  },
+  "clock": {
+    "format": "<b>{:%I:%M %p}</b>",
+    "format-alt": "<b>{:%a.%d,%b}</b>",
+    "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "cpu": {
+    "interval": 10,
+    "format": "󪤔 {}%",
+    "max-length": 10,
+    "on-click": "",
+    "tooltip": false
+  },
+  "memory": {
+    "interval": 30,
+    "format": "󪤲 {used}G",
+    "format-alt": " {used:0.1f}G",
+    "max-length": 10
+  },
+  "backlight": {
+    "device": "DP-1",
+    "format": "{icon} {percent}%",
+    "tooltip": false,
+    "format-icons": [
+      "󪤪",
+      "󪤪",
+      "󪤪",
+      "󪤪",
+      "󪤪",
+      "󪤪",
+      "󪤪",
+      "󪤪",
+      "󪤪"
+    ],
+    "on-click": ""
+  },
+  "network": {
+    "format-wifi": "󪥈 {essid}",
+    "format-ethernet": "󪥈 wired",
+    "tooltip": false,
+    "format-disconnected": "",
+    "on-click": "wifimenu"
+  },
+  "pulseaudio": {
+    "format": "{icon}",
+    "format-bluetooth": " ",
+    "format-bluetooth-muted": " ",
+    "tooltip": false,
+    "format-muted": "󯤰",
+    "format-icons": {
+      "headphone": "󪥆",
+      "hands-free": "󪤥",
+      "headset": "󪥆",
+      "phone": "󪤥",
+      "portable": "",
+      "car": "",
+      "default": [
+        "󪤦",
+        "󪤦",
+        "󪤒"
+      ]
+    },
+    "on-click": "pavucontrol"
+  },
+  "pulseaudio#text": {
+    "tooltip": false,
+    "format": "<b>{volume}</b>",
+    "format-bluetooth": "{volume}"
+  },
+  "battery": {
+    "bat": "BAT0",
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}",
+    "format-icons": [
+      "󪥖",
+      "󪥝",
+      "󪥞",
+      "󪥞",
+      "󪥟"
+    ],
+    "max-length": 25,
+    "tooltip": false
+  },
+  "battery#text": {
+    "bat": "BAT0",
+    "interval": 60,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "<b>{capacity}</b>",
+    "max-length": 25,
+    "tooltip": false
+  }
+}
