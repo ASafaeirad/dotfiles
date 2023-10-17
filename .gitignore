@@ -45,6 +45,7 @@
 !.config/gtk-3.0/
 !.config/htop/
 !.config/hyper
+!.config/hypr
 .config/hyper/.hyper_plugins
 !.config/i3/
 !.config/inputrc
@@ -80,6 +81,7 @@
 !.config/X11/
 !.config/zathura/
 !.config/zsh/
+!.config/waybar/
 
 # local
 !.local/

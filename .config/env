@@ -85,7 +85,7 @@ if [ -d "$XDG_CONFIG_HOME/volta" ]; then
   prepend_path "$VOLTA_HOME/bin"
 fi
 
-if [ -d "${XDG_DATA_HOME}/cargo" ]; then
+if [ -f "${XDG_DATA_HOME}/cargo/env" ]; then
   . "${XDG_DATA_HOME}/cargo/env"
 fi
 
