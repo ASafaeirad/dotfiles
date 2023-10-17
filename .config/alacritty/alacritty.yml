@@ -20,7 +20,6 @@ cursor:
 
 live_config_reload: true
 working_directory: None
-alt_send_esc: true
 # hints:
 #   alphabet: "jfkdls;ahgurieowpq"
 # `action`:
