@@ -98,6 +98,11 @@ if test "$(yarn --version 2>/dev/null)"; then
   append_path $(yarn global bin --offline)
 fi
 
+export PNPM_HOME="/home/skill/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
 if test "$(go version 2>/dev/null)"; then
   export GOPATH="${XDG_DATA_HOME}/go"

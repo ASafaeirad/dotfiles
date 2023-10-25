@@ -21,6 +21,8 @@
     "battery#text",
     "pulseaudio",
     "pulseaudio#text",
+    "custom/dot",
+    "tray",
     "custom/dot-alt",
     "clock"
   ],
@@ -48,7 +50,7 @@
     "format": "{}"
   },
   "tray": {
-    "icon-size": 28,
+    "icon-size": 18,
     "spacing": 8
   },
   "clock": {
