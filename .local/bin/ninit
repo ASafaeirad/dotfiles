@@ -1,5 +1,24 @@
 #!/usr/bin/env bash
 
+set -e
+
+[[ -n $1 ]] && mkdir "$1" && cd "$1"
+
+DIR=$(basename "$(pwd)")
+EMAIL=$(git config user.email)
+NAME=$(git config user.name)
+NODE_VERSION=$(node -v)
+NODE_VERSION=${NODE_VERSION:1}
+PNPM_VERSION=$(pnpm show pnpm version)
+
+echo "Initializing the \"$DIR\" project"
+echo "> Email: \"$EMAIL\""
+echo "> Name: \"$NAME\""
+echo "> Node: \"$NODE_VERSION\""
+echo "> PNPM: \"$PNPM_VERSION\""
+echo
+
+echo "Generating .gitignore..."
 touch .gitignore
 tee .gitignore << EOF > /dev/null
 # OS
@@ -27,22 +46,35 @@ yarn-debug.log*
 yarn-error.log*
 EOF
 
+echo "Initializing a git repo..."
 git init > /dev/null
 
+echo "Generating npmrc..."
 touch .npmrc
 tee .npmrc << EOF > /dev/null
 save-exact=true
+auto-install-peers=true
 update-notifier=false
 EOF
 
-npm init -y > /dev/null
-npm install --save-dev --silent prettier cspell husky lint-staged typescript eslint @fullstacksjs/eslint-config @fullstacksjs/tsconfig
+echo "Initializing package manager..."
+pnpm init > /dev/null
 
+pnpm pkg delete scripts.test
+pnpm pkg set scripts.prepare="./scripts/prepare"
+pnpm pkg set volta.node="${NODE_VERSION}"
+pnpm pkg set volta.pnpm="${PNPM_VERSION}"
+
+echo "Installing dependencies..."
+pnpm install --save-dev --silent prettier cspell husky lint-staged typescript eslint @fullstacksjs/eslint-config @fullstacksjs/tsconfig
+
+echo "Generating eslint config..."
 touch .eslintrc.js
 tee .eslintrc.js << EOF > /dev/null
 const { init } = require('@fullstacksjs/eslint-config/init');
 
 module.exports = init({
+  root: true,
   modules: {
     auto: true,
     typescript: {
@@ -50,10 +82,10 @@ module.exports = init({
       resolverProject: './tsconfig.json',
     },
   },
-  root: true,
 });
 EOF
 
+echo "Generating prettier config..."
 touch .prettierrc
 tee .prettierrc << EOF > /dev/null
 {
@@ -76,6 +108,12 @@ tee .prettierrc << EOF > /dev/null
 }
 EOF
 
+tee .prettierignore << EOF > /dev/null
+**/node_modules
+**/dist
+EOF
+
+echo "Generating editorconfig..."
 touch .editorconfig
 tee .editorconfig << EOL > /dev/null
 root = true
@@ -88,17 +126,12 @@ indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{js,ts,jsx,tsx}]
-quote_type = single
-curly_bracket_next_line = false
-spaces_around_brackets = inside
-indent_brace_style = BSD KNF
-
 [*.md]
 max_line_length = off
 trim_trailing_whitespace = false
 EOL
 
+echo "Generating tsconfig..."
 touch tsconfig.json
 tee tsconfig.json << EOF > /dev/null
 {
@@ -108,40 +141,104 @@ tee tsconfig.json << EOF > /dev/null
 }
 EOF
 
-touch lint-staged.config.js
-tee lint-staged.config.js << EOF > /dev/null
-module.exports = {
-  '*.{md,json}': ['prettier --write', 'cspell --no-must-find-files'],
-  '*.{ts,tsx}': ['eslint --fix', 'cspell --no-must-find-files'],
-};
-EOF
-
-touch .cspell.json
-tee .cspell.json << EOF > /dev/null
+echo "Generating lint-staged config..."
+touch .lintstagedrc.json
+tee .lintstagedrc.json << EOF > /dev/null
 {
-  "version": "0.2",
-  "ignorePaths": [
-    "node_modules/",
-    "dist/"
-  ]
+  "*.{json,html}": ["prettier --write", "cspell --no-must-find-files"],
+  "*.{md,yaml,yml}": ["cspell --no-must-find-files"],
+  "*.ts(x)?": ["eslint --fix"]
 }
 EOF
 
-npx husky-init
+echo "Generating cspell config..."
+touch .cspell.json
+tee .cspell.json << EOF > /dev/null
+{
+  "\$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
+  "version": "0.2",
+  "language": "en",
+  "dictionaryDefinitions": [
+    {
+      "name": "workspace",
+      "path": "./configs/cspell/workspace.txt",
+      "addWords": true
+    },
+    {
+      "name": "npm",
+      "path": "./configs/cspell/npm.txt",
+      "addWords": true
+    }
+  ],
+  "dictionaries": ["workspace", "npm"],
+  "ignorePaths": ["node_modules/", "pnpm-lock.yaml", "dist/"]
+}
+EOF
 
-tee .husky/commit-msg << EOF > /dev/null
+echo "Initializing husky..."
+pnpm exec husky install configs/husky
+
+echo "Generating husky scripts..."
+tee configs/husky/commit-msg << EOF > /dev/null
 #!/usr/bin/env sh
 . "\$(dirname "\$0")/_/husky.sh"
 
-npx --no cspell "$1"
+omit_comments() {
+  sed -r "s/#(.*)//g"
+}
+
+cat "\$1" | omit_comments | npx --no-install cspell stdin
+
 EOF
 
-tee .husky/pre-commit << EOF > /dev/null
+tee configs/husky/pre-commit << EOF > /dev/null
 #!/usr/bin/env sh
 . "\$(dirname "\$0")/_/husky.sh"
 
-npx --no lint-staged
+pnpm exec lint-staged
 EOF
 
+mkdir scripts
+
+echo "Generating prepare script..."
+tee scripts/prepare << EOF > /dev/null
+#!/usr/bin/env sh
+
+[ -d .git/ ] && pnpm exec husky install configs/husky
+EOF
+
+echo "Generating npm dictionary..."
+mkdir -p configs/cspell
+tee configs/cspell/npm.txt << EOF > /dev/null
+Alireza
+Safaeirad
+fullstacksjs
+Parens
+vite
+vitest
+jsdom
+supabase
+nrwl
+cacheable
+devkit
+Buildable
+nxext
+csstype
+Segoe
+Roboto
+Menlo
+Consolas
+Neue
+Noto
+pandacss
+outdir
+postcss
+unocss
+easings
+extralight
+EOF
+
+echo "Creating workspace dictionary..."
+touch configs/cspell/workspace.txt
 
 echo "Done"
