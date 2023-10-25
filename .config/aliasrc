@@ -23,7 +23,8 @@ alias clare='clear'
 # enhance tools
 [ -x "$(command -v bat)"    ] && alias cat="bat"
 [ -x "$(command -v curlie)" ] && alias curl="curlie"
-[ -x "$(command -v neovide)"   ] && alias vim="neovide --multigrid"
+[ -x "$(command -v nvim)"   ] && alias vim="nvim"
+# [ -x "$(command -v neovide)"   ] && alias vim="neovide --multigrid"
 
 # utility
 alias swclicks='xmodmap -e "pointer = 3 2 1"'
@@ -63,7 +64,7 @@ alias dhcpcd='sudo dhcpcd'
 alias pacman-mirrors='sudo pacman-mirrors'
 alias systemctl='systemctl'
 alias pacman='lazy-pacman'
-alias cpssh='gpg --export-ssh-key frontendmonster@gmail.com | xsel -i --clipboard'
+alias cpssh='gpg --export-ssh-key frontendmonster@gmail.com | scopy'
 alias x="sudo chmod +x"
 alias unlock-pacman="sudo rm /var/lib/pacman/db.lck"
 alias orphan='pacman -Rs $(pacman -Qqtd)'

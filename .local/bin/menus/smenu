@@ -20,6 +20,7 @@ LIST=(
   "Pronounce"
   "Notion"
   "Day"
+  "Architect"
   "GMail"
   "Read"
   "Config"
@@ -161,5 +162,8 @@ Jira)
   ;;
 "Blackhole")
   code "$HOME/devs/blackhole"
+  ;;
+"Architect")
+  code "$HOME/devs/architect"
   ;;
 esac

@@ -1,0 +1,100 @@
+configuration {
+  modi: "drun";
+  font: "DejaVuSansMono Nerd Font Mono 10";
+  show-icons: false;
+  icon-theme: "Papirus";
+  display-drun: "";
+  drun-display-format: "{name}";
+  sidebar-mode: false;
+}
+
+@theme "/dev/null"
+
+* {
+  fg: #e8e8d3;
+  fade: #e8e8d333;
+  accent: #F6CA52;
+  bg: #23252E;
+  dark: #191D22;
+
+  input: @dark;
+  background-color: @bg;
+  text-color: @fg;
+}
+
+window {
+  border-radius: 8px;
+  width: 30%;
+  border: 1;
+  border-color: @dark;
+  anchor: center;
+}
+
+prompt {
+  background-color: inherit;
+  enabled: true;
+  padding: 0 8px;
+}
+
+entry {
+  background-color: inherit;
+  placeholder-color: @fade;
+  expand: true;
+}
+
+inputbar {
+  children: [ prompt, entry ];
+  background-color: @input;
+  expand: false;
+  border-radius: 6px;
+  margin: 0;
+  padding: 15px 0px;
+}
+
+listview {
+  require-input: false;
+  /* fixed-height: true; https://github.com/hyprwm/Hyprland/issues/1484 */
+  lines: 5;
+  cycle: false;
+  dynamic: true;
+  layout: vertical;
+  spacing: 24px;
+  padding: 24px 0 0;
+}
+
+mainbox {
+  children: [ inputbar, listview ];
+  padding: 20px;
+}
+
+element {
+  orientation: horizontal;
+}
+
+textbox-custom {
+  expand: false;
+  content: "My Message";
+}
+
+element-icon {
+  size: 32px;
+  horizontal-align: 0.5;
+}
+
+element-text {
+  expand: true;
+  horizontal-align: 0.5;
+  vertical-align: 0.5;
+}
+
+element-text,
+element-icon {
+  background-color: inherit;
+  text-color: inherit;
+}
+
+element selected {
+  color: @accent;
+}
+
+/* vim:ft=css

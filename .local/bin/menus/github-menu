@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
+source "$HOME/.local/bin/menus/_menu"
+
 LIST=(
   ASafaeirad
+  Blackhole
   NotionIcons
   NixSkill
   Dotfiles
@@ -16,11 +19,14 @@ LIST=(
 
 print_list() { printf "%s\n" "$@"; }
 fn_exists() { declare -F "$1" >/dev/null; }
-SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "GitHub")
+SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "GitHub")
 
 case "$SELECTED" in
 ASafaeirad)
   xdg-open "https://github.com/ASafaeirad/"
+  ;;
+Blackhole)
+  xdg-open "https://github.com/ASafaeirad/blackhole"
   ;;
 NotionIcons)
   xdg-open "https://github.com/ASafaeirad/notion-icons"

@@ -4,11 +4,11 @@ source "$HOME/.local/bin/menus/_menu"
 
 EDITOR=code
 LIST=(
-  Nix
   Hyprland
   Waybar
   Sxhkd
   Bin
+  Rofi
   Menus
 )
 
@@ -28,6 +28,9 @@ Hyprland)
   ;;
 Waybar)
   $EDITOR ~/.config/waybar
+  ;;
+Rofi)
+  $EDITOR ~/.config/rofi/
   ;;
 Bin)
   $EDITOR ~/.local/bin/
