@@ -1,5 +1,6 @@
 function wofi_dmenu() {
-  wofi --dmenu "$@"
+  # wofi --dmenu "$@"
+  rofi -dmenu "$@"
 }
 
 function rofi_dmenu() {

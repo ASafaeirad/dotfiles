@@ -4,5 +4,5 @@ level=${2:-1}
 
 set -- "${@:1:1}" "${@:3}"
 
-eza -all --no-permissions --no-time --no-user --tree --group-directories-first --no-filesize --color always -l --ignore-glob="node_modules" --level "$level" "$@" | less -XFR
+eza -all --no-time --octal-permissions --tree --group-directories-first --no-filesize --color always -l --ignore-glob="node_modules" --level "$level" "$@" | less -XFR
 

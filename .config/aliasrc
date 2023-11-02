@@ -50,12 +50,6 @@ alias grep='grep --color'
 alias ls='ls --color'
 alias mkdir='mkdir -pv'
 
-function l() {
-  local level=${2:-1}
-  set -- "${@:1:1}" "${@:3}"
-  exa -all --no-permissions --no-time --no-user --tree --group-directories-first --no-filesize --color always -l --ignore-glob="node_modules" --level "$level" "$@" | less -XFR
-}
-
 # super user commands
 alias usermod='sudo usermod'
 alias chmod='sudo chmod'
