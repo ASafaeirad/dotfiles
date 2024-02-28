@@ -21,8 +21,8 @@ local taglist_buttons = gears.table.join(
   awful.button({}, 3, awful.tag.viewtoggle)
 )
 
-local date = wibox.widget.textclock(" %a %b %d ")
-local time = wibox.widget.textclock("%H:%M", 10)
+local date = wibox.widget.textclock("<span font='Monaspace Argon 10'> %a %b %d</span>")
+local time = wibox.widget.textclock("<span font='Monaspace Argon 10'> %H:%M </span>", 10)
 
 local tray = wibox.widget.systray()
 tray:set_base_size(12)
@@ -101,12 +101,12 @@ function module.init(screen)
         {
           {
             { id = 'text_role', widget = wibox.widget.textbox },
-            widget = wibox.container.margin
+            widget = wibox.container.margin,
           },
-          layout = wibox.layout.fixed.horizontal
+          layout = wibox.layout.fixed.horizontal,
         },
-        left = dpi(12),
-        right = dpi(12),
+        left = dpi(16),
+        right = dpi(16),
         widget = wibox.container.margin
       },
       id = 'background_role',
@@ -117,7 +117,7 @@ function module.init(screen)
   screen.mywibox = awful.wibar({
     position = "top",
     width = screen.geometry.width - dpi(8),
-    height = dpi(35),
+    height = dpi(50),
     screen = screen,
     stretch = false,
     margins = dpi(10)

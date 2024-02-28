@@ -1,0 +1,13 @@
+[scrolling]
+history = 10000
+multiplier = 3
+
+[window]
+decorations = "none"
+decorations_theme_variant = "Dark"
+dynamic_padding = true
+dynamic_title = true
+
+[window.padding]
+x = 16
+y = 12
