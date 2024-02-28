@@ -1,0 +1,25 @@
+import = [
+  "/home/skill/.config/alacritty/color.toml",
+  "/home/skill/.config/alacritty/layout.toml",
+  "/home/skill/.config/alacritty/typography.toml",
+  "/home/skill/.config/alacritty/mouse.yml",
+  "/home/skill/.config/alacritty/key-binding.toml"
+]
+live_config_reload = true
+working_directory = "None"
+
+[cursor]
+thickness = 0.15
+unfocused_hollow = true
+
+[cursor.style]
+blinking = "Off"
+shape = "Block"
+
+[cursor.vi_mode_style]
+blinking = "On"
+shape = "Block"
+
+[selection]
+save_to_clipboard = false
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"

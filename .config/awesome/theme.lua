@@ -10,7 +10,7 @@ local nconf = naughty.config
 
 local theme = dofile(themes_path.."default/theme.lua")
 
-theme.font          = "sans 8"
+theme.font          = "Monaspace Argon 10"
 theme.fg            = colors.fg
 theme.bg            = colors.bg
 
