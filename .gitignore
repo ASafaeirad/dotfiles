@@ -60,10 +60,12 @@
 !.config/morc_menu/
 !.config/neofetch/
 !.config/nitrogen/
+.config/nitrogen/nitrogen.cfg
 !.config/npm/
 !.config/nvim/
 .config/nvim/plugin/
 !.config/pacmanfm/
+.config/pcmanfm/default/pcmanfm.conf
 !.config/pass-git-helper/
 !.config/persepolis_download_manager/persepolis.conf
 !.config/picom/
