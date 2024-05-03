@@ -7,7 +7,6 @@ edit() {
 # clear
 alias c='clear'
 alias clwer='clear'
-alias cc='clear'
 alias cear='clear'
 alias cler='clear'
 alias clea='clear'
