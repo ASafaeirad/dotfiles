@@ -86,8 +86,10 @@ function module.move_screen(c)
   c:move_to_screen()
 end
 
-function module.toggle_keep_top(c)
-  c.ontop = not c.ontop
+function module.toggle_keep_top()
+  local c = awful.client.focus
+  c.top = not c.top
+  c.sticky = not c.sticky
 end
 
 function module.dmenu()
