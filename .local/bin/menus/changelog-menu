@@ -73,4 +73,5 @@ case "$SELECTED" in
   ;;
 "next")
   xdg-open "https://github.com/vercel/next.js/releases"
+  ;;
 esac

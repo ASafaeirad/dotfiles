@@ -58,7 +58,7 @@ SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "SKill")
 
 case "$SELECTED" in
 Charity)
-  code "$HOME/devs/the-charity-frontend"
+  code "$HOME/devs/the-charity"
   ;;
 Monkey)
   xdg-open https://monkeytype.com/
