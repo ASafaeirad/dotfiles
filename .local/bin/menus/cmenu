@@ -5,6 +5,7 @@ source "$HOME/.local/bin/menus/_menu"
 EDITOR=code
 LIST=(
   Hyprland
+  Awesome
   Waybar
   Sxhkd
   Bin
@@ -37,5 +38,8 @@ Bin)
   ;;
 Menus)
   $EDITOR ~/.local/bin/menus
+  ;;
+Awesome)
+  $EDITOR ~/.config/awesome
   ;;
 esac

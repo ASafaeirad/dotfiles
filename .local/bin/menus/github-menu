@@ -8,6 +8,7 @@ LIST=(
   NotionIcons
   NixSkill
   Dotfiles
+  Config
   CV
   ESlintConfig
   Charity
@@ -57,5 +58,8 @@ TSConfig)
   ;;
 Toolbox)
   xdg-open "https://github.com/fullstacksjs/toolbox"
+  ;;
+Config)
+  xdg-open "https://github.com/fullstacksjs/config"
   ;;
 esac
