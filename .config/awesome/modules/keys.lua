@@ -18,6 +18,7 @@ keys.global_keys = gears.table.join(
   awful.key({ modkey }, "h", utils.focus_prev),
   awful.key({ modkey, "Shift", "Shift" }, "j", utils.screen_next),
   awful.key({ modkey, "Shift", "Shift" }, "k", utils.screen_prev),
+  awful.key({ modkey, "Control"}, "t", utils.toggle_keep_top),
 
   awful.key({ modkey, "Shift" }, "l", utils.inc_width),
   awful.key({ modkey, "Shift" }, "h", utils.dec_width),

@@ -45,7 +45,7 @@ local rules = {
     rule = { instance = "flyterm" },
     properties = { floating = true },
     callback = function(c)
-      c:geometry({ width = 600, height = 400 })
+      c:geometry({ width = 900, height = 600 })
     end,
   },
   {
