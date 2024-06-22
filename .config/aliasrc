@@ -20,9 +20,9 @@ alias celar='clear'
 alias clare='clear'
 
 # enhance tools
-[ -x "$(command -v bat)"    ] && alias cat="bat"
+[ -x "$(command -v bat)" ] && alias cat="bat"
 [ -x "$(command -v curlie)" ] && alias curl="curlie"
-[ -x "$(command -v nvim)"   ] && alias vim="nvim"
+[ -x "$(command -v nvim)" ] && alias vim="nvim"
 # [ -x "$(command -v neovide)"   ] && alias vim="neovide --multigrid"
 
 # utility
@@ -167,7 +167,10 @@ alias lsa='ls -AF --group-directories-first'
 alias lless='l | less'
 alias laless='ll | less'
 alias rd=rmdir
-alias open='xdg-open'
+
+open() {
+  xdg-open "$@" &>/dev/null
+}
 
 mk() {
   mkdir "$1" && cd "$1"
@@ -218,7 +221,7 @@ done
 cors() {
   local URL="$1"
   shift
-  local ORIGIN="$1" 
+  local ORIGIN="$1"
   shift
 
   curl "$URL" \
@@ -300,11 +303,18 @@ alias 'gc!'='git commit -v --amend --no-edit'
 alias gcam='git commit -a -m'
 alias gcm='git commit -m'
 
+function gsw() {
+  echo $1
+  if [[ -z $1 ]]; then
+    git branch | fzf --preview 'git show --color=always {-1}' --bind 'enter:become(git checkout {-1})'
+  else
+    git switch "$1"
+  fi
+}
 alias gswc='git switch -c'
 alias gswd='git switch dev && git pull'
 alias gwip='git wip'
 alias gco='git checkout'
-alias gsw='git switch'
 
 alias pull='git pull'
 alias push='git push'
@@ -354,7 +364,6 @@ alias gdc='gd --cached'
 ## tools
 alias sskey="screenkey -t 2 -s small --vis-shift &>/dev/null &"
 alias genpass="openssl rand -base64 32"
-
 
 lazy-pacman() {
   case $1 in
