@@ -19,6 +19,8 @@ LIST=(
   storybook
   auth0
   next
+  jotai
+  framer
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -74,4 +76,10 @@ case "$SELECTED" in
 "next")
   xdg-open "https://github.com/vercel/next.js/releases"
   ;;
+"jotai")
+	xdg-open https://github.com/pmndrs/jotai/releases
+	;;
+"framer")
+  xdg-open https://github.com/framer/motion/blob/main/CHANGELOG.md
+	;;
 esac

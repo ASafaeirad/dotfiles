@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
-cd $HOME/.local/bin/applications/figma
-docker-compose up -d
+systemctl --user start figma-fonthelper.service

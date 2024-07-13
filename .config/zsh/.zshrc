@@ -72,6 +72,8 @@ bindkey '^[[B' history-substring-search-down
 
 [[ -f "$ZSH/oh-my-zsh.sh" ]] && . "$ZSH/oh-my-zsh.sh"
 
+source <(fzf --zsh)
+
 autoload compinit && compinit -i -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
 unalias l
 [[ -f "${XDG_CONFIG_HOME}/aliasrc" ]] && . "${XDG_CONFIG_HOME}/aliasrc"

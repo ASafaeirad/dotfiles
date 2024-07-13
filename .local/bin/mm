@@ -13,11 +13,12 @@ else
   for M in ${CONNECTED_MONITORS[@]}; do
     RES=$(get_max_res $M)
     xrandr --output $M --mode $RES --left-of eDP-1 &>/dev/null
-    nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
-    nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
   done
 fi
 
 echo 'awesome.restart()' | awesome-client
+sleep 0.5
+nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
+nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
 
 unset $CONNECTED_MONITORS

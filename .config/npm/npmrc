@@ -1,4 +1,3 @@
-prefix=/home/skill/.local/share/npm
 cache=/home/skill/.cache/npm
 store-dir=/home/skill/.local/share/pnpm-store
 init-module=/home/skill/.config/npm/config/npm-init.js
