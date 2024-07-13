@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+fd | xargs fzf {} --preview "less {}" | xargs code

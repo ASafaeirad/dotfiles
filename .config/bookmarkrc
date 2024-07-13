@@ -58,10 +58,9 @@ eread() {
   zathura "$BOOK" </dev/null &>/dev/null &
 }
 
-alias q='open_d "https://quillbot.com/"'
-
 alias camp='cd $DEVS/camp'
 alias campfront='cd $DEVS/camp/frontend'
 alias campback='cd $DEVS/camp/backend'
 
 alias notion-icons="cd $DEVS/notion-icons"
+alias temp="cd ~/temp"

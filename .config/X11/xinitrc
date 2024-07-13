@@ -23,13 +23,13 @@ xset b off
 numlockx on &
 nitrogen --restore &
 copyq &
-redshift -l '36.850282:54.3680226' &
+redshift -l '52.090736:5.121420' &
 slayout &
 picom -b
 restart-flashfocus &
 swapcaps &
 sxhkd &
-notion-app &
+# notion-app &
 
 xrdb -load ~/.config/X11/Xresources
 

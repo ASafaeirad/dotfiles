@@ -1,5 +1,16 @@
 #!/usr/bin/env bash
 
+sudo systemctl start bluetooth.service
+
+while true; do
+    if [ $(systemctl is-active bluetooth.service) == "active" ]; then
+        break
+    fi
+
+    sleep 1
+done
+
+bluetoothctl scan on
 bluetoothctl disconnect F8:5C:7D:36:0C:7C
 bluetoothctl connect F8:5C:7D:36:0C:7C
 
