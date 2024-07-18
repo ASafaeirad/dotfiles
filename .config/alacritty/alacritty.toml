@@ -1,9 +1,9 @@
 import = [
-  "/home/skill/.config/alacritty/color.toml",
-  "/home/skill/.config/alacritty/layout.toml",
-  "/home/skill/.config/alacritty/typography.toml",
-  "/home/skill/.config/alacritty/mouse.yml",
-  "/home/skill/.config/alacritty/key-binding.toml"
+  "$HOME/.config/alacritty/color.toml",
+  "$HOME/.config/alacritty/layout.toml",
+  "$HOME/.config/alacritty/typography.toml",
+  "$HOME/.config/alacritty/mouse.yml",
+  "$HOME/.config/alacritty/key-binding.toml"
 ]
 live_config_reload = true
 working_directory = "None"
