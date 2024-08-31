@@ -11,6 +11,7 @@ LIST=(
   Bin
   Rofi
   Menus
+  XInit
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -42,4 +43,6 @@ Menus)
 Awesome)
   $EDITOR ~/.config/awesome
   ;;
+XInit)
+  $EDITOR ~/.config/X11/xinitrc
 esac

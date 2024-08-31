@@ -158,6 +158,36 @@ function module.toggle_fly()
   end
 end
 
+function module.toggle_book()
+  for _, c in ipairs(client.get()) do
+    local is_fly = awful.rules.match(c, {
+      class = "Zathura"
+    })
+
+    if not is_fly then
+      goto continue
+    end
+
+
+    local t = awful.screen.focused().selected_tag.index
+    local book = c.first_tag.index
+
+    if book ~= t or c.minimized then
+      c.minimized = false
+      client.focus = c
+      c:raise()
+    else
+      c.minimized = true
+    end
+
+    c:move_to_tag(awful.tag.selected())
+    c.ontop = true
+    c.fullscreen = true
+    ::continue::
+  end
+end
+
+
 function module.set_wallpaper(s)
   awful.spawn('nitrogen --restore', false)
 end
@@ -173,4 +203,31 @@ function module.darker(color_value, darker_n)
   return result
 end
 
-return module
+function module.toggle_float(selector)
+  for _, c in ipairs(client.get()) do
+    local exist = awful.rules.match(c, selector)
+
+    if not exist then
+      goto continue
+    end
+
+
+    local t = awful.screen.focused().selected_tag.index
+    local win = c.first_tag.index
+
+    if win ~= t or c.minimized then
+      c.minimized = false
+      client.focus = c
+      c:raise()
+    else
+      c.minimized = true
+    end
+
+    c:move_to_tag(awful.tag.selected())
+    c.ontop = true
+    c.fullscreen = true
+    ::continue::
+  end
+end
+
+return module;

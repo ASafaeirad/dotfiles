@@ -5,7 +5,6 @@ S_USER=0
 EG_USER=1
 A_USER=2
 F_USER=3
-BOOK="$HOME/docs/books/Software Engineering A Practitioners Approach (Roger Pressman, Bruce Maxim).pdf"
 
 function _mail() {
   xdg-open https://mail.google.com/mail/u/$EG_USER/ &
@@ -48,6 +47,7 @@ LIST=(
   "Charity"
   "Dictionary"
   "Linear"
+  "Portfolio"
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -125,7 +125,7 @@ Jira)
   task
   ;;
 "English")
-  zathura "$HOME/docs/books/English Grammar in Use Book.pdf"
+  zathura "$BOOKS/English Grammar in Use Book.pdf"
   ;;
 "Wakatime")
   code "$HOME/devs/wakatime"
@@ -165,5 +165,8 @@ Jira)
   ;;
 "Architect")
   code "$HOME/devs/architect"
+  ;;
+"Portfolio")
+  code "$HOME/devs/s-kill"
   ;;
 esac

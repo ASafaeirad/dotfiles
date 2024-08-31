@@ -26,8 +26,17 @@ keys.global_keys = gears.table.join(
   awful.key({ modkey, "Control" }, "h", utils.swap_prev),
 
   awful.key({ modkey, "Control" }, "r", awesome.restart),
-  awful.key({ modkey }, "t", utils.toggle_fly)
+  awful.key({ modkey }, "t", utils.toggle_fly),
 
+  awful.key({ modkey }, "b", function ()
+    utils.toggle_float({ class = "Zathura" })
+  end),
+  awful.key({ modkey }, "n", function ()
+    utils.toggle_float({ class = "Notion" })
+  end),
+  awful.key({ modkey }, "c", function ()
+    utils.toggle_float({ class = "notion-calendar-electron" })
+  end)
   -- awful.key({modkey}, "Return",         function() awful.spawn(terminal) end),
 )
 
@@ -85,8 +94,8 @@ keys.client_keys = gears.table.join(
   awful.key({ modkey }, "m", function()
     awful.screen.focus_relative(1)
   end),
-  awful.key({ modkey }, "n", utils.minimize),
-  awful.key({ modkey, "Shift" }, "n", utils.restore),
+  awful.key({ modkey }, "'", utils.minimize),
+  awful.key({ modkey, "Shift" }, "'", utils.restore),
   awful.key({ modkey, "Ctrl", "Shift" }, "l", utils.inc_client_width),
   awful.key({ modkey, "Ctrl", "Shift" }, "h", utils.dec_client_width),
   awful.key({ modkey, "Ctrl", "Shift" }, "j", utils.inc_client_height),

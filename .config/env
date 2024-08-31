@@ -12,7 +12,8 @@ export READER="zathura"
 export WIFI_ADAPTOR="wlp0s20f3"
 export WALLPAPER="$HOME/pics/wallpapers/Keys.jpg"
 export BG_COLOR="#3C3F4A"
-export BOOK="$HOME/docs/books/TPP.pdf"
+export BOOKS="$HOME/books"
+export BOOK="$BOOKS/Software Engineering A Practitioners Approach.pdf"
 
 # ~/ Clean-up:
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"

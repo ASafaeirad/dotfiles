@@ -1,7 +1,7 @@
 [Default Applications]
 image/jpeg=viewnior.desktop
 image/png=viewnior.desktop
-x-scheme-handler/notion=notion-app.desktop
+x-scheme-handler/notion=Notion.desktop
 x-scheme-handler/webcal=brave-browser.desktop
 x-scheme-handler/tg=org.telegram.desktop.desktop
 x-scheme-handler/mailto=branve-browser.desktop
@@ -9,9 +9,11 @@ x-scheme-handler/mailspring=Mailspring.desktop
 text/plain=visual-studio-code.desktop
 x-scheme-handler/postman=Postman.desktop
 inode/directory=pcmanfm.desktop;ranger.desktop
+x-scheme-handler/tonsite=org.telegram.desktop.desktop
 
 [Added Associations]
 image/jpeg=feh.desktop;viewnior.desktop;
 image/png=viewnior.desktop;
 x-scheme-handler/tg=userapp-Telegram Desktop-EL43Q1.desktop;userapp-Telegram Desktop-V9RNW1.desktop;org.telegram.desktop.desktop;
 text/plain=visual-studio-code.desktop;
+x-scheme-handler/tonsite=org.telegram.desktop.desktop;

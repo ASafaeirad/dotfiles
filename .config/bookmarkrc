@@ -20,7 +20,7 @@ alias tg='cd $HOME/downloads/Telegram\ Desktop'
 alias dwn='cd $HOME/downloads'
 alias dnd='cd $DEVS/dnd'
 alias docs='cd $HOME/docs/'
-alias books='cd $HOME/docs/books'
+alias books='cd $HOME/books'
 
 INFO="$HOME/docs/info"
 alias cards='$EDITOR $INFO/card.yml'

@@ -10,8 +10,8 @@ super + shift + control + alt + {2,3,4,5}
 super + v
   copyq show
 
-super + ctrl + {x,m,c}
-  {xkill, pavucontrol, colorpicker --short --one-shot | xsel -b}
+super + ctrl + {x,m,c,b,n}
+  {xkill, pavucontrol, colorpicker --short --one-shot | xsel -b, book, notion-app; notion-calendar-electron}
 
 super + shift + {space,s,a,b,c,d,p,g,o,w}
   {rofi -show drun, powermenu, auto-menu,changelog-menu,cmenu,smenu,pmenu, github-menu,open-menu, wifimenu}
