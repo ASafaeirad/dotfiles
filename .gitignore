@@ -28,7 +28,7 @@
 .config/docker/.token_seed.lock
 !.config/doom/
 !.config/dunstrc/
-!.config/emacs
+.config/emacs
 .config/emacs/*
 !.config/emacs/init.el
 !.config/env
