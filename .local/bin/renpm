@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+rm -rf node_modules
+[ -f ./package-lock.json ] && rm ./package-lock.json
+[ -f ./yarn.lock ] && rm ./yarn.lock
+[ -f ./pnpm-lock.yaml ] && rm ./pnpm-lock.yaml
+[ -f ./bun.lock ] && rm ./bun.lock
+
+ni
