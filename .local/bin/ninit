@@ -176,7 +176,7 @@ tee .cspell.json << EOF > /dev/null
 EOF
 
 echo "Initializing husky..."
-pnpm exec husky install configs/husky
+pnpm exec husky configs/husky
 
 echo "Generating husky scripts..."
 tee configs/husky/commit-msg << EOF > /dev/null

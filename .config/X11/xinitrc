@@ -29,9 +29,9 @@ picom -b
 restart-flashfocus &
 swapcaps &
 sxhkd &
-# notion-app &
+notion-app &
+notion-calendar-electron &
 
 xrdb -load ~/.config/X11/Xresources
-
 
 exec awesome

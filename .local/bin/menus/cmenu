@@ -12,6 +12,7 @@ LIST=(
   Rofi
   Menus
   XInit
+  Alacritty
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -45,4 +46,8 @@ Awesome)
   ;;
 XInit)
   $EDITOR ~/.config/X11/xinitrc
+  ;;
+Alacritty)
+  $EDITOR ~/.config/alacritty
+  ;;
 esac
