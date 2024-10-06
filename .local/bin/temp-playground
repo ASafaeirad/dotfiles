@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+mkdir -p /tmp/playgrounds
+cd /tmp/playgrounds
+
+
+NUMBERATM=`find ./ -type d -name "playground-*" | wc -l`
+NUMBERATM=$((NUMBERATM+1))
+
+PLAYGROUND=playground-${NUMBERATM}
+
+mkdir $PLAYGROUND
+
+echo /tmp/playgrounds/$PLAYGROUND
+

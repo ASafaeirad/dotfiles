@@ -2,134 +2,18 @@
 
 set -e
 
+vinit "$@"
+rm src/{style.css,index.html,script.js}
+
 [[ -n $1 ]] && mkdir "$1" && cd "$1"
 
-DIR=$(basename "$(pwd)")
-EMAIL=$(git config user.email)
-NAME=$(git config user.name)
-NODE_VERSION=$(node -v)
-NODE_VERSION=${NODE_VERSION:1}
-PNPM_VERSION=$(pnpm show pnpm version)
-
-echo "Initializing the \"$DIR\" project"
-echo "> Email: \"$EMAIL\""
-echo "> Name: \"$NAME\""
-echo "> Node: \"$NODE_VERSION\""
-echo "> PNPM: \"$PNPM_VERSION\""
-echo
-
-echo "Generating .gitignore..."
-touch .gitignore
-tee .gitignore << EOF > /dev/null
-# OS
-.DS_Store
-Thumbs.db
-
-# IDEs and editors
-/.project
-/.idea
-/.vscode
-
-# environment
-.env.local
-
-# npm
-.npm
-npm-debug.log*
-node_modules/
-*.tgz
-
-# yarn
-.yarn-integrity
-yarn.lock
-yarn-debug.log*
-yarn-error.log*
-EOF
-
-echo "Initializing a git repo..."
-git init > /dev/null
-
-echo "Generating npmrc..."
-touch .npmrc
-tee .npmrc << EOF > /dev/null
-save-exact=true
-auto-install-peers=true
-update-notifier=false
-EOF
-
-echo "Initializing package manager..."
-pnpm init > /dev/null
-
-pnpm pkg delete scripts.test
-pnpm pkg set scripts.prepare="./scripts/prepare"
-pnpm pkg set volta.node="${NODE_VERSION}"
-pnpm pkg set volta.pnpm="${PNPM_VERSION}"
-
 echo "Installing dependencies..."
-pnpm install --save-dev --silent prettier cspell husky lint-staged typescript eslint @fullstacksjs/eslint-config @fullstacksjs/tsconfig
-
-echo "Generating eslint config..."
-touch .eslintrc.js
-tee .eslintrc.js << EOF > /dev/null
-const { init } = require('@fullstacksjs/eslint-config/init');
-
-module.exports = init({
-  root: true,
-  modules: {
-    auto: true,
-    typescript: {
-      parserProject: './tsconfig.json',
-      resolverProject: './tsconfig.json',
-    },
-  },
-});
-EOF
-
-echo "Generating prettier config..."
-touch .prettierrc
-tee .prettierrc << EOF > /dev/null
-{
-  "arrowParens": "always",
-  "bracketSpacing": true,
-  "endOfLine": "lf",
-  "htmlWhitespaceSensitivity": "css",
-  "insertPragma": false,
-  "bracketSameLine": false,
-  "jsxSingleQuote": false,
-  "printWidth": 80,
-  "proseWrap": "always",
-  "quoteProps": "as-needed",
-  "requirePragma": false,
-  "semi": true,
-  "singleQuote": true,
-  "tabWidth": 2,
-  "trailingComma": "all",
-  "useTabs": false
-}
-EOF
-
-tee .prettierignore << EOF > /dev/null
-**/node_modules
-**/dist
-EOF
-
-echo "Generating editorconfig..."
-touch .editorconfig
-tee .editorconfig << EOL > /dev/null
-root = true
-
-[*]
-charset = utf-8
-end_of_line = lf
-indent_size = 2
-indent_style = space
-insert_final_newline = true
-trim_trailing_whitespace = true
-
-[*.md]
-max_line_length = off
-trim_trailing_whitespace = false
-EOL
+pnpm install --save-dev --silent \
+  husky \
+  lint-staged \
+  typescript \
+  @fullstacksjs/tsconfig \
+  @types/node
 
 echo "Generating tsconfig..."
 touch tsconfig.json
@@ -204,7 +88,7 @@ echo "Generating prepare script..."
 tee scripts/prepare << EOF > /dev/null
 #!/usr/bin/env sh
 
-[ -d .git/ ] && pnpm exec husky install configs/husky
+[ -d .git/ ] && pnpm exec husky configs/husky
 EOF
 
 echo "Generating npm dictionary..."

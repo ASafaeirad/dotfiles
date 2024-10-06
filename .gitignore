@@ -91,6 +91,8 @@
 !.local/
 .local/*
 !.local/bin/
+.local/bin/deno
+.local/bin/zed
 .local/bin/applications/
 .local/bin/automations/
 !.local/share/
