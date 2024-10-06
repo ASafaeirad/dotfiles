@@ -142,10 +142,10 @@
   # set up 'git pull' to rebase instead of merge
   autosetuprebase = always
 [diff]
-  tool = icdiff
   renames = copies
   mnemonicprefix = true
   compactionHeuristic = true
+  colorMoved = default
 [difftool]
   prompt = false
 [apply]
@@ -154,6 +154,28 @@
 [core]
   editor = nvim
   whitespace = cr-at-eol
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only --features=interactive
+[delta]
+  navigate = true
+  side-by-side = true
+  dark = true
+  minus-style = black bold red
+  plus-style = black bold green
+  line-numbers-minus-style= red
+  line-numbers-plus-style= green
+  file-style= white bold
+  line-numbers-left-format={nm:^4}│
+  line-numbers-right-format={nm:^4}│
+  line-numbers-left-style= white
+  line-numbers-right-style= white
+  hunk-header-decoration-style= white box
+  hunk-header-file-style= white
+  hunk-header-line-number-style= white
+  file-decoration-style= ul
+[delta "interactive"]
+  keep-plus-minus-markers = false
 [rerere]
   enabled = true
 [grep]
@@ -162,13 +184,6 @@
 [rebase]
   instructionFormat = "[%an - %ar] %s"
   autoStash = true
-[pager]
-  diff = "diff-so-fancy | less --tabs=4 -RFX"
-  show = "diff-so-fancy | less --tabs=4 -RFX"
-  tag = "less --tabs=4 -RFX"
-  branch = "less --tabs=4 -RFX"
-[difftool "icdiff"]
-  cmd = /usr/bin/icdiff --line-numbers $LOCAL $REMOTE
 [commit]
   gpgsign = true
 [gpg]
@@ -185,7 +200,7 @@
   required = true
   clean = git-lfs clean -- %f
 [merge]
-  conflictstyle = zdiff3
+  conflictstyle = diff3
   tool = code-insiders
 [mergetool "code-insiders"]
   cmd = code-insiders --wait --merge $REMOTE $LOCAL $BASE $MERGED
