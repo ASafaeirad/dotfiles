@@ -17,6 +17,7 @@ LIST=(
   TSConfig
   Toolbox
   NextJS
+  "You dont know HTML"
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -65,5 +66,8 @@ Config)
   ;;
 NextJS)
   xdg-open "https://github.com/vercel/next.js"
+  ;;
+"You dont know HTML")
+  xdg-open "https://github.com/fullstacksjs/you-dont-know-html"
   ;;
 esac

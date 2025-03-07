@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+LIST=(
+  "Wus"
+)
+
+print_list() { printf "%s\n" "$@"; }
+fn_exists() { declare -F "$1" >/dev/null; }
+SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "SKill")
+
+case "$SELECTED" in
+  "Wus")
+    xdg-open "https://www.figma.com/design/J1rkBS6nUlb0WKtMG0VjoK/FullstacksJS?node-id=3977-91&node-type=frame&t=ciVCVWulqDBY89j6-0"
+  ;;
+esac

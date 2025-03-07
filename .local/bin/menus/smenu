@@ -51,6 +51,10 @@ LIST=(
   "Youtube Studio"
   "DatoCMS"
   "Thumbnail"
+  "Linkedin"
+  "New Project"
+  "NPM Check Last Publish"
+  "You don't know HTML"
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -180,5 +184,18 @@ Jira)
   ;;
 "Thumbnail")
   xdg-open "https://www.figma.com/design/J1rkBS6nUlb0WKtMG0VjoK/FullstacksJS?node-id=3977-91&node-type=frame&t=HwLhNvTiLUePDtlG-0"
+  ;;
+"Linkedin")
+  xdg-open "https://www.linkedin.com/company/78366904/admin/page-posts/published/"
+  ;;
+"New Project")
+  new-menu
+  ;;
+
+"NPM Check Last Publish")
+  code "$HOME/devs/npm-check-last-publish"
+  ;;
+"You don't know HTML")
+  code "$HOME/devs/you-dont-know-html"
   ;;
 esac

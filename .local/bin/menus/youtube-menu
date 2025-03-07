@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+LIST=(
+  "Channel"
+  "Seniority Level"
+  "React Router"
+)
+
+print_list() { printf "%s\n" "$@"; }
+fn_exists() { declare -F "$1" >/dev/null; }
+SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "SKill")
+
+case "$SELECTED" in
+  "Channel")
+    xdg-open "https://www.youtube.com/@FullstacksJS"
+    ;;
+  "Seniority Level")
+    xdg-open "https://youtu.be/yKiU0dyXpIw?t=910"
+    ;;
+  "React Router")
+    xdg-open "https://www.youtube.com/watch?v=F_gxMdjBp7A"
+    ;;
+esac
