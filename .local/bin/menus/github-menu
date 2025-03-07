@@ -16,6 +16,7 @@ LIST=(
   FullstacksJS
   TSConfig
   Toolbox
+  NextJS
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -61,5 +62,8 @@ Toolbox)
   ;;
 Config)
   xdg-open "https://github.com/fullstacksjs/config"
+  ;;
+NextJS)
+  xdg-open "https://github.com/vercel/next.js"
   ;;
 esac

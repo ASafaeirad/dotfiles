@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 LIST=(
-  vanilla
+  node
+  html
   next
-  npm
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -11,22 +11,21 @@ fn_exists() { declare -F "$1" >/dev/null; }
 SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "SKill")
 
 case "$SELECTED" in
-  vanilla)
-    DIR=$(temp-playground)
-    cd $DIR
-    vinit
-    code $DIR
+html)
+  DIR=$(temp-playground)
+  cd $DIR
+  playground-html
   ;;
-  next)
-    DIR=$(temp-playground)
-    cd $DIR
-    npx create-next-app . --use-pnpm --app --eslint --ts --import-alias="@/*" --tailwind --src-dir
-    code $DIR
+node)
+  DIR=$(temp-playground)
+  cd $DIR
+  echo $DIR
+  playground-vanilla-node
   ;;
-  npm)
-    DIR=$(temp-playground)
-    cd $DIR
-    ninit
-    code $DIR
+next)
+  DIR=$(temp-playground)
+  cd $DIR
+  npx create-next-app . --use-pnpm --app --eslint --ts --import-alias="@/*" --tailwind --src-dir --turbopack
+  code $DIR
   ;;
 esac

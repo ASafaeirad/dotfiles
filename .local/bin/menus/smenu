@@ -48,6 +48,9 @@ LIST=(
   "Dictionary"
   "Linear"
   "Portfolio"
+  "Youtube Studio"
+  "DatoCMS"
+  "Thumbnail"
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -168,5 +171,14 @@ Jira)
   ;;
 "Portfolio")
   code "$HOME/devs/s-kill"
+  ;;
+"Youtube Studio")
+  xdg-open "https://studio.youtube.com/channel/UCn52BXCnS1WALPsuNuo9krA"
+  ;;
+"DatoCMS")
+  xdg-open "https://fullstacks-exploration.admin.datocms.com/editor/"
+  ;;
+"Thumbnail")
+  xdg-open "https://www.figma.com/design/J1rkBS6nUlb0WKtMG0VjoK/FullstacksJS?node-id=3977-91&node-type=frame&t=HwLhNvTiLUePDtlG-0"
   ;;
 esac

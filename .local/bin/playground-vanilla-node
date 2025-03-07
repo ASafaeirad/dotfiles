@@ -28,69 +28,20 @@ init_npm
 init_eslint
 init_prettier
 init_editorconfig
-init_cspell
-init_lintstaged
+
+mkdir src/
+touch src/main.ts
+touch src/main.spec.ts
+
+pnpm pkg set scripts.dev="NODE_NO_WARNINGS=1 node --watch --experimental-transform-types src/main.ts"
+pnpm pkg set scripts.test="NODE_NO_WARNINGS=1 node --watch --experimental-transform-types --test src/*.spec.{mjs,mts,js,ts}"
 
 echo "Installing dependencies..."
 npi \
-  cspell \
   prettier \
   eslint \
-  husky \
-  lint-staged \
-  typescript \
   @fullstacksjs/eslint-config \
-  @fullstacksjs/tsconfig \
   @types/node
 
-init_husky
-
-echo "Generating tsconfig..."
-touch tsconfig.json
-tee tsconfig.json <<EOF >/dev/null
-{
-  "root": true,
-  "extends": "@fullstacksjs/tsconfig/esm",
-  "exclude": ["node_modules"]
-}
-EOF
-
-echo "Generating npm dictionary..."
-mkdir -p .configs/cspell
-tee .configs/cspell/npm.txt <<EOF >/dev/null
-Alireza
-Safaeirad
-fullstacksjs
-Parens
-vite
-vitest
-jsdom
-supabase
-nrwl
-cacheable
-devkit
-Buildable
-nxext
-csstype
-Segoe
-Roboto
-Menlo
-Consolas
-Neue
-Noto
-pandacss
-outdir
-postcss
-unocss
-easings
-extralight
-EOF
-
-touch .configs/cspell/workspace.txt
-
-mkdir src/
-
 commit_root
-
-echo "Done"
 open_code

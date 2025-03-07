@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+source "$HOME/.local/bin/_init"
+
+set -e
+
+function banner() {
+  DIR=$(basename "$(pwd)")
+  EMAIL=$(git config user.email)
+  NAME=$(git config user.name)
+  NODE_VERSION=$(node -v)
+  NODE_VERSION=${NODE_VERSION:1}
+  PNPM_VERSION=$(pnpm show pnpm version)
+
+  echo "Initializing the \"$DIR\" project"
+  echo "> Dir:   \"$(pwd)\""
+  echo "> Email: \"$EMAIL\""
+  echo "> Name:  \"$NAME\""
+  echo "> Node:  \"$NODE_VERSION\""
+  echo "> PNPM:  \"$PNPM_VERSION\""
+  echo
+}
+
+mkinit "$@"
+banner
+init_git
+init_npm
+init_eslint
+init_prettier
+init_editorconfig
+
+mkdir src/
+
+tee src/index.html <<EOF >/dev/null
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playground</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <script type="module" scr="/script.js"></script>
+  </body>
+</html>
+EOF
+
+tee src/script.js <<EOF >/dev/null
+console.log('Playground')
+EOF
+
+tee src/style.css <<EOF >/dev/null
+:root {}
+EOF
+
+echo "Installing dependencies..."
+npi \
+  prettier \
+  eslint \
+  live-server \
+  @fullstacksjs/eslint-config
+
+pnpm pkg set scripts.dev="live-server src"
+
+commit_root
+
+echo "Done"
+open_code
