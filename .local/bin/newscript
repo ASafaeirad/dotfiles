@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-if [ $# -eq 0 ]
-  then
+if [ "$1" = "-h" ]; then
     echo "Usage: newscript [-d|-e] filename"
     echo "-d     deletes the file"
     echo "-e     edit existing script"
@@ -17,21 +16,17 @@ if [ "$1" = "-d" ]; then
   exit 0
 fi
 
-if [ "$1" = "-e" ]; then 
-  if [ -f "$SCRIPT_PATH/$2" ]; then 
-    $EDITOR "$SCRIPT_PATH/$2"
-  else 
-    FILE=$(find "$SCRIPT_PATH" -maxdepth 1 -type f -exec basename {} \; | fzf)
-    $EDITOR "$SCRIPT_PATH/$FILE"
-  fi
+if [[ "$1" != -* && -n "$1" ]]; then
+  SCRIPT="$SCRIPT_PATH/$1"
+  echo "#!/usr/bin/env bash" > "$SCRIPT"
+  chmod +x "$SCRIPT"
   exit 0
 fi
 
-SCRIPT="$SCRIPT_PATH/$1"
-
-if [ ! -f "$SCRIPT" ]; then
-  echo "#!/usr/bin/env bash" > "$SCRIPT"
-  chmod +x "$SCRIPT"
+if [ -f "$SCRIPT_PATH/$2" ]; then 
+  $EDITOR "$SCRIPT_PATH/$2"
+  exit 0
 fi
 
-$EDITOR "$SCRIPT"
+FILE=$(find "$SCRIPT_PATH" -maxdepth 1 -type f -exec basename {} \; | fzf)
+[[ -n "$FILE" ]] && $EDITOR "$SCRIPT_PATH/$FILE"

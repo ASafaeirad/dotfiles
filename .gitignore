@@ -23,6 +23,7 @@
 !.config/dircolors
 !.config/dmenu/
 !.config/docker/
+.config/docker/buildx/
 .config/docker/.buildNodeID
 .config/docker/.token_seed
 .config/docker/.token_seed.lock
