@@ -157,6 +157,7 @@ alias fontrc='edit $XDG_CONFIG_HOME/fontconfig/'
 alias gpgrc='edit $GNUPGHOME/gpg-agent.conf'
 alias xinitrc='edit $XDG_CONFIG_HOME/X11/xinitrc'
 alias sxrc='edit $XDG_CONFIG_HOME/sxhkd/sxhkdrc'
+alias picomrc='edit $XDG_CONFIG_HOME/picom/picom.conf'
 
 alias reload='source $XDG_CONFIG_HOME/aliasrc && source $XDG_CONFIG_HOME/bookmarkrc'
 alias xreload='xrdb $XDG_CONFIG_HOME/X11/Xresources'

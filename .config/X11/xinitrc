@@ -20,6 +20,7 @@ xset b off
 # xautolock -time 30 -locker "sklock" -corners -000 -cornerdelay 3 &
 # xss-lock sklock &
 
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 numlockx on &
 nitrogen --restore &
 copyq &
@@ -29,7 +30,7 @@ picom -b
 restart-flashfocus &
 swapcaps &
 sxhkd &
-notion-app &
+# notion-app &
 notion-calendar-electron &
 
 xrdb -load ~/.config/X11/Xresources
