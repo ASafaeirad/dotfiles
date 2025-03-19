@@ -55,6 +55,7 @@ LIST=(
   "New Project"
   "NPM Check Last Publish"
   "You don't know HTML"
+  "Noisli"
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -197,5 +198,8 @@ Jira)
   ;;
 "You don't know HTML")
   code "$HOME/devs/you-dont-know-html"
+  ;;
+"Noisli")
+  xdg-open "https://www.noisli.com/"
   ;;
 esac
