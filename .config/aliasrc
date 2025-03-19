@@ -99,9 +99,6 @@ which-mime() {
 # process
 alias find-gpu='ps aux | grep gpu-process | grep'
 alias fuck='killall -9'
-killport() {
-  kill $(port "$1" | awk '{ print $7 }' | cut -d "/" -f1)
-}
 
 killit() {
   ps aux | grep -v "grep" | grep "$@" | awk '{print $2}' | xargs sudo kill

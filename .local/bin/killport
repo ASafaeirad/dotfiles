@@ -1,4 +1,17 @@
 #!/usr/bin/env bash
 
-PID=$(port "$1" | awk '{ print $7 }' | cut -d "/" -f1)
-kill "$@" $PID
+REST=${@:1:$#-1}
+PORT=${@:$#}
+PROCESS=$(port "$PORT" | awk '{ print $7 }')
+
+if [[ -z $PROCESS ]]; then
+  echo "No process found on port \"$PORT\""
+  exit 0
+fi
+
+NAME=$(echo $PROCESS | cut -d "/" -f2)
+PID=$(echo $PROCESS | cut -d "/" -f1)
+
+echo "Killing \"$NAME\" on port \"$PORT\""
+kill $REST $PID
+
