@@ -1,5 +1,4 @@
 cache=/home/skill/.cache/npm
-store-dir=/home/skill/.local/share/pnpm-store
 init-module=/home/skill/.config/npm/config/npm-init.js
 sign-git-tag=true
 init-author-name=Alireza Safaeirad
@@ -9,4 +8,3 @@ color=always
 depth=0
 init-version=0.0.0
 save=true
-ignore-engines=true
