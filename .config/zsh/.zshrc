@@ -13,7 +13,9 @@ HIST_STAMPS="yyyy-mm-dd"
 HISTSIZE=100000
 SAVEHIST=100000
 
-
+VI_MODE_SET_CURSOR=true
+VI_MODE_CURSOR_INSERT=2
+VI_MODE_CURSOR_NORMAL=6
 # Uncomment the following line if pasting URLs and other text is messed up.
 # DISABLE_MAGIC_FUNCTIONS=true
 
