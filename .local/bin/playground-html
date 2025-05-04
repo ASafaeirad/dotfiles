@@ -41,7 +41,7 @@ tee src/index.html <<EOF >/dev/null
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
-    <script type="module" scr="/script.js"></script>
+    <script type="module" src="/script.js"></script>
   </body>
 </html>
 EOF
