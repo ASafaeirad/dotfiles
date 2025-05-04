@@ -201,6 +201,3 @@
   clean = git-lfs clean -- %f
 [merge]
   conflictstyle = diff3
-  tool = code-insiders
-[mergetool "code-insiders"]
-  cmd = code-insiders --wait --merge $REMOTE $LOCAL $BASE $MERGED
