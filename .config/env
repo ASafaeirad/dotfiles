@@ -10,10 +10,10 @@ export BROWSER=/usr/bin/brave
 export GPG_TTY=$(tty)
 export READER="zathura"
 export WIFI_ADAPTOR="wlp0s20f3"
-export WALLPAPER="$HOME/pics/wallpapers/Keys.jpg"
+export WALLPAPER="$HOME/pics/wallpapers/skill.png"
 export BG_COLOR="#3C3F4A"
 export BOOKS="$HOME/books"
-export BOOK="$BOOKS/Software Engineering A Practitioners Approach.pdf"
+export BOOK="$BOOKS/Dont Make Me Think.pdf"
 
 # ~/ Clean-up:
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
@@ -44,7 +44,6 @@ export WAKATIME_HOME="$XDG_CONFIG_HOME/wakatime"
 export ACKRC="$XDG_CONFIG_HOME/ack/ackrc"
 export NODE_REPL_HISTORY="$XDG_CACHE_HOME/node_repl_history"
 export NPM_CONFIG_USERCONFIG="$XDG_CONFIG_HOME/npm/npmrc"
-export npm_config_devdir="$XDG_CACHE_HOME"/node-gyp
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export WINEPREFIX="$XDG_DATA_HOME/wineprefixes/default"
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
@@ -81,9 +80,17 @@ function prepend_path() {
   fi
 }
 
+
+# Proto
+export PROTO_HOME="$XDG_DATA_HOME/proto";
+prepend_path "$PROTO_HOME/shims"
+prepend_path "$PROTO_HOME/bin"
+prepend_path "$PROTO_HOME/bin/proto"
+
+# Volta
 if [ -d "$XDG_CONFIG_HOME/volta" ]; then
   export VOLTA_HOME="$XDG_CONFIG_HOME/volta"
-  prepend_path "$VOLTA_HOME/bin"
+  # prepend_path "$VOLTA_HOME/bin"
 fi
 
 if [ -f "${XDG_DATA_HOME}/cargo/env" ]; then
