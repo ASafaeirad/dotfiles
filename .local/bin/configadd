@@ -1,44 +1,55 @@
 #!/bin/bash
 
-pushd ~ || exit 1
-DOTIFLES="git --git-dir $XDG_CONFIG_HOME/dotfiles.git --work-tree $HOME"
+set -euo pipefail
+
+GIT_CMD="git --git-dir=$XDG_CONFIG_HOME/dotfiles.git --work-tree=$HOME"
+
+pushd "$HOME" >/dev/null
 
 changed=$(git config --get-color color.status.changed red)
 unmerged=$(git config --get-color color.status.unmerged red)
 untracked=$(git config --get-color color.status.untracked red)
 
-pager=$(git config core.pager || echo 'cat')
+width=$(($(tput cols) * 6 / 10))
+pager="delta --side-by-side -w $width"
 
 FORGIT_FZF_DEFAULT_OPTS="
   --ansi
-  --height='100%'
-  --bind='alt-k:preview-up,alt-p:preview-up'
-  --bind='alt-j:preview-down,alt-n:preview-down'
-  --bind='ctrl-r:toggle-all'
-  --bind='ctrl-s:toggle-sort'
-  --bind='?:toggle-preview'
-  --bind='alt-w:toggle-preview-wrap'
-  --preview-window='right:60%'
+  --height=100%
+  --bind=alt-k:preview-up,alt-p:preview-up
+  --bind=alt-j:preview-down,alt-n:preview-down
+  --bind=ctrl-r:toggle-all
+  --bind=ctrl-s:toggle-sort
+  --bind=?:toggle-preview
+  --bind=alt-w:toggle-preview-wrap
+  --preview-window=right:60%
+  -0
+  -m
+  --nth 2..,..
 "
 
 opts="
   $FORGIT_FZF_DEFAULT_OPTS
-  -0 -m --nth 2..,..
-  --preview=\"if ($DOTIFLES status --porcelain -- {-1} | grep '^??') &>/dev/null; then  # diff with /dev/null for untracked files
-                $DOTIFLES diff --color=always --no-index -- /dev/null {-1} | $pager | sed '2 s/added: /untracked: /'
+  --preview=\"if ($GIT_CMD status --porcelain -- {-1} | grep '^??') &>/dev/null; then  # diff with /dev/null for untracked files
+                $GIT_CMD diff --color=always --no-index -- /dev/null {-1} | $pager | sed '2 s/added: /untracked: /'
               else
-                $DOTIFLES diff --color=always -- {-1} | $pager;
+                $GIT_CMD diff --color=always -- {-1} | $pager;
               fi\"
-  $FORGIT_ADD_FZF_OPTS
 "
 
-files=$($DOTIFLES -c color.status=always -c status.relativePaths=false status --short --untracked |
+files=$($GIT_CMD -c color.status=always -c status.relativePaths=false status --short --untracked |
   grep -F -e "$changed" -e "$unmerged" -e "$untracked" |
   sed -E 's/^(..[^[:space:]]*)[[:space:]]+(.*)$/[\1]  \2/' |
   FZF_DEFAULT_OPTS="$opts" fzf |
   sed 's/^.*]  //' |
   sed 's/.* -> //') # for rename case
 
-[[ -n "$files" ]] && echo "$files" | tr '\n' '\0' | xargs --null -I {} -- $DOTIFLES add {} && $DOTIFLES status --short --untracked && exit 0
-popd || exit 1
+if [[ -n "${files:-}" ]]; then
+  echo "$files" | tr '\n' '\0' | xargs --null -I {} -- $GIT_CMD add "{}"
+  $GIT_CMD status --short --untracked
+  popd >/dev/null
+  exit 0
+fi
+
+popd >/dev/null
 echo 'Nothing to add.'
