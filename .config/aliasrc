@@ -188,10 +188,6 @@ alias mac="getMac $WIFI_ADAPTOR"
 alias ping='ping -i 1 -O'
 alias scanip='nmap -sn 192.168.1.0/24'
 
-port() {
-  sudo netstat -tulpn | grep :"$1"
-}
-
 getMac() {
   ip link show "$@" | grep link | awk '{ print $2 }'
 }
@@ -397,13 +393,6 @@ ex() {
 fix_perms() {
   find . -type f ! -path '*/node_modules/*' -exec chmod 0664 {} \;
   find . -type d ! -path '*/node_modules/*' -exec chmod 0775 {} \;
-}
-
-batt() {
-  BAT=${1:-BAT0}
-  capacity=$(head /sys/class/power_supply/$BAT/charge_full)
-  design=$(head /sys/class/power_supply/$BAT/charge_full_design)
-  bc <<<"scale=2; $capacity / $design"
 }
 
 compress() {

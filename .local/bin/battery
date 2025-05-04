@@ -1,7 +1,14 @@
 #!/usr/bin/env bash
 
-BAT=${1:-BAT0}
+BAT=${1:-BAT1}
+DIR="/sys/class/power_supply/$BAT"
 
-capacity=$(head /sys/class/power_supply/$BAT/charge_full)
-design=$(head /sys/class/power_supply/$BAT/charge_full_design)
-bc <<< "scale=2; $capacity / $design"
+CAPACITY=$(head "$DIR/charge_full")
+DESIGN=$(head "$DIR/charge_full_design")
+NOW=$(head "$DIR/charge_now")
+
+CHARGE=$(bc <<< "scale=2; $NOW / $CAPACITY * 100")
+HEALTH=$(bc <<< "scale=2; $CAPACITY / $DESIGN * 100")
+
+echo "Charge: $CHARGE"
+echo "Health: $HEALTH"

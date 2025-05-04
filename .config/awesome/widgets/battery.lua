@@ -3,7 +3,6 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local wibox = require("wibox")
 local watch = require("awful.widget.watch")
-local colors = require('modules.colors')
 
 local batteryarc_widget = {}
 
