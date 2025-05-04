@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+chars="abcdefghijklmnoprstuvwyz"
+fancy_chars="ᴀʙᴄᴅᴇꜰɢʜɪᴊᴋʟᴍɴᴏᴘʀꜱᴛᴜᴠᴡʏᴢ"
+
+input="$*"
+output=""
+
+input=$(echo "$input" | tr '[:upper:]' '[:lower:]')
+
+for (( i=0; i<${#input}; i++ )); do
+    char="${input:$i:1}"
+    pos=$(expr index "$chars" "$char")
+    if [ $pos -gt 0 ]; then
+        fancy_char="${fancy_chars:$((pos-1)):1}"
+        output="$output$fancy_char"
+    else
+        output="$output$char"
+    fi
+done
+
+scopy "$output"

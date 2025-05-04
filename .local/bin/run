@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+INTERPRETER="$1"
+
+if [ "$INTERPRETER" = "node" ]; then
+    node --experimental-transform-types --watch "$2"
+elif [ "$INTERPRETER" = "cpp" ]; then
+    ls *.cpp | entr -cs "g++ -o a.out *.cpp && ./a.out"
+elif [ "$INTERPRETER" = "haskell" ]; then
+    ls *.hs | entr -cs "runhaskell $2"
+elif [ "$INTERPRETER" = "rust" ]; then
+    ls *.rs | entr -cs "rustc $2"
+fi
