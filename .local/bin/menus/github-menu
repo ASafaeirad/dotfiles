@@ -6,6 +6,7 @@ LIST=(
   ASafaeirad
   Blackhole
   NotionIcons
+  NotionAutomation
   NixSkill
   Dotfiles
   Config
@@ -18,6 +19,7 @@ LIST=(
   Toolbox
   NextJS
   "You dont know HTML"
+  Axios
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -33,6 +35,9 @@ Blackhole)
   ;;
 NotionIcons)
   xdg-open "https://github.com/ASafaeirad/notion-icons"
+  ;;
+NotionAutomation)
+  xdg-open "https://github.com/ASafaeirad/notion-automation"
   ;;
 NixSkill)
   xdg-open "https://github.com/ASafaeirad/NixSkill"
@@ -69,5 +74,8 @@ NextJS)
   ;;
 "You dont know HTML")
   xdg-open "https://github.com/fullstacksjs/you-dont-know-html"
+  ;;
+"Axios")
+  xdg-open "https://github.com/axios/axios"
   ;;
 esac
