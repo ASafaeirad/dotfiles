@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+EDITOR="cursor"
 source "$HOME/.local/bin/menus/_menu"
 S_USER=0
 EG_USER=1
@@ -56,6 +57,9 @@ LIST=(
   "NPM Check Last Publish"
   "You don't know HTML"
   "Noisli"
+  "SVGL"
+  "Twitch"
+  "Forest"
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -66,7 +70,7 @@ SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "SKill")
 
 case "$SELECTED" in
 Charity)
-  code "$HOME/devs/the-charity"
+  $EDITOR "$HOME/devs/the-charity"
   ;;
 Monkey)
   xdg-open https://monkeytype.com/
@@ -78,7 +82,7 @@ Quillbot)
   xdg-open https://quillbot.com/
   ;;
 Abit)
-  code "$HOME/devs/abit"
+  $EDITOR "$HOME/devs/abit"
   ;;
 Time)
   xdg-open https://www.time.ir/
@@ -121,13 +125,13 @@ Jira)
   xdg-open https://fullstacksjs.atlassian.net/jira/software/c/projects/FSK/boards/1?selectedIssue=FSK-36
   ;;
 "Notion")
-  notion-app-enhanced
+  notion-app
   ;;
 "NotionIcon")
-  code "$HOME/devs/notion-icons"
+  $EDITOR "$HOME/devs/notion-icons"
   ;;
 "NotionAutomation")
-  code "$HOME/devs/notion-automation"
+  $EDITOR "$HOME/devs/notion-automation"
   ;;
 "Task")
   task
@@ -136,19 +140,19 @@ Jira)
   zathura "$BOOKS/English Grammar in Use Book.pdf"
   ;;
 "Wakatime")
-  code "$HOME/devs/wakatime"
+  $EDITOR "$HOME/devs/wakatime"
   ;;
 "ESLint")
-  code "$HOME/devs/eslint-config"
+  $EDITOR "$HOME/devs/eslint-config"
   ;;
 "Flows")
-  code "$HOME/devs/flows"
+  $EDITOR "$HOME/devs/flows"
   ;;
 "FullstacksJS")
-  code "$HOME/devs/fullstacksjs"
+  $EDITOR "$HOME/devs/fullstacksjs"
   ;;
 "Tern")
-  code "$HOME/devs/tern"
+  $EDITOR "$HOME/devs/tern"
   ;;
 "Pronounce")
   WORD=$(_dmenu)
@@ -163,19 +167,19 @@ Jira)
   xdg-open "https://linear.app/fullstacksjs/team/FS/active"
   ;;
 "Toolbox")
-  code "$HOME/devs/toolbox"
+  $EDITOR "$HOME/devs/toolbox"
   ;;
 "Config")
-  code "$HOME/devs/config"
+  $EDITOR "$HOME/devs/config"
   ;;
 "Blackhole")
-  code "$HOME/devs/blackhole"
+  $EDITOR "$HOME/devs/blackhole"
   ;;
 "Architect")
-  code "$HOME/devs/architect"
+  $EDITOR "$HOME/devs/architect"
   ;;
 "Portfolio")
-  code "$HOME/devs/s-kill"
+  $EDITOR "$HOME/devs/s-kill"
   ;;
 "Youtube Studio")
   xdg-open "https://studio.youtube.com/channel/UCn52BXCnS1WALPsuNuo9krA"
@@ -194,12 +198,21 @@ Jira)
   ;;
 
 "NPM Check Last Publish")
-  code "$HOME/devs/npm-check-last-publish"
+  $EDITOR "$HOME/devs/npm-check-last-publish"
   ;;
 "You don't know HTML")
-  code "$HOME/devs/you-dont-know-html"
+  $EDITOR "$HOME/devs/you-dont-know-html"
   ;;
 "Noisli")
   xdg-open "https://www.noisli.com/"
+  ;;
+"SVGL")
+  xdg-open "https://svgl.app/"
+  ;;
+"Twitch")
+  xdg-open "https://twitch.tv/fullstacksjs"
+  ;;
+"Forest")
+  $EDITOR "$HOME/devs/forest"
   ;;
 esac
