@@ -87,12 +87,6 @@ prepend_path "$PROTO_HOME/shims"
 prepend_path "$PROTO_HOME/bin"
 prepend_path "$PROTO_HOME/bin/proto"
 
-# Volta
-if [ -d "$XDG_CONFIG_HOME/volta" ]; then
-  export VOLTA_HOME="$XDG_CONFIG_HOME/volta"
-  # prepend_path "$VOLTA_HOME/bin"
-fi
-
 if [ -f "${XDG_DATA_HOME}/cargo/env" ]; then
   . "${XDG_DATA_HOME}/cargo/env"
 fi

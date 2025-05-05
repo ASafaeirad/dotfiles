@@ -69,26 +69,27 @@ function volume:update()
 end
 
 function volume:up()
-    run("amixer set " .. self.device .. " " .. self.step .. "%+")
+    run("pactl set-sink-volume @DEFAULT_SINK@" .. " +" .. self.step .. "%")
 end
 
 function volume:down()
-    run("amixer set " .. self.device .. " " .. self.step .. "%-")
+    run("pactl set-sink-volume @DEFAULT_SINK@" .. " -" .. self.step .. "%")
 end
 
 function volume:mute()
-    run("amixer set " .. self.device .. " toggle")
+    run("pactl set-sink-volume @DEFAULT_SINK@ toggle")
     self:update()
 end
 
 function volume:is_muted()
-    local result = run("amixer get " .. self.device)
-    return string.find(result, "%[off%]")
+    local result = run("pactl get-sink-mute @DEFAULT_SINK@")
+    return string.find(result, "yes")
 end
 
 function volume:get_volume()
-    local result = run("amixer get " .. self.device)
-    return string.gsub(string.match(result, "%[%d*%%%]"), "%D", "")
+    local result = run("pactl get-sink-volume @DEFAULT_SINK@")
+    local percent = string.match(result, "%s+(%d+)%%")
+    return string.gsub(percent, "%D", "")
 end
 
 return volume:new({

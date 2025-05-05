@@ -5,6 +5,7 @@ local dpi = xresources.apply_dpi
 local gfs = require("gears.filesystem")
 local utils = require("modules.utils")
 local colors = require("modules.colors")
+local wibox = require('wibox')
 local themes_path = gfs.get_themes_dir()
 local nconf = naughty.config
 
@@ -26,7 +27,7 @@ theme.fg_urgent     = colors.error
 theme.fg_minimize   = colors.mute
 theme.taglist_fg_empty = colors.mute
 
-theme.border_width  = dpi(2)
+theme.border_width  = dpi(10)
 theme.border_normal = colors.accent
 theme.border_focus  = colors.accent
 theme.border_marked = "#FF0000"
@@ -44,15 +45,17 @@ theme.menu_width  = dpi(100)
 -- nconf.defaults.margin = 16
 -- nconf.defaults.shape = helpers.rrect(6)
 -- nconf.defaults.text = "Boo!"
--- nconf.defaults.timeout = 3
+nconf.defaults.timeout = 6
+nconf.defaults.position = 'bottom_right'
 -- nconf.presets.critical.bg = "#FE634E"
 -- nconf.presets.critical.fg = "#fefefa"
 -- nconf.presets.low.bg = "#1771F1"
-nconf.padding = 20
-nconf.spacing = 8
-nconf.presets.normal.bg = colors.bg1
 -- nconf.defaults.icon_size = 64
 -- theme.notification_font = "Inter 12.5"
+nconf.padding = dpi(10)
+nconf.spacing = 8
+nconf.presets.normal.bg = colors.bg1
+naughty.config.defaults.margin = dpi(16)
 
 
 -- Recolor Layout icons:
