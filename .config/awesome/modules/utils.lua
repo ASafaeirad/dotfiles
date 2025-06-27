@@ -188,7 +188,7 @@ function module.toggle_book()
 end
 
 
-function module.set_wallpaper(s)
+function module.set_wallpaper()
   awful.spawn('nitrogen --restore', false)
 end
 

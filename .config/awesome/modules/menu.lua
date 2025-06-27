@@ -2,137 +2,72 @@ local awful = require('awful')
 local gears = require('gears')
 local wibox = require('wibox')
 local xresources = require("beautiful.xresources")
-local dpi = xresources.apply_dpi
 local battery = require("widgets.battery")
-local naughty = require("naughty")
+local dpi = xresources.apply_dpi
 
 local utils = require('modules.utils')
 local colors = require('modules.colors')
 local volume = require("widgets.volume")
 local brightness = require("widgets.brightness")
-local keyboardlayout = require("widgets.keyboard")
-
-require("awful.hotkeys_popup.keys")
+local keyboard_layout = require("widgets.keyboard")
+local beautiful = require("beautiful")
 
 local module = {}
 
-local taglist_buttons = gears.table.join(
-  awful.button({}, 1, function(t) t:view_only() end),
-  awful.button({}, 3, awful.tag.viewtoggle)
-)
-
-local date = wibox.widget.textclock("<span font='Monaspace Argon 10'> %a %b %d</span>")
-local time = wibox.widget.textclock("<span font='Monaspace Argon 10'> %H:%M </span>", 10)
+local date = wibox.widget.textclock("<span font='" .. beautiful.font .. "'> %a %b %d</span>")
+local time = wibox.widget.textclock("<span font='" .. beautiful.font .. "'> %H:%M </span>", 10)
 
 local tray = wibox.widget.systray()
 tray:set_base_size(12)
 tray.forced_height = 16
 
 function module.init(screen)
-  -- Save and restore tags, when monitor setup is changed
-  local tag_store = {}
-  -- tag.connect_signal("request::screen", function(t)
-  --   local fallback_tag = nil
-
-  --   -- find tag with same name on any other screen
-  --   for other_screen in screen do
-  --     if other_screen ~= t.screen then
-  --       fallback_tag = awful.tag.find_by_name(other_screen, t.name)
-  --       if fallback_tag ~= nil then
-  --         break
-  --       end
-  --     end
-  --   end
-
-    -- no tag with same name exists, chose random one
-  --   if fallback_tag == nil then
-  --     fallback_tag = awful.tag.find_fallback()
-  --   end
-
-  --   if not (fallback_tag == nil) then
-  --     local output = next(t.screen.outputs)
-
-  --     if tag_store[output] == nil then
-  --       tag_store[output] = {}
-  --     end
-
-  --     clients = t:clients()
-  --     tag_store[output][t.name] = clients
-
-  --     for _, c in ipairs(clients) do
-  --       c:move_to_tag(fallback_tag)
-  --     end
-  --   end
-  -- end)
-
-  screen:connect_signal("added", function(s)
-    local output = next(s.outputs)
-    naughty.notify({ text = output .. " Connected" })
-
-    tags = tag_store[output]
-    if not (tags == nil) then
-      naughty.notify({ text = "Restoring Tags" })
-
-      for _, tag in ipairs(s.tags) do
-        clients = tags[tag.name]
-        if not (clients == nil) then
-          for _, client in ipairs(clients) do
-            client:move_to_tag(tag)
-          end
-        end
-      end
-    end
-  end)
-
-  utils.set_wallpaper(screen)
+  utils.set_wallpaper()
   screen.padding = {
-    top = dpi(4)
+    top = beautiful.useless_gap * 2,
   }
-  awful.tag(tags, screen, awful.layout.suit.tile)
 
-  screen.mypromptbox = awful.widget.prompt()
+  awful.tag(tags, screen, global_layouts[1])
 
-  screen.mytaglist = awful.widget.taglist {
+  screen.taglist = awful.widget.taglist {
     screen = screen,
     filter = awful.widget.taglist.filter.all,
-    buttons = taglist_buttons,
+    buttons = gears.table.join(
+      awful.button({}, 1, function(t) t:view_only() end),
+      awful.button({}, 3, awful.tag.viewtoggle)
+    ),
     widget_template = {
-      {
-        {
-          {
-            { id = 'text_role', widget = wibox.widget.textbox },
-            widget = wibox.container.margin,
-          },
-          layout = wibox.layout.fixed.horizontal,
-        },
-        left = dpi(16),
-        right = dpi(16),
-        widget = wibox.container.margin
-      },
+      widget = wibox.container.background,
       id = 'background_role',
-      widget = wibox.container.background
+      {
+        widget = wibox.container.margin,
+        left = beautiful.tag_padding,
+        right = beautiful.tag_padding,
+        { id = 'text_role', widget = wibox.widget.textbox },
+      },
     }
   }
 
-  screen.mywibox = awful.wibar({
+  screen.wibar = awful.wibar({
     position = "top",
-    width = screen.geometry.width - dpi(8),
-    height = dpi(50),
+    width = screen.geometry.width - beautiful.useless_gap * 4,
+    height = beautiful.menu_height,
     screen = screen,
     stretch = false,
-    margins = dpi(10)
+    margins = beautiful.useless_gap * 2,
   })
-  screen.mywibox.y = dpi(4)
 
-  screen.mywibox:setup {
+  screen.wibar.y = beautiful.useless_gap * 2
+
+  screen.wibar:setup {
     right = dpi(36),
-    left = dpi(16),
+    left = beautiful.menu_padding,
     layout = wibox.container.margin,
     {
       layout = wibox.layout.stack,
       {
         layout = wibox.layout.align.horizontal,
-        { layout = wibox.layout.fixed.horizontal, screen.mytaglist, screen.mypromptbox },
+        { layout = wibox.layout.fixed.horizontal, screen.taglist },
         nil,
         {
           layout = wibox.layout.fixed.horizontal,
@@ -147,7 +82,7 @@ function module.init(screen)
           }),
           date,
           time,
-          keyboardlayout(),
+          keyboard_layout(),
           { tray, valign = "center", halign = "center", layout = wibox.container.place }
         }
       },

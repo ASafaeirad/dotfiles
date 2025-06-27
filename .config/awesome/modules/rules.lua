@@ -65,7 +65,7 @@ local rules = {
   },
   {
     rule = { class = "Code" },
-    properties = { tag = tags[3] },
+    properties = { tag = tags[1] },
   },
   {
     rule = { class = "TelegramDesktop" },

@@ -1,16 +1,13 @@
-local textbox = require("wibox.widget.textbox")
-local button = require("awful.button")
 local wibox = require("wibox")
 local widget_base = require("wibox.widget.base")
 local gdebug = require("gears.debug")
-local naughty = require("naughty")
 
 --- Keyboard Layout widget.
--- awful.widget.keyboardlayout
-local keyboardlayout = { mt = {} }
+-- awful.widget.keyboard_layout
+local keyboard_layout = { mt = {} }
 
 -- As to the country-code-like symbols below, refer to the names of XKB's
-keyboardlayout.xkeyboard_country_code = {
+keyboard_layout.xkeyboard_country_code = {
   ["ir"] = true, -- Iran
   ["us"] = true, -- USA
 }
@@ -30,7 +27,7 @@ local function update_status(self)
   self.widget:set_text(text)
 end
 
-function keyboardlayout.get_groups_from_group_names(group_names)
+function keyboard_layout.get_groups_from_group_names(group_names)
   if group_names == nil then
     return nil
   end
@@ -102,7 +99,7 @@ function keyboardlayout.get_groups_from_group_names(group_names)
     for pattern, callback in pairs(pattern_and_callback_pairs) do
       local vendor, file, section, group_idx = callback(tokens[i], pattern)
       if file then
-        if not keyboardlayout.xkeyboard_country_code[file] then
+        if not keyboard_layout.xkeyboard_country_code[file] then
           break
         end
 
@@ -125,7 +122,7 @@ end
 -- Callback for updating list of layouts
 local function update_layout(self)
   self._layout = {};
-  local layouts = keyboardlayout.get_groups_from_group_names(awesome.xkb_get_group_names())
+  local layouts = keyboard_layout.get_groups_from_group_names(awesome.xkb_get_group_names())
   if layouts == nil or layouts[1] == nil then
     gdebug.print_error("Failed to get list of keyboard groups")
     return
@@ -146,9 +143,9 @@ end
 --
 -- It shows current keyboard layout name in a textbox.
 --
--- @constructorfct awful.widget.keyboardlayout
+-- @constructor awful.widget.keyboard_layout
 -- @return A keyboard layout widget.
-function keyboardlayout.new()
+function keyboard_layout.new()
   local widget = wibox.widget {
     align  = 'center',
     valign = 'center',
@@ -194,11 +191,11 @@ end
 
 local _instance = nil;
 
-function keyboardlayout.mt:__call(...)
+function keyboard_layout.mt:__call(...)
   if _instance == nil then
-    _instance = keyboardlayout.new(...)
+    _instance = keyboard_layout.new(...)
   end
   return _instance
 end
 
-return setmetatable(keyboardlayout, keyboardlayout.mt)
+return setmetatable(keyboard_layout, keyboard_layout.mt)
