@@ -1,10 +1,10 @@
 [general]
 import = [
-  "~/.config/alacritty/color.toml",
-  "~/.config/alacritty/layout.toml",
-  "~/.config/alacritty/typography.toml",
-  "~/.config/alacritty/mouse.yml",
-  "~/.config/alacritty/key-binding.toml"
+  "./color.toml",
+  "./layout.toml",
+  "./typography.toml",
+  "./mouse.yml",
+  "./key-binding.toml"
 ]
 live_config_reload = true
 working_directory = "None"
