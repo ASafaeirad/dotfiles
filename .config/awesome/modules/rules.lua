@@ -51,9 +51,6 @@ local rules = {
   {
     rule = { class = "Zathura" },
     properties = { floating = true, fullscreen = true },
-    -- callback = function(c)
-    --   c:geometry({ width = 900, height = 600 })
-    -- end,
   },
   {
     rule = { class = "Brave-browser" },

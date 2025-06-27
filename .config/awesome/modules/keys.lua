@@ -7,37 +7,31 @@ local keys = {}
 local modkey = "Mod4"
 
 keys.global_keys = gears.table.join(
-  awful.key({ modkey }, "BackSpace", awful.tag.history.restore),
-  awful.key({ modkey }, "u", awful.client.urgent.jumpto),
-  awful.key({ modkey }, "Tab", utils.go_back),
-  awful.key({ modkey, "Shift" }, ";", function()
-    naughty.notify({ title = "Test Title", text = "Test Notification" })
-  end),
+  awful.key({ modkey, "Control" }, "r", awesome.restart),
 
   awful.key({ modkey }, "l", utils.focus_next),
   awful.key({ modkey }, "h", utils.focus_prev),
-  awful.key({ modkey, "Shift", "Shift" }, "j", utils.screen_next),
-  awful.key({ modkey, "Shift", "Shift" }, "k", utils.screen_prev),
-  awful.key({ modkey, "Control"}, "t", utils.toggle_keep_top),
-
   awful.key({ modkey, "Shift" }, "l", utils.inc_width),
   awful.key({ modkey, "Shift" }, "h", utils.dec_width),
   awful.key({ modkey, "Control" }, "l", utils.swap_next),
   awful.key({ modkey, "Control" }, "h", utils.swap_prev),
 
-  awful.key({ modkey, "Control" }, "r", awesome.restart),
-  awful.key({ modkey }, "t", utils.toggle_fly),
+  awful.key({ modkey }, "BackSpace", awful.tag.history.restore),
 
+  awful.key({ modkey }, "m", utils.focus_next_screen),
+
+  awful.key({ modkey }, "t", function ()
+    utils.toggle_float({ class = "flyterm" })
+  end),
   awful.key({ modkey }, "b", function ()
     utils.toggle_float({ class = "Zathura" })
   end),
   awful.key({ modkey }, "n", function ()
-    utils.toggle_float({ class = "Notion" })
-  end),
-  awful.key({ modkey }, "c", function ()
-    utils.toggle_float({ class = "notion-calendar-electron" })
+    local c = utils.toggle_float({ class = "Notion" })
+    if c then
+      c.fullscreen = true
+    end
   end)
-  -- awful.key({modkey}, "Return",         function() awful.spawn(terminal) end),
 )
 
 for i = 1, 9 do
@@ -81,19 +75,12 @@ for i = 1, 9 do
 end
 
 keys.client_keys = gears.table.join(
-  awful.key({ modkey, "Ctrl" }, "space", function()
-    awful.layout.inc(1)
-  end),
   awful.key({ modkey }, "space", awful.client.floating.toggle),
   awful.key({ modkey }, "f", utils.toggle_fullscreen),
-  awful.key({ modkey, "Shift" }, "f", utils.toggle_maximize),
   awful.key({ modkey, "Shift" }, "q", utils.kill),
   awful.key({ modkey, "Shift", "Control", "Mod1" }, "q", utils.kill),
   awful.key({ modkey, "Control" }, "Return", utils.move_master),
   awful.key({ modkey, "Shift" }, "m", utils.move_screen),
-  awful.key({ modkey }, "m", function()
-    awful.screen.focus_relative(1)
-  end),
   awful.key({ modkey }, "'", utils.minimize),
   awful.key({ modkey, "Shift" }, "'", utils.restore),
   awful.key({ modkey, "Ctrl", "Shift" }, "l", utils.inc_client_width),

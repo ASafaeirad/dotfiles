@@ -17,18 +17,6 @@ function module.swap_prev()
   awful.client.swap.byidx(-1)
 end
 
-function module.screen_next()
-  awful.screen.focus_relative(1)
-end
-
-function module.screen_prev()
-  awful.screen.focus_relative(-1)
-end
-
-function module.open_terminal()
-  awful.spawn(terminal)
-end
-
 function module.inc_width()
   awful.tag.incmwfact(0.05)
 end
@@ -86,19 +74,8 @@ function module.move_screen(c)
   c:move_to_screen()
 end
 
-function module.toggle_keep_top()
-  local c = awful.client.focus
-  c.top = not c.top
-  c.sticky = not c.sticky
-end
-
 function module.dmenu()
   awful.spawn('sdmenu -l 100 -h 25 -w 300')
-end
-
-function module.go_back()
-  awful.client.focus.history.previous()
-  if client.focus then client.focus:raise() end
 end
 
 function module.restore()
@@ -130,104 +107,48 @@ function module.is_empty(t)
   return true
 end
 
-function module.toggle_fly()
-  for _, c in ipairs(client.get()) do
-    local is_fly = awful.rules.match(c, {
-      instance = "flyterm"
-    })
-
-    if not is_fly then
-      goto continue
-    end
-
-
-    local t = awful.screen.focused().selected_tag.index
-    local fly_t = c.first_tag.index
-
-    if fly_t ~= t or c.minimized then
-      c.minimized = false
-      client.focus = c
-      c:raise()
-    else
-      c.minimized = true
-    end
-
-    c:move_to_tag(awful.tag.selected())
-    c.ontop = true
-    ::continue::
-  end
-end
-
-function module.toggle_book()
-  for _, c in ipairs(client.get()) do
-    local is_fly = awful.rules.match(c, {
-      class = "Zathura"
-    })
-
-    if not is_fly then
-      goto continue
-    end
-
-
-    local t = awful.screen.focused().selected_tag.index
-    local book = c.first_tag.index
-
-    if book ~= t or c.minimized then
-      c.minimized = false
-      client.focus = c
-      c:raise()
-    else
-      c.minimized = true
-    end
-
-    c:move_to_tag(awful.tag.selected())
-    c.ontop = true
-    c.fullscreen = true
-    ::continue::
-  end
-end
-
-
 function module.set_wallpaper()
   awful.spawn('nitrogen --restore', false)
 end
 
-function module.darker(color_value, darker_n)
-  local result = "#"
-  for s in color_value:gmatch("[a-fA-F0-9][a-fA-F0-9]") do
-    local bg_numeric_value = tonumber("0x" .. s) - darker_n
-    if bg_numeric_value < 0 then bg_numeric_value = 0 end
-    if bg_numeric_value > 255 then bg_numeric_value = 255 end
-    result = result .. string.format("%2.2x", bg_numeric_value)
+function module.focus_next_screen()
+  awful.screen.focus_relative(1)
+end
+
+function module.get_client_by_selector(selector)
+  for _, c in ipairs(client.get()) do
+    if awful.rules.match(c, selector) then
+      return c
+    end
   end
-  return result
 end
 
 function module.toggle_float(selector)
-  for _, c in ipairs(client.get()) do
-    local exist = awful.rules.match(c, selector)
-
-    if not exist then
-      goto continue
-    end
-
-
-    local t = awful.screen.focused().selected_tag.index
-    local win = c.first_tag.index
-
-    if win ~= t or c.minimized then
-      c.minimized = false
-      client.focus = c
-      c:raise()
-    else
-      c.minimized = true
-    end
-
-    c:move_to_tag(awful.tag.selected())
-    c.ontop = true
-    c.fullscreen = true
-    ::continue::
+  local c = module.get_client_by_selector(selector)
+  if not c then
+    return
   end
+
+  local current_tag = awful.screen.focused().selected_tag.index
+  local client_tag = c.first_tag.index
+  local is_current_tag = client_tag == current_tag
+
+  c.floating = true
+  c.ontop = true
+
+  if not is_current_tag then
+    c:move_to_tag(awful.tag.selected())
+  end
+
+  if c.minimized then
+    c.minimized = false
+    client.focus = c
+    c:raise()
+  elseif is_current_tag then
+    c.minimized = true
+  end
+
+  return c
 end
 
 return module;
