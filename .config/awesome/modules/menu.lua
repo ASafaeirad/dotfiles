@@ -27,7 +27,7 @@ function module.init(screen)
     top = beautiful.useless_gap * 2,
   }
 
-  awful.tag(tags, screen, global_layouts[1])
+  awful.tag(tags, screen, awful.layout.layouts[1])
 
   screen.taglist = awful.widget.taglist {
     screen = screen,

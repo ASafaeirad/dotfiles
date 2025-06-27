@@ -1,4 +1,5 @@
 local awful = require("awful")
+local utils = require("modules.utils")
 require("awful.autofocus")
 
 client.connect_signal("manage", function(c)
@@ -12,3 +13,5 @@ client.connect_signal("manage", function(c)
     awful.placement.no_offscreen(c)
   end
 end)
+
+screen.connect_signal("property::geometry", utils.set_wallpaper)
