@@ -22,6 +22,15 @@ theme.fg_normal     = theme.fg
 theme.fg_focus      = colors.accent
 theme.fg_urgent     = colors.error
 theme.fg_minimize   = colors.mute
+
+theme.error         = colors.error
+theme.accent        = colors.accent
+theme.success       = colors.success
+theme.mute          = colors.mute
+
+theme.taglist= {
+    padding = dpi(12)
+}
 theme.taglist_fg_empty = colors.mute
 
 theme.border_width  = dpi(10)
@@ -32,13 +41,19 @@ theme.border_marked = "#FF0000"
 theme.useless_gap   = dpi(2)
 theme.systray_icon_spacing = dpi(6)
 
-theme.tooltip_fg = theme.fg_normal
-theme.tooltip_bg = theme.bg_normal
-theme.menu_submenu_icon = themes_path.."default/submenu.png"
-theme.menu_height = dpi(50)
-theme.menu_padding = dpi(16)
-theme.tag_padding = dpi(16)
-theme.menu_width  = dpi(100)
+theme.menu = {
+    height = dpi(50),
+    padding = {
+        left = dpi(16),
+        right = dpi(24),
+    },
+    spacing = dpi(8),
+    width = dpi(100),
+    tray = {
+        height = dpi(14),
+        size = dpi(16),
+    },
+}
 
 theme.icon_theme = nil
 
@@ -49,8 +64,10 @@ nconf.padding = dpi(10)
 nconf.spacing = 8
 nconf.presets.normal.bg = colors.bg1
 nconf.defaults.margin = dpi(16)
+nconf.presets.critical.bg = colors.error
+nconf.presets.critical.fg = colors.bg
 
--- Generate taglist squares:
+-- Remove taglist squares:
 local taglist_square_size = dpi(0)
 theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
     taglist_square_size, theme.fg_normal
@@ -58,5 +75,6 @@ theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
 theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
     taglist_square_size, theme.fg_normal
 )
+
 
 return theme

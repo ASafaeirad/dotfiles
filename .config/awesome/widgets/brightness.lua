@@ -2,12 +2,9 @@ local awful = require("awful")
 local wibox = require("wibox")
 local watch = require("awful.widget.watch")
 local spawn = require("awful.spawn")
-local colors = require("modules.colors")
+local beautiful = require("beautiful")
 
 local get_brightness_cmd
-local set_brightness_cmd
-local inc_brightness_cmd
-local dec_brightness_cmd
 
 local brightness_widget = {}
 
@@ -15,26 +12,21 @@ local function worker(user_args)
 
   local args = user_args or {}
   local timeout = args.timeout or 100
-  local step = args.step or 5
-  local base = args.base or 20
-  local current_level = 0 -- current brightness value
+  local current_level = 0
   local tooltip = args.tooltip or false
 
   get_brightness_cmd = 'light -G'
-  set_brightness_cmd = 'light -S %d'
-  inc_brightness_cmd = 'light -A ' .. step
-  dec_brightness_cmd = 'light -U ' .. step
 
   brightness_widget.widget = wibox.widget {
+    widget = wibox.container.arcchart,
     max_value = 100,
     thickness = 2,
-    start_angle = 4.71238898, -- 2pi*3/4
-    value = 40,
+    start_angle = 4.71238898, -- 2pi * 3 / 4
+    value = 100,
     forced_height = 12,
     forced_width = 12,
     paddings = 8,
-    colors = { colors.accent },
-    widget = wibox.container.arcchart,
+    colors = { beautiful.accent },
     set_value = function(self, level)
       self:set_value(level)
     end
@@ -42,7 +34,7 @@ local function worker(user_args)
 
 
   local update_widget = function(widget, stdout, _, _, _)
-    local brightness_level = tonumber(string.format("%.0f", stdout))
+    local brightness_level = tonumber(string.format("%.0f", stdout)) or 100
     current_level = brightness_level
     widget:set_value(brightness_level)
   end
@@ -52,48 +44,6 @@ local function worker(user_args)
       update_widget(brightness_widget.widget, out)
     end)
   end
-
-  function brightness_widget:set(value)
-    current_level = value
-    -- spawn.easy_async(string.format(set_brightness_cmd, value), function() end)
-    brightness_widget:update()
-  end
-
-  local old_level = 0
-  function brightness_widget:toggle()
-    if old_level < 0.1 then
-      -- avoid toggling between '0' and 'almost 0'
-      old_level = 1
-    end
-    if current_level < 0.1 then
-      -- restore previous level
-      current_level = old_level
-    else
-      -- save current brightness for later
-      old_level = current_level
-      current_level = 0
-    end
-    brightness_widget:set(current_level)
-  end
-
-  function brightness_widget:inc()
-    -- spawn.easy_async(string.format(inc_brightness_cmd, value), function() end)
-    brightness_widget:update()
-  end
-
-  function brightness_widget:dec()
-    -- spawn.easy_async(string.format(dec_brightness_cmd, value), function() end)
-    brightness_widget:update()
-  end
-
-  brightness_widget.widget:buttons(
-    awful.util.table.join(
-      awful.button({}, 1, function() brightness_widget:set(base) end),
-      awful.button({}, 3, function() brightness_widget:toggle() end),
-      awful.button({}, 4, function() brightness_widget:inc() end),
-      awful.button({}, 5, function() brightness_widget:dec() end)
-    )
-  )
 
   watch(get_brightness_cmd, timeout, update_widget, brightness_widget.widget)
 

@@ -2,23 +2,17 @@ local wibox = require("wibox")
 local widget_base = require("wibox.widget.base")
 local gdebug = require("gears.debug")
 
---- Keyboard Layout widget.
--- awful.widget.keyboard_layout
 local keyboard_layout = { mt = {} }
 
--- As to the country-code-like symbols below, refer to the names of XKB's
 keyboard_layout.xkeyboard_country_code = {
-  ["ir"] = true, -- Iran
-  ["us"] = true, -- USA
+  ["ir"] = true,
+  ["us"] = true,
 }
 
--- Callback for updating current layout.
 local function update_status(self)
   self._current = awesome.xkb_get_layout_group()
   local text = ""
   if #self._layout > 0 then
-    -- Please note that the group number reported by xkb_get_layout_group
-    -- is lower by one than the group numbers reported by xkb_get_group_names.
     local name = self._layout[self._current + 1]
     if name then
       text = " " .. name .. " "
@@ -167,22 +161,7 @@ function keyboard_layout.new()
     return self.map[name]
   end
 
-  self.next_layout = function()
-    self.set_layout((self._current + 1) % (#self._layout + 1))
-  end
-
-  self.set_layout = function(group_number)
-    if (0 > group_number) or (group_number > #self._layout) then
-      error("Invalid group number: " .. group_number ..
-        "expected number from 0 to " .. #self._layout)
-      return;
-    end
-    awesome.xkb_set_layout_group(group_number);
-  end
-
   update_layout(self);
-
-  -- callback for processing layout changes
   awesome.connect_signal("xkb::map_changed", function() update_layout(self) end)
   awesome.connect_signal("xkb::group_changed", function() update_status(self) end);
 

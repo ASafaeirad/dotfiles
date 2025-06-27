@@ -1,6 +1,6 @@
 local wibox = require("wibox")
 local awful = require("awful")
-local colors = require("modules.colors")
+local beautiful = require("beautiful")
 
 require("math")
 require("string")
@@ -94,6 +94,6 @@ end
 
 return volume:new({
     step = 10,
-    mute_color = colors.error,
-    color = colors.fg
+    mute_color = beautiful.error,
+    color = beautiful.fg_normal
 })

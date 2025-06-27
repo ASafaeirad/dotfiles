@@ -13,10 +13,10 @@ local function worker(user_args)
   local show_notification_mode = args.show_notification_mode or 'on_hover' -- on_hover / on_click
   local notification_position = args.notification_position or 'top_right' -- see naughty.notify position argument
 
-  local full_color = args.full_color or beautiful.fg_color
-  local low_level_color = args.low_level_color or '#e53935'
-  local medium_level_color = args.medium_level_color or '#c0ca33'
-  local charging_color = args.charging_color or '#43a047'
+  local full_color = args.full_color or beautiful.fg_normal
+  local low_level_color = args.low_level_color or beautiful.error
+  local medium_level_color = args.medium_level_color or beautiful.accent
+  local charging_color = args.charging_color or beautiful.success
 
   local warning_msg_title = args.warning_msg_title or 'Dying in ...'
   local warning_msg_text = args.warning_msg_text or 'Battery is dying'
@@ -30,7 +30,7 @@ local function worker(user_args)
     max_value = 100,
     thickness = 2,
     rounded_edge = true,
-    start_angle = 4.71238898, -- 2pi*3/4
+    start_angle = 4.71238898, -- 2pi * 3/4
     forced_height = 12,
     forced_width = 12,
     widget = wibox.container.arcchart
@@ -38,16 +38,15 @@ local function worker(user_args)
 
   local last_battery_check = os.time()
 
-  --[[ Show warning notification ]]
+  -- Show warning notification
   local function show_battery_warning()
     naughty.notify {
+      preset = naughty.config.presets.critical,
       text = warning_msg_text,
       title = warning_msg_title,
-      timeout = 25, -- show the warning for a longer time
+      timeout = 25,
       hover_timeout = 0.5,
       position = warning_msg_position,
-      bg = "#F06060",
-      fg = "#EEE9EF",
       width = 300,
     }
   end
@@ -90,7 +89,7 @@ local function worker(user_args)
   -- Popup with battery info
   local notification
   local function show_battery_status()
-    awful.spawn.easy_async([[bash -c 'acpi']],
+    awful.spawn.easy_async([[bash -c 'battery']],
       function(stdout, _, _, _)
       naughty.destroy(notification)
       notification = naughty.notify {
