@@ -183,7 +183,8 @@ tmp() {
 alias i3logs="DISPLAY=:0 i3-dump-log"
 
 # network
-alias getip="curl -s -S https://icanhazip.com"
+alias ipv4="curl -s -S https://ipv4.icanhazip.com"
+alias ipv6="curl -s -S https://ipv6.icanhazip.com"
 alias mac="getMac $WIFI_ADAPTOR"
 alias ping='ping -i 1 -O'
 alias scanip='nmap -sn 192.168.1.0/24'
@@ -197,7 +198,7 @@ localip() {
 }
 
 netinfo() {
-  printf "Local IP:\t%s\nMac Addr:\t%s\nGlobal IP:\t%s\n" "$(localip)" "$(mac)" "$(getip)"
+	printf "Local IP:\t%s\nMac Addr:\t%s\nIPv4:\t\t%s\nIPv6:\t\t%s\n" "$(localip)" "$(mac)" "$(ipv4)" "$(ipv6)"
 }
 
 shecan() {
@@ -252,7 +253,7 @@ alias npmv='npm -v'
 nvers() {
   npm show $1 versions
 }
-alias ncu='npm-check -u'
+alias ncu='npx npm-check -u'
 alias nrc='npm run commit'
 alias cleannm='find . -name "node_modules" -type d -exec sudo rm -rf {} \;'
 alias monore='find . -name "node_modules" -type d -exec sudo rm -rf {} \; ; npx lerna bootstrap && npm install'

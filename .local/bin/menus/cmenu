@@ -2,7 +2,6 @@
 
 source "$HOME/.local/bin/menus/_menu"
 
-EDITOR=code
 LIST=(
   Hyprland
   Awesome
@@ -21,33 +20,33 @@ SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "Configs")
 
 case "$SELECTED" in
 Nix)
-  $EDITOR ~/.config/nix
+  $VISUAL ~/.config/nix
   ;;
 Sxhkd)
-  $EDITOR ~/.config/sxhkd/sxhkdrc
+  $VISUAL ~/.config/sxhkd/sxhkdrc
   ;;
 Hyprland)
-  $EDITOR ~/.config/hypr
+  $VISUAL ~/.config/hypr
   ;;
 Waybar)
-  $EDITOR ~/.config/waybar
+  $VISUAL ~/.config/waybar
   ;;
 Rofi)
-  $EDITOR ~/.config/rofi/
+  $VISUAL ~/.config/rofi/
   ;;
 Bin)
-  $EDITOR ~/.local/bin/
+  $VISUAL ~/.local/bin/
   ;;
 Menus)
-  $EDITOR ~/.local/bin/menus
+  $VISUAL ~/.local/bin/menus
   ;;
 Awesome)
-  $EDITOR ~/.config/awesome
+  $VISUAL ~/.config/awesome
   ;;
 XInit)
-  $EDITOR ~/.config/X11/xinitrc
+  $VISUAL ~/.config/X11/xinitrc
   ;;
 Alacritty)
-  $EDITOR ~/.config/alacritty
+  $VISUAL ~/.config/alacritty
   ;;
 esac

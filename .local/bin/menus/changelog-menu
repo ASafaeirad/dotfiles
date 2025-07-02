@@ -3,6 +3,7 @@
 source "$HOME/.local/bin/menus/_menu"
 
 LIST=(
+  eslint
   @anatine/zod-mock
   @hookform/resolvers
   react-hook-form
@@ -16,11 +17,14 @@ LIST=(
   jsdom
   eslint-graphql
   eslint-typescript
+  eslint-react
+  eslint-perfectionist
   storybook
   auth0
   next
   jotai
   framer
+  Edit
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -28,6 +32,9 @@ fn_exists() { declare -F "$1" >/dev/null; }
 SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "Changelog")
 
 case "$SELECTED" in
+"eslint")
+  xdg-open "https://github.com/eslint/eslint/releases"
+  ;;
 "@anatine/zod-mock")
   xdg-open "https://github.com/anatine/zod-plugins/blob/main/packages/zod-mock/CHANGELOG.md"
   ;;
@@ -77,9 +84,18 @@ case "$SELECTED" in
   xdg-open "https://github.com/vercel/next.js/releases"
   ;;
 "jotai")
-	xdg-open https://github.com/pmndrs/jotai/releases
-	;;
+  xdg-open https://github.com/pmndrs/jotai/releases
+  ;;
 "framer")
   xdg-open https://github.com/framer/motion/blob/main/CHANGELOG.md
-	;;
+  ;;
+"eslint-react")
+  xdg-open "https://github.com/Rel1cx/eslint-react/releases"
+  ;;
+"eslint-perfectionist")
+  xdg-open "https://github.com/azat-io/eslint-plugin-perfectionist/releases"
+  ;;
+"Edit")
+  code $HOME/.local/bin/menus/changelog-menu
+  ;;
 esac

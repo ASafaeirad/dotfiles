@@ -21,6 +21,9 @@ xset b off
 # xss-lock sklock &
 
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
+
+xrdb -load ~/.config/X11/Xresources
+
 numlockx on &
 nitrogen --restore &
 copyq &
@@ -32,7 +35,6 @@ swapcaps &
 sxhkd &
 # notion-app &
 notion-calendar-electron &
-
-xrdb -load ~/.config/X11/Xresources
+flyterm &
 
 exec awesome

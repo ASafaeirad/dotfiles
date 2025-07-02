@@ -178,9 +178,6 @@ Jira)
 "Architect")
   $EDITOR "$HOME/devs/architect"
   ;;
-"Portfolio")
-  $EDITOR "$HOME/devs/s-kill"
-  ;;
 "Youtube Studio")
   xdg-open "https://studio.youtube.com/channel/UCn52BXCnS1WALPsuNuo9krA"
   ;;
@@ -214,5 +211,8 @@ Jira)
   ;;
 "Forest")
   $EDITOR "$HOME/devs/forest"
+  ;;
+"Portfolio")
+  $EDITOR "$HOME/devs/portfolio"
   ;;
 esac
