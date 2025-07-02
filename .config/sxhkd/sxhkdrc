@@ -2,10 +2,10 @@ super + Return
   alacritty
 
 super + F{2,3,4,5}
-  {brave,code,pcmanfm,terminal -e mus}
+  {brave,cursor,pcmanfm,terminal -e mus}
 
 super + shift + control + alt + {2,3,4,5}
-  {brave,code,pcmanfm,terminal -e mus}
+  {brave,cursor,pcmanfm,terminal -e mus}
 
 super + v
   copyq show
@@ -19,19 +19,17 @@ super + shift + {space,s,a,b,c,d,p,g,o,w,y}
 super + shift + ctrl + alt + {space,s,a,b,c,d,p,g,o,w,y}
   {rofi -show drun, powermenu, auto-menu,changelog-menu,cmenu,smenu,pmenu, github-menu,open-menu, wifimenu,youtube-menu}
 
-super + {_, control} + p
-  {flameshot full -p $(xdg-user-dir PICTURES)/screenshots/, flameshot gui}
-
 super + shift + t
   flyterm
 
 XF86Audio{LowerVolume,RaiseVolume}
   pactl set-sink-volume @DEFAULT_SINK@ {-10%, +10%}
 
-
 XF86AudioMute
   pactl set-sink-mute @DEFAULT_SINK@ toggle
 
-
 XF86MonBrightness{Down,Up}
   light {-U,-A} 5
+
+super + control + p
+  flameshot gui
