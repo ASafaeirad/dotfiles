@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+const time = process.argv[2];
+
+function convertAmsterdamToTehran(hourStr, minStr) {
+  let hours = parseInt(hourStr, 10);
+  let minutes = parseInt(minStr, 10);
+
+  const offsetDiff = 1.5;
+
+  let totalMinutes = hours * 60 + minutes + offsetDiff * 60;
+  totalMinutes = ((totalMinutes % 1440) + 1440) % 1440;
+
+  const newHours = Math.floor(totalMinutes / 60)
+    .toString()
+    .padStart(2, "0");
+  const newMinutes = (totalMinutes % 60).toString().padStart(2, "0");
+
+  return `${newHours}:${newMinutes}`;
+}
+
+const hourStr = time.substring(0, 2)
+const minStr = time.substring(2, 4)
+const tehranTime = convertAmsterdamToTehran(hourStr, minStr);
+
+console.log(`Amsterdam: ${hourStr}:${minStr}`);
+console.log(`Tehran:    ${tehranTime}`);
+

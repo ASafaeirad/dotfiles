@@ -1,6 +1,6 @@
 [Default Applications]
 image/jpeg=viewnior.desktop
-image/png=viewnior.desktop
+image/png=feh.desktop
 x-scheme-handler/notion=Notion.desktop
 x-scheme-handler/webcal=brave-browser.desktop
 x-scheme-handler/tg=org.telegram.desktop.desktop
@@ -20,10 +20,14 @@ application/x-extension-shtml=brave-browser.desktop
 application/xhtml+xml=brave-browser.desktop
 application/x-extension-xhtml=brave-browser.desktop
 application/x-extension-xht=brave-browser.desktop
+application/json=code.desktop
+application/pdf=brave-browser.desktop
+video/mp4=smplayer.desktop
+video/x-matroska=smplayer.desktop
 
 [Added Associations]
 image/jpeg=feh.desktop;viewnior.desktop;
-image/png=viewnior.desktop;
+image/png=viewnior.desktop;feh.desktop;
 x-scheme-handler/tg=userapp-Telegram Desktop-EL43Q1.desktop;userapp-Telegram Desktop-V9RNW1.desktop;org.telegram.desktop.desktop;
 text/plain=visual-studio-code.desktop;
 x-scheme-handler/tonsite=org.telegram.desktop.desktop;
@@ -37,3 +41,8 @@ application/x-extension-shtml=brave-browser.desktop;
 application/xhtml+xml=brave-browser.desktop;
 application/x-extension-xhtml=brave-browser.desktop;
 application/x-extension-xht=brave-browser.desktop;
+application/sql=code.desktop;
+application/json=code.desktop;
+application/pdf=brave-browser.desktop;
+video/mp4=smplayer.desktop;
+video/x-matroska=smplayer.desktop;
