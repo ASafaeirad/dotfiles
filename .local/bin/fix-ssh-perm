@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-chmod 700 ~/.ssh
-chmod 600 ~/.ssh/*
-chmod 644 ~/.ssh/*.pub
+DIR="$HOME/.ssh/"
 
+chown -R "$(whoami)" "$DIR"
+find "$DIR" -type d -exec chmod 700 {} \;
+find "$DIR" -type f -exec chmod 600 {} \;
+find "$DIR" -type f -name "*.pub" -exec chmod 644 {} \;

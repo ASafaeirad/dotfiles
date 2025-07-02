@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-print_list() { printf "%s\n" "$@"; }
-fn_exists() { declare -F "$1" >/dev/null; }
-SELECTED=$(rofi -dmenu -i -p "Open")
+source "$HOME/.local/bin/menus/_menu"
+SELECTED=$(_dmenu -i -p "Open")
 
 xdg-open $SELECTED

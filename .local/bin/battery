@@ -3,12 +3,12 @@
 BAT=${1:-BAT1}
 DIR="/sys/class/power_supply/$BAT"
 
-CAPACITY=$(head "$DIR/charge_full")
-DESIGN=$(head "$DIR/charge_full_design")
-NOW=$(head "$DIR/charge_now")
+CAPACITY=$(head -n 1 "$DIR/charge_full")
+DESIGN=$(head -n 1 "$DIR/charge_full_design")
+NOW=$(head -n 1 "$DIR/charge_now")
 
-CHARGE=$(bc <<< "scale=2; $NOW / $CAPACITY * 100")
-HEALTH=$(bc <<< "scale=2; $CAPACITY / $DESIGN * 100")
+CHARGE=$(bc <<<"scale=2; $NOW / $CAPACITY * 100")
+HEALTH=$(bc <<<"scale=2; $CAPACITY / $DESIGN * 100")
 
 echo "Charge: $CHARGE"
 echo "Health: $HEALTH"

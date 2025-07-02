@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+# Check if display name is provided
+if [ -z "$1" ]; then
+    echo "Usage: $0 <DISPLAY_NAME>"
+    echo "Example: $0 HDMI-1"
+    exit 1
+fi
+
+TARGET_DISPLAY="$1"
+FOUND_DISPLAY=false
+
+# Parse xrandr output
+xrandr | while read -r line; do
+    if [[ "$line" == "$TARGET_DISPLAY connected"* ]]; then
+        echo "Display: $TARGET_DISPLAY"
+        FOUND_DISPLAY=true
+    elif [[ "$FOUND_DISPLAY" = true && "$line" =~ ^[[:space:]]+[0-9]+x[0-9]+ ]]; then
+        echo "  $line"
+    elif [[ "$line" != " "* ]]; then
+        FOUND_DISPLAY=false
+    fi
+done
+

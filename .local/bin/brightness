@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+DEV=$(ls /sys/class/backlight/ | head -n 1)
+MAX=$(head -n 1 /sys/class/backlight/$DEV/max_brightness)
+ACTUAL=$(head -n 1 /sys/class/backlight/$DEV/actual_brightness)
+
+CURRENT=$(bc <<<"scale=0; $ACTUAL * 100 / $MAX")
+
+echo $CURRENT

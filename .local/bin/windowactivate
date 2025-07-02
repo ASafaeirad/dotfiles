@@ -1,8 +1,5 @@
 #!/bin/bash
 
-echo $(xdotool search --classname "$1")
-
-WINDOW=$(xdotool getactivewindow)
-echo $WINDOW
+WINDOW=$(xdotool search --classname "$1")
 
 [[ -n $WINDOW ]] && xdotool windowactivate "$WINDOW"

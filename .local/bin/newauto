@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 if [ "$1" = "-h" ]; then
-    echo "Usage: newscript [-d|-e] filename"
-    echo "-d     deletes the file"
-    echo "-e     edit existing script"
-    exit 0
+  echo "Usage: newscript [-d|-e] filename"
+  echo "-d     deletes the file"
+  echo "-e     edit existing script"
+  exit 0
 fi
 
 AUTO_PATH="$HOME/.local/bin/automation"
@@ -18,21 +18,20 @@ fi
 
 if [[ "$1" != -* && -n "$1" ]]; then
   SCRIPT="$AUTO_PATH/$1"
-  if [ -f "$SCRIPT" ]; then 
+  if [ -f "$SCRIPT" ]; then
     $EDITOR "$SCRIPT"
     exit 0
   fi
-  echo "#!/usr/bin/env bash" > "$SCRIPT"
+  echo "#!/usr/bin/env bash" >"$SCRIPT"
   chmod +x "$SCRIPT"
   $EDITOR "$SCRIPT"
   exit 0
 fi
 
-if [ -f "$AUTO_PATH/$2" ]; then 
+if [ -f "$AUTO_PATH/$2" ]; then
   $EDITOR "$AUTO_PATH/$2"
   exit 0
 fi
 
-FILE=$(find "$AUTO_PATH" -maxdepth 1 -type f -exec basename {} \; | fzf)
+FILE=$(fd --max-depth 1 --type f --base-directory "$AUTO_PATH" | fzf --preview "less $AUTO_PATH/{}")
 [[ -n "$FILE" ]] && $EDITOR "$AUTO_PATH/$FILE"
-

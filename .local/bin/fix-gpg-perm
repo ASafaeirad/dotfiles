@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-DIR=$HOME/.local/share/gnupg/
-chown -R $(whoami) "$DIR"
+DIR="$HOME/.local/share/gnupg/"
+
+chown -R "$(whoami)" "$DIR"
 find "$DIR" -type f -exec chmod 600 {} \;
 find "$DIR" -type d -exec chmod 700 {} \;
-

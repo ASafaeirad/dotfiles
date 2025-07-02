@@ -5,7 +5,7 @@ function w_cp() {
 }
 
 if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
-w_cp "$@"
+  w_cp "$@"
 else
-  echo "$@" | xsel -ib
+  echo -n "$@" | xsel -ib
 fi

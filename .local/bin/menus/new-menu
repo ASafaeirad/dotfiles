@@ -6,9 +6,7 @@ LIST=(
   next
 )
 
-print_list() { printf "%s\n" "$@"; }
-fn_exists() { declare -F "$1" >/dev/null; }
-SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "SKill")
+SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "SKill")
 
 case "$SELECTED" in
 html)

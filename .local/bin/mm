@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CONNECTED_MONITORS=$(xrandr -q| grep "\bconnected" | tail -n +2 | awk '{ print $1 }')
+CONNECTED_MONITORS=$(xrandr -q | grep "\bconnected" | tail -n +2 | awk '{ print $1 }')
 M_COUNT=$(echo -e $CONNECTED_MONITORS | wc -w)
 
 function get_max_res() {
@@ -10,13 +10,13 @@ function get_max_res() {
 if [[ $M_COUNT = 0 ]]; then
   xrandr --auto
 else
-  for M in ${CONNECTED_MONITORS[@]}; do
+  for M in "${CONNECTED_MONITORS[@]}"; do
     RES=$(get_max_res $M)
     xrandr --output $M --mode $RES --left-of eDP-1 &>/dev/null
   done
 fi
 
-echo 'awesome.restart()' | awesome-client
+# echo 'awesome.restart()' | awesome-client
 sleep 0.5
 nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
 nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null

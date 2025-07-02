@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 FILES=(
   .config/Kvantum
   .config/clipit

@@ -13,8 +13,6 @@ PASS_FILES=("$PASS_DIR"/**/*.gpg)
 RELATIVE_FILENAMES=("${PASS_FILES[@]#"$PASS_DIR"/}")
 LIST=("${RELATIVE_FILENAMES[@]%.gpg}")
 
-print_list() { printf "%s\n" "$@"; }
-
 PASSWORD=$(print_list "${LIST[@]}" | _dmenu -p "Password" "$@")
 [[ -n $PASSWORD ]] || exit
 

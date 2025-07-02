@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+count=$(copyq count)
+limit=$((count < 10 ? count : 10))
+url_regex='https?://[^ ]+'
+
+declare -a ITEMS
+
+for ((i = 0; i < limit; i++)); do
+  item=$(copyq read $i)
+  if [[ $item =~ $url_regex ]]; then
+    ITEMS+=("$item")
+  fi
+done
+
+source "$HOME/.local/bin/menus/_menu"
+SELECTED=$(print_list "${ITEMS[@]}" | _dmenu -i -p "Open")
+
+mkdir /tmp/dl &>/dev/null
+OUT=$(yt-dlp --get-filename -q -o "/tmp/dl/file.%(ext)s" "$SELECTED")
+scopy "$OUT"

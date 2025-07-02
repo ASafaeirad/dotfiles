@@ -1,3 +1,28 @@
 #!/usr/bin/env bash
 
-printf "Local IP:\t%s\nMac Addr:\t%s\nGlobal IP:\t%s\n" "$(localip)" "$(mac)" "$(getip)"
+INTERFACE="${WIFI_ADAPTOR:-wlan0}"
+
+get_local_ip() {
+  ip addr show "$INTERFACE" | grep 'inet ' | awk '{ print $2 }' | head -n1
+}
+
+get_mac_address() {
+  ip link show "$INTERFACE" | grep link | awk '{ print $2 }' | head -n1
+}
+
+get_public_ipv4() {
+  curl --silent --max-time 10 https://ipv4.icanhazip.com 2>/dev/null || echo "N/A"
+}
+
+get_public_ipv6() {
+  curl --silent --max-time 10 https://ipv6.icanhazip.com 2>/dev/null || echo "N/A"
+}
+
+MAC_ADDRESS=$(get_mac_address)
+LOCAL_IP=$(get_local_ip)
+PUBLIC_IPV4=$(get_public_ipv4)
+PUBLIC_IPV6=$(get_public_ipv6)
+
+# Display results
+printf "Local IP:\t%s\nMac Addr:\t%s\nGlobal IP:\t%s\nGlobal IP6:\t%s\n" \
+  "$LOCAL_IP" "$MAC_ADDRESS" "$PUBLIC_IPV4" "$PUBLIC_IPV6"

@@ -2,7 +2,6 @@
 
 clear
 printf "\n\n\n"
-figlet -f DOS\ Rebel -d /usr/share/figlet/fonts "$@" | lolcat
+figlet -f DOS\ Rebel -d $XDG_DATA_HOME/figlet "$@" -w "$(tput cols)" | lolcat
 
-#printf "\tjoin us on @full_stacks"
 printf "\n\n\n"

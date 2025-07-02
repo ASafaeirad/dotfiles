@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+BASE_DIR="${1:-.}"
+shift
+
+fd --max-depth 1 --hidden --type f --base-directory "$BASE_DIR" "$@" | fzf --preview "less $BASE_DIR/{}"

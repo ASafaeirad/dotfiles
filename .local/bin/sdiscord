@@ -1,3 +1,0 @@
-#!/bin/bash
-/usr/bin/discord --proxy-server="socks5://127.0.0.1:6000"
-

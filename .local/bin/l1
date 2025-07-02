@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-DIR=${1:-"."}
-EXT=${2:-"ts"}
-
-find "$DIR" -maxdepth 1 -name "*.$EXT" -type f -exec basename {} ".$EXT" \; | scopy

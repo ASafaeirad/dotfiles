@@ -20,12 +20,12 @@ if [[ "$1" != -* && -n "$1" ]]; then
   MENU="$SCRIPT_PATH/$1"
   echo '#!/usr/bin/env bash
 
+source "$HOME/.local/bin/menus/_menu"
+
 LIST=(
 )
 
-print_list() { printf "%s\n" "$@"; }
-fn_exists() { declare -F "$1" >/dev/null; }
-SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "SKill")
+SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "SKill")
 
 case "$SELECTED" in
 esac' >"$MENU"
@@ -42,4 +42,3 @@ fi
 FILE=$(find "$SCRIPT_PATH" -maxdepth 1 -type f -exec basename {} \; | fzf)
 
 [[ -n "$FILE" ]] && $EDITOR "$SCRIPT_PATH/$FILE"
-
