@@ -13,8 +13,8 @@ super + v
 super + ctrl + {x,m,c,b,n}
   {xkill, pavucontrol, colorpicker --short --one-shot | xsel -b, book, notion-app; notion-calendar-electron}
 
-super + shift + {space,s,a,b,c,d,p,g,o,w,y}
-  {rofi -show drun, powermenu, auto-menu,changelog-menu,cmenu,smenu,pmenu, github-menu,open-menu, wifimenu,youtube-menu}
+super + shift + {space,s,a,b,c,d,p,g,o,w,y,j}
+  {rofi -show drun, power-menu, auto-menu,changelog-menu,c-menu,s-menu,p-menu, github-menu,open-menu, wifi-menu,youtube-menu,dl-menu}
 
 super + shift + ctrl + alt + {space,s,a,b,c,d,p,g,o,w,y}
   {rofi -show drun, powermenu, auto-menu,changelog-menu,cmenu,smenu,pmenu, github-menu,open-menu, wifimenu,youtube-menu}

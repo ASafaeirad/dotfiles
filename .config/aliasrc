@@ -84,10 +84,6 @@ alias history=omz_history
 alias cpwd='pwd | xsel -i --clipboard'
 alias clocksync='sudo ntpdate 1.ro.pool.ntp.org'
 
-font() {
-  fc-list -v | grep -i -e "family:.*$1" | sort | uniq
-}
-
 which-font() {
   FC_DEBUG=4 pango-view -q -t $1 2>&1 | grep -o 'family: "[^"]\+' | cut -c 10- | tail -n 1
 }
@@ -183,23 +179,8 @@ tmp() {
 alias i3logs="DISPLAY=:0 i3-dump-log"
 
 # network
-alias ipv4="curl -s -S https://ipv4.icanhazip.com"
-alias ipv6="curl -s -S https://ipv6.icanhazip.com"
-alias mac="getMac $WIFI_ADAPTOR"
 alias ping='ping -i 1 -O'
 alias scanip='nmap -sn 192.168.1.0/24'
-
-getMac() {
-  ip link show "$@" | grep link | awk '{ print $2 }'
-}
-
-localip() {
-  ip addr show $WIFI_ADAPTOR | grep 'inet ' | awk '{ print $2 }'
-}
-
-netinfo() {
-	printf "Local IP:\t%s\nMac Addr:\t%s\nIPv4:\t\t%s\nIPv6:\t\t%s\n" "$(localip)" "$(mac)" "$(ipv4)" "$(ipv6)"
-}
 
 shecan() {
   printf "nameserver 178.22.122.100\nnameserver 185.51.200.2\n" | sudo tee /etc/resolv.conf
