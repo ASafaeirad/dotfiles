@@ -214,7 +214,7 @@ EOF
 }
 
 function open_code() {
-  code "$(pwd)"
+  $VISUAL "$(pwd)"
 }
 
 function npi() {

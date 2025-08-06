@@ -1,0 +1,109 @@
+#!/usr/bin/env bash
+
+set -e
+
+USE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/use"
+TEMP_DIR="$USE_HOME/temp"
+BIN_DIR="$USE_HOME/bin"
+TOOLS_DIR="$USE_HOME/tools/pnpm"
+
+mkdir -p "$TEMP_DIR"
+mkdir -p "$BIN_DIR"
+mkdir -p "$TOOLS_DIR"
+
+VERBOSE=false
+DELETE=false
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --verbose)
+      VERBOSE=true
+      shift
+      ;;
+    -d)
+      DELETE=true
+      shift
+      ;;
+    *)
+      VERSION=$1
+      shift
+      ;;
+  esac
+done
+
+if [ -z "$VERSION" ]; then
+  echo "Usage: $0 [--verbose] [-d] <version>"
+  echo "Examples:"
+  echo "  $0 8.15.4"
+  echo "  $0 --verbose 8"
+  echo "  $0 -d 8.15.4"
+  echo "  $0 latest"
+  exit 1
+fi
+
+function verbose() {
+  if [ "$VERBOSE" = true ]; then
+    echo "$1"
+  fi
+}
+
+function resolve_version() {
+  if [ "$VERSION" == "latest" ]; then
+    VERSION=$(curl -s "https://api.github.com/repos/pnpm/pnpm/releases/latest" | grep -o '"tag_name": "v[^"]*"' | sed 's/"tag_name": "v//' | sed 's/"//')
+    verbose "Resolved version: \"$VERSION\""
+  elif [[ "$VERSION" =~ ^[0-9]+$ ]]; then
+    VERSION=$(curl -s "https://api.github.com/repos/pnpm/pnpm/releases" | grep -o '"tag_name": "v'"$VERSION"'[^"]*"' | head -1 | sed 's/"tag_name": "v//' | sed 's/"//')
+    verbose "Resolved version: \"$VERSION\""
+  fi
+  if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    echo "Sorry we are not that fancy. Please use: latest | <major> | <major>.<minor>.<patch>"
+    exit 1
+  fi
+}
+
+resolve_version
+DIST_DIR="$TOOLS_DIR/${VERSION}"
+DIST_BIN="$DIST_DIR/pnpm"
+
+function delete_cache() {
+  if [ -d "$DIST_DIR" ]; then
+    verbose "Removing pnpm v${VERSION} from cache..."
+    rm -rf "$DIST_DIR"
+    verbose "pnpm v${VERSION} removed from cache."
+  else
+    verbose "pnpm v${VERSION} not found in cache."
+  fi
+}
+
+if [ "$DELETE" = true ]; then
+  delete_cache
+  exit 0
+fi
+
+function download_pnpm() {
+  verbose "Downloading pnpm v${VERSION}..."
+  URL="https://github.com/pnpm/pnpm/releases/download/v${VERSION}/pnpm-linux-x64"
+  TEMP_FILE="$TEMP_DIR/pnpm-v${VERSION}-linux-x64"
+  wget --quiet --show-progress "$URL" -O "$TEMP_FILE"
+}
+
+if [ ! -f "$DIST_BIN" ]; then
+  download_pnpm
+
+  if [ ! -f "$TEMP_FILE" ]; then
+    echo "Error: Failed to download pnpm v${VERSION}"
+    exit 1
+  fi
+
+  verbose "Installing pnpm..."
+  mkdir -p "$DIST_DIR"
+  mv "$TEMP_FILE" "$DIST_BIN"
+  verbose "pnpm v${VERSION} installed successfully!"
+else
+  verbose "pnpm v${VERSION} already installed."
+fi
+
+ln -sf "$DIST_BIN" "$BIN_DIR/pnpm"
+
+chmod +x "$DIST_BIN"
+echo "Use pnpm ${VERSION}"

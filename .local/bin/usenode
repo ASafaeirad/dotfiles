@@ -1,0 +1,113 @@
+#!/usr/bin/env bash
+
+set -e
+
+USE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/use"
+TEMP_DIR="$USE_HOME/temp"
+BIN_DIR="$USE_HOME/bin"
+TOOLS_DIR="$USE_HOME/tools/node"
+
+mkdir -p "$TEMP_DIR"
+mkdir -p "$BIN_DIR"
+mkdir -p "$TOOLS_DIR"
+
+VERBOSE=false
+DELETE=false
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    --verbose)
+      VERBOSE=true
+      shift
+      ;;
+    -d)
+      DELETE=true
+      shift
+      ;;
+    *)
+      VERSION=$1
+      shift
+      ;;
+  esac
+done
+
+if [ -z "$VERSION" ]; then
+  echo "Usage: $0 [--verbose] [-d] <version>"
+  echo "Examples:"
+  echo "  $0 20.11.1"
+  echo "  $0 --verbose 20"
+  echo "  $0 -d 20.11.1"
+  echo "  $0 latest"
+  exit 1
+fi
+
+function verbose() {
+  if [ "$VERBOSE" = true ]; then
+    echo "$1"
+  fi
+}
+
+function resolve_version() {
+  if [ "$VERSION" == "latest" ]; then
+    VERSION=$(curl -s "https://nodejs.org/dist/latest/" | grep -oE 'node-v[0-9]+\.[0-9]+\.[0-9]+' | sort -V | tail -n 1 | sed 's/node-v//')
+    verbose "Resolved version: \"$VERSION\""
+  elif [[ "$VERSION" =~ ^[0-9]{1,2}$ ]]; then
+    VERSION=$(curl -s "https://nodejs.org/dist/latest-v${VERSION}.x/" | grep -oE 'node-v[0-9]+\.[0-9]+\.[0-9]+' | sort -V | tail -n 1 | sed 's/node-v//')
+    verbose "Resolved version: \"$VERSION\""
+  fi
+  if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    echo "Sorry we are not that fancy. Please use: latest | <major> | <major>.<minor>.<patch>"
+    exit 1
+  fi
+}
+
+resolve_version
+DIST_DIR="$TOOLS_DIR/${VERSION}"
+DIST_BIN="$DIST_DIR/bin/node"
+
+function delete_cache() {
+  if [ -d "$DIST_DIR" ]; then
+    verbose "Removing Node.js v${VERSION} from cache..."
+    rm -rf "$DIST_DIR"
+    verbose "Node.js v${VERSION} removed from cache."
+  else
+    verbose "Node.js v${VERSION} not found in cache."
+  fi
+}
+
+if [ "$DELETE" = true ]; then
+  delete_cache
+  exit 0
+fi
+
+
+function download_node() {
+  verbose "Downloading Node.js v${VERSION}..."
+  URL="https://nodejs.org/dist/v${VERSION}/node-v${VERSION}-linux-x64.tar.gz"
+  TEMP_FILE="$TEMP_DIR/node-v${VERSION}-linux-x64.tar.gz"
+  wget --quiet --show-progress "$URL" -O "$TEMP_FILE"
+}
+
+if [ ! -f "$DIST_BIN" ]; then
+  download_node
+
+  if [ ! -f "$TEMP_FILE" ]; then
+    echo "Error: Failed to download Node.js v${VERSION}"
+    exit 1
+  fi
+
+  verbose "Extracting Node.js..."
+  tar -xzf "$TEMP_FILE" -C "$TEMP_DIR"
+  rm -f "$TEMP_FILE"
+  mv "$TEMP_DIR/node-v${VERSION}-linux-x64" "$DIST_DIR"
+  verbose "Node.js v${VERSION} installed successfully!"
+else
+  verbose "Node.js v${VERSION} already installed."
+fi
+
+ln -sf "$DIST_BIN" "$BIN_DIR/node"
+ln -sf "$DIST_DIR/bin/npm" "$BIN_DIR/npm"
+ln -sf "$DIST_DIR/bin/npx" "$BIN_DIR/npx"
+
+chmod +x "$DIST_BIN"
+echo "Use Node.JS ${VERSION}"

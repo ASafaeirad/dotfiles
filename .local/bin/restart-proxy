@@ -2,8 +2,7 @@
 
 PORT=42042
 HOST=proxy
-PROXY=`netstat -tulpn 2> /dev/null | grep $PORT | head -1 | awk '{ print $7 }' |  awk -F / '{ print $1}'`
+PROXY=$(netstat -tulpn 2>/dev/null | grep $PORT | head -1 | awk '{ print $7 }' | awk -F / '{ print $1}')
 echo $PROXY
 [[ -n $PROXY ]] && kill "$PROXY"
-termite --name "ssh-proxy" -e "ssh -D $PORT -C -N $HOST" &> /dev/null &
-
+termite --name "ssh-proxy" -e "ssh -D $PORT -C -N $HOST" &>/dev/null &

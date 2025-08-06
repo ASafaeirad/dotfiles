@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source "$HOME/.local/bin/menus/_menu"
+
 LIST=(
   node
   html
@@ -11,19 +13,19 @@ SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "SKill")
 case "$SELECTED" in
 html)
   DIR=$(temp-playground)
-  cd $DIR
+  cd "$DIR"
   playground-html
   ;;
 node)
   DIR=$(temp-playground)
-  cd $DIR
-  echo $DIR
+  cd "$DIR"
+  echo "$DIR"
   playground-vanilla-node
   ;;
 next)
   DIR=$(temp-playground)
-  cd $DIR
+  cd "$DIR"
   npx create-next-app . --use-pnpm --app --eslint --ts --import-alias="@/*" --tailwind --src-dir --turbopack
-  code $DIR
+  $VISUAL "$DIR"
   ;;
 esac

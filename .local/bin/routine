@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-pushd ~/devs/notion-automation/|| exit 1
-./lib/createRoutines.js
-popd || exit 1

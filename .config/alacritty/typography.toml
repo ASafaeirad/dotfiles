@@ -2,11 +2,11 @@
 size = 14.0
 
 [font.bold]
-family = "Input Mono"
+family = "Monaspace Argon"
 style = "Bold"
 
 [font.bold_italic]
-family = "Input Mono"
+family = "Monaspace Argon"
 style = "Bold Italic"
 
 [font.glyph_offset]
@@ -14,11 +14,11 @@ x = 0
 y = 0
 
 [font.italic]
-family = "Input Mono"
+family = "Monaspace Argon"
 style = "Italic"
 
 [font.normal]
-family = "Input Mono"
+family = "Monaspace Argon"
 style = "Regular"
 
 [font.offset]
