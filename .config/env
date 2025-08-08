@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# export VISUAL=/usr/bin/code
+export VISUAL=/usr/bin/code
 export EDITOR=/usr/bin/nvim
 export SUDOEDITOR=$EDITOR
 export TERM="xterm-256color"
@@ -14,6 +14,7 @@ export WALLPAPER="$HOME/pics/wallpapers/skill.png"
 export BG_COLOR="#3C3F4A"
 export BOOKS="$HOME/books"
 export BOOK="$BOOKS/Dont Make Me Think.pdf"
+
 
 # ~/ Clean-up:
 export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
@@ -67,6 +68,8 @@ export CURLOPT_NETRC_FILE=$NETRC
 export FZF_DEFAULT_OPTS="--layout=reverse --height 40%"
 export FZF_DEFAULT_COMMAND="fd --type f --hidden"
 export MOZ_USE_XINPUT2="1" # Mozilla smooth scrolling/touchpads.
+export OLLAMA_HOST=0.0.0.0:4080
+export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
 
 function append_path() {
   if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
@@ -82,11 +85,6 @@ function prepend_path() {
 
 
 # Proto
-export PROTO_HOME="$XDG_DATA_HOME/proto";
-prepend_path "$PROTO_HOME/shims"
-prepend_path "$PROTO_HOME/bin"
-prepend_path "$PROTO_HOME/bin/proto"
-
 if [ -f "${XDG_DATA_HOME}/cargo/env" ]; then
   . "${XDG_DATA_HOME}/cargo/env"
 fi
@@ -106,9 +104,21 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 
+export VOLTA_HOME="$XDG_DATA_HOME/volta"
+if [ -d "$VOLTA_HOME" ]; then
+  prepend_path "$VOLTA_HOME/bin"
+  prepend_path "$VOLTA_HOME/bin/npm-bin"
+fi
+
+export USE_HOME="$XDG_DATA_HOME/use"
+if [ -d "$USE_HOME" ]; then
+  prepend_path "$USE_HOME/bin"
+  prepend_path "$USE_HOME/bin/npm-bin"
+fi
+
+
 if test "$(go version 2>/dev/null)"; then
   export GOPATH="${XDG_DATA_HOME}/go"
 fi
 
 eval $(dircolors "$XDG_CONFIG_HOME"/dircolors)
-

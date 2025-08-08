@@ -1,0 +1,33 @@
+# JavaScript
+node_modules/
+vendor/
+target/
+dist/
+build/
+.cache/
+.next/
+out/
+
+# Pythoon
+__pycache__/
+*.pyc
+*.pyo
+
+# VCS
+.git/
+.svn/
+.hg/
+
+# OS clutters
+.DS_Store
+Thumbs.db
+
+# Linux
+/dev/
+/proc/
+/sys/
+/run/
+/media/
+
+# File types
+*.svg
