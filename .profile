@@ -1,1 +1,0 @@
-. "/home/skill/.local/env"
