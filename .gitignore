@@ -10,7 +10,7 @@
 !.config/aliasrc
 !.config/awesome/
 !.config/backup
-!.config/betterlockscreenrc
+!.config/betterlockscreen
 !.config/bookmarkrc
 !.config/cleanup
 !.config/clipit/
@@ -72,6 +72,7 @@
 !.config/picom/
 !.config/polybar/
 !.config/ranger/
+!.config/ripgrep/
 !.config/rofi/
 !.config/sxhkd
 !.config/termite/

@@ -2,10 +2,10 @@ super + Return
   alacritty
 
 super + F{2,3,4,5}
-  {brave,cursor,pcmanfm,terminal -e mus}
+  {chromium,code,pcmanfm,terminal -e mus}
 
 super + shift + control + alt + {2,3,4,5}
-  {brave,cursor,pcmanfm,terminal -e mus}
+  {chromium,code,pcmanfm,terminal -e mus}
 
 super + v
   copyq show

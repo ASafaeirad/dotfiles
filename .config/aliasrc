@@ -43,7 +43,7 @@ alias :q='exit'
 alias cp="cp -i"
 alias df='df -h'
 function dff() {
-  df | awk '/\/dev\/nvme0/ && ! /boot/ { print $6, $3"/"$2 }'
+  df | awk '/\/dev\/nvme0/ && ! /boot/ { print $6, "\t"$3"/"$2 }'
 }
 alias grep='grep --color'
 alias ls='ls --color'
@@ -57,7 +57,7 @@ alias dhcpcd='sudo dhcpcd'
 alias pacman-mirrors='sudo pacman-mirrors'
 alias systemctl='systemctl'
 alias pacman='lazy-pacman'
-alias cpssh='gpg --export-ssh-key frontendmonster@gmail.com | scopy'
+alias cpssh='gpg --export-ssh-key frontendmonster@gmail.com | xsel -ib'
 alias x="sudo chmod +x"
 alias unlock-pacman="sudo rm /var/lib/pacman/db.lck"
 alias orphan='pacman -Rs $(pacman -Qqtd)'
@@ -240,6 +240,7 @@ alias cleannm='find . -name "node_modules" -type d -exec sudo rm -rf {} \;'
 alias monore='find . -name "node_modules" -type d -exec sudo rm -rf {} \; ; npx lerna bootstrap && npm install'
 
 ## docker-compose
+alias dcup='sudo systemctl start docker'
 alias dc='docker-compose'
 alias dcd='docker-compose -f ./docker-compose.dev.yml'
 alias drmi='docker rmi $(sudo docker images -a --filter=dangling=true -q) 2>/dev/null'

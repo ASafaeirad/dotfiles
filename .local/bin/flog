@@ -2,6 +2,6 @@
 
 clear
 printf "\n\n\n"
-figlet -f DOS\ Rebel -d $XDG_DATA_HOME/figlet "$@" -w "$(tput cols)" | lolcat
+figlet -f DOS\ Rebel -d $XDG_DATA_HOME/figlet -w "$(tput cols)" "$@" | lolcat
 
 printf "\n\n\n"

@@ -6,9 +6,11 @@ DIR="/sys/class/power_supply/$BAT"
 CAPACITY=$(head -n 1 "$DIR/charge_full")
 DESIGN=$(head -n 1 "$DIR/charge_full_design")
 NOW=$(head -n 1 "$DIR/charge_now")
+STATUS=$(cat /sys/class/power_supply/BAT1/status)
 
 CHARGE=$(bc <<<"scale=2; $NOW / $CAPACITY * 100")
 HEALTH=$(bc <<<"scale=2; $CAPACITY / $DESIGN * 100")
 
 echo "Charge: $CHARGE"
 echo "Health: $HEALTH"
+echo "$STATUS"

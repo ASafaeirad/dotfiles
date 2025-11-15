@@ -1,5 +1,6 @@
 # JavaScript
 node_modules/
+pnpm-store/
 vendor/
 target/
 dist/
@@ -31,3 +32,6 @@ Thumbs.db
 
 # File types
 *.svg
+
+# Etc
+.vscode/

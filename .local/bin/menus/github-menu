@@ -20,6 +20,7 @@ LIST=(
   NextJS
   "You dont know HTML"
   Axios
+  "VSCode theme"
 )
 
 SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "GitHub")
@@ -75,5 +76,8 @@ NextJS)
   ;;
 "Axios")
   xdg-open "https://github.com/axios/axios"
+  ;;
+"VSCode theme")
+  xdg-open "https://github.com/fullstacksjs/vscode-theme/"
   ;;
 esac

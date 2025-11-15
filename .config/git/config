@@ -1,9 +1,9 @@
 [user]
   name = Alireza Safaierad
   email = frontendmonster@gmail.com
-  signingkey = 43359AB7733BD76C
+  signingkey = 368C7E61D82EF5A044356861D3BDEFD160096080
 [github]
-  user = frontendmonster
+  user = ASafaeirad
 [credential]
   helper = /usr/bin/pass-git-helper
   cache = 3600

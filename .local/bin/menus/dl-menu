@@ -17,5 +17,9 @@ source "$HOME/.local/bin/menus/_menu"
 SELECTED=$(print_list "${ITEMS[@]}" | _dmenu -i -p "Open")
 
 mkdir /tmp/dl &>/dev/null
-OUT=$(yt-dlp --get-filename -q -o "/tmp/dl/file.%(ext)s" "$SELECTED")
-scopy "$OUT"
+rm /tmp/dl/file.*
+echo "yt-dlp -o \"/tmp/dl/file.%(ext)s\" \"$SELECTED\""
+OUT=$(yt-dlp -o "/tmp/dl/file.%(ext)s" "$SELECTED")
+FILE=$(ls /tmp/dl)
+scopy "/tmp/dl/$FILE"
+

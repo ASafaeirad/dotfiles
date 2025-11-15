@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-EDITOR="cursor"
+EDITOR="code"
 source "$HOME/.local/bin/menus/_menu"
 S_USER=0
 EG_USER=1
@@ -55,11 +55,17 @@ LIST=(
   "Linkedin"
   "New Project"
   "NPM Check Last Publish"
-  "You don't know HTML"
   "Noisli"
   "SVGL"
   "Twitch"
   "Forest"
+  "Obsdown"
+  "aimpeg"
+  "VSCode Theme"
+  "dl"
+  "cloud"
+  "Knowledge Review"
+  "You don't know HTML"
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -214,5 +220,23 @@ Jira)
   ;;
 "Portfolio")
   $EDITOR "$HOME/devs/portfolio"
+  ;;
+"Obsdown")
+  $EDITOR "$HOME/devs/obsdown"
+  ;;
+"aimpeg")
+  $EDITOR "$HOME/devs/aimpeg"
+  ;;
+"VSCode Theme")
+  $EDITOR "$HOME/devs/vscode-theme"
+  ;;
+"dl")
+  dl-menu
+  ;;
+"cloud")
+  xdg-open "https://www.cloudskillsboost.google/"
+  ;;
+"Knowledge Review")
+  obsidian
   ;;
 esac

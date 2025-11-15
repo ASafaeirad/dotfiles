@@ -1,19 +1,24 @@
 #!/bin/sh
 
-export VISUAL=/usr/bin/code
+export VISUAL=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim
 export SUDOEDITOR=$EDITOR
 export TERM="xterm-256color"
 export TERMINAL="alacritty"
-export QT_QPA_PLATFORMTHEME="qt5ct"
-export BROWSER=/usr/bin/brave
-export GPG_TTY=$(tty)
+#export QT_QPA_PLATFORMTHEME="qt5ct"
+export QT_QPA_PLATFORMTHEME=gtk2
+export QT_STYLE_OVERRIDE=kvantum
+export BROWSER=/usr/bin/chromium
 export READER="zathura"
 export WIFI_ADAPTOR="wlp0s20f3"
 export WALLPAPER="$HOME/pics/wallpapers/skill.png"
 export BG_COLOR="#3C3F4A"
 export BOOKS="$HOME/books"
 export BOOK="$BOOKS/Dont Make Me Think.pdf"
+
+## GPG
+export GPG_TTY=$(tty)
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 
 
 # ~/ Clean-up:

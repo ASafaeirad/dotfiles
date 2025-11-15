@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+VISUAL=code
 source "$HOME/.local/bin/menus/_menu"
 
 LIST=(

@@ -53,7 +53,9 @@ local rules = {
     properties = { floating = true, fullscreen = true },
   },
   {
-    rule = { class = "Brave-browser" },
+    rule_any = {
+      class = { "Brave-browser", "Firefox", "Chromium" },
+    },
     properties = { tag = tags[2] },
   },
   {
@@ -61,8 +63,10 @@ local rules = {
     properties = { tag = tags[7] },
   },
   {
-    rule = { class = "Code" },
-    properties = { tag = tags[1] },
+    rule_any = {
+      class = { "Code", "Cursor" },
+    },
+    properties = { tag = tags[3] },
   },
   {
     rule = { class = "TelegramDesktop" },
