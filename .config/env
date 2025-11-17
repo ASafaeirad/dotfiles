@@ -124,6 +124,7 @@ fi
 
 if test "$(go version 2>/dev/null)"; then
   export GOPATH="${XDG_DATA_HOME}/go"
+  prepend_path "$GOPATH/bin"
 fi
 
 eval $(dircolors "$XDG_CONFIG_HOME"/dircolors)

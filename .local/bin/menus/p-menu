@@ -11,14 +11,21 @@ fi
 PASS_DIR=${PASSWORD_STORE_DIR-~/.password-store}
 PASS_FILES=("$PASS_DIR"/**/*.gpg)
 RELATIVE_FILENAMES=("${PASS_FILES[@]#"$PASS_DIR"/}")
-LIST=("${RELATIVE_FILENAMES[@]%.gpg}")
+LIST=("${RELATIVE_FILENAMES[@]%.gpg}" "otp")
+COMMAND="pass show"
+
 
 PASSWORD=$(print_list "${LIST[@]}" | _dmenu -p "Password" "$@")
-[[ -n $PASSWORD ]] || exit
 
-pass show -c "$PASSWORD" | head -n1 2>/dev/null
+[[ -n $PASSWORD ]] || exit
+if [[ $PASSWORD = "otp" ]]; then
+    COMMAND="pass otp"
+    PASSWORD=$(print_list "${LIST[@]}" | _dmenu -p "OTP" "$@")
+fi
+
+$COMMAND -c "$PASSWORD" | head -n1 2>/dev/null
 
 if [[ $TYPE -eq 1 ]]; then
-    passw=$(pass show $PASSWORD | head -n1)
+    passw=$($COMMAND $PASSWORD | head -n1)
     xdotool type $passw
 fi
