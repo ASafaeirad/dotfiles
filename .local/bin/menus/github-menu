@@ -21,6 +21,8 @@ LIST=(
   "You dont know HTML"
   Axios
   "VSCode theme"
+  "GitHub Bot"
+  "npm-check-last-publish"
 )
 
 SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "GitHub")
@@ -80,4 +82,9 @@ NextJS)
 "VSCode theme")
   xdg-open "https://github.com/fullstacksjs/vscode-theme/"
   ;;
+"GitHub Bot")
+  xdg-open "https://github.com/fullstacksjs/github-bot"
+  ;;
+"npm-check-last-publish")
+  xdg-open "https://github.com/fullstacksjs/npm-check-last-publish"
 esac

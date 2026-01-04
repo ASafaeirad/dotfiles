@@ -16,7 +16,7 @@ function _mail() {
 
 LIST=(
   "Task"
-  "Blackhole"
+  "Incubate"
   "Pronounce"
   "Notion"
   "Day"
@@ -24,8 +24,6 @@ LIST=(
   "GMail"
   "Read"
   "Config"
-  "God"
-  "Type"
   "Monkey"
   "Quillbot"
   "Abit"
@@ -44,7 +42,6 @@ LIST=(
   "ESLint"
   "Flows"
   "FullstacksJS"
-  "Tern"
   "Charity"
   "Dictionary"
   "Linear"
@@ -58,12 +55,9 @@ LIST=(
   "Noisli"
   "SVGL"
   "Twitch"
-  "Forest"
   "Obsdown"
-  "aimpeg"
   "VSCode Theme"
   "dl"
-  "cloud"
   "Knowledge Review"
   "You don't know HTML"
 )
@@ -81,9 +75,6 @@ Charity)
 Monkey)
   xdg-open https://monkeytype.com/
   ;;
-Type)
-  xdg-open https://www.edclub.com/sportal/program-3.game
-  ;;
 Quillbot)
   xdg-open https://quillbot.com/
   ;;
@@ -96,12 +87,6 @@ Time)
 Read)
   zathura "$BOOK"
   ;;
-God)
-  zathura "$HOME/docs/books/Philosophy/God Delusion.pdf"
-  ;;
-God2)
-  brave "$HOME/docs/books/Philosophy/God Delusion.pdf"
-  ;;
 Figma)
   xdg-open https://www.figma.com/files/recent?fuid=569462856030622272
   ;;
@@ -109,7 +94,7 @@ Edit)
   sudo -H -u skill $TERMINAL -e nvim $HOME/.local/bin/menus/smenu
   ;;
 Github)
-  xdg-open https://github.com/ASafaeirad
+  $EDITOR "$HOME/devs/github-bot"
   ;;
 GMail)
   _mail
@@ -157,9 +142,6 @@ Jira)
 "FullstacksJS")
   $EDITOR "$HOME/devs/fullstacksjs"
   ;;
-"Tern")
-  $EDITOR "$HOME/devs/tern"
-  ;;
 "Pronounce")
   WORD=$(_dmenu)
   xdg-open "https://youglish.com/pronounce/${WORD}/english/us"
@@ -177,9 +159,6 @@ Jira)
   ;;
 "Config")
   $EDITOR "$HOME/devs/config"
-  ;;
-"Blackhole")
-  $EDITOR "$HOME/devs/blackhole"
   ;;
 "Architect")
   $EDITOR "$HOME/devs/architect"
@@ -215,26 +194,17 @@ Jira)
 "Twitch")
   xdg-open "https://twitch.tv/fullstacksjs"
   ;;
-"Forest")
-  $EDITOR "$HOME/devs/forest"
-  ;;
 "Portfolio")
   $EDITOR "$HOME/devs/portfolio"
   ;;
 "Obsdown")
   $EDITOR "$HOME/devs/obsdown"
   ;;
-"aimpeg")
-  $EDITOR "$HOME/devs/aimpeg"
-  ;;
 "VSCode Theme")
   $EDITOR "$HOME/devs/vscode-theme"
   ;;
 "dl")
   dl-menu
-  ;;
-"cloud")
-  xdg-open "https://www.cloudskillsboost.google/"
   ;;
 "Knowledge Review")
   obsidian

@@ -34,6 +34,7 @@ plugins=(
   forgit
   vi-mode
   gcloud
+  gpg-agent
 )
 
 

@@ -55,7 +55,6 @@ alias chmod='sudo chmod'
 alias chown='sudo chown'
 alias dhcpcd='sudo dhcpcd'
 alias pacman-mirrors='sudo pacman-mirrors'
-alias systemctl='systemctl'
 alias pacman='lazy-pacman'
 alias cpssh='gpg --export-ssh-key frontendmonster@gmail.com | xsel -ib'
 alias x="sudo chmod +x"

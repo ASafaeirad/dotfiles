@@ -35,3 +35,7 @@ Thumbs.db
 
 # Etc
 .vscode/
+
+# Notion cache
+.config/notion-app/notionAssetCache-v2
+
