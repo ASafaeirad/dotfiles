@@ -88,7 +88,13 @@ end
 
 function volume:get_volume()
     local result = run("pactl get-sink-volume @DEFAULT_SINK@")
+    if not result or result == "" then
+        return 0
+    end
     local percent = string.match(result, "%s+(%d+)%%")
+    if not percent then
+        return 0
+    end
     return string.gsub(percent, "%D", "")
 end
 
