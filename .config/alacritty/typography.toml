@@ -2,11 +2,11 @@
 size = 14.0
 
 [font.bold]
-family = "Monaspace Argon"
+family = "Monaspace Argon Var"
 style = "Bold"
 
 [font.bold_italic]
-family = "Monaspace Argon"
+family = "Monaspace Argon Var"
 style = "Bold Italic"
 
 [font.glyph_offset]
@@ -14,11 +14,11 @@ x = 0
 y = 0
 
 [font.italic]
-family = "Monaspace Argon"
+family = "Monaspace Argon Var"
 style = "Italic"
 
 [font.normal]
-family = "Monaspace Argon"
+family = "Monaspace Argon Var"
 style = "Regular"
 
 [font.offset]
