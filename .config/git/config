@@ -1,7 +1,7 @@
 [user]
   name = Alireza Safaierad
   email = alireza.safaierad@gmail.com
-  signingkey = 368C7E61D82EF5A044356861D3BDEFD160096080
+  signingkey = C9B27831A8A5C0A4B016E7EF30F66A522A8ED062
 [credential]
   helper = /usr/bin/pass-git-helper
   cache = 3600
