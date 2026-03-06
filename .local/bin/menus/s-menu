@@ -91,7 +91,7 @@ Figma)
   xdg-open https://www.figma.com/files/recent?fuid=569462856030622272
   ;;
 Edit)
-  sudo -H -u skill $TERMINAL -e nvim $HOME/.local/bin/menus/smenu
+  sudo -H -u skill $TERMINAL -e nvim $HOME/.local/bin/menus/s-menu
   ;;
 Github)
   $EDITOR "$HOME/devs/github-bot"
@@ -208,5 +208,8 @@ Jira)
   ;;
 "Knowledge Review")
   obsidian
+  ;;
+"Incubate")
+  $EDITOR "$HOME/devs/incubate"
   ;;
 esac

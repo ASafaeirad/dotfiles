@@ -23,11 +23,16 @@ LIST=(
   "VSCode theme"
   "GitHub Bot"
   "npm-check-last-publish"
+  Incubate
+  Edit
 )
 
 SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "GitHub")
 
 case "$SELECTED" in
+Edit)
+  code "$HOME/.local/bin/menus/github-menu"
+  ;;
 ASafaeirad)
   xdg-open "https://github.com/ASafaeirad/"
   ;;
@@ -87,4 +92,8 @@ NextJS)
   ;;
 "npm-check-last-publish")
   xdg-open "https://github.com/fullstacksjs/npm-check-last-publish"
+  ;;
+"Incubate")
+  xdg-open "https://github.com/ASafaeirad/incubate"
+  ;;
 esac
