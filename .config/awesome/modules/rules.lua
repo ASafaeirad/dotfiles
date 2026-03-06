@@ -42,6 +42,10 @@ local rules = {
     },
   },
   {
+    rule = { class = "Nitrogen" },
+    properties = { floating = true, width = 600, height = 600, placement = awful.placement.centered },
+  },
+  {
     rule = { instance = "flyterm" },
     properties = { floating = true },
     callback = function(c)
