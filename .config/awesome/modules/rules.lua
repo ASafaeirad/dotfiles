@@ -1,5 +1,6 @@
 local awful = require("awful")
 local keys = require("modules.keys")
+local gears = require("gears")
 
 local rules = {
   {
@@ -12,6 +13,28 @@ local rules = {
       screen = awful.screen.preferred,
       placement = awful.placement.no_overlap + awful.placement.no_offscreen,
     },
+  },
+  {
+    rule = {
+        name  = "Meet %-.*",
+        role  = "pop-up"
+    },
+    properties = {
+        floating  = true,
+        ontop     = true,
+        focus     = false,
+        focusable = false,
+    },
+    callback = function(c)
+        gears.timer.delayed_call(function()
+            if not c.valid then return end
+            awful.placement.bottom_right(c, {
+                honor_workarea = true,
+                honor_padding  = true,
+                margins = { right = 12, bottom = 12 },
+            })
+        end)
+    end,
   },
   {
     rule_any = {
