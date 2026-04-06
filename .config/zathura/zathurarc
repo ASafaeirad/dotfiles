@@ -3,50 +3,54 @@ set pages-per-row 1
 
 # stop at page boundries
 set scroll-page-aware "true"
-# set smooth-scroll "true"
+set smooth-scroll     "true"
 set scroll-full-overlap 0.01
 set scroll-step 100
 
 set selection-clipboard clipboard
-map <C-i> recolor
 
 set font "DejaVu Sans 12"
-set default-bg "#23252e" #00
-set default-fg "#F7F7F6" #01
 
+" Colors
+set default-bg              "#0E1417"
+set default-fg              "#A9B5BB"
 
-set statusbar-fg "#B0B0B0" #04
-set statusbar-bg "#202020" #01
+set statusbar-bg            "#141B1E"
+set statusbar-fg            "#A9B5BB"
 
-set inputbar-bg "#151515" #00 currently not used
-set inputbar-fg "#FFFFFF" #02
+set inputbar-bg             "#0E1417"
+set inputbar-fg             "#A9B5BB"
 
-set notification-error-bg "#AC4142" #08
-set notification-error-fg "#151515" #00
+set notification-error-bg   "#FB7279"
+set notification-error-fg   "#0E1417"
 
-set notification-warning-bg "#AC4142" #08
-set notification-warning-fg "#151515" #00
+set notification-warning-bg "#FB7279"
+set notification-warning-fg "#0E1417"
 
-set highlight-color "#ffd667" #0A
-set highlight-active-color "#6A9FB5" #0D
+set highlight-color        "rgba(255, 255, 255, 0.5)"
+set highlight-active-color "rgba(255, 214, 103, 0.5)"
 
-set completion-highlight-fg "#151515" #02
-set completion-highlight-bg "#ffd667" #0C
+set completion-highlight-fg "#23B0A5"
+set completion-highlight-bg "#0E1417"
 
-set completion-bg "#303030" #02
-set completion-fg "#E0E0E0" #0C
+set completion-bg           "#0E1417"
+set completion-fg           "#A9B5BB"
 
-set notification-bg "#ffd667" #0B
-set notification-fg "#151515" #00
+set notification-bg         "#A9B5BB"
+set notification-fg         "#0E1417"
 
 set recolor "true"
-set recolor-lightcolor "#23252e" #00
-set recolor-darkcolor "#E0E0E0" #06
+" set recolor-lightcolor "#23252e" #00
+set recolor-lightcolor   "#0E1417"
+set recolor-darkcolor    "#E0E0E0" #06
 set recolor-reverse-video "true"
-set recolor-keephue "true"
+set recolor-keephue       "true"
+set render-loading        "true"
+set scroll-step           50
 
-set render-loading "false"
-set scroll-step 50
 unmap f
 map f toggle_fullscreen
 map [fullscreen] f toggle_fullscreen
+
+map <C-r> reload
+map <C-i> recolor
