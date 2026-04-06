@@ -14,7 +14,7 @@ export WIFI_ADAPTOR="wlp0s20f3"
 export WALLPAPER="$HOME/pics/wallpapers/skill.png"
 export BG_COLOR="#3C3F4A"
 export BOOKS="$HOME/books"
-export BOOK="$BOOKS/Dont Make Me Think.pdf"
+export BOOK="$BOOKS/progit.epub"
 
 ## GPG
 export GPG_TTY=$(tty)
@@ -75,6 +75,10 @@ export FZF_DEFAULT_COMMAND="fd --type f --hidden"
 export MOZ_USE_XINPUT2="1" # Mozilla smooth scrolling/touchpads.
 export OLLAMA_HOST=0.0.0.0:4080
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
+
+# GTK
+GTK_USE_PORTAL=1
+GDK_DEBUG=portals
 
 function append_path() {
   if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
