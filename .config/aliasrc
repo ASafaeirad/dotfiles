@@ -278,15 +278,6 @@ alias 'gca'='git commit --amend'
 alias 'gc!'='git commit -v --amend --no-edit'
 alias gcam='git commit -a -m'
 alias gcm='git commit -m'
-
-function gsw() {
-  echo $1
-  if [[ -z $1 ]]; then
-    git branch | fzf --preview 'git show --color=always {-1}' --bind 'enter:become(git checkout {-1})'
-  else
-    git switch "$1"
-  fi
-}
 alias gswc='git switch -c'
 alias gswd='git switch dev && git pull'
 alias gwip='git wip'
