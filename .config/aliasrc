@@ -260,7 +260,6 @@ alias d='ALL_PROXY=socks5://localhost:6000 docker'
 ## git
 alias clone='git clone'
 alias gs='git status -s'
-alias gss='git status'
 alias gsl='git stash list'
 alias gf='git fetch'
 alias gfp='git fetch --prune'

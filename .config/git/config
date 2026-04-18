@@ -199,3 +199,4 @@
   clean = git-lfs clean -- %f
 [merge]
   conflictstyle = diff3
+
