@@ -60,6 +60,7 @@ LIST=(
   "dl"
   "Knowledge Review"
   "You don't know HTML"
+  "No Thanks"
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -143,8 +144,8 @@ Jira)
   $EDITOR "$HOME/devs/fullstacksjs"
   ;;
 "Pronounce")
-  WORD=$(_dmenu)
-  xdg-open "https://youglish.com/pronounce/${WORD}/english/us"
+  WORD=$(_dmenu -p "Pronounce")
+  [[ -n $WORD ]] && xdg-open "https://youglish.com/pronounce/${WORD}/english/us"
   ;;
 "Dictionary")
   WORD=$(_dmenu)
@@ -211,5 +212,8 @@ Jira)
   ;;
 "Incubate")
   $EDITOR "$HOME/devs/incubate"
+  ;;
+"No Thanks")
+  $EDITOR "$HOME/devs/no-thanks"
   ;;
 esac
