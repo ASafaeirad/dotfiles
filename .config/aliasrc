@@ -48,7 +48,6 @@ function dff() {
   df | awk '/\/dev\/nvme0/ && ! /boot/ { print $6, "\t"$3"/"$2 }'
 }
 alias grep='grep --color'
-alias ls='ls --color'
 alias mkdir='mkdir -pv'
 
 # super user commands
@@ -155,10 +154,10 @@ alias picomrc='edit $XDG_CONFIG_HOME/picom/picom.conf'
 
 alias reload='source $XDG_CONFIG_HOME/aliasrc && source $XDG_CONFIG_HOME/bookmarkrc'
 alias xreload='xrdb $XDG_CONFIG_HOME/X11/Xresources'
-alias resx='pkill sxhkd; sxhkd &'
 
 # file system
-alias lsa='ls -AF --group-directories-first'
+alias ls='ls --color'
+alias lsa='ls -lAF --group-directories-first'
 alias lless='l | less'
 alias laless='ll | less'
 alias rd=rmdir
@@ -244,8 +243,8 @@ alias monore='find . -name "node_modules" -type d -exec sudo rm -rf {} \; ; npx 
 alias dcup='sudo systemctl start docker'
 alias dc='docker-compose'
 alias dcd='docker-compose -f ./docker-compose.dev.yml'
-alias drmi='docker rmi $(sudo docker images -a --filter=dangling=true -q) 2>/dev/null'
-alias drm='docker rm $(sudo docker ps --filter=status=exited --filter=status=created -q) 2>/dev/null'
+alias drmi='docker image prune'
+alias drm='docker container prune'
 alias dps='docker ps -a'
 alias dim='docker images | tail -n +2 | sort'
 alias trash='git add . && git commit -m 'debug' --no-verify && git push'
