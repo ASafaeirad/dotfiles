@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+curl --silent https://cheat.sh/$@ | less
+
