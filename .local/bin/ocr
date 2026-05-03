@@ -1,15 +1,28 @@
 #!/usr/bin/env bash
 
+TARGET_LANG=$1
 SCR_IMG=$(mktemp)
-echo $SCR_IMG
 trap "rm $SCR_IMG*" EXIT
 
-scrot --line mode=edge -s $SCR_IMG.png -q 100
-mogrify -modulate 100,0 -resize 400% $SCR_IMG.png
+scrot --line mode=edge -s "$SCR_IMG.png" -q 100
+mogrify -modulate 100,0 -resize 400% "$SCR_IMG.png"
 
-tesseract $SCR_IMG.png $SCR_IMG
-TEXT=$(cat $SCR_IMG.txt)
+tesseract "$SCR_IMG.png" "$SCR_IMG"
+TEXT=$(cat "$SCR_IMG.txt")
+
+if [[ -n "$TARGET_LANG" ]]; then
+  TEXT=$(transl8 "$TEXT" "$TARGET_LANG")
+fi
+
+if [[ -z "$TEXT" ]]; then
+  notify-send --urgency=critical "OCR failed" "No text was recognized. Please try again."
+  echo "OCR failed: No text recognized" >&2
+  exit 1
+fi
 
 scopy "$TEXT"
+
+echo "$TEXT"
+popup --title "English" "$TEXT"
 
 exit

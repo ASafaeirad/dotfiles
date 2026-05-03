@@ -65,6 +65,16 @@ local rules = {
     },
   },
   {
+    rule = { class = "zenity" },
+    properties = {
+      floating = true,
+      placement = awful.placement.centered,
+      callback = function(c)
+        c:geometry({ width = 900, height = 600 })
+      end,
+    },
+  },
+  {
     rule = { class = "Nitrogen" },
     properties = { floating = true, width = 600, height = 600, placement = awful.placement.centered },
   },
