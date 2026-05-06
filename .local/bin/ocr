@@ -4,7 +4,7 @@ TARGET_LANG=$1
 SCR_IMG=$(mktemp)
 trap "rm $SCR_IMG*" EXIT
 
-scrot --line mode=edge -s "$SCR_IMG.png" -q 100
+scrot --line mode=edge -s "$SCR_IMG.png" -q 100 || exit 1
 mogrify -modulate 100,0 -resize 400% "$SCR_IMG.png"
 
 tesseract "$SCR_IMG.png" "$SCR_IMG"

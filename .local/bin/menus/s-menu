@@ -61,6 +61,7 @@ LIST=(
   "Knowledge Review"
   "You don't know HTML"
   "No Thanks"
+  "Translate"
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -216,4 +217,10 @@ Jira)
 "No Thanks")
   $EDITOR "$HOME/devs/no-thanks"
   ;;
+"Translate")
+  TEXT=$(_dmenu -i -p "Translate")
+  TRANSLATED=$(transl8 "$TEXT" fa)
+  popup --title "Persian" "$TRANSLATED"
+  ;;
+
 esac

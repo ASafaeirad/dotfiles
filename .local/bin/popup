@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set -x
 TITLE=""
 TEXT=""
 while [[ $# -gt 0 ]]; do
