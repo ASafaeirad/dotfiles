@@ -37,4 +37,5 @@ sxhkd &
 notion-calendar-electron &
 flyterm &
 
-exec awesome
+exec awesome 2> >(tee -a ~/.cache/awesome/stderr.log >&2)
+

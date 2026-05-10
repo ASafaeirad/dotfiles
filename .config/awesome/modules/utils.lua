@@ -129,15 +129,21 @@ function module.toggle_float(selector)
     return
   end
 
-  local current_tag = awful.screen.focused().selected_tag.index
-  local client_tag = c.first_tag.index
+  local focused_screen = awful.screen.focused()
+  local selected_tag = focused_screen and focused_screen.selected_tag
+  if not selected_tag then
+    return
+  end
+
+  local current_tag = selected_tag.index
+  local client_tag = c.first_tag and c.first_tag.index
   local is_current_tag = client_tag == current_tag
 
   c.floating = true
   c.ontop = true
 
   if not is_current_tag then
-    c:move_to_tag(awful.tag.selected())
+    c:move_to_tag(selected_tag)
   end
 
   if c.minimized then
