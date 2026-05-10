@@ -1,6 +1,6 @@
 local wibox = require("wibox")
-local awful = require("awful")
 local gears = require("gears")
+local widget_tooltip = require("modules.widget_tooltip")
 local beautiful = require("beautiful")
 local spawn = require("awful.spawn")
 
@@ -54,8 +54,7 @@ function brightness:new(args)
     widget = wibox.container.arcchart,
   })
 
-  obj.tooltip = awful.tooltip({
-    delay_show = 0,
+  obj.tooltip = widget_tooltip.new({
     timer_function = function()
       return obj:update_tooltip()
     end,

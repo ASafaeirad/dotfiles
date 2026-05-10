@@ -1,6 +1,7 @@
 local wibox = require("wibox")
 local awful = require("awful")
 local gears = require("gears")
+local widget_tooltip = require("modules.widget_tooltip")
 local gdebug = require("gears.debug")
 
 local keyboard = {}
@@ -143,8 +144,7 @@ function keyboard:new(args)
     widget = wibox.widget.textbox,
   })
 
-  obj.tooltip = awful.tooltip({
-    delay_show = 0,
+  obj.tooltip = widget_tooltip.new({
     timer_function = function()
       return obj:update_tooltip()
     end,
