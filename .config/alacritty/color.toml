@@ -10,7 +10,7 @@ yellow = "#e7c547"
 
 [colors.cursor]
 cursor = "#F6CA52"
-text = "#272A34"
+text = "#131313"
 
 [colors.dim]
 black = "#131415"
@@ -45,7 +45,7 @@ white = "#CCCCCC"
 yellow = "#F6CA52"
 
 [colors.primary]
-background = "#272A34"
+background = "#131313"
 bright_foreground = "#eaeaea"
 dim_foreground = "#828482"
 foreground = "#FFFFFF"

@@ -9,7 +9,9 @@ Xft.lcdfilter: lcddefault
 *cursorBlink:                     false
 *scrollBar:                       false
 
-*background:                      #23252E
+!! *background:                      #23252E
+*background:                      #131313
+
 *foreground:                      #eeeeee
 *fading:                          8
 *fadeColor:                       #333333
@@ -50,7 +52,7 @@ Xft.lcdfilter: lcddefault
 *color15:                        #999999
 
 Xcursor.theme:                capitaine-cursors-light
-Xcursor.size:                 16 
+Xcursor.size:                 16
 
 URxvt.perl-ext-common: default,resize-font
 URxvt.resize.font.smaller: C-=
