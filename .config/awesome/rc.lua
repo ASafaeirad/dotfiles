@@ -1,6 +1,5 @@
 require("modules.error")
 require("modules.manage")
-tags = { "N", "W", "C", "F", "M", "V", "S", "D", "T" }
 
 local fs = require("gears.filesystem")
 local theme = fs.get_configuration_dir() .. "theme.lua";

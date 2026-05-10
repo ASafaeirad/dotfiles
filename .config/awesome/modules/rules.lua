@@ -1,6 +1,7 @@
 local awful = require("awful")
 local keys = require("modules.keys")
 local gears = require("gears")
+local config = require("modules.config")
 
 local rules = {
   {
@@ -69,10 +70,10 @@ local rules = {
     properties = {
       floating = true,
       placement = awful.placement.centered,
-      callback = function(c)
-        c:geometry({ width = 900, height = 600 })
-      end,
     },
+    callback = function(c)
+      c:geometry({ width = 900, height = 600 })
+    end,
   },
   {
     rule = { class = "Nitrogen" },
@@ -93,21 +94,21 @@ local rules = {
     rule_any = {
       class = { "Brave-browser", "Firefox", "Chromium" },
     },
-    properties = { tag = tags[2] },
+    properties = { tag = config.tag_names[2] },
   },
   {
     rule = { class = "Slack" },
-    properties = { tag = tags[7] },
+    properties = { tag = config.tag_names[7] },
   },
   {
     rule_any = {
       class = { "Code", "Cursor" },
     },
-    properties = { tag = tags[3] },
+    properties = { tag = config.tag_names[3] },
   },
   {
     rule = { class = "TelegramDesktop" },
-    properties = { tag = tags[9] },
+    properties = { tag = config.tag_names[9] },
   },
 }
 

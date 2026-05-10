@@ -1,20 +1,19 @@
 local awful = require("awful")
 local gears = require("gears")
-local naughty = require("naughty")
 local utils = require("modules.utils")
 
 local keys = {}
 local modkey = "Mod4"
 
 keys.global_keys = gears.table.join(
-  awful.key({ modkey, "Control" }, "r", awesome.restart),
+  awful.key({ modkey, "Ctrl" }, "r", awesome.restart),
 
   awful.key({ modkey }, "l", utils.focus_next),
   awful.key({ modkey }, "h", utils.focus_prev),
   awful.key({ modkey, "Shift" }, "l", utils.inc_width),
   awful.key({ modkey, "Shift" }, "h", utils.dec_width),
-  awful.key({ modkey, "Control" }, "l", utils.swap_next),
-  awful.key({ modkey, "Control" }, "h", utils.swap_prev),
+  awful.key({ modkey, "Ctrl" }, "l", utils.swap_next),
+  awful.key({ modkey, "Ctrl" }, "h", utils.swap_prev),
 
   awful.key({ modkey }, "BackSpace", awful.tag.history.restore),
 
@@ -45,7 +44,7 @@ for i = 1, 9 do
       end
     end),
 
-    awful.key({ modkey, "Control" }, "#" .. i + 9, function()
+    awful.key({ modkey, "Ctrl" }, "#" .. i + 9, function()
       local screen = awful.screen.focused()
       local tag = screen.tags[i]
       if tag then
@@ -63,7 +62,7 @@ for i = 1, 9 do
       end
     end),
 
-    awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9, function()
+    awful.key({ modkey, "Ctrl", "Shift" }, "#" .. i + 9, function()
       if client.focus then
         local tag = client.focus.screen.tags[i]
         if tag then
@@ -79,8 +78,8 @@ keys.client_keys = gears.table.join(
   awful.key({ modkey }, "f", utils.toggle_fullscreen),
   awful.key({ modkey, "Shift" }, "f", utils.toggle_maximize),
   awful.key({ modkey, "Shift" }, "q", utils.kill),
-  awful.key({ modkey, "Shift", "Control", "Mod1" }, "q", utils.kill),
-  awful.key({ modkey, "Control" }, "Return", utils.move_master),
+  awful.key({ modkey, "Shift", "Ctrl", "Mod1" }, "q", utils.kill),
+  awful.key({ modkey, "Ctrl" }, "Return", utils.move_master),
   awful.key({ modkey, "Shift" }, "m", utils.move_screen),
   awful.key({ modkey }, "'", utils.minimize),
   awful.key({ modkey, "Shift" }, "'", utils.restore),

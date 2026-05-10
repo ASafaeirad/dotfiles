@@ -79,7 +79,7 @@ function module.dmenu()
 end
 
 function module.restore()
-  local c = awful.client.restore(s)
+  local c = awful.client.restore(awful.screen.focused())
   if c then
     client.focus = c
     c:raise()
@@ -101,7 +101,7 @@ function module.toggle_fullscreen(c)
 end
 
 function module.is_empty(t)
-  for _, c in t:clients() do
+  for _, _ in ipairs(t:clients()) do
     return false
   end
   return true

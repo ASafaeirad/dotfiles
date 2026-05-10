@@ -3,6 +3,7 @@ local gears = require('gears')
 local wibox = require('wibox')
 local beautiful = require("beautiful")
 
+local config = require("modules.config")
 local utils = require('modules.utils')
 
 local battery = require("widgets.battery")
@@ -21,7 +22,7 @@ function module.init(screen)
   }
 
 
-  awful.tag(tags, screen, awful.layout.layouts[1])
+  awful.tag(config.tag_names, screen, awful.layout.layouts[1])
 
   screen.tray = wibox.widget.systray()
   screen.tray:set_base_size(beautiful.menu.tray.size)

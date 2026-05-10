@@ -31,7 +31,7 @@ function volume:new(args)
         forced_height = 12,
         forced_width = 12,
         paddings = 8,
-        colros = { obj.color },
+        colors = { obj.color },
         widget = wibox.container.arcchart,
     }
 
