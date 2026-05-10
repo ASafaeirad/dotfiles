@@ -219,7 +219,7 @@ Jira)
   ;;
 "Translate")
   TEXT=$(_dmenu -i -p "Translate")
-  TRANSLATED=$(transl8 "$TEXT" fa)
+  TRANSLATED=$(transl8 "$TEXT" fa en)
   popup --title "Persian" "$TRANSLATED"
   ;;
 
