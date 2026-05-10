@@ -2,7 +2,7 @@ require("modules.error")
 require("modules.manage")
 
 local fs = require("gears.filesystem")
-local theme = fs.get_configuration_dir() .. "theme.lua";
+local theme = fs.get_configuration_dir() .. "theme.lua"
 
 local beautiful = require("beautiful")
 beautiful.init(theme)

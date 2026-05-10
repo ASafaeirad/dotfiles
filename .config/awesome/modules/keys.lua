@@ -19,13 +19,13 @@ keys.global_keys = gears.table.join(
 
   awful.key({ modkey }, "m", utils.focus_next_screen),
 
-  awful.key({ modkey }, "t", function ()
+  awful.key({ modkey }, "t", function()
     utils.toggle_float({ class = "flyterm" })
   end),
-  awful.key({ modkey }, "b", function ()
+  awful.key({ modkey }, "b", function()
     utils.toggle_float({ class = "Zathura" })
   end),
-  awful.key({ modkey }, "n", function ()
+  awful.key({ modkey }, "n", function()
     local c = utils.toggle_float({ class = "Notion" })
     if c then
       c.fullscreen = true

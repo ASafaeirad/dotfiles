@@ -10,15 +10,14 @@ local get_brightness_cmd
 local brightness_widget = {}
 
 local function worker(user_args)
-
   local args = user_args or {}
   local timeout = args.timeout or 100
   local current_level = 0
   local tooltip = args.tooltip or false
 
-  get_brightness_cmd = 'light -G'
+  get_brightness_cmd = "light -G"
 
-  brightness_widget.widget = wibox.widget {
+  brightness_widget.widget = wibox.widget({
     widget = wibox.container.arcchart,
     max_value = 100,
     thickness = 2,
@@ -30,9 +29,8 @@ local function worker(user_args)
     colors = { beautiful.accent },
     set_value = function(self, level)
       self:set_value(level)
-    end
-  }
-
+    end,
+  })
 
   local update_widget = function(widget, stdout, _, _, _)
     local brightness_level = tonumber(string.format("%.0f", stdout)) or 100
@@ -49,20 +47,24 @@ local function worker(user_args)
   watch(get_brightness_cmd, timeout, update_widget, brightness_widget.widget)
 
   if tooltip then
-    awful.tooltip {
-      objects        = { brightness_widget.widget },
+    awful.tooltip({
+      objects = { brightness_widget.widget },
       timer_function = function()
         return current_level .. " %"
       end,
-    }
+    })
   end
 
   local brightness_timer = gears.timer({ timeout = 5 })
-  brightness_timer:connect_signal("timeout", function() brightness_widget:update() end)
+  brightness_timer:connect_signal("timeout", function()
+    brightness_widget:update()
+  end)
   brightness_timer:start()
   return brightness_widget.widget
 end
 
-return setmetatable(brightness_widget, { __call = function(_, ...)
-  return worker(...)
-end })
+return setmetatable(brightness_widget, {
+  __call = function(_, ...)
+    return worker(...)
+  end,
+})

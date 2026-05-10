@@ -17,24 +17,26 @@ local rules = {
   },
   {
     rule = {
-        name  = "Meet %-.*",
-        role  = "pop-up"
+      name = "Meet %-.*",
+      role = "pop-up",
     },
     properties = {
-        floating  = true,
-        ontop     = true,
-        focus     = false,
-        focusable = false,
+      floating = true,
+      ontop = true,
+      focus = false,
+      focusable = false,
     },
     callback = function(c)
-        gears.timer.delayed_call(function()
-            if not c.valid then return end
-            awful.placement.bottom_right(c, {
-                honor_workarea = true,
-                honor_padding  = true,
-                margins = { right = 12, bottom = 12 },
-            })
-        end)
+      gears.timer.delayed_call(function()
+        if not c.valid then
+          return
+        end
+        awful.placement.bottom_right(c, {
+          honor_workarea = true,
+          honor_padding = true,
+          margins = { right = 12, bottom = 12 },
+        })
+      end)
     end,
   },
   {

@@ -73,7 +73,7 @@ function keyboard_layout.get_groups_from_group_names(group_names)
     ["^" .. word_pat .. "$"] = function(token, pattern)
       local file = string.match(token, pattern)
       return nil, file, nil, 1
-    end
+    end,
   }
 
   -- Split 'group_names' into 'tokens'.  The separator is "+".
@@ -101,10 +101,10 @@ function keyboard_layout.get_groups_from_group_names(group_names)
           section = string.gsub(section, "%(([%w-_]+)%)", "%1")
         end
 
-        table.insert(layout_groups, { vendor = vendor,
-          file = file,
-          section = section,
-          group_idx = tonumber(group_idx) })
+        table.insert(
+          layout_groups,
+          { vendor = vendor, file = file, section = section, group_idx = tonumber(group_idx) }
+        )
         break
       end
     end
@@ -115,7 +115,7 @@ end
 
 -- Callback for updating list of layouts
 local function update_layout(self)
-  self._layout = {};
+  self._layout = {}
   local layouts = keyboard_layout.get_groups_from_group_names(awesome.xkb_get_group_names())
   if layouts == nil or layouts[1] == nil then
     gdebug.print_error("Failed to get list of keyboard groups")
@@ -140,15 +140,15 @@ end
 -- @constructor awful.widget.keyboard_layout
 -- @return A keyboard layout widget.
 function keyboard_layout.new()
-  local widget = wibox.widget {
-    align  = 'center',
-    valign = 'center',
-    widget = wibox.widget.textbox
-  }
+  local widget = wibox.widget({
+    align = "center",
+    valign = "center",
+    widget = wibox.widget.textbox,
+  })
   local self = widget_base.make_widget(widget, nil, { enable_properties = true })
   self.map = {
-    us = 'EN',
-    ir = 'IR'
+    us = "EN",
+    ir = "IR",
   }
 
   self.widget = widget
@@ -161,14 +161,18 @@ function keyboard_layout.new()
     return self.map[name]
   end
 
-  update_layout(self);
-  awesome.connect_signal("xkb::map_changed", function() update_layout(self) end)
-  awesome.connect_signal("xkb::group_changed", function() update_status(self) end);
+  update_layout(self)
+  awesome.connect_signal("xkb::map_changed", function()
+    update_layout(self)
+  end)
+  awesome.connect_signal("xkb::group_changed", function()
+    update_status(self)
+  end)
 
   return self
 end
 
-local _instance = nil;
+local _instance = nil
 
 function keyboard_layout.mt:__call(...)
   if _instance == nil then

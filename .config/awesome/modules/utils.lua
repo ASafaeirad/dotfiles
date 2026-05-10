@@ -75,7 +75,7 @@ function module.move_screen(c)
 end
 
 function module.dmenu()
-  awful.spawn('sdmenu -l 100 -h 25 -w 300')
+  awful.spawn("sdmenu -l 100 -h 25 -w 300")
 end
 
 function module.restore()
@@ -87,12 +87,12 @@ function module.restore()
 end
 
 function module.run_lua()
-  awful.prompt.run {
+  awful.prompt.run({
     prompt = "Run Lua code: ",
     textbox = awful.screen.focused().mypromptbox.widget,
     exe_callback = awful.util.eval,
-    history_path = awful.util.get_cache_dir() .. "/history_eval"
-  }
+    history_path = awful.util.get_cache_dir() .. "/history_eval",
+  })
 end
 
 function module.toggle_fullscreen(c)
@@ -108,7 +108,7 @@ function module.is_empty(t)
 end
 
 function module.set_wallpaper()
-  awful.spawn('nitrogen --restore', false)
+  awful.spawn("nitrogen --restore", false)
 end
 
 function module.focus_next_screen()
@@ -151,4 +151,4 @@ function module.toggle_float(selector)
   return c
 end
 
-return module;
+return module
