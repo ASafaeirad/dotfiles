@@ -69,7 +69,7 @@ function module.init(screen)
         {
           layout = wibox.layout.fixed.horizontal,
           spacing = beautiful.menu.spacing,
-          brightness(),
+          brightness,
           volume,
           battery(),
           date,
