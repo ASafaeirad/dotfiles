@@ -1,6 +1,9 @@
 /*/
 .steampid
 .steampath
+.claude.json
+.pulse-cookie
+.wakatime.cfg
 
 # config
 !.config/

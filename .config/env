@@ -40,7 +40,7 @@ export KODI_DATA="${XDG_DATA_HOME}/kodi"
 export PASSWORD_STORE_DIR="${XDG_DATA_HOME}/password-store"
 export TMUX_TMPDIR="$XDG_RUNTIME_DIR"
 export ANDROID_SDK_HOME="${XDG_CONFIG_HOME}/android"
-export CARGO_HOME="${XDG_DATA_HOME}/cargo" # cargo
+export CARGO_HOME="${XDG_DATA_HOME}/cargo"
 export RUSTUP_HOME="${XDG_DATA_HOME}/rustup"
 export GOPATH="${XDG_DATA_HOME}/go"
 export ANSIBLE_CONFIG="${XDG_CONFIG_HOME}/ansible/ansible.cfg"
@@ -75,6 +75,15 @@ export FZF_DEFAULT_COMMAND="fd --type f --hidden"
 export MOZ_USE_XINPUT2="1" # Mozilla smooth scrolling/touchpads.
 export OLLAMA_HOST=0.0.0.0:4080
 export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
+
+# AI
+export CLAUDE_CONFIG_DIR="${XDG_CONFIG_HOME}/claude"
+export COPILOT_HOME="${XDG_CONFIG_HOME}/copilot"
+export T3CODE_BASE_DIR="${XDG_CONFIG_HOME}/t3"
+
+# Bun
+export BUN_INSTALL="$HOME/.local/bin/applications/bun" 
+export PATH="$BUN_INSTALL/bin:$PATH"
 
 # GTK
 GTK_USE_PORTAL=1
