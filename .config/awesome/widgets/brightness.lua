@@ -1,4 +1,5 @@
 local awful = require("awful")
+local gears = require("gears")
 local wibox = require("wibox")
 local watch = require("awful.widget.watch")
 local spawn = require("awful.spawn")
@@ -56,7 +57,7 @@ local function worker(user_args)
     }
   end
 
-  local brightness_timer = timer({ timeout = 5 })
+  local brightness_timer = gears.timer({ timeout = 5 })
   brightness_timer:connect_signal("timeout", function() brightness_widget:update() end)
   brightness_timer:start()
   return brightness_widget.widget

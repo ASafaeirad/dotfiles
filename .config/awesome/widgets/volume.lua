@@ -1,5 +1,6 @@
 local wibox = require("wibox")
 local awful = require("awful")
+local gears = require("gears")
 local beautiful = require("beautiful")
 
 require("math")
@@ -42,7 +43,7 @@ function volume:new(args)
     })
     obj.tooltip:add_to_object(obj.widget)
 
-    obj.timer = timer({ timeout = 5 })
+    obj.timer = gears.timer({ timeout = 5 })
     obj.timer:connect_signal("timeout", function() obj:update() end)
     obj.timer:start()
 
