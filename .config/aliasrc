@@ -100,26 +100,6 @@ killit() {
   ps aux | grep -v "grep" | grep "$@" | awk '{print $2}' | xargs sudo kill
 }
 
-process() {
-  if [[ $(pidof $1) ]]; then
-    # show process memory usage
-    echo
-    ps aux | grep $1 | grep -v grep | awk 'BEGIN { sum=0 } {sum=sum+$6; } END {printf("[Totall memory used by process] : %s Mb\n",sum / 1024)}'
-    # show memory usage
-    echo
-    free -m | awk 'NR==2{printf "[System memory status] : %s/%s Mb (%.2f%%)\n", $3,$2,$3*100/$2 }'
-
-    # show process pid childs
-    local counter=0
-    for pid in $(pidof $1); do
-      ((counter++))
-    done
-    echo -e "\n[Child process count] : $counter\n"
-  else
-    echo "Process doesn't exist!"
-  fi
-}
-
 # nmcli
 alias down='nmcli c down'
 alias up='nmcli c up'
