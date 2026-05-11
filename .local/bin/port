@@ -1,3 +1,40 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-netstat -tulpn | grep :"$1"
+usage() {
+  echo "Usage: port <port-number>" >&2
+  exit 1
+}
+
+[[ -n "${1:-}" ]] || usage
+
+PORT="${1#:}"
+if ! [[ "$PORT" =~ ^[0-9]+$ ]] || (( PORT < 1 || PORT > 65535 )); then
+  echo "Invalid port: $1 (expected 1-65535)" >&2
+  exit 1
+fi
+
+port_re=":${PORT}([^0-9]|\$)"
+
+collect_pids() {
+  {
+    if command -v ss >/dev/null 2>&1; then
+      sudo ss -tulpn -H 2>/dev/null | grep -E "$port_re" | grep -oE 'pid=[0-9]+' | cut -d= -f2 || true
+    else
+      sudo netstat -tulpn 2>/dev/null | grep -E "$port_re" | awk '{print $NF}' | grep -oE '^[0-9]+' || true
+    fi
+    if command -v lsof >/dev/null 2>&1; then
+      sudo lsof -i ":${PORT}" -P -n -t 2>/dev/null || true
+    fi
+  } | grep -E '^[0-9]+$' | sort -un
+}
+
+mapfile -t pids < <(collect_pids)
+if ((${#pids[@]})); then
+  pid_csv=$(IFS=,; echo "${pids[*]}")
+  if ! ps -p "$pid_csv" -o pid,ppid,user,group,etime,cmd 2>/dev/null; then
+    echo "no matching rows; processes may have exited since discovery" >&2
+  fi
+else
+  echo "no process PIDs resolved for port ${PORT}" >&2
+fi
