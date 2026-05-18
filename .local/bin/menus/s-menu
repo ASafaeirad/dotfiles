@@ -87,7 +87,8 @@ Time)
   xdg-open https://www.time.ir/
   ;;
 Read)
-  zathura "$BOOK"
+  # zathura "$BOOK"
+  xdg-open "https://doc.rust-lang.org/book"
   ;;
 Figma)
   xdg-open https://www.figma.com/files/recent?fuid=569462856030622272
