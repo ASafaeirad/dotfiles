@@ -1,5 +1,5 @@
-#!/usr/bin/env bash
-source "$HOME/.local/bin/menus/_menu"
+#!/usr/bin/env zsh
+source "${0:A:h}/_menu"
 
 AUTOMATION="$HOME/.local/bin/automation"
 LIST=$(find $AUTOMATION/* -exec basename {} \;)
