@@ -1,3 +1,10 @@
 #!/usr/bin/env bash
 
-ip link show "$@" | grep link | awk '{ print $2 }'
+ip -o link show "$@" | awk -F': ' '
+    {
+      object = $2
+      if (match($0, /link\/[^ ]+ ([0-9a-fA-F:]{17})/, m)) {
+	printf "%s %s\n", toupper(m[1]), object
+      }
+    }
+  '
