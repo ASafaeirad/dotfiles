@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+source "$HOME/.local/bin/menus/_menu"
+
+declare monitors
+
+function read_screens() {
+  xrandr -q | grep "\bconnected" | awk '{ print $1 }'
+}
+
+function get_max_res() {
+  xrandr | grep $1 -A1 | tail -1 | awk '{ print $1 }'
+}
+
+readarray -t monitors < <(read_screens)
+monitors+=("All")
+
+declare -p monitors
+
+SELECTED=$(print_list "${monitors[@]}" | _dmenu -p "Monitors:" -i)
+
+if [[ -z "$SELECTED" ]]; then
+  exit 0
+fi
+
+set -x
+case "$SELECTED" in
+  "All")
+    monitors=("${monitors[@]::${#monitors[@]}-1}")
+
+    for M in "${monitors[@]}"; do
+      if [[ -z "$PREV_MONITOR" ]]; then
+        xrandr --output $M --auto &>/dev/null
+      fi
+      xrandr --output $M --auto --left-of $PREV_MONITOR &>/dev/null
+      PREV_MONITOR="$M"
+    done
+    ;;
+  *)
+    for M in "${monitors[@]}"; do
+      if [[ "$M" == "$SELECTED" ]]; then
+        xrandr --output $M --auto &>/dev/null
+      else
+        xrandr --output $M --off &>/dev/null
+      fi
+    done
+    ;;
+esac
