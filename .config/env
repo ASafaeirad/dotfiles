@@ -90,20 +90,20 @@ GTK_USE_PORTAL=1
 GDK_DEBUG=portals
 
 function append_path() {
-  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+  if [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]]; then
     PATH="$PATH:$1"
   fi
 }
 
 function prepend_path() {
-  if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+  if [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]]; then
     PATH="$1:$PATH"
   fi
 }
 
 
 # Proto
-if [ -f "${XDG_DATA_HOME}/cargo/env" ]; then
+if [[ -f "${XDG_DATA_HOME}/cargo/env" ]]; then
   . "${XDG_DATA_HOME}/cargo/env"
 fi
 
@@ -120,13 +120,13 @@ export PNPM_HOME="/home/skill/.local/share/pnpm"
 prepend_path "$PNPM_HOME/bin"
 
 export VOLTA_HOME="$XDG_DATA_HOME/volta"
-if [ -d "$VOLTA_HOME" ]; then
+if [[ -d "$VOLTA_HOME" ]]; then
   prepend_path "$VOLTA_HOME/bin"
   prepend_path "$VOLTA_HOME/bin/npm-bin"
 fi
 
 export USE_HOME="$XDG_DATA_HOME/use"
-if [ -d "$USE_HOME" ]; then
+if [[ -d "$USE_HOME" ]]; then
   prepend_path "$USE_HOME/bin"
   prepend_path "$USE_HOME/bin/npm-bin"
 fi
@@ -138,3 +138,7 @@ if test "$(go version 2>/dev/null)"; then
 fi
 
 eval $(dircolors "$XDG_CONFIG_HOME"/dircolors)
+
+if [[ -f "${XDG_DATA_HOME}/vite-plus/env" ]]; then
+  . "${XDG_DATA_HOME}/vite-plus/env"
+fi
