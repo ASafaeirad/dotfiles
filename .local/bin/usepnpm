@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -x
 
 USE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/use"
 TEMP_DIR="$USE_HOME/temp"
@@ -85,6 +85,11 @@ function download_pnpm() {
   URL="https://github.com/pnpm/pnpm/releases/download/v${VERSION}/pnpm-linux-x64"
   TEMP_FILE="$TEMP_DIR/pnpm-v${VERSION}-linux-x64"
   wget --quiet --show-progress "$URL" -O "$TEMP_FILE"
+
+  if [[ $? -eq 8 ]]; then
+    wget --quiet --show-progress "$URL.tar.gz" -O "$TEMP_FILE"
+  fi
+
 }
 
 if [ ! -f "$DIST_BIN" ]; then
@@ -93,6 +98,13 @@ if [ ! -f "$DIST_BIN" ]; then
   if [ ! -f "$TEMP_FILE" ]; then
     echo "Error: Failed to download pnpm v${VERSION}"
     exit 1
+  fi
+
+  file "$TEMP_FILE" | grep -q 'gzip'
+
+  if [[ -n $? ]]; then 
+    tar xzf "$TEMP_FILE"
+    TEMP_FILE="${TEMP_FILE:h}/pnpm"
   fi
 
   verbose "Installing pnpm..."
