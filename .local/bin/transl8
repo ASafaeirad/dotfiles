@@ -4,8 +4,9 @@ QUERY="$1"
 TARGET="${2:-en}"
 SOURCE="${3:-auto}"
 
+
 if [[ ! -f $XDG_DATA_HOME/transl8/.key ]]; then
-  echo "Missing API key file, please put your API key in \"\$XDG_DATA_HOME/transl8/.key\"" &> 2
+  echo "Missing API key file, please put your API key in \"\$XDG_DATA_HOME/transl8/.key\"" >&2
   exit 1
 fi
 
