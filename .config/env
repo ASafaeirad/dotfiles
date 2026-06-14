@@ -117,10 +117,7 @@ if test "$(yarn --version 2>/dev/null)"; then
 fi
 
 export PNPM_HOME="/home/skill/.local/share/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+prepend_path "$PNPM_HOME/bin"
 
 export VOLTA_HOME="$XDG_DATA_HOME/volta"
 if [ -d "$VOLTA_HOME" ]; then
