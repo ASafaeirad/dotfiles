@@ -31,6 +31,18 @@ XF86Audio{LowerVolume,RaiseVolume}
 XF86AudioMute
   pactl set-sink-mute @DEFAULT_SINK@ toggle
 
+XF86AudioPrev
+    playerctl previous
+
+XF86AudioNext
+    playerctl next
+
+XF86AudioPlay
+    playerctl play-pause
+
+XF86AudioStop
+    playerctl stop
+
 XF86MonBrightness{Down,Up}
   light {-U,-A} 5
 
