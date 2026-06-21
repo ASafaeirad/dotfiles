@@ -1,0 +1,149 @@
+{
+  "$schema": "https://zed.dev/schema/themes/v0.2.0.json",
+  "name": "FullstacksJS",
+  "author": "FullstacksJS",
+  "themes": [
+    {
+      "name": "FullstacksJS Dark",
+      "appearance": "dark",
+      "style": {
+        "background": "#1A1A1AFF",
+        "status_bar.background": "#1A1A1AFF",
+        "title_bar.background": "#1A1A1AFF",
+        "title_bar.inactive_background": "#1A1A1AFF",
+        "elevated_surface.background": "#161616FF",
+
+        "surface.background": "#161616FF",
+        "toolbar.background": "#1A1A1AFF",
+        "tab_bar.background": "#1A1A1AFF",
+        "tab.inactive_background": "#1A1A1AFF",
+        "tab.active_background": "#1A1A1AFF",
+        "panel.background": "#1A1A1AFF",
+        "editor.background": "#1A1A1AFF",
+        "editor.subheader.background": "#1A1A1AFF",
+        "editor.highlighted_line.background": "#1A1A1AFF",
+        "panel.overlay_background": "#1A1A1AFF",
+        "panel.overlay_hover": "#1A1A1AFF",
+        "editor.gutter.background": "#1A1A1AFF",
+
+        "editor.active_line.background": "#00000088",
+
+        "border": "#000000FF",
+        "border.variant": "#000000FF",
+
+        "editor.foreground": "#FFFFFFFF",
+        "scrollbar.thumb.background": "#FFFFFF22",
+        "scrollbar.thumb.hover_background": "#FFFFFF44",
+        "scrollbar.thumb.active_background": "#FFFFFF55",
+        "scrollbar.track.background": "#000000AA",
+        "scrollbar.track.border": "#00000000",
+        "scrollbar.thumb.border": "#00000000",
+
+        "version_control.added": "#A9FF7888",
+        "version_control.deleted": "#FF7272EE",
+        "version_control.modified": "#FFA478",
+
+        "search.active_match_background": "#4FD9FF11",
+        "search.match_background": "#FFFFFF05",
+
+        "players": [{ "cursor": "#FFFFFF" }],
+        "editor.document_highlight.read_background": "#FFFFFF22",
+
+        "warning.background": "#352F1F",
+        "error.background": "#4C3234",
+        "text.accent": "#FFA478",
+        "icon.accent": "#FFA478",
+        "border.focused": "#FFA478",
+        "warning": "#FFD257",
+        "error": "#E17E85",
+
+        "element.selected": "#000000AA",
+        "ghost_element.selected": "#000000AA",
+        "info.background": "#000000",
+        "info.border": "#000000",
+        "ghost_element.hover": "#00000055",
+
+        "syntax": {
+          "variable": {
+            "color": "#FFFFFF"
+          },
+          "constant": {
+            "color": "#FFFFFF"
+          },
+          "property": {
+            "color": "#FFFFFF"
+          },
+          "string": {
+            "color": "#C6FF90"
+          },
+          "string.regex": {
+            "color": "#FFD257"
+          },
+          "label.regex": {
+            "color": "#66DEFF"
+          },
+          "boolean": {
+            "color": "#A7A7FF"
+          },
+          "number": {
+            "color": "#A7A7FF"
+          },
+          "constant.builtin": {
+            "color": "#A7A7FF"
+          },
+          "comment": {
+            "color": "#515151"
+          },
+          "comment.doc": {
+            "color": "#777777"
+          },
+          "type": {
+            "color": "#14FFDE"
+          },
+          "keyword": {
+            "color": "#E17E85"
+          },
+          "punctuation": {
+            "color": "#AAAAAA"
+          },
+          "punctuation.bracket": {
+            "color": "#AAAAAA"
+          },
+          "punctuation.delimiter": {
+            "color": "#AAAAAA"
+          },
+          "punctuation.special": {
+            "color": "#AAAAAA"
+          },
+          "operator": {
+            "color": "#FFFFFF"
+          },
+          "function": {
+            "color": "#FFA478"
+          },
+          "attribute": {
+            "color": "#FFA478"
+          },
+          "variable.special": {
+            "color": "#66DEFF"
+          },
+          "tag": {
+            "color": "#E17E85"
+          },
+          "punctuation.bracket.html": {
+            "color": "#CCCCCC"
+          },
+          "tag.doctype": {
+            "color": "#888888"
+          },
+          "tag.jsx": {
+            "color": "#66DEFF"
+          },
+          "tag.component.jsx": {
+            "color": "#66DEFF"
+          }
+        }
+      }
+    }
+  ]
+}

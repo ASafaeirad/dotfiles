@@ -1,0 +1,107 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    },
+  },
+  {
+    "context": "VimControl && !menu",
+    "unbind": {
+      "ctrl-f": "vim::PageDown",
+    },
+  },
+  {
+    "context": "VimControl && !menu",
+    "unbind": {
+      "ctrl-b": "vim::PageUp",
+    },
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-b": "workspace::ToggleLeftDock",
+    },
+  },
+  {
+    "context": "VimControl && !menu",
+    "unbind": {
+      "ctrl-d": "vim::ScrollDown",
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-b": ["editor::SelectNext", { "replace_newest": false }],
+    },
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "ctrl-d": ["editor::SelectNext", { "replace_newest": false }],
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-shift-b": "editor::SelectAllMatches",
+    },
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "ctrl-shift-l": "editor::SelectAllMatches",
+    },
+  },
+  {
+    "context": "vim_mode == visual",
+    "unbind": {
+      "p": "vim::Paste",
+      "shift-p": ["vim::Paste", { "preserve_clipboard": true }],
+    },
+    "bindings": {
+      "p": ["vim::Paste", { "preserve_clipboard": true }],
+      "shift-p": "vim::Paste",
+    },
+  },
+  {
+    "context": "vim_mode == insert",
+    "unbind": {
+      "ctrl-s": "editor::ShowSignatureHelp",
+    },
+  },
+  {
+    "context": "vim_mode == insert",
+    "unbind": {
+      "ctrl-v": ["vim::PushLiteral", {}],
+    },
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "ctrl-\\": "pane::SplitRight",
+    },
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-alt-b": "workspace::ToggleRightDock",
+    },
+    "bindings": {
+      "ctrl-\\": "workspace::ToggleRightDock",
+    },
+  },
+]
