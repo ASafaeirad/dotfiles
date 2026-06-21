@@ -74,10 +74,6 @@ function module.move_screen(c)
   c:move_to_screen()
 end
 
-function module.dmenu()
-  awful.spawn("sdmenu -l 100 -h 25 -w 300")
-end
-
 function module.restore()
   local c = awful.client.restore(awful.screen.focused())
   if c then
@@ -105,10 +101,6 @@ function module.is_empty(t)
     return false
   end
   return true
-end
-
-function module.set_wallpaper()
-  awful.spawn("nitrogen --restore", false)
 end
 
 function module.focus_next_screen()

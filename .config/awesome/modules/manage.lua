@@ -13,5 +13,3 @@ client.connect_signal("manage", function(c)
     awful.placement.no_offscreen(c)
   end
 end)
-
-screen.connect_signal("property::geometry", utils.set_wallpaper)

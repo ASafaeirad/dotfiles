@@ -4,7 +4,6 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 
 local config = require("modules.config")
-local utils = require("modules.utils")
 
 local battery = require("widgets.battery")
 local volume = require("widgets.volume")
@@ -16,7 +15,6 @@ local time = require("widgets.time")
 local module = {}
 
 function module.init(screen)
-  utils.set_wallpaper()
   screen.padding = {
     top = beautiful.useless_gap * 2,
   }

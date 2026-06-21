@@ -25,7 +25,7 @@ xset b off
 xrdb -load ~/.config/X11/Xresources
 
 numlockx on &
-nitrogen --restore &
+xwallpaper --stretch "$WALLPAPER" &
 copyq &
 redshift -l '52.090736:5.121420' &
 slayout &
