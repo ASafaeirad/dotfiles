@@ -87,6 +87,7 @@
 !.config/wget/
 !.config/X11/
 !.config/zathura/
+!.config/zed/
 !.config/zsh/
 .config/zsh/completions
 .config/zsh/.zsh_history
