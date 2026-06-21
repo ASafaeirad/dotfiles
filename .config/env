@@ -11,7 +11,7 @@ export QT_STYLE_OVERRIDE=kvantum
 export BROWSER=/usr/bin/chromium
 export READER="zathura"
 export WIFI_ADAPTOR="wlp0s20f3"
-export WALLPAPER="$HOME/pics/wallpapers/skill.png"
+export WALLPAPER="$HOME/pics/wallpaper.png"
 export BG_COLOR="#3C3F4A"
 export BOOKS="$HOME/books"
 export BOOK="$BOOKS/progit.epub"
@@ -80,6 +80,7 @@ export RIPGREP_CONFIG_PATH="$HOME/.config/ripgrep/config"
 export CLAUDE_CONFIG_DIR="${XDG_CONFIG_HOME}/claude"
 export COPILOT_HOME="${XDG_CONFIG_HOME}/copilot"
 export T3CODE_BASE_DIR="${XDG_CONFIG_HOME}/t3"
+export PI_CODING_AGENT_DIR="${XDG_CONFIG_HOME}/pi"
 
 # Bun
 export BUN_INSTALL="$HOME/.local/bin/applications/bun" 
