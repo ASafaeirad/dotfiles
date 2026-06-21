@@ -104,4 +104,16 @@
       "ctrl-\\": "workspace::ToggleRightDock",
     },
   },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "l": "project_panel::OpenPermanent"
+    }
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "unbind": {
+      "enter": "project_panel::OpenPermanent"
+    }
+  }
 ]
