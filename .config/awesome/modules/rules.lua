@@ -46,7 +46,7 @@ local rules = {
         "Arandr",
         "Flows",
         "Blueman-manager",
-        "Pavucontrol",
+        "pavucontrol",
         "Gpick",
         "Kruler",
         "MessageWin",
@@ -104,13 +104,39 @@ local rules = {
   },
   {
     rule_any = {
-      class = { "Code", "Cursor" },
+      class = { "code", "cursor", "dev.zed.Zed" },
     },
     properties = { tag = config.tag_names[3] },
   },
   {
     rule = { class = "TelegramDesktop" },
     properties = { tag = config.tag_names[9] },
+  },
+  {
+    rule = { class = "Spotify" },
+    properties = { tag = config.tag_names[8] },
+  },
+  {
+    rule = { type = "notification" },
+    properties = {
+      floating = true,
+      ontop = true,
+      focus = false,
+      focusable = false,
+      skip_taskbar = true,
+    },
+    callback = function(c)
+      gears.timer.delayed_call(function()
+        if not c.valid then
+          return
+        end
+        awful.placement.bottom_right(c, {
+          honor_workarea = true,
+          honor_padding = true,
+          margins = { right = 12, bottom = 12 },
+        })
+      end)
+    end,
   },
 }
 

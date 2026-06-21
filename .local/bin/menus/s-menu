@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-EDITOR="code"
+EDITOR="zeditor"
 source "$HOME/.local/bin/menus/_menu"
 S_USER=0
 EG_USER=1
