@@ -39,3 +39,18 @@ Thumbs.db
 # Notion cache
 .config/notion-app/notionAssetCache-v2
 
+# Code history
+.config/Code/User/History/
+
+# PI
+.config/pi/agent/sessions/
+.config/pi/sessions/
+
+# Steam
+.local/share/Steam/
+
+# Cursor
+.cursor/extensions/
+
+# Brave
+.config/BraveSoftware/Brave-Browser/
