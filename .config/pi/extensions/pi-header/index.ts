@@ -14,11 +14,6 @@ function center(text: string, width: number): string {
   return `${" ".repeat(padding)}${text}`;
 }
 
-// Pi logo — pixel "P" from pi.dev SVG, mapped to 4x4 grid
-// ■ ■ ■ ·
-// ■ · ■ ·
-// ■ ■ · ■
-// ■ · · ■
 const B = "██";
 const S = "  ";
 const LOGO = [
