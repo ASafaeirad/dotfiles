@@ -72,6 +72,9 @@
 .config/pcmanfm/default/pcmanfm.conf
 !.config/pass-git-helper/
 !.config/persepolis_download_manager/persepolis.conf
+!.config/pi/
+.config/pi/auth.json
+.config/pi/sessions/
 !.config/picom/
 !.config/polybar/
 !.config/ranger/
