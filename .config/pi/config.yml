@@ -1,0 +1,15 @@
+theme: 
+  dark: anthracite
+defaultProvider: github-copilot
+defaultModel: gemini-3-flash-preview
+defaultThinkingLevel: auto
+packages: 
+  - npm:pi-web-access
+  - npm:@hypabolic/pi-hypa
+  - npm:pi-terminal-theme
+  - npm:@pi-unipi/ask-user
+  - extensions/welcome-card
+symbolPreset: nerd
+setupVersion: 1
+modelRoles: 
+  default: github-copilot/claude-opus-4.7

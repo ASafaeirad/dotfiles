@@ -1,13 +1,10 @@
 {
   "lastChangelogVersion": "0.79.10",
   "theme": "dark",
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.5",
-  "defaultThinkingLevel": "medium",
   "packages": [
-    "npm:pi-web-access",
-    "npm:@hypabolic/pi-hypa",
-    "npm:pi-terminal-theme",
-    "npm:@pi-unipi/ask-user"
-  ]
+    "npm:@ollama/pi-web-search"
+  ],
+  "defaultProvider": "openai-codex",
+  "defaultModel": "gpt-5.4",
+  "defaultThinkingLevel": "high"
 }

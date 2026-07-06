@@ -73,6 +73,8 @@
 !.config/pass-git-helper/
 !.config/persepolis_download_manager/persepolis.conf
 !.config/pi/
+.config/pi/blobs/
+.config/pi/terminal-sessions/
 .config/pi/auth.json
 .config/pi/sessions/
 !.config/picom/
@@ -94,6 +96,10 @@
 !.config/zsh/
 .config/zsh/completions
 .config/zsh/.zsh_history
+.config/pi/*.db*
+.config/pi/*.bak
+.config/pi/last-changelog-version
+.config/pi/trust.json
 !.config/waybar/
 
 # local
