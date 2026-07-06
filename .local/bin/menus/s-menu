@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-EDITOR="zeditor"
 source "$HOME/.local/bin/menus/_menu"
 S_USER=0
 EG_USER=1
@@ -16,52 +15,34 @@ function _mail() {
 
 LIST=(
   "Task"
-  "Incubate"
   "Pronounce"
   "Notion"
   "Day"
-  "Architect"
   "GMail"
   "Read"
-  "Config"
   "Monkey"
   "Quillbot"
-  "Abit"
   "Time"
   "Figma"
-  "Toolbox"
-  "Github"
   "Edit"
   "Calendar"
   "Arvan"
-  "NotionIcon"
   "Jira"
-  "NotionAutomation"
   "English"
-  "Wakatime"
-  "ESLint"
-  "Flows"
-  "FullstacksJS"
-  "Charity"
   "Dictionary"
   "Linear"
-  "Portfolio"
   "Youtube Studio"
   "DatoCMS"
   "Thumbnail"
   "Linkedin"
   "New Project"
-  "NPM Check Last Publish"
   "Noisli"
   "SVGL"
   "Twitch"
-  "Obsdown"
-  "VSCode Theme"
   "dl"
   "Knowledge Review"
-  "You don't know HTML"
-  "No Thanks"
   "Translate"
+  "Obs"
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -71,17 +52,11 @@ fn_exists() { declare -F "$1" >/dev/null; }
 SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "SKill")
 
 case "$SELECTED" in
-Charity)
-  $EDITOR "$HOME/devs/the-charity"
-  ;;
 Monkey)
   xdg-open https://monkeytype.com/
   ;;
 Quillbot)
   xdg-open https://quillbot.com/
-  ;;
-Abit)
-  $EDITOR "$HOME/devs/abit"
   ;;
 Time)
   xdg-open https://www.time.ir/
@@ -95,9 +70,6 @@ Figma)
   ;;
 Edit)
   sudo -H -u skill $TERMINAL -e nvim $HOME/.local/bin/menus/s-menu
-  ;;
-Github)
-  $EDITOR "$HOME/devs/github-bot"
   ;;
 GMail)
   _mail
@@ -121,29 +93,11 @@ Jira)
 "Notion")
   notion-app
   ;;
-"NotionIcon")
-  $EDITOR "$HOME/devs/notion-icons"
-  ;;
-"NotionAutomation")
-  $EDITOR "$HOME/devs/notion-automation"
-  ;;
 "Task")
   task
   ;;
 "English")
   zathura "$BOOKS/English Grammar in Use Book.pdf"
-  ;;
-"Wakatime")
-  $EDITOR "$HOME/devs/wakatime"
-  ;;
-"ESLint")
-  $EDITOR "$HOME/devs/eslint-config"
-  ;;
-"Flows")
-  $EDITOR "$HOME/devs/flows"
-  ;;
-"FullstacksJS")
-  $EDITOR "$HOME/devs/fullstacksjs"
   ;;
 "Pronounce")
   WORD=$(_dmenu -p "Pronounce")
@@ -156,15 +110,6 @@ Jira)
   ;;
 "Linear")
   xdg-open "https://linear.app/fullstacksjs/team/FS/active"
-  ;;
-"Toolbox")
-  $EDITOR "$HOME/devs/toolbox"
-  ;;
-"Config")
-  $EDITOR "$HOME/devs/config"
-  ;;
-"Architect")
-  $EDITOR "$HOME/devs/architect"
   ;;
 "Youtube Studio")
   xdg-open "https://studio.youtube.com/channel/UCn52BXCnS1WALPsuNuo9krA"
@@ -182,12 +127,6 @@ Jira)
   new-menu
   ;;
 
-"NPM Check Last Publish")
-  $EDITOR "$HOME/devs/npm-check-last-publish"
-  ;;
-"You don't know HTML")
-  $EDITOR "$HOME/devs/you-dont-know-html"
-  ;;
 "Noisli")
   xdg-open "https://www.noisli.com/"
   ;;
@@ -197,31 +136,18 @@ Jira)
 "Twitch")
   xdg-open "https://twitch.tv/fullstacksjs"
   ;;
-"Portfolio")
-  $EDITOR "$HOME/devs/portfolio"
-  ;;
-"Obsdown")
-  $EDITOR "$HOME/devs/obsdown"
-  ;;
-"VSCode Theme")
-  $EDITOR "$HOME/devs/vscode-theme"
-  ;;
 "dl")
   dl-menu
   ;;
 "Knowledge Review")
   obsidian
   ;;
-"Incubate")
-  $EDITOR "$HOME/devs/incubate"
-  ;;
-"No Thanks")
-  $EDITOR "$HOME/devs/no-thanks"
-  ;;
 "Translate")
   TEXT=$(_dmenu -i -p "Translate")
   TRANSLATED=$(transl8 "$TEXT" fa en)
   popup --title "Persian" "$TRANSLATED"
   ;;
-
+ "Obs")
+  nvobs
+  ;;
 esac
