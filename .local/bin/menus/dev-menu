@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+source "$HOME/.local/bin/menus/_menu"
+
+DIR="$HOME/devs"
+LIST=$(ls "$DIR")
+
+SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "Dev")
+SELECTED="${DIR}/${SELECTED}"
+
+if [[ -d "${SELECTED}" ]]; then
+  code "${SELECTED}"
+fi
+
