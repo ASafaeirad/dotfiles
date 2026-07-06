@@ -1,12 +1,12 @@
 [Default Applications]
 image/jpeg=viewnior.desktop
 image/png=feh.desktop
-x-scheme-handler/notion=Notion.desktop
+x-scheme-handler/notion=notion.desktop
 x-scheme-handler/webcal=chromium.desktop
 x-scheme-handler/tg=org.telegram.desktop.desktop
 x-scheme-handler/mailto=chromium.desktop
 x-scheme-handler/mailspring=Mailspring.desktop
-text/plain=visual-studio-code.desktop
+text/plain=code.desktop
 x-scheme-handler/postman=Postman.desktop
 inode/directory=pcmanfm.desktop;ranger.desktop
 x-scheme-handler/tonsite=org.telegram.desktop.desktop
@@ -26,12 +26,13 @@ video/mp4=smplayer.desktop
 video/x-matroska=smplayer.desktop
 text/javascript=code.desktop
 image/gif=feh.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 
 [Added Associations]
 image/jpeg=feh.desktop;viewnior.desktop;
 image/png=viewnior.desktop;feh.desktop;
 x-scheme-handler/tg=userapp-Telegram Desktop-EL43Q1.desktop;userapp-Telegram Desktop-V9RNW1.desktop;org.telegram.desktop.desktop;
-text/plain=visual-studio-code.desktop;
+text/plain=code.desktop;visual-studio-code.desktop;
 x-scheme-handler/tonsite=org.telegram.desktop.desktop;
 x-scheme-handler/http=chromium.desktop;
 x-scheme-handler/https=chromium.desktop;

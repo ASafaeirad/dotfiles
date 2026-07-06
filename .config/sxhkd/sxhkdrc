@@ -5,10 +5,10 @@ super + Return
   alacritty
 
 super + F{2,3,4,5}
-  {chromium,zeditor,pcmanfm,terminal -e mus}
+  {chromium,code,pcmanfm,terminal -e mus}
 
 super + shift + control + alt + {2,3,4,5}
-  {chromium,zeditor,pcmanfm,terminal -e mus}
+  {chromium,code,pcmanfm,terminal -e mus}
 
 super + v
   copyq show
@@ -16,11 +16,11 @@ super + v
 super + ctrl + {x,m,c,b,n,s,q,t,z}
   {xkill, pavucontrol, xcolor | xsel -b, book, notion-app; notion-calendar-electron, ocr, qbar, ocr en, boomer}
 
-super + shift + {space,s,a,b,c,d,p,g,o,w,y,j,i}
-  {rofi -show drun, power-menu, auto-menu, changelog-menu, c-menu, s-menu, p-menu, github-menu, open-menu, wifi-menu, youtube-menu, dl-menu, screen-menu}
+super + shift + {space,s,a,b,c,d,p,g,o,w,y,j,i,x}
+  {rofi -show drun, power-menu, auto-menu, changelog-menu, c-menu, s-menu, p-menu, github-menu, open-menu, wifi-menu, youtube-menu, dl-menu, screen-menu, dev-menu}
 
-super + shift + ctrl + alt + {space,s,a,b,c,d,p,g,o,w,y,j,i}
-  {rofi -show drun, power-menu, auto-menu, changelog-menu, c-menu, s-menu, p-menu, github-menu, open-menu, wifi-menu, youtube-menu, dl-menu, screen-menu}
+super + shift + ctrl + alt + {space,s,a,b,c,d,p,g,o,w,y,j,i,x}
+  {rofi -show drun, power-menu, auto-menu, changelog-menu, c-menu, s-menu, p-menu, github-menu, open-menu, wifi-menu, youtube-menu, dl-menu, screen-menu, dev-menu}
 
 super + shift + t
   flyterm

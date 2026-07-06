@@ -26,7 +26,7 @@ keys.global_keys = gears.table.join(
     utils.toggle_float({ class = "Zathura" })
   end),
   awful.key({ modkey }, "n", function()
-    local c = utils.toggle_float({ class = "Notion" })
+    local c = utils.toggle_float({ class = "notion" })
     if c then
       c.fullscreen = true
     end
