@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 
-function w_cp() {
-  wl-copy
-}
-
 if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
-  w_cp "$@"
+  echo -n "$@" | wl-copy
 else
   echo -n "$@" | xsel -ib
 fi
+
