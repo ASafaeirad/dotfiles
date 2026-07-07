@@ -80,7 +80,6 @@ alias afind='ack -il'
 alias path='echo -e ${PATH//:/\\n} | sort'
 alias fpath="echo $fpath | tr ' ' '\n' | sort"
 alias history=omz_history
-alias cpwd='pwd | xsel -i --clipboard'
 alias clocksync='sudo ntpdate 1.ro.pool.ntp.org'
 
 which-font() {
