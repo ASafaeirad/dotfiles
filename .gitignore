@@ -100,6 +100,8 @@
 .config/pi/*.bak
 .config/pi/last-changelog-version
 .config/pi/trust.json
+!.config/quickshell/
+.config/quickshell/ii
 !.config/waybar/
 
 # local

@@ -21,7 +21,6 @@ LIST=(
   "GMail"
   "Read"
   "Monkey"
-  "Quillbot"
   "Time"
   "Figma"
   "Edit"
@@ -54,9 +53,6 @@ SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "SKill")
 case "$SELECTED" in
 Monkey)
   xdg-open https://monkeytype.com/
-  ;;
-Quillbot)
-  xdg-open https://quillbot.com/
   ;;
 Time)
   xdg-open https://www.time.ir/
