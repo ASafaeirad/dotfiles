@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -e
+
+class=flyterm
+special=term
+
+function find_flyterm() {
+  hyprctl clients -j | jq -e --arg class "$class" '.[] | select(.class == $class)' >/dev/null;
+}
+
+if find_flyterm; then
+  hyprctl dispatch togglespecialworkspace "$special"
+  exit 0
+fi
+
+hyprctl dispatch exec flyterm
+
+for _ in {1..40}; do
+  if find_flyterm; then
+    break
+  fi
+  sleep 0.05
+done
+

@@ -110,6 +110,8 @@
 !.local/bin/
 .local/bin/deno
 .local/bin/zed
+.local/bin/claude
+.local/bin/omp
 .local/bin/applications/
 .local/bin/automations/
 !.local/share/
