@@ -39,6 +39,7 @@
 !.config/flameshot/
 !.config/flashfocus/
 !.config/fontconfig/
+.config/fontconfig/conf.d/09-Directories.conf
 !.config/gh/
 !.config/gh/config.yml
 .config/gh/hosts.yml
