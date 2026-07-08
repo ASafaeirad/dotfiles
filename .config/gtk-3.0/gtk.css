@@ -7,3 +7,36 @@ VteTerminal, vte-terminal {
   padding: 15px;
 }
 
+/* Accents */
+@define-color accent_color #ffb4a2;
+@define-color accent_fg_color #561f11;
+@define-color accent_bg_color #ffb4a2;
+@define-color destructive_bg_color #93000a;
+@define-color destructive_fg_color #ffdad6;
+@define-color destructive_color #ffb4ab;
+@define-color success_bg_color #374B3E;
+@define-color success_fg_color #D1E9D6;
+@define-color success_color #B5CCBA;
+/* Base surfaces */
+@define-color window_bg_color #1a110f;
+@define-color window_fg_color #f1dfda;
+@define-color headerbar_bg_color #271d1b;
+@define-color headerbar_backdrop_color #271d1b;
+@define-color headerbar_fg_color #f1dfda;
+@define-color card_bg_color #271d1b;
+@define-color card_fg_color #f1dfda;
+@define-color sidebar_bg_color #271d1b;
+@define-color sidebar_fg_color #f1dfda;
+@define-color secondary_sidebar_bg_color #231917;
+@define-color secondary_sidebar_fg_color #f1dfda;
+@define-color sidebar_border_color @sidebar_bg_color;
+@define-color sidebar_backdrop_color @sidebar_bg_color;
+@define-color view_bg_color #140c0a;
+@define-color view_fg_color #f1dfda;
+@define-color overview_bg_color #140c0a;
+@define-color overview_fg_color #f1dfda;
+/* Popups */
+@define-color popover_bg_color #3d3230;
+@define-color popover_fg_color #f1dfda;
+@define-color dialog_bg_color #322825;
+@define-color dialog_fg_color #f1dfda;
