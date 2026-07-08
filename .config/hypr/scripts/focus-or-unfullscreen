@@ -1,0 +1,21 @@
+#!/bin/sh
+set -eu
+
+direction="${1:-}"
+
+case "$direction" in
+  l|r|u|d) ;;
+  *) exit 2 ;;
+esac
+
+workspace_json="$(hyprctl -j activeworkspace)"
+active_window_json="$(hyprctl -j activewindow)"
+
+windows="$(printf '%s' "$workspace_json" | jq -r '.windows // 0')"
+fullscreen="$(printf '%s' "$active_window_json" | jq -r '.fullscreen // 0')"
+
+if [ "$windows" -gt 1 ] && [ "$fullscreen" -ne 0 ]; then
+  hyprctl --batch "dispatch fullscreenstate 0 0; dispatch movefocus $direction" >/dev/null
+else
+  hyprctl dispatch movefocus "$direction" >/dev/null
+fi
