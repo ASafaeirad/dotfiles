@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# regionshot <output.png>
+# Interactive region screenshot. Works on both sessions:
+#   Wayland -> grim + slurp   |   X11 -> scrot
+# Added for the Hyprland migration so ocr/qbar keep working under both.
+
+out="$1"
+[ -z "$out" ] && { echo "usage: regionshot <output.png>" >&2; exit 2; }
+
+if [ "$XDG_SESSION_TYPE" = "wayland" ] || [ -n "$WAYLAND_DISPLAY" ]; then
+  grim -g "$(slurp)" "$out"
+else
+  scrot --line mode=edge -s "$out" -q 100
+fi
