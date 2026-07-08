@@ -2,54 +2,101 @@
 
 set -euo pipefail
 
-GIT_CMD="git --git-dir=$XDG_CONFIG_HOME/dotfiles.git --work-tree=$HOME"
+git_cmd=(git "--git-dir=${XDG_CONFIG_HOME}/dotfiles.git" "--work-tree=${HOME}")
 
 pushd "$HOME" >/dev/null
+trap 'popd >/dev/null || true' EXIT
 
-changed=$(git config --get-color color.status.changed red)
-unmerged=$(git config --get-color color.status.unmerged red)
-untracked=$(git config --get-color color.status.untracked red)
+if ! command -v fzf >/dev/null 2>&1; then
+  echo "fzf is required." >&2
+  exit 1
+fi
 
-width=$(($(tput cols) * 6 / 10))
-pager="delta --side-by-side -w $width"
+changed_color=$(git config --get-color color.status.changed red)
+staged_color=$(git config --get-color color.status.added green)
+unmerged_color=$(git config --get-color color.status.unmerged red)
+untracked_color=$(git config --get-color color.status.untracked red)
+reset_color=$'\033[0m'
 
-FORGIT_FZF_DEFAULT_OPTS="
+fzf_opts="
   --ansi
   --height=100%
   --bind=alt-k:preview-up,alt-p:preview-up
   --bind=alt-j:preview-down,alt-n:preview-down
+  --bind=resize:refresh-preview
   --bind=ctrl-r:toggle-all
   --bind=ctrl-s:toggle-sort
   --bind=?:toggle-preview
   --bind=alt-w:toggle-preview-wrap
   --preview-window=right:60%
+  --delimiter='\t'
+  --with-nth=1,4
   -0
   -m
-  --nth 2..,..
 "
 
-opts="
-  $FORGIT_FZF_DEFAULT_OPTS
-  --preview=\"if ($GIT_CMD status --porcelain -- {-1} | grep '^??') &>/dev/null; then  # diff with /dev/null for untracked files
-                $GIT_CMD diff --color=always --no-index -- /dev/null {-1} | $pager | sed '2 s/added: /untracked: /'
-              else
-                $GIT_CMD diff --color=always -- {-1} | $pager;
-              fi\"
+preview_cmd="
+  run_pager() {
+    if command -v delta >/dev/null 2>&1; then
+      width=\${FZF_PREVIEW_COLUMNS:-120}
+      delta --side-by-side -w "\$width"
+    else
+      cat
+    fi
+  }
+
+  case '{2}' in
+    untracked)
+      git --git-dir='$XDG_CONFIG_HOME/dotfiles.git' --work-tree='$HOME' diff --color=always --no-index -- /dev/null {4} | run_pager | sed '2 s/added: /untracked: /'
+      ;;
+    unstaged|conflict)
+      git --git-dir='$XDG_CONFIG_HOME/dotfiles.git' --work-tree='$HOME' diff --color=always -- {4} | run_pager
+      ;;
+    *)
+      git --git-dir='$XDG_CONFIG_HOME/dotfiles.git' --work-tree='$HOME' diff --cached --color=always -- {4} | run_pager
+      ;;
+  esac
 "
 
-files=$($GIT_CMD -c color.status=always -c status.relativePaths=false status --short --untracked |
-  grep -F -e "$changed" -e "$unmerged" -e "$untracked" |
-  sed -E 's/^(..[^[:space:]]*)[[:space:]]+(.*)$/[\1]  \2/' |
-  FZF_DEFAULT_OPTS="$opts" fzf |
-  sed 's/^.*]  //' |
-  sed 's/.* -> //') # for rename case
+selection=$("${git_cmd[@]}" -c status.relativePaths=false status --short --untracked-files=all |
+  awk -v changed="$changed_color" -v staged="$staged_color" -v unmerged="$unmerged_color" -v untracked="$untracked_color" -v reset="$reset_color" '
+    {
+      status = substr($0, 1, 2)
+      path = substr($0, 4)
+      color = changed
+      mode = "unstaged"
 
-if [[ -n "${files:-}" ]]; then
-  echo "$files" | tr '\n' '\0' | xargs --null -I {} -- $GIT_CMD add "{}"
-  $GIT_CMD status --short --untracked
-  popd >/dev/null
+      if (status == "??") {
+        color = untracked
+        mode = "untracked"
+      } else if (status ~ /U|AA|DD/) {
+        color = unmerged
+        mode = "conflict"
+      } else if (substr(status, 1, 1) != " ") {
+        color = staged
+        mode = "staged"
+      }
+
+      printf "%s%-9s %s\t%s\t%s\t%s\n", color, status, reset, mode, status, path
+    }
+  ' |
+  FZF_DEFAULT_OPTS="$fzf_opts" fzf --preview "$preview_cmd" |
+  cat)
+
+if [[ -n "${selection:-}" ]]; then
+  while IFS=$'\t' read -r _colored_mode _mode raw_status file; do
+    [[ -z "${raw_status:-}" || -z "${file:-}" ]] && continue
+    file=${file##* -> }
+
+    if [[ "${raw_status:0:1}" != " " && "${raw_status:0:1}" != "?" ]]; then
+      "${git_cmd[@]}" restore --staged -- "$file"
+    else
+      "${git_cmd[@]}" add -- "$file"
+    fi
+  done <<<"$selection"
+
+  "${git_cmd[@]}" status --short --untracked-files=all
   exit 0
 fi
 
-popd >/dev/null
 echo 'Nothing to add.'
