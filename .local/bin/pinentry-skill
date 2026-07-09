@@ -1,0 +1,99 @@
+#!/usr/bin/env bash
+set -u
+
+FALLBACK=${PINENTRY_FALLBACK:-/usr/bin/pinentry-gnome3}
+IPC=(qs -c ii ipc)
+
+if ! "${IPC[@]}" show 2>/dev/null | grep -q '^target pinentry$'; then
+    exec "$FALLBACK" "$@"
+fi
+
+send() { printf '%s\n' "$*"; }
+
+# Percent-DEcode incoming display text (gpg escapes %, CR, LF as %XX).
+pct_decode() { printf '%b' "${1//%/\\x}"; }
+
+# Percent-ENcode a passphrase for an Assuan `D` data line.
+pct_encode() {
+    local s=$1 out='' c i
+    for (( i=0; i<${#s}; i++ )); do
+        c=${s:i:1}
+        case $c in
+            '%')  out+='%25' ;;
+            $'\r') out+='%0D' ;;
+            $'\n') out+='%0A' ;;
+            *)    out+=$c ;;
+        esac
+    done
+    printf '%s' "$out"
+}
+
+b64() { printf '%s' "$1" | base64 -w0; }
+
+DESC=''
+PROMPT=''
+ERRTXT=''
+VISIBLE=0
+RESP_KIND=''
+RESP_PIN=''
+
+show_prompt() {
+    local dir fifo resp
+    dir=$(mktemp -d "${XDG_RUNTIME_DIR:-/tmp}/pinentry-skill.XXXXXX") || return 1
+    chmod 700 "$dir"
+    fifo="$dir/pipe"
+    if ! mkfifo -m 600 "$fifo"; then rm -rf "$dir"; return 1; fi
+
+    "${IPC[@]}" call pinentry prompt \
+        "$(b64 "$DESC")" "$(b64 "$PROMPT")" "$(b64 "$ERRTXT")" "$fifo" "$VISIBLE" \
+        >/dev/null 2>&1
+
+    IFS= read -r resp < "$fifo"
+    rm -rf "$dir"
+    ERRTXT=''  # a SETERROR only applies to the attempt that follows it
+
+    case $resp in
+        D:*) RESP_KIND=D; RESP_PIN=${resp#D:} ;;
+        *)   RESP_KIND=C; RESP_PIN='' ;;
+    esac
+}
+
+CANCELLED='ERR 83886179 Operation cancelled <Pinentry>'
+
+send "OK Pleased to meet you"
+
+while IFS= read -r line; do
+    cmd=${line%% *}
+    arg=${line#"$cmd"}; arg=${arg# }
+    case $cmd in
+        SETDESC)   DESC=$(pct_decode "$arg");   send OK ;;
+        SETPROMPT) PROMPT=$(pct_decode "$arg"); send OK ;;
+        SETERROR)  ERRTXT=$(pct_decode "$arg"); send OK ;;
+        SETTITLE|SETOK|SETNOTOK|SETCANCEL|SETREPEAT|SETREPEATERROR|\
+        SETQUALITYBAR|SETQUALITYBAR_TT|SETKEYINFO|SETGENPIN|SETGENPIN_TT|\
+        OPTION|SETTIMEOUT|CLEARPASSPHRASE)
+            send OK ;;
+        GETINFO)
+            case $arg in
+                pid)     send "D $$";      send OK ;;
+                flavor)  send "D skill";   send OK ;;
+                version) send "D 1.0.0";   send OK ;;
+                ttyinfo) send "D - - -";   send OK ;;
+                *)       send OK ;;
+            esac ;;
+        GETPIN)
+            if show_prompt && [[ $RESP_KIND == D ]]; then
+                send "D $(pct_encode "$RESP_PIN")"
+                send OK
+            else
+                send "$CANCELLED"
+            fi ;;
+        MESSAGE) send OK ;;
+        CONFIRM) send "$CANCELLED" ;;
+        RESET)   DESC=''; PROMPT=''; ERRTXT=''; send OK ;;
+        NOP)     send OK ;;
+        BYE)     send "OK closing connection"; exit 0 ;;
+        '')      : ;;
+        *)       send OK ;;
+    esac
+done
