@@ -1,11 +1,29 @@
 #!/usr/bin/env bash
 
 usage() {
-  echo "Usage: port <port-number>" >&2
-  exit 1
+  echo "Usage: port [port-number]" >&2
+  exit "${1:-1}"
 }
 
-[[ -n "${1:-}" ]] || usage
+list_open_ports() {
+  if command -v ss >/dev/null 2>&1; then
+    sudo ss -tulpn 2>/dev/null || ss -tulpn
+  elif command -v netstat >/dev/null 2>&1; then
+    sudo netstat -tulpn 2>/dev/null || netstat -tulpn
+  else
+    echo "Neither ss nor netstat is available." >&2
+    exit 127
+  fi
+}
+
+if [[ "${1:-}" = "-h" || "${1:-}" = "--help" ]]; then
+  usage 0
+fi
+
+if [[ -z "${1:-}" ]]; then
+  list_open_ports
+  exit 0
+fi
 
 PORT="${1#:}"
 if ! [[ "$PORT" =~ ^[0-9]+$ ]] || (( PORT < 1 || PORT > 65535 )); then
