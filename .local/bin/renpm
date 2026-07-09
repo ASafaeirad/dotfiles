@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+source "$SCRIPT_DIR/lib/common.sh"
+
+force=false
+if [[ "${1:-}" == "--force" || "${1:-}" == "-f" ]]; then
+  force=true
+fi
+
+if [[ "$force" != true ]]; then
+  confirm "Remove node_modules and package manager lockfiles in $(pwd)?" || exit 1
+fi
+
 rm -rf node_modules
-[ -f ./package-lock.json ] && rm ./package-lock.json
-[ -f ./yarn.lock ] && rm ./yarn.lock
-[ -f ./pnpm-lock.yaml ] && rm ./pnpm-lock.yaml
-[ -f ./bun.lock ] && rm ./bun.lock
+rm -f package-lock.json yarn.lock pnpm-lock.yaml bun.lock
 
 ni

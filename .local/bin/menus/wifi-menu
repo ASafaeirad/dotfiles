@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-source "$HOME/.local/bin/menus/_menu"
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+source "$SCRIPT_DIR/_menu"
 
 notify-send "Getting list of available Wi-Fi networks..."
 # Get a list of available wifi connections and morph it into a nice-looking list

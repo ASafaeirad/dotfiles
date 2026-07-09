@@ -1,18 +1,14 @@
 #!/usr/bin/env bash
 
-set -x
 
 USE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/use"
 TEMP_DIR="$USE_HOME/temp"
 BIN_DIR="$USE_HOME/bin"
 TOOLS_DIR="$USE_HOME/tools/pnpm"
 
-mkdir -p "$TEMP_DIR"
-mkdir -p "$BIN_DIR"
-mkdir -p "$TOOLS_DIR"
-
 VERBOSE=false
 DELETE=false
+VERSION=
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -40,6 +36,10 @@ if [ -z "$VERSION" ]; then
   echo "  $0 latest"
   exit 1
 fi
+
+mkdir -p "$TEMP_DIR"
+mkdir -p "$BIN_DIR"
+mkdir -p "$TOOLS_DIR"
 
 function verbose() {
   if [ "$VERBOSE" = true ]; then
@@ -100,11 +100,9 @@ if [ ! -f "$DIST_BIN" ]; then
     exit 1
   fi
 
-  file "$TEMP_FILE" | grep -q 'gzip'
-
-  if [[ -n $? ]]; then 
-    tar xzf "$TEMP_FILE"
-    TEMP_FILE="${TEMP_FILE:h}/pnpm"
+  if file "$TEMP_FILE" | grep -q 'gzip'; then
+    tar xzf "$TEMP_FILE" -C "$TEMP_DIR"
+    TEMP_FILE="$(dirname "$TEMP_FILE")/pnpm"
   fi
 
   verbose "Installing pnpm..."

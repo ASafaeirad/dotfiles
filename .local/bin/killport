@@ -1,17 +1,23 @@
 #!/usr/bin/env bash
 
-REST=${@:1:$#-1}
-PORT=${@:$#}
-PROCESS=$(port "$PORT" | awk '{ print $7 }')
+if (($# == 0)); then
+  echo "Usage: killport [kill-options] <port>" >&2
+  exit 2
+fi
+
+args=("$@")
+PORT=${args[-1]}
+kill_args=("${args[@]:0:${#args[@]}-1}")
+
+PROCESS=$(port "$PORT" | awk 'NR == 2 { print $1 ":" $6 }')
 
 if [[ -z $PROCESS ]]; then
   echo "No process found on port \"$PORT\""
   exit 0
 fi
 
-NAME=$(echo $PROCESS | cut -d "/" -f2)
-PID=$(echo $PROCESS | cut -d "/" -f1)
+PID=${PROCESS%%:*}
+NAME=${PROCESS#*:}
 
 echo "Killing \"$NAME\" on port \"$PORT\""
-kill $REST $PID
-
+kill "${kill_args[@]}" "$PID"

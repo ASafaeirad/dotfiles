@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source "$HOME/.local/bin/menus/_menu"
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+source "$SCRIPT_DIR/_menu"
 SELECTED=$(_dmenu -i -p "Open")
 
 xdg-open $SELECTED

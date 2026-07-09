@@ -1,3 +1,8 @@
 #!/usr/bin/env bash
 
-ip addr show $WIFI_ADAPTOR | grep 'inet ' | awk '{ print $2 }'
+if [[ -z "${WIFI_ADAPTOR:-}" ]]; then
+  echo "WIFI_ADAPTOR is not set." >&2
+  exit 2
+fi
+
+ip addr show "$WIFI_ADAPTOR" | grep 'inet ' | awk '{ print $2 }'

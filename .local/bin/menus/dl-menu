@@ -13,7 +13,8 @@ for ((i = 0; i < limit; i++)); do
   fi
 done
 
-source "$HOME/.local/bin/menus/_menu"
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+source "$SCRIPT_DIR/_menu"
 SELECTED=$(print_list "${ITEMS[@]}" | _dmenu -i -p "Open")
 
 mkdir /tmp/dl &>/dev/null
@@ -22,4 +23,3 @@ echo "yt-dlp -o \"/tmp/dl/file.%(ext)s\" \"$SELECTED\""
 OUT=$(yt-dlp -o "/tmp/dl/file.%(ext)s" "$SELECTED")
 FILE=$(ls /tmp/dl)
 scopy "/tmp/dl/$FILE"
-

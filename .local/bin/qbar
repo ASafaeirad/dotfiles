@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-source "$HOME/.local/bin/menus/_menu"
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+source "$SCRIPT_DIR/menus/_menu"
 shopt -s nullglob globstar
 
 SCR_IMG=$(mktemp)
-echo $SCR_IMG
-trap "rm $SCR_IMG*" EXIT
+trap 'rm -f "$SCR_IMG"*' EXIT
 
 regionshot "$SCR_IMG.png" || exit 1
-OTP=$(zbarimg $SCR_IMG.png)
+OTP=$(zbarimg "$SCR_IMG.png")
 OTP=${OTP#*:}
 
 if [[ -z $OTP ]]; then
@@ -29,8 +30,8 @@ if [[ -z $PASSWORD ]]; then
   exit 0
 fi
 
-echo "$OTP" | pass otp append $PASSWORD
+echo "$OTP" | pass otp append "$PASSWORD"
 
 notify-send "OTP for $PASSWORD has been added to the password store" -u normal --expire-time=5000 --
 
-scopy "$(pass otp show $PASSWORD)"
+scopy "$(pass otp show "$PASSWORD")"

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source "$HOME/.local/bin/menus/_menu"
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+source "$SCRIPT_DIR/_menu"
 
 DIR="$HOME/devs"
 LIST=$(ls "$DIR")
@@ -11,4 +12,3 @@ SELECTED="${DIR}/${SELECTED}"
 if [[ -d "${SELECTED}" ]]; then
   code "${SELECTED}"
 fi
-

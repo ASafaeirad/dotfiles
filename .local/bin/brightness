@@ -1,9 +1,14 @@
 #!/usr/bin/env bash
 
-DEV=$(ls /sys/class/backlight/ | head -n 1)
-MAX=$(head -n 1 /sys/class/backlight/$DEV/max_brightness)
-ACTUAL=$(head -n 1 /sys/class/backlight/$DEV/actual_brightness)
+DEV=$(find /sys/class/backlight -mindepth 1 -maxdepth 1 -type l -printf '%f\n' | head -n 1)
+if [[ -z "$DEV" ]]; then
+  echo "No backlight device found." >&2
+  exit 1
+fi
+
+MAX=$(head -n 1 "/sys/class/backlight/$DEV/max_brightness")
+ACTUAL=$(head -n 1 "/sys/class/backlight/$DEV/actual_brightness")
 
 CURRENT=$(bc <<<"scale=0; $ACTUAL * 100 / $MAX")
 
-echo $CURRENT
+echo "$CURRENT"

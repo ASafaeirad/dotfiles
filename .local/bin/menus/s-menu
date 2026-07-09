@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-source "$HOME/.local/bin/menus/_menu"
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+source "$SCRIPT_DIR/_menu"
 S_USER=0
 EG_USER=1
 A_USER=2

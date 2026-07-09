@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-TARGET_LANG=$1
+TARGET_LANG=${1:-}
 SCR_IMG=$(mktemp)
-trap "rm $SCR_IMG*" EXIT
+trap 'rm -f "$SCR_IMG"*' EXIT
 
 regionshot "$SCR_IMG.png" || exit 1
 mogrify -modulate 100,0 -resize 400% "$SCR_IMG.png"
@@ -25,4 +25,4 @@ scopy "$TEXT"
 echo "$TEXT"
 popup --title "English" "$TEXT"
 
-exit
+exit 0

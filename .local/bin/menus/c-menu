@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 VISUAL=code
-source "$HOME/.local/bin/menus/_menu"
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+source "$SCRIPT_DIR/_menu"
 
 LIST=(
   Hyprland
