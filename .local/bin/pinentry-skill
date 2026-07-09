@@ -2,7 +2,7 @@
 set -u
 
 FALLBACK=${PINENTRY_FALLBACK:-/usr/bin/pinentry-gnome3}
-IPC=(qs -c ii ipc)
+IPC=(qs -c skill ipc)
 
 if ! "${IPC[@]}" show 2>/dev/null | grep -q '^target pinentry$'; then
   exec "$FALLBACK" "$@"
