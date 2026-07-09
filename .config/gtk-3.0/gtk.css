@@ -1,11 +1,7 @@
-.window-frame {
-  box-shadow: none;
-  margin: 0;
-}
-
-VteTerminal, vte-terminal {
-  padding: 15px;
-}
+/*
+* GTK colors generated with Matugen
+* The source template is here: ~/.config/matugen/templates/gtk-3.0/gtk.css
+*/
 
 /* Accents */
 @define-color accent_color #ffb4a2;
