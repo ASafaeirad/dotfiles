@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
 xdg-open "$@" </dev/null &>/dev/null &
-

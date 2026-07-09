@@ -28,20 +28,20 @@ LENGTH=10
 
 while getopts ":t:o:h" OPTION; do
   case "${OPTION}" in
-  t)
-    LENGTH=${OPTARG}
-    ;;
-  o)
-    TMP_GIF_OPTIMIZED=${OPTARG}
-    ;;
-  h)
-    print_usage
-    exit 0
-    ;;
-  *) # echo "Incorrect options provided" exit 1 ;;
-    echo "unknown option: $OPTION"
-    exit 1
-    ;;
+    t)
+      LENGTH=${OPTARG}
+      ;;
+    o)
+      TMP_GIF_OPTIMIZED=${OPTARG}
+      ;;
+    h)
+      print_usage
+      exit 0
+      ;;
+    *) # echo "Incorrect options provided" exit 1 ;;
+      echo "unknown option: $OPTION"
+      exit 1
+      ;;
   esac
 done
 

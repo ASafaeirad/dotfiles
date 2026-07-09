@@ -25,22 +25,22 @@ while [[ $# -gt 0 ]]; do
   key="$1"
 
   case $key in
-  -f | --fullscreen)
-    FULLSCREEN=true
-    shift
-    ;;
-  -a | --audio)
-    SOUND=true
-    shift
-    ;;
-  -v | --use-vcodec)
-    USE_VCODEC=true
-    shift
-    ;;
-  *)
-    POSITIONAL+=("$1") # save it in an array for later
-    shift              # past argument
-    ;;
+    -f | --fullscreen)
+      FULLSCREEN=true
+      shift
+      ;;
+    -a | --audio)
+      SOUND=true
+      shift
+      ;;
+    -v | --use-vcodec)
+      USE_VCODEC=true
+      shift
+      ;;
+    *)
+      POSITIONAL+=("$1") # save it in an array for later
+      shift              # past argument
+      ;;
   esac
 done
 

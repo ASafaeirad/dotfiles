@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 USE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/use"
 TEMP_DIR="$USE_HOME/temp"
 BIN_DIR="$USE_HOME/bin"
@@ -79,7 +78,6 @@ if [ "$DELETE" = true ]; then
   delete_cache
   exit 0
 fi
-
 
 function download_node() {
   verbose "Downloading Node.js v${VERSION}..."

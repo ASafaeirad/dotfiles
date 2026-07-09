@@ -17,4 +17,4 @@ done
 
 echo "$TEXT"
 
-zenity --text-info --title="$TITLE" <<< "$TEXT"
+zenity --text-info --title="$TITLE" <<<"$TEXT"

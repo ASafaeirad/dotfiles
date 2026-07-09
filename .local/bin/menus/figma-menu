@@ -7,7 +7,7 @@ LIST=(
 SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "SKill")
 
 case "$SELECTED" in
-"Wus")
-  xdg-open "https://www.figma.com/design/J1rkBS6nUlb0WKtMG0VjoK/FullstacksJS?node-id=3977-91&node-type=frame&t=ciVCVWulqDBY89j6-0"
-  ;;
+  "Wus")
+    xdg-open "https://www.figma.com/design/J1rkBS6nUlb0WKtMG0VjoK/FullstacksJS?node-id=3977-91&node-type=frame&t=ciVCVWulqDBY89j6-0"
+    ;;
 esac

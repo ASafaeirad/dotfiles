@@ -52,99 +52,99 @@ fn_exists() { declare -F "$1" >/dev/null; }
 SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "SKill")
 
 case "$SELECTED" in
-Monkey)
-  xdg-open https://monkeytype.com/
-  ;;
-Time)
-  xdg-open https://www.time.ir/
-  ;;
-Read)
-  # zathura "$BOOK"
-  xdg-open "https://doc.rust-lang.org/book"
-  ;;
-Figma)
-  xdg-open https://www.figma.com/files/recent?fuid=569462856030622272
-  ;;
-Edit)
-  sudo -H -u skill $TERMINAL -e nvim $HOME/.local/bin/menus/s-menu
-  ;;
-GMail)
-  _mail
-  ;;
-Calendar)
-  xdg-open https://calendar.google.com/calendar/u/$S_USER/r
-  ;;
-Day)
-  xdg-open https://www.edclub.com/sportal/program-3.game &
-  xdg-open https://github.com/ASafaeirad &
-  xdg-open https://estateguru.atlassian.net/jira/software/c/projects/GR/boards/13 &
-  xdg-open https://calendar.google.com/calendar/u/$S_USER/r &
-  slack &
-  ;;
-Arvan)
-  xdg-open https://panel.arvancloud.com/oxKYwdMtHFajxNqVZs5uyw/ecc/ir-thr-w1/servers/create#select_dc
-  ;;
-Jira)
-  xdg-open https://fullstacksjs.atlassian.net/jira/software/c/projects/FSK/boards/1?selectedIssue=FSK-36
-  ;;
-"Notion")
-  notion-app
-  ;;
-"Task")
-  task
-  ;;
-"English")
-  zathura "$BOOKS/English Grammar in Use Book.pdf"
-  ;;
-"Pronounce")
-  WORD=$(_dmenu -p "Pronounce")
-  [[ -n $WORD ]] && xdg-open "https://youglish.com/pronounce/${WORD}/english/us"
-  ;;
-"Dictionary")
-  WORD=$(_dmenu)
-  xdg-open "https://www.ldoceonline.com/dictionary/${WORD}"
-  xdg-open "https://ozdic.com/collocation/${WORD}"
-  ;;
-"Linear")
-  xdg-open "https://linear.app/fullstacksjs/team/FS/active"
-  ;;
-"Youtube Studio")
-  xdg-open "https://studio.youtube.com/channel/UCn52BXCnS1WALPsuNuo9krA"
-  ;;
-"DatoCMS")
-  xdg-open "https://fullstacks-exploration.admin.datocms.com/editor/"
-  ;;
-"Thumbnail")
-  xdg-open "https://www.figma.com/design/J1rkBS6nUlb0WKtMG0VjoK/FullstacksJS?node-id=3977-91&node-type=frame&t=HwLhNvTiLUePDtlG-0"
-  ;;
-"Linkedin")
-  xdg-open "https://www.linkedin.com/company/78366904/admin/page-posts/published/"
-  ;;
-"New Project")
-  new-menu
-  ;;
+  Monkey)
+    xdg-open https://monkeytype.com/
+    ;;
+  Time)
+    xdg-open https://www.time.ir/
+    ;;
+  Read)
+    # zathura "$BOOK"
+    xdg-open "https://doc.rust-lang.org/book"
+    ;;
+  Figma)
+    xdg-open https://www.figma.com/files/recent?fuid=569462856030622272
+    ;;
+  Edit)
+    sudo -H -u skill $TERMINAL -e nvim $HOME/.local/bin/menus/s-menu
+    ;;
+  GMail)
+    _mail
+    ;;
+  Calendar)
+    xdg-open https://calendar.google.com/calendar/u/$S_USER/r
+    ;;
+  Day)
+    xdg-open https://www.edclub.com/sportal/program-3.game &
+    xdg-open https://github.com/ASafaeirad &
+    xdg-open https://estateguru.atlassian.net/jira/software/c/projects/GR/boards/13 &
+    xdg-open https://calendar.google.com/calendar/u/$S_USER/r &
+    slack &
+    ;;
+  Arvan)
+    xdg-open https://panel.arvancloud.com/oxKYwdMtHFajxNqVZs5uyw/ecc/ir-thr-w1/servers/create#select_dc
+    ;;
+  Jira)
+    xdg-open https://fullstacksjs.atlassian.net/jira/software/c/projects/FSK/boards/1?selectedIssue=FSK-36
+    ;;
+  "Notion")
+    notion-app
+    ;;
+  "Task")
+    task
+    ;;
+  "English")
+    zathura "$BOOKS/English Grammar in Use Book.pdf"
+    ;;
+  "Pronounce")
+    WORD=$(_dmenu -p "Pronounce")
+    [[ -n $WORD ]] && xdg-open "https://youglish.com/pronounce/${WORD}/english/us"
+    ;;
+  "Dictionary")
+    WORD=$(_dmenu)
+    xdg-open "https://www.ldoceonline.com/dictionary/${WORD}"
+    xdg-open "https://ozdic.com/collocation/${WORD}"
+    ;;
+  "Linear")
+    xdg-open "https://linear.app/fullstacksjs/team/FS/active"
+    ;;
+  "Youtube Studio")
+    xdg-open "https://studio.youtube.com/channel/UCn52BXCnS1WALPsuNuo9krA"
+    ;;
+  "DatoCMS")
+    xdg-open "https://fullstacks-exploration.admin.datocms.com/editor/"
+    ;;
+  "Thumbnail")
+    xdg-open "https://www.figma.com/design/J1rkBS6nUlb0WKtMG0VjoK/FullstacksJS?node-id=3977-91&node-type=frame&t=HwLhNvTiLUePDtlG-0"
+    ;;
+  "Linkedin")
+    xdg-open "https://www.linkedin.com/company/78366904/admin/page-posts/published/"
+    ;;
+  "New Project")
+    new-menu
+    ;;
 
-"Noisli")
-  xdg-open "https://www.noisli.com/"
-  ;;
-"SVGL")
-  xdg-open "https://svgl.app/"
-  ;;
-"Twitch")
-  xdg-open "https://twitch.tv/fullstacksjs"
-  ;;
-"dl")
-  dl-menu
-  ;;
-"Knowledge Review")
-  obsidian
-  ;;
-"Translate")
-  TEXT=$(_dmenu -i -p "Translate")
-  TRANSLATED=$(transl8 "$TEXT" fa en)
-  popup --title "Persian" "$TRANSLATED"
-  ;;
- "Obs")
-  nvobs
-  ;;
+  "Noisli")
+    xdg-open "https://www.noisli.com/"
+    ;;
+  "SVGL")
+    xdg-open "https://svgl.app/"
+    ;;
+  "Twitch")
+    xdg-open "https://twitch.tv/fullstacksjs"
+    ;;
+  "dl")
+    dl-menu
+    ;;
+  "Knowledge Review")
+    obsidian
+    ;;
+  "Translate")
+    TEXT=$(_dmenu -i -p "Translate")
+    TRANSLATED=$(transl8 "$TEXT" fa en)
+    popup --title "Persian" "$TRANSLATED"
+    ;;
+  "Obs")
+    nvobs
+    ;;
 esac

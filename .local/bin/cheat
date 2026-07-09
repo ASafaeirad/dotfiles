@@ -5,5 +5,8 @@ if (($# == 0)); then
   exit 1
 fi
 
-topic=$(IFS=/; echo "$*")
+topic=$(
+  IFS=/
+  echo "$*"
+)
 curl --silent --fail "https://cheat.sh/${topic}" | less

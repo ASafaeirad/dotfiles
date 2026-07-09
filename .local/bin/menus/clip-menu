@@ -1,4 +1,3 @@
 #!/usr/bin/env bash
 
 rofi -modi clipboard:clipvault_rofi -show clipboard -show-icons
-

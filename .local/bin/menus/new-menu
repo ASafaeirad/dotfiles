@@ -12,21 +12,21 @@ LIST=(
 SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "SKill")
 
 case "$SELECTED" in
-html)
-  DIR=$(temp-playground)
-  cd "$DIR"
-  playground-html
-  ;;
-node)
-  DIR=$(temp-playground)
-  cd "$DIR"
-  echo "$DIR"
-  playground-vanilla-node
-  ;;
-next)
-  DIR=$(temp-playground)
-  cd "$DIR"
-  npx create-next-app . --use-pnpm --app --eslint --ts --import-alias="@/*" --tailwind --src-dir --turbopack
-  $VISUAL "$DIR"
-  ;;
+  html)
+    DIR=$(temp-playground)
+    cd "$DIR"
+    playground-html
+    ;;
+  node)
+    DIR=$(temp-playground)
+    cd "$DIR"
+    echo "$DIR"
+    playground-vanilla-node
+    ;;
+  next)
+    DIR=$(temp-playground)
+    cd "$DIR"
+    npx create-next-app . --use-pnpm --app --eslint --ts --import-alias="@/*" --tailwind --src-dir --turbopack
+    $VISUAL "$DIR"
+    ;;
 esac

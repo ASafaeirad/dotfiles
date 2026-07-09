@@ -5,4 +5,3 @@ if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
 else
   echo -n "$@" | xsel -ib
 fi
-

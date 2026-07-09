@@ -32,73 +32,73 @@ LIST=(
 SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "GitHub")
 
 case "$SELECTED" in
-Edit)
-  code "$HOME/.local/bin/menus/github-menu"
-  ;;
-ASafaeirad)
-  xdg-open "https://github.com/ASafaeirad/"
-  ;;
-Blackhole)
-  xdg-open "https://github.com/ASafaeirad/blackhole"
-  ;;
-NotionIcons)
-  xdg-open "https://github.com/ASafaeirad/notion-icons"
-  ;;
-NotionAutomation)
-  xdg-open "https://github.com/ASafaeirad/notion-automation"
-  ;;
-NixSkill)
-  xdg-open "https://github.com/ASafaeirad/NixSkill"
-  ;;
-Dotfiles)
-  xdg-open "https://github.com/ASafaeirad/dotfiles"
-  ;;
-CV)
-  xdg-open "https://github.com/ASafaeirad/cv"
-  ;;
-ESlintConfig)
-  xdg-open "https://github.com/fullstacksjs/eslint-config"
-  ;;
-Charity)
-  xdg-open "https://github.com/fullstacksjs/the-charity-frontend"
-  ;;
-Wakatime)
-  xdg-open "https://github.com/fullstacksjs/wakatime"
-  ;;
-FullstacksJS)
-  xdg-open "https://github.com/fullstacksjs/fullstacksjs"
-  ;;
-TSConfig)
-  xdg-open "https://github.com/fullstacksjs/tsconfig"
-  ;;
-Toolbox)
-  xdg-open "https://github.com/fullstacksjs/toolbox"
-  ;;
-Config)
-  xdg-open "https://github.com/fullstacksjs/config"
-  ;;
-NextJS)
-  xdg-open "https://github.com/vercel/next.js"
-  ;;
-"You dont know HTML")
-  xdg-open "https://github.com/fullstacksjs/you-dont-know-html"
-  ;;
-"Axios")
-  xdg-open "https://github.com/axios/axios"
-  ;;
-"VSCode theme")
-  xdg-open "https://github.com/fullstacksjs/vscode-theme/"
-  ;;
-"GitHub Bot")
-  xdg-open "https://github.com/fullstacksjs/github-bot"
-  ;;
-"npm-check-last-publish")
-  xdg-open "https://github.com/fullstacksjs/npm-check-last-publish"
-  ;;
-"Incubate")
-  xdg-open "https://github.com/ASafaeirad/incubate"
-  ;;
-"skill-shell")
-  xdg-open "https://github.com/ASafaeirad/skill-shell"
-  ;;
+  Edit)
+    code "$HOME/.local/bin/menus/github-menu"
+    ;;
+  ASafaeirad)
+    xdg-open "https://github.com/ASafaeirad/"
+    ;;
+  Blackhole)
+    xdg-open "https://github.com/ASafaeirad/blackhole"
+    ;;
+  NotionIcons)
+    xdg-open "https://github.com/ASafaeirad/notion-icons"
+    ;;
+  NotionAutomation)
+    xdg-open "https://github.com/ASafaeirad/notion-automation"
+    ;;
+  NixSkill)
+    xdg-open "https://github.com/ASafaeirad/NixSkill"
+    ;;
+  Dotfiles)
+    xdg-open "https://github.com/ASafaeirad/dotfiles"
+    ;;
+  CV)
+    xdg-open "https://github.com/ASafaeirad/cv"
+    ;;
+  ESlintConfig)
+    xdg-open "https://github.com/fullstacksjs/eslint-config"
+    ;;
+  Charity)
+    xdg-open "https://github.com/fullstacksjs/the-charity-frontend"
+    ;;
+  Wakatime)
+    xdg-open "https://github.com/fullstacksjs/wakatime"
+    ;;
+  FullstacksJS)
+    xdg-open "https://github.com/fullstacksjs/fullstacksjs"
+    ;;
+  TSConfig)
+    xdg-open "https://github.com/fullstacksjs/tsconfig"
+    ;;
+  Toolbox)
+    xdg-open "https://github.com/fullstacksjs/toolbox"
+    ;;
+  Config)
+    xdg-open "https://github.com/fullstacksjs/config"
+    ;;
+  NextJS)
+    xdg-open "https://github.com/vercel/next.js"
+    ;;
+  "You dont know HTML")
+    xdg-open "https://github.com/fullstacksjs/you-dont-know-html"
+    ;;
+  "Axios")
+    xdg-open "https://github.com/axios/axios"
+    ;;
+  "VSCode theme")
+    xdg-open "https://github.com/fullstacksjs/vscode-theme/"
+    ;;
+  "GitHub Bot")
+    xdg-open "https://github.com/fullstacksjs/github-bot"
+    ;;
+  "npm-check-last-publish")
+    xdg-open "https://github.com/fullstacksjs/npm-check-last-publish"
+    ;;
+  "Incubate")
+    xdg-open "https://github.com/ASafaeirad/incubate"
+    ;;
+  "skill-shell")
+    xdg-open "https://github.com/ASafaeirad/skill-shell"
+    ;;
 esac

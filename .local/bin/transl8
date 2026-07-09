@@ -4,19 +4,19 @@ QUERY="$1"
 TARGET="${2:-en}"
 SOURCE="${3:-auto}"
 
-
 if [[ ! -f $XDG_DATA_HOME/transl8/.key ]]; then
   echo "Missing API key file, please put your API key in \"\$XDG_DATA_HOME/transl8/.key\"" >&2
   exit 1
 fi
 
-read -r API_KEY < "${XDG_DATA_HOME}/transl8/.key"
+read -r API_KEY <"${XDG_DATA_HOME}/transl8/.key"
 
-RESPONSE=$(curl -sS -X 'POST' \
-  'http://translate.asafaeirad.com/translate' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: application/x-www-form-urlencoded' \
-  -d "q=${QUERY}&source=${SOURCE}&target=${TARGET}&api_key=${API_KEY}"
+RESPONSE=$(
+  curl -sS -X 'POST' \
+    'http://translate.asafaeirad.com/translate' \
+    -H 'accept: application/json' \
+    -H 'Content-Type: application/x-www-form-urlencoded' \
+    -d "q=${QUERY}&source=${SOURCE}&target=${TARGET}&api_key=${API_KEY}"
 )
 
 TEXT=$(echo "$RESPONSE" | jq -r '.translatedText')

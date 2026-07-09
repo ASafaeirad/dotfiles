@@ -26,7 +26,7 @@ if [[ -z "${1:-}" ]]; then
 fi
 
 PORT="${1#:}"
-if ! [[ "$PORT" =~ ^[0-9]+$ ]] || (( PORT < 1 || PORT > 65535 )); then
+if ! [[ "$PORT" =~ ^[0-9]+$ ]] || ((PORT < 1 || PORT > 65535)); then
   echo "Invalid port: $1 (expected 1-65535)" >&2
   exit 1
 fi
@@ -48,7 +48,10 @@ collect_pids() {
 
 mapfile -t pids < <(collect_pids)
 if ((${#pids[@]})); then
-  pid_csv=$(IFS=,; echo "${pids[*]}")
+  pid_csv=$(
+    IFS=,
+    echo "${pids[*]}"
+  )
   if ! ps -p "$pid_csv" -o pid,ppid,user,group,etime,cmd 2>/dev/null; then
     echo "no matching rows; processes may have exited since discovery" >&2
   fi

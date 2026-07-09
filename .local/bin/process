@@ -17,7 +17,7 @@ if [[ $(pidof $process) ]]; then
 
   # show process pid childs
   count=0
-  for pid in $(pidof $process) ; do
+  for pid in $(pidof $process); do
     ((counter++))
   done
   echo -e "\n[Child process count] : $counter\n"

@@ -6,4 +6,3 @@ sleep 1
 # xmodmap -e "keycode 9 = Caps_Lock NoSymbol Caps_Lock"
 
 setxkbmap -option caps:escape
-

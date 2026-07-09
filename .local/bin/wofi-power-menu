@@ -22,39 +22,39 @@ confirm() {
 }
 
 case $(show_menu) in
-"$shutdown")
-  confirm
-  systemctl poweroff
-  ;;
+  "$shutdown")
+    confirm
+    systemctl poweroff
+    ;;
 
-"$reboot")
-  confirm
-  systemctl reboot
-  ;;
+  "$reboot")
+    confirm
+    systemctl reboot
+    ;;
 
-"$lock")
-  if [[ -x '/usr/bin/betterlockscreen' ]]; then
-    betterlockscreen -l
-  elif [[ -x '/usr/bin/i3lock' ]]; then
-    i3lock
-  elif [[ -x '/usr/bin/Hyprland' ]]; then
-    swaylock
-  fi
-  ;;
+  "$lock")
+    if [[ -x '/usr/bin/betterlockscreen' ]]; then
+      betterlockscreen -l
+    elif [[ -x '/usr/bin/i3lock' ]]; then
+      i3lock
+    elif [[ -x '/usr/bin/Hyprland' ]]; then
+      swaylock
+    fi
+    ;;
 
-"$suspend")
-  confirm
-  mpc -q pause
-  amixer set Master mute
-  systemctl suspend
-  ;;
+  "$suspend")
+    confirm
+    mpc -q pause
+    amixer set Master mute
+    systemctl suspend
+    ;;
 
-"$hibernate")
-  confirm
-  systemctl hibernate
-  ;;
+  "$hibernate")
+    confirm
+    systemctl hibernate
+    ;;
 
-"$logout")
-  loginctl terminate-session ${XDG_SESSION_ID-}
-  ;;
+  "$logout")
+    loginctl terminate-session ${XDG_SESSION_ID-}
+    ;;
 esac

@@ -5,7 +5,7 @@ class=flyterm
 special=term
 
 function find_flyterm() {
-  hyprctl clients -j | jq -e --arg class "$class" '.[] | select(.class == $class)' >/dev/null;
+  hyprctl clients -j | jq -e --arg class "$class" '.[] | select(.class == $class)' >/dev/null
 }
 
 if find_flyterm; then
@@ -21,4 +21,3 @@ for _ in {1..40}; do
   fi
   sleep 0.05
 done
-

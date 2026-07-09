@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-killall flashfocus 2> /dev/null
+killall flashfocus 2>/dev/null
 flashfocus "$@" &

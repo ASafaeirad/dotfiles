@@ -21,40 +21,40 @@ LIST=(
 SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "Configs")
 
 case "$SELECTED" in
-Nix)
-  $VISUAL ~/.config/nix
-  ;;
-Sxhkd)
-  $VISUAL ~/.config/sxhkd/sxhkdrc
-  ;;
-Hyprland)
-  $VISUAL ~/.config/hypr
-  ;;
-Waybar)
-  $VISUAL ~/.config/waybar
-  ;;
-Rofi)
-  $VISUAL ~/.config/rofi/
-  ;;
-Bin)
-  $VISUAL ~/.local/bin/
-  ;;
-Menus)
-  $VISUAL ~/.local/bin/menus
-  ;;
-Awesome)
-  $VISUAL ~/.config/awesome
-  ;;
-XInit)
-  $VISUAL ~/.config/X11/xinitrc
-  ;;
-Alacritty)
-  $VISUAL ~/.config/alacritty
-  ;;
-Picom)
-  $VISUAL ~/.config/picom/picom.conf
-  ;;
-Edit)
-  $VISUAL ~/.local/bin/menus/c-menu
-  ;;
+  Nix)
+    $VISUAL ~/.config/nix
+    ;;
+  Sxhkd)
+    $VISUAL ~/.config/sxhkd/sxhkdrc
+    ;;
+  Hyprland)
+    $VISUAL ~/.config/hypr
+    ;;
+  Waybar)
+    $VISUAL ~/.config/waybar
+    ;;
+  Rofi)
+    $VISUAL ~/.config/rofi/
+    ;;
+  Bin)
+    $VISUAL ~/.local/bin/
+    ;;
+  Menus)
+    $VISUAL ~/.local/bin/menus
+    ;;
+  Awesome)
+    $VISUAL ~/.config/awesome
+    ;;
+  XInit)
+    $VISUAL ~/.config/X11/xinitrc
+    ;;
+  Alacritty)
+    $VISUAL ~/.config/alacritty
+    ;;
+  Picom)
+    $VISUAL ~/.config/picom/picom.conf
+    ;;
+  Edit)
+    $VISUAL ~/.local/bin/menus/c-menu
+    ;;
 esac

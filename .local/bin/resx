@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-pkill sxhkd &>/dev/null;
+pkill sxhkd &>/dev/null
 sxhkd
 notify-send 'Restart sxhkd'

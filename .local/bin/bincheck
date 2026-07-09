@@ -1,0 +1,131 @@
+#!/usr/bin/env bash
+
+ROOT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+
+cd "$ROOT"
+
+fail=0
+mode=check
+
+case "${1:-}" in
+  --format | -w)
+    mode=format
+    ;;
+  --format-check | --check-format)
+    mode=format-check
+    ;;
+  -h | --help)
+    echo "Usage: bincheck [--format|--format-check]"
+    exit 0
+    ;;
+  "")
+    ;;
+  *)
+    echo "Usage: bincheck [--format|--format-check]" >&2
+    exit 2
+    ;;
+esac
+
+warn() {
+  printf 'warning: %s\n' "$*" >&2
+}
+
+bash_files() {
+  find . -maxdepth 2 -type f \
+    -not -path './applications/*' \
+    -not -path './.git/*' \
+    -not -path './.codex/*' \
+    -not -path './.agents/*' \
+    -not -name omp \
+    -print0 |
+    while IFS= read -r -d '' file; do
+      first_line=$(head -n 1 "$file" || true)
+      case "$first_line" in
+        *bash*) printf '%s\0' "$file" ;;
+      esac
+    done
+}
+
+check_shebangs() {
+  while IFS= read -r -d '' file; do
+    [[ -x "$file" ]] || continue
+    [[ "$file" == "./omp" ]] && continue
+
+    if ! head -n 1 "$file" | grep -q '^#!'; then
+      warn "$file is executable but has no shebang"
+      fail=1
+    fi
+  done < <(find . -maxdepth 2 -type f \
+    -not -path './applications/*' \
+    -not -path './.git/*' \
+    -not -path './.codex/*' \
+    -not -path './.agents/*' \
+    -print0)
+}
+
+check_shellcheck() {
+  if ! command -v shellcheck >/dev/null 2>&1; then
+    warn "shellcheck is not installed"
+    return
+  fi
+
+  mapfile -d '' files < <(bash_files)
+
+  ((${#files[@]} == 0)) && return
+
+  if ! shellcheck -S error -x "${files[@]}"; then
+    fail=1
+  fi
+}
+
+check_bash_syntax() {
+  mapfile -d '' files < <(bash_files)
+
+  for file in "${files[@]}"; do
+    if ! bash -n "$file"; then
+      fail=1
+    fi
+  done
+}
+
+format_bash() {
+  if ! command -v shfmt >/dev/null 2>&1; then
+    warn "shfmt is not installed"
+    exit 127
+  fi
+
+  mapfile -d '' files < <(bash_files)
+  ((${#files[@]} == 0)) && return
+
+  case "$mode" in
+    format)
+      shfmt -w -i 2 -ci "${files[@]}"
+      ;;
+    format-check)
+      if ! shfmt -d -i 2 -ci "${files[@]}"; then
+        fail=1
+      fi
+      ;;
+  esac
+}
+
+check_vendor_shape() {
+  if [[ -d applications/bun/install/cache ]]; then
+    warn "applications/bun/install/cache looks generated; keep it out of manual maintenance"
+  fi
+
+  if [[ -f omp ]]; then
+    warn "omp is a binary; track its source/update process outside shell linting"
+  fi
+}
+
+if [[ "$mode" = "format" || "$mode" = "format-check" ]]; then
+  format_bash
+else
+  check_shebangs
+  check_shellcheck
+  check_bash_syntax
+  check_vendor_shape
+fi
+
+exit "$fail"

@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 USE_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/use"
 TEMP_DIR="$USE_HOME/temp"
 BIN_DIR="$USE_HOME/bin"

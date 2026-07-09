@@ -4,11 +4,11 @@ set -e
 sudo systemctl start bluetooth.service
 
 while true; do
-    if [ "$(systemctl is-active bluetooth.service)" = "active" ]; then
-        break
-    fi
+  if [ "$(systemctl is-active bluetooth.service)" = "active" ]; then
+    break
+  fi
 
-    sleep 1
+  sleep 1
 done
 
 JBL_MAC="F8:5C:7D:36:0C:7C"
