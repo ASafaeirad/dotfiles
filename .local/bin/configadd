@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
 
 git_cmd=(git "--git-dir=${XDG_CONFIG_HOME}/dotfiles.git" "--work-tree=${HOME}")
 

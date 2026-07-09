@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
 function mkinit() {
-  [[ -n $1 ]] && mkdir "$1" && cd "$1"
+  if [[ -n ${1:-} ]]; then
+    mkdir "$1"
+    cd "$1" || exit
+  fi
 
   if [[ $(pwd) == "$HOME" ]]; then
     echo >&2 "You should not run this script on your HOME directory"
@@ -152,7 +155,7 @@ EOF
       "addWords": true
     }
   ],
-  "dictionaries": ["workspace", "npm"]j,
+  "dictionaries": ["workspace", "npm"],
   "ignorePaths": ["node_modules/", "pnpm-lock.yaml", "dist/"]
 }
 EOF
