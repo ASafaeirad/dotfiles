@@ -25,6 +25,7 @@ LIST=(
   "GitHub Bot"
   "npm-check-last-publish"
   Incubate
+  skill-shell
   Edit
 )
 
@@ -96,5 +97,8 @@ NextJS)
   ;;
 "Incubate")
   xdg-open "https://github.com/ASafaeirad/incubate"
+  ;;
+"skill-shell")
+  xdg-open "https://github.com/ASafaeirad/skill-shell"
   ;;
 esac
