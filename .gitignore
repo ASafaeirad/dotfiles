@@ -61,6 +61,7 @@
 !.config/Kvantum/
 !.config/mimeapps.list
 !.config/moc/
+!.config/matugen/
 .config/moc/softmixer
 .config/moc/playlist.m3u
 .config/moc/pid
