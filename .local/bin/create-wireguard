@@ -1,7 +1,18 @@
 #!/usr/bin/env bash
 
-set -e
+if [[ -z "${1:-}" ]]; then
+  echo "Usage: create-wireguard <host>" >&2
+  exit 1
+fi
 
-ssh -t root@$1 "curl -O https://raw.githubusercontent.com/angristan/wireguard-install/master/wireguard-install.sh; chmod +x wireguard-install.sh; sudo ./wireguard-install.sh"
-scp root@$1:/root/wg0-client-iran.conf ~/desktop/iran.conf
-nmcli connection import type wireguard file ~/desktop/iran.conf
+host=$1
+remote_config=${WIREGUARD_REMOTE_CONFIG:-/root/wg0-client-iran.conf}
+local_config=${WIREGUARD_LOCAL_CONFIG:-$HOME/desktop/iran.conf}
+
+printf 'Run a remote WireGuard installer on root@%s? [y/N] ' "$host" >&2
+read -r answer
+[[ "$answer" =~ ^[Yy]$|^[Yy][Ee][Ss]$ ]] || exit 1
+
+ssh -t "root@$host" "curl -O https://raw.githubusercontent.com/angristan/wireguard-install/master/wireguard-install.sh; chmod +x wireguard-install.sh; sudo ./wireguard-install.sh"
+scp "root@$host:$remote_config" "$local_config"
+nmcli connection import type wireguard file "$local_config"

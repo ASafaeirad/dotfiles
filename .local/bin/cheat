@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
 
-curl --silent https://cheat.sh/$@ | less
+if (($# == 0)); then
+  echo "Usage: cheat <topic> [subtopic...]" >&2
+  exit 1
+fi
 
+topic=$(IFS=/; echo "$*")
+curl --silent --fail "https://cheat.sh/${topic}" | less

@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
-source "$SCRIPT_DIR/lib/common.sh"
-
 force=false
 if [[ "${1:-}" == "--force" || "${1:-}" == "-f" ]]; then
   force=true
 fi
 
 if [[ "$force" != true ]]; then
-  confirm "Remove node_modules and package manager lockfiles in $(pwd)?" || exit 1
+  printf 'Remove node_modules and package manager lockfiles in %s? [y/N] ' "$(pwd)" >&2
+  read -r answer
+  [[ "$answer" =~ ^[Yy]$|^[Yy][Ee][Ss]$ ]] || exit 1
 fi
 
 rm -rf node_modules
