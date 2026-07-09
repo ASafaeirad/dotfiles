@@ -4,6 +4,7 @@
 .claude.json
 .pulse-cookie
 .wakatime.cfg
+.nvidia-settings-rc
 
 # config
 !.config/
