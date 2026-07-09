@@ -52,7 +52,7 @@
 !.config/hyper
 !.config/hypr
 .config/hypr/hyprland/colors.lua
-.config/hypr/hyprland/colors.conf
+.config/hypr/hyprlock/colors.conf
 .config/hyper/.hyper_plugins
 !.config/i3/
 !.config/inputrc
