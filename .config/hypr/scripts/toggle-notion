@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+class=notion
+app=notion-app
+
+if ! hyprctl clients -j | jq -e --arg class "$class" '.[] | select(.class == $class)' >/dev/null; then
+  hyprctl dispatch exec "$app"
+  exit 0
+fi
+
+active_class=$(hyprctl activewindow -j | jq -r '.class // ""')
+if [[ "$active_class" == "$class" ]]; then
+  hyprctl dispatch workspace previous
+  exit 0
+fi
+
+hyprctl dispatch focuswindow "class:^($class)$"

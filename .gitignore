@@ -104,7 +104,7 @@
 .config/pi/last-changelog-version
 .config/pi/trust.json
 !.config/quickshell/
-.config/quickshell/ii
+.config/quickshell/skill
 !.config/waybar/
 
 # local
