@@ -20,9 +20,26 @@ function fn_exists() {
 }
 
 function ii_menu() {
+  local prompt="Select"
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -i)
+        shift
+        ;;
+      -p|--prompt)
+        prompt="$2"
+        shift 2
+        ;;
+      *)
+        break
+        ;;
+    esac
+  done
+  qs -c skill ipc call selector setPrompt "$prompt"
   items=$(cat | paste -sd '|')
   fifo=$(mktemp -u); mkfifo "$fifo"
-  qs -c ii ipc call selector run "$items" "$fifo"
+  qs -c skill ipc call selector run "$items" "$fifo"
   cat "$fifo"
   rm -f "$fifo"
 }
+
