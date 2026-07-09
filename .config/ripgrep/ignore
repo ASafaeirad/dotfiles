@@ -54,3 +54,6 @@ Thumbs.db
 
 # Brave
 .config/BraveSoftware/Brave-Browser/
+
+# Claude
+.config/claude/projects/
