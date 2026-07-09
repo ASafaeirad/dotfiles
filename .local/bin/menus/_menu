@@ -1,18 +1,13 @@
-function wofi_dmenu() {
-  # wofi --dmenu "$@"
-  rofi -dmenu "$@"
-}
-
-function rofi_dmenu() {
-  rofi -dmenu "$@"
-}
-
 function _dmenu() {
-
-  if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
-    wofi_dmenu "$@"
+  if [[ "${XDG_SESSION_TYPE:-}" = "wayland" ]]; then
+    ii_menu "$@"
+  elif command -v wofi >/dev/null 2>&1; then
+    wofi --dmenu "$@"
+  elif command -v rofi >/dev/null 2>&1; then
+    rofi -dmenu "$@"
   else
-    rofi_dmenu "$@"
+    echo "Neither rofi nor wofi is available." >&2
+    return 127
   fi
 }
 
@@ -22,4 +17,12 @@ function print_list() {
 
 function fn_exists() {
   declare -F "$1" >/dev/null
+}
+
+function ii_menu() {
+  items=$(cat | paste -sd '|')
+  fifo=$(mktemp -u); mkfifo "$fifo"
+  qs -c ii ipc call selector run "$items" "$fifo"
+  cat "$fifo"
+  rm -f "$fifo"
 }
