@@ -1,24 +1,52 @@
 #!/usr/bin/env bash
 
-CONNECTED_MONITORS=$(xrandr -q | grep "\bconnected" | tail -n +2 | awk '{ print $1 }')
-M_COUNT=$(echo -e $CONNECTED_MONITORS | wc -w)
-
-function get_max_res() {
-  xrandr | grep $1 -A1 | tail -1 | awk '{ print $1 }'
+function is_hyprland() {
+  [[ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]] && command -v hyprctl >/dev/null 2>&1
 }
 
-if [[ $M_COUNT = 0 ]]; then
-  xrandr --auto
-else
-  for M in "${CONNECTED_MONITORS[@]}"; do
-    RES=$(get_max_res $M)
-    xrandr --output $M --mode $RES --left-of eDP-1 &>/dev/null
+function mm_xorg() {
+  CONNECTED_MONITORS=$(xrandr -q | grep "\bconnected" | tail -n +2 | awk '{ print $1 }')
+  M_COUNT=$(echo -e $CONNECTED_MONITORS | wc -w)
+
+  function get_max_res() {
+    xrandr | grep $1 -A1 | tail -1 | awk '{ print $1 }'
+  }
+
+  if [[ $M_COUNT = 0 ]]; then
+    xrandr --auto
+  else
+    for M in "${CONNECTED_MONITORS[@]}"; do
+      RES=$(get_max_res $M)
+      xrandr --output $M --mode $RES --left-of eDP-1 &>/dev/null
+    done
+  fi
+
+  sleep 0.5
+  nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
+  nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
+}
+
+function mm_hyprland() {
+  local monitors
+  readarray -t monitors < <(hyprctl monitors all -j | jq -r '.[].name')
+
+  hyprctl keyword monitor "eDP-1,preferred,0x0,1" >/dev/null
+  for M in "${monitors[@]}"; do
+    [[ "$M" == "eDP-1" ]] && continue
+    hyprctl keyword monitor "$M,preferred,auto-left,1" >/dev/null
   done
+
+  if [[ -n "$WALLPAPER" ]] && command -v hyprpaper >/dev/null 2>&1; then
+    sleep 0.5
+    hyprctl hyprpaper preload "$WALLPAPER" >/dev/null
+    for M in $(hyprctl monitors -j | jq -r '.[].name'); do
+      hyprctl hyprpaper wallpaper "$M,$WALLPAPER" >/dev/null
+    done
+  fi
+}
+
+if is_hyprland; then
+  mm_hyprland
+else
+  mm_xorg
 fi
-
-# echo 'awesome.restart()' | awesome-client
-sleep 0.5
-nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
-nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
-
-unset $CONNECTED_MONITORS

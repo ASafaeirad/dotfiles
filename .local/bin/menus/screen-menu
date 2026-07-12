@@ -5,12 +5,61 @@ source "$SCRIPT_DIR/_menu"
 
 declare monitors
 
+function is_hyprland() {
+  [[ -n "${HYPRLAND_INSTANCE_SIGNATURE:-}" ]] && command -v hyprctl >/dev/null 2>&1
+}
+
 function read_screens() {
-  xrandr -q | grep "\bconnected" | awk '{ print $1 }'
+  if is_hyprland; then
+    hyprctl monitors all -j | jq -r '.[].name'
+  else
+    xrandr -q | grep "\bconnected" | awk '{ print $1 }'
+  fi
 }
 
 function get_max_res() {
   xrandr | grep $1 -A1 | tail -1 | awk '{ print $1 }'
+}
+
+function enable_all() {
+  if is_hyprland; then
+    for M in "${monitors[@]}"; do
+      if [[ -z "$PREV_MONITOR" ]]; then
+        hyprctl keyword monitor "$M,preferred,0x0,1" >/dev/null
+      else
+        hyprctl keyword monitor "$M,preferred,auto-left,1" >/dev/null
+      fi
+      PREV_MONITOR="$M"
+    done
+  else
+    for M in "${monitors[@]}"; do
+      if [[ -z "$PREV_MONITOR" ]]; then
+        xrandr --output $M --auto &>/dev/null
+      fi
+      xrandr --output $M --auto --left-of $PREV_MONITOR &>/dev/null
+      PREV_MONITOR="$M"
+    done
+  fi
+}
+
+function enable_only() {
+  local selected="$1"
+  if is_hyprland; then
+    hyprctl keyword monitor "$selected,preferred,0x0,1" >/dev/null
+    for M in "${monitors[@]}"; do
+      if [[ "$M" != "$selected" ]]; then
+        hyprctl keyword monitor "$M,disable" >/dev/null
+      fi
+    done
+  else
+    for M in "${monitors[@]}"; do
+      if [[ "$M" == "$selected" ]]; then
+        xrandr --output $M --auto &>/dev/null
+      else
+        xrandr --output $M --off &>/dev/null
+      fi
+    done
+  fi
 }
 
 readarray -t monitors < <(read_screens)
@@ -28,22 +77,10 @@ set -x
 case "$SELECTED" in
   "All")
     monitors=("${monitors[@]::${#monitors[@]}-1}")
-
-    for M in "${monitors[@]}"; do
-      if [[ -z "$PREV_MONITOR" ]]; then
-        xrandr --output $M --auto &>/dev/null
-      fi
-      xrandr --output $M --auto --left-of $PREV_MONITOR &>/dev/null
-      PREV_MONITOR="$M"
-    done
+    enable_all
     ;;
   *)
-    for M in "${monitors[@]}"; do
-      if [[ "$M" == "$SELECTED" ]]; then
-        xrandr --output $M --auto &>/dev/null
-      else
-        xrandr --output $M --off &>/dev/null
-      fi
-    done
+    monitors=("${monitors[@]::${#monitors[@]}-1}")
+    enable_only "$SELECTED"
     ;;
 esac
