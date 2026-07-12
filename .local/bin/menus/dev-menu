@@ -6,7 +6,11 @@ source "$SCRIPT_DIR/_menu"
 DIR="$HOME/devs"
 LIST=$(ls "$DIR")
 
-SELECTED=$(print_list "${LIST[@]}" | rofi -dmenu -i -p "Dev")
+SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "Dev")
+if [[ -z "${SELECTED}" ]]; then
+  exit 0
+fi
+
 SELECTED="${DIR}/${SELECTED}"
 
 if [[ -d "${SELECTED}" ]]; then
