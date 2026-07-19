@@ -57,3 +57,10 @@ Thumbs.db
 
 # Claude
 .config/claude/projects/
+.config/claude/file-history/
+
+# T3
+.t3/userdata/logs
+
+# Codex
+.codex/sessions/
