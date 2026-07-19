@@ -42,4 +42,3 @@ function ii_menu() {
   cat "$fifo"
   rm -f "$fifo"
 }
-

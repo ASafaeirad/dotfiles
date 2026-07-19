@@ -15,6 +15,7 @@ LIST=(
   Menus
   XInit
   Alacritty
+  Quickshell
   Edit
 )
 
@@ -53,6 +54,9 @@ case "$SELECTED" in
     ;;
   Picom)
     $VISUAL ~/.config/picom/picom.conf
+    ;;
+  Quickshell)
+    $VISUAL ~/.config/quickshell
     ;;
   Edit)
     $VISUAL ~/.local/bin/menus/c-menu
