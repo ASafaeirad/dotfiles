@@ -49,7 +49,9 @@
 .config/gtk-2.0/gtkfilechooser.ini
 !.config/gtk-2.0/gtkrc-2.0
 !.config/gtk-3.0/
+.config/gtk-3.0/gtk.css
 !.config/gtk-4.0/
+.config/gtk-4.0/gtk.css
 !.config/htop/
 !.config/hyper
 !.config/hypr
