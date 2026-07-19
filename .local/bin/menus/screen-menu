@@ -27,7 +27,7 @@ function enable_all() {
       if [[ -z "$PREV_MONITOR" ]]; then
         hyprctl keyword monitor "$M,preferred,0x0,1" >/dev/null
       else
-        hyprctl keyword monitor "$M,preferred,auto-left,1" >/dev/null
+        hyprctl keyword monitor "$M,preferred,auto-up,1" >/dev/null
       fi
       PREV_MONITOR="$M"
     done
@@ -35,8 +35,9 @@ function enable_all() {
     for M in "${monitors[@]}"; do
       if [[ -z "$PREV_MONITOR" ]]; then
         xrandr --output $M --auto &>/dev/null
+      else
+        xrandr --output $M --auto --above $PREV_MONITOR &>/dev/null
       fi
-      xrandr --output $M --auto --left-of $PREV_MONITOR &>/dev/null
       PREV_MONITOR="$M"
     done
   fi
