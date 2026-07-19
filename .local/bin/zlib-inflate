@@ -1,0 +1,5 @@
+#!/usr/bin/env -S deno run
+await Deno.stdin.readable
+  .pipeThrough(new DecompressionStream("deflate"))
+  .pipeTo(Deno.stdout.writable);
+

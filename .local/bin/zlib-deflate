@@ -1,0 +1,13 @@
+#!/usr/bin/env -S deno run
+import { constants, deflateSync } from "node:zlib";
+
+const input = new Uint8Array(
+  await new Response(Deno.stdin.readable).arrayBuffer(),
+);
+
+const compressed = deflateSync(input, {
+  level: constants.Z_BEST_SPEED,
+});
+
+await Deno.stdout.write(compressed);
+
