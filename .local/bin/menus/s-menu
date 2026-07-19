@@ -101,7 +101,7 @@ case "$SELECTED" in
     [[ -n $WORD ]] && xdg-open "https://youglish.com/pronounce/${WORD}/english/us"
     ;;
   "Dictionary")
-    WORD=$(_dmenu)
+    WORD=$(_dmenu -p "Dictionary")
     xdg-open "https://www.ldoceonline.com/dictionary/${WORD}"
     xdg-open "https://ozdic.com/collocation/${WORD}"
     ;;
