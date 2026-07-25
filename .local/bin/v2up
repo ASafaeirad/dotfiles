@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+if [[ "$1" == "-h" ]]; then
+  echo "Usage: v2up"
+  echo "Start the v2ray VLESS tunnel in the background."
+  echo "SOCKS5 proxy: 127.0.0.1:1080, HTTP proxy: 127.0.0.1:1081"
+  exit 0
+fi
+
+config="$HOME/.config/v2ray/config.json"
+pidfile="/tmp/v2ray-$UID.pid"
+
+if [[ -f "$pidfile" ]] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
+  echo "v2ray already running (pid $(cat "$pidfile"))" >&2
+  exit 1
+fi
+
+if [[ ! -f "$config" ]]; then
+  echo "Config not found: $config" >&2
+  exit 1
+fi
+
+nohup v2ray run -c "$config" >/tmp/v2ray.log 2>&1 &
+echo $! > "$pidfile"
+disown
+
+sleep 1
+if ! kill -0 "$(cat "$pidfile")" 2>/dev/null; then
+  echo "v2ray failed to start, check /tmp/v2ray.log" >&2
+  rm -f "$pidfile"
+  exit 1
+fi
+
+notify-send "VPN connected" "v2ray tunnel up (socks5://127.0.0.1:1080)" 2>/dev/null
+echo "v2ray started (pid $(cat "$pidfile"))"

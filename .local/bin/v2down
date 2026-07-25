@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [[ "$1" == "-h" ]]; then
+  echo "Usage: v2down"
+  echo "Stop the v2ray VLESS tunnel started by v2up."
+  exit 0
+fi
+
+pidfile="/tmp/v2ray-$UID.pid"
+
+if [[ ! -f "$pidfile" ]] || ! kill -0 "$(cat "$pidfile")" 2>/dev/null; then
+  echo "v2ray is not running" >&2
+  rm -f "$pidfile"
+  exit 1
+fi
+
+kill "$(cat "$pidfile")"
+rm -f "$pidfile"
+
+notify-send "VPN disconnected" "v2ray tunnel stopped" 2>/dev/null
+echo "v2ray stopped"
