@@ -33,6 +33,7 @@ LIST=(
   "Linear"
   "Youtube Studio"
   "DatoCMS"
+  "Music"
   "Thumbnail"
   "Linkedin"
   "New Project"
@@ -129,6 +130,9 @@ case "$SELECTED" in
     ;;
   "SVGL")
     xdg-open "https://svgl.app/"
+    ;;
+  "Music")
+    xdg-open "https://music.youtube.com"
     ;;
   "Twitch")
     xdg-open "https://twitch.tv/fullstacksjs"
