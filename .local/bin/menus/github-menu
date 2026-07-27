@@ -13,6 +13,7 @@ LIST=(
   Config
   CV
   ESlintConfig
+  OXLintConfig
   Charity
   Wakatime
   FullstacksJS
@@ -100,5 +101,8 @@ case "$SELECTED" in
     ;;
   "skill-shell")
     xdg-open "https://github.com/ASafaeirad/skill-shell"
+    ;;
+  "OXLintConfig")
+    xdg-open "https://github.com/fullstacksjs/oxlint-config"
     ;;
 esac
