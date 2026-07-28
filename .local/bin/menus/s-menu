@@ -43,6 +43,7 @@ LIST=(
   "dl"
   "Knowledge Review"
   "Translate"
+  "Vercel"
   "Obs"
 )
 
@@ -150,5 +151,8 @@ case "$SELECTED" in
     ;;
   "Obs")
     nvobs
+    ;;
+  "Vercel")
+    xdg-open "https://vercel.com/fullstacks"
     ;;
 esac
