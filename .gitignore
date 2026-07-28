@@ -9,6 +9,7 @@
 # config
 !.config/
 .config/*
+!.config/act/
 !.config/ack/
 !.config/alacritty
 !.config/aliasrc
