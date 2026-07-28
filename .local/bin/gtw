@@ -1,0 +1,384 @@
+#!/usr/bin/env bash
+
+# git worktree manager: bare clone + one directory per branch
+
+VISUAL=code
+set -o pipefail
+
+NO_OPEN=${GTW_NO_OPEN:-}
+ASSUME_YES=
+
+usage() {
+  echo "Usage: gtw [-n]                pick a worktree with fzf (unknown name = new branch)"
+  echo "       gtw [-n] init <url>     bare-clone a repo into ./<name>"
+  echo "       gtw [-n] <branch-name>  sync main, branch off it, open the worktree"
+  echo "       gtw rebase [branch]     rebase the current branch onto <branch> (default: main)"
+  echo "       gtw pr [branch]         open a PR against <branch> in the browser (default: main)"
+  echo "       gtw [-n] done [branch]  remove a finished worktree, then open main (default: current)"
+  echo "       gtw -h                  this help"
+  echo
+  echo "-n, --no-open  don't launch the editor; print the worktree path instead"
+  echo "               (also enabled by GTW_NO_OPEN=1 — meant for scripts and agents)"
+  echo "-y, --yes      answer the 'done' confirmation prompts with yes"
+  exit "${1:-0}"
+}
+
+die() {
+  echo "gtw: $*" >&2
+  exit 1
+}
+
+log() {
+  echo "gtw: $*" >&2
+}
+
+editor() {
+  local target=$1
+  if [[ -n $NO_OPEN ]]; then
+    echo "$target"
+    exit 0
+  fi
+  log "opening $target with $VISUAL"
+  cd "$target" || die "cannot enter \"$target\""
+  $VISUAL .
+  exit $?
+}
+
+# root of the worktree layout: the dir holding .bare/ (or the repo's parent)
+repo_root() {
+  local common
+  common=$(git rev-parse --git-common-dir 2>/dev/null) || die "not inside a git repository"
+  common=$(cd "$common" && pwd)
+  dirname "$common"
+}
+
+# short name of the remote default branch (main, master, ...)
+main_branch() {
+  local ref
+  ref=$(git symbolic-ref --quiet refs/remotes/origin/HEAD 2>/dev/null)
+  if [[ -n $ref ]]; then
+    echo "${ref#refs/remotes/origin/}"
+    return 0
+  fi
+  ref=$(git ls-remote --symref origin HEAD 2>/dev/null | awk '$1 == "ref:" { print $2; exit }')
+  if [[ -n $ref ]]; then
+    echo "${ref#refs/heads/}"
+    return 0
+  fi
+  for candidate in main master; do
+    if git show-ref --verify --quiet "refs/remotes/origin/$candidate"; then
+      echo "$candidate"
+      return 0
+    fi
+  done
+  die "cannot determine the remote default branch"
+}
+
+# seed a fresh worktree ($2) with the .env files kept in the layout root ($1)
+copy_env() {
+  local root=$1 dir=$2
+
+  shopt -s nullglob dotglob
+  local envs=("$root"/.env "$root"/.env.*)
+  shopt -u nullglob dotglob
+
+  local copied=() file
+  for file in "${envs[@]}"; do
+    [[ -f $file ]] || continue
+    cp -n "$file" "$dir/" 2>/dev/null && copied+=("${file##*/}")
+  done
+
+  ((${#copied[@]})) && log "copied ${copied[*]}"
+}
+
+# path of the worktree that has $1 checked out, empty if none
+worktree_of_branch() {
+  git worktree list --porcelain | awk -v branch="refs/heads/$1" '
+    /^worktree / { path = substr($0, 10) }
+    $0 == "branch " branch { print path; exit }
+  '
+}
+
+cmd_init() {
+  local url=$1
+  [[ -n $url ]] || usage 2
+
+  local name=${url##*/}
+  name=${name%.git}
+  [[ -n $name ]] || die "cannot derive a directory name from \"$url\""
+  [[ -e $name ]] && die "\"$name\" already exists"
+
+  log "cloning $url into $name/.bare"
+  git clone --bare "$url" "$name/.bare" >&2 || die "clone failed"
+
+  echo "gitdir: ./.bare" >"$name/.git"
+
+  git -C "$name" config remote.origin.fetch '+refs/heads/*:refs/remotes/origin/*'
+  git -C "$name" fetch origin --prune || die "fetch failed"
+  git -C "$name" remote set-head origin --auto >/dev/null 2>&1
+
+  local main
+  main=$(cd "$name" && main_branch) || exit 1
+
+  git -C "$name" worktree add "$main" "$main" >/dev/null 2>&1 ||
+    git -C "$name" worktree add -b "$main" "$main" "origin/$main" >&2 ||
+    die "could not create the $main worktree"
+
+  if [[ -n $NO_OPEN ]]; then
+    echo "$PWD/$name/$main"
+  else
+    log "ready — $PWD/$name ($main checked out)"
+  fi
+}
+
+cmd_select() {
+  local root
+  root=$(repo_root) || exit 1
+
+  local out status=0
+  out=$(git worktree list --porcelain | awk '
+    function flush() {
+      if (path != "" && !bare) printf "%-30s %s\n", branch, path
+      path = ""; bare = 0
+    }
+    /^worktree / { path = substr($0, 10); branch = "(detached)"; bare = 0 }
+    /^bare$/     { bare = 1 }
+    /^branch /   { branch = substr($0, 8); sub("refs/heads/", "", branch) }
+    /^$/         { flush() }
+    END          { flush() }
+  ' | fzf --print-query --prompt='worktree> ' \
+    --header='enter an unknown name to create it as a new branch' \
+    --preview "git -C {2} log --oneline --decorate -20") || status=$?
+
+  # 130 = aborted with esc/ctrl-c; 1 = accepted a query that matched nothing
+  ((status == 130)) && exit 0
+
+  local query selection
+  query=$(head -n 1 <<<"$out")
+  selection=$(sed -n '2p' <<<"$out")
+
+  if [[ -n $selection ]]; then
+    editor "$(awk '{ print $2 }' <<<"$selection")"
+  fi
+
+  [[ -n $query ]] || exit 0
+  cmd_branch "$query"
+}
+
+cmd_rebase() {
+  local target=$1
+
+  local current
+  current=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || die "not inside a git repository"
+  [[ $current == HEAD ]] && die "HEAD is detached"
+
+  git fetch origin --prune || die "fetch failed"
+
+  local upstream
+  if [[ -z $target ]]; then
+    local main
+    main=$(main_branch) || exit 1
+    [[ $current == "$main" ]] && die "already on $main — use git pull"
+    upstream="origin/$main"
+  else
+    [[ $current == "$target" ]] && die "\"$target\" is the current branch"
+    if git show-ref --verify --quiet "refs/remotes/origin/$target"; then
+      upstream="origin/$target"
+    elif git show-ref --verify --quiet "refs/heads/$target"; then
+      upstream=$target
+    else
+      die "no such branch: \"$target\""
+    fi
+  fi
+
+  log "rebasing $current onto $upstream"
+  git rebase "$upstream"
+}
+
+cmd_pr() {
+  local base=$1
+
+  command -v gh >/dev/null || die "gh is not installed"
+
+  local current
+  current=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || die "not inside a git repository"
+  [[ $current == HEAD ]] && die "HEAD is detached"
+
+  if [[ -z $base ]]; then
+    base=$(main_branch) || exit 1
+  elif ! git show-ref --verify --quiet "refs/remotes/origin/$base" &&
+    ! git show-ref --verify --quiet "refs/heads/$base"; then
+    die "no such branch: \"$base\""
+  fi
+  [[ $current == "$base" ]] && die "\"$current\" is the base branch — nothing to open a PR for"
+
+  if ! git rev-parse --verify --quiet "refs/remotes/origin/$current" >/dev/null; then
+    log "pushing $current to origin"
+    git push -u origin "$current" >&2 || die "push failed"
+  fi
+
+  if gh pr view "$current" --json number >/dev/null 2>&1; then
+    log "opening the existing PR for $current"
+    gh pr view "$current" --web
+  else
+    log "opening a PR: $current → $base"
+    gh pr create --web --base "$base" --head "$current"
+  fi
+}
+
+# yes/no prompt; -y (or a non-tty with -y) skips it
+confirm() {
+  [[ -n $ASSUME_YES ]] && return 0
+  [[ -t 0 ]] || die "not a terminal — pass -y to confirm"
+
+  local reply
+  read -r -p "gtw: $1 [y/N] " reply
+  [[ $reply == [yY] || $reply == [yY][eE][sS] ]]
+}
+
+cmd_done() {
+  local branch=$1
+  local root
+  root=$(repo_root) || exit 1
+
+  if [[ -z $branch ]]; then
+    branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null) || die "not inside a git repository"
+    [[ $branch == HEAD ]] && die "HEAD is detached — name the branch to clean up"
+  fi
+
+  local main
+  main=$(main_branch) || exit 1
+  [[ $branch == "$main" ]] && die "refusing to remove the $main worktree"
+
+  local dir
+  dir=$(worktree_of_branch "$branch")
+  [[ -n $dir ]] || die "no worktree for \"$branch\""
+
+  # the $main worktree may have another branch checked out — fall back to its directory
+  local main_wt
+  main_wt=$(worktree_of_branch "$main")
+  [[ -n $main_wt ]] || main_wt="$root/$main"
+  [[ $main_wt == "$dir" ]] && die "\"$branch\" is checked out in the $main worktree — switch it back first"
+  [[ -d $main_wt ]] || die "no worktree to switch to (looked for $main_wt)"
+
+  local dirty=0 unpushed=0
+  [[ -n $(git -C "$dir" status --porcelain) ]] && dirty=1
+  if git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
+    [[ -n $(git -C "$dir" log --oneline "origin/$branch..$branch" 2>/dev/null) ]] && unpushed=1
+  else
+    unpushed=1
+  fi
+
+  ((dirty)) && log "warning — \"$branch\" has uncommitted changes"
+  ((unpushed)) && log "warning — \"$branch\" has commits that are not on origin"
+
+  confirm "remove worktree $dir and delete branch \"$branch\"?" || {
+    log "aborted"
+    exit 0
+  }
+
+  local remove=(worktree remove "$dir")
+  ((dirty)) && remove=(worktree remove --force "$dir")
+  git -C "$main_wt" "${remove[@]}" || die "could not remove the worktree"
+
+  # drop the now-empty parents of a nested branch dir (feature/login -> feature/)
+  local parent=${dir%/*}
+  while [[ $parent == "$root"/* ]] && rmdir "$parent" 2>/dev/null; do
+    parent=${parent%/*}
+  done
+
+  # a plain -d fails when the branch isn't merged; we ask instead of echoing git's hint
+  if ! git -C "$main_wt" branch -d "$branch" 2>/dev/null >&2; then
+    if [[ -n $ASSUME_YES || -t 0 ]] &&
+      confirm "branch \"$branch\" is not fully merged — delete it anyway?"; then
+      git -C "$main_wt" branch -D "$branch" >&2 || log "could not delete branch \"$branch\""
+    else
+      log "kept branch \"$branch\" — delete it with: git branch -D $branch"
+    fi
+  fi
+
+  editor "$main_wt"
+}
+
+cmd_branch() {
+  local branch=$1
+  local root
+  root=$(repo_root) || exit 1
+
+  local existing
+  existing=$(worktree_of_branch "$branch")
+  if [[ -n $existing ]]; then
+    log "$branch is already checked out"
+    editor "$existing"
+  fi
+
+  local main
+  main=$(main_branch) || exit 1
+
+  log "syncing $main"
+  git fetch origin --prune || die "fetch failed"
+
+  local main_wt
+  main_wt=$(worktree_of_branch "$main")
+  if [[ -n $main_wt ]]; then
+    git -C "$main_wt" merge --ff-only "origin/$main" >/dev/null 2>&1 ||
+      log "warning — could not fast-forward the $main worktree"
+  fi
+
+  local dir="$root/$branch"
+  [[ -e $dir ]] && die "\"$dir\" already exists"
+  mkdir -p "$(dirname "$dir")"
+
+  if git show-ref --verify --quiet "refs/heads/$branch"; then
+    git worktree add "$dir" "$branch" >&2 || die "could not create the worktree"
+  elif git show-ref --verify --quiet "refs/remotes/origin/$branch"; then
+    git worktree add --track -b "$branch" "$dir" "origin/$branch" >&2 || die "could not create the worktree"
+  else
+    git worktree add -b "$branch" "$dir" "origin/$main" >&2 || die "could not create the worktree"
+  fi
+
+  copy_env "$root" "$dir"
+  editor "$dir"
+}
+
+while [[ ${1:-} == -* ]]; do
+  case "$1" in
+    -h | --help) usage 0 ;;
+    -n | --no-open)
+      NO_OPEN=1
+      shift
+      ;;
+    -y | --yes)
+      ASSUME_YES=1
+      shift
+      ;;
+    *) usage 2 ;;
+  esac
+done
+
+case "${1:-}" in
+  '') cmd_select ;;
+  init)
+    shift
+    cmd_init "${1:-}"
+    ;;
+  rebase)
+    shift
+    (($# > 1)) && usage 2
+    cmd_rebase "${1:-}"
+    ;;
+  pr)
+    shift
+    (($# > 1)) && usage 2
+    cmd_pr "${1:-}"
+    ;;
+  done)
+    shift
+    (($# > 1)) && usage 2
+    cmd_done "${1:-}"
+    ;;
+  *)
+    (($# > 1)) && usage 2
+    cmd_branch "$1"
+    ;;
+esac
