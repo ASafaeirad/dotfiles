@@ -1,10 +1,6 @@
 -- Animation curves and tree. (was animation.conf)
 
-hl.config({
-    animations = {
-        enabled = true,
-    },
-})
+hl.config({ animations = { enabled = true, }, })
 
 hl.curve("easeInOutSine", { type = "bezier", points = { { 0.37, 0 }, { 0.63, 1 } } })
 hl.curve("overshot", { type = "bezier", points = { { 0.13, 0.99 }, { 0.29, 1.1 } } })
