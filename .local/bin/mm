@@ -20,10 +20,6 @@ function mm_xorg() {
       xrandr --output $M --mode $RES --left-of eDP-1 &>/dev/null
     done
   fi
-
-  sleep 0.5
-  nitrogen --head=0 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
-  nitrogen --head=1 --set-zoom-fill "$WALLPAPER" --set-color="$BG_COLOR" 2>/dev/null
 }
 
 function mm_hyprland() {
@@ -35,14 +31,6 @@ function mm_hyprland() {
     [[ "$M" == "eDP-1" ]] && continue
     hyprctl keyword monitor "$M,preferred,auto-left,1" >/dev/null
   done
-
-  if [[ -n "$WALLPAPER" ]] && command -v hyprpaper >/dev/null 2>&1; then
-    sleep 0.5
-    hyprctl hyprpaper preload "$WALLPAPER" >/dev/null
-    for M in $(hyprctl monitors -j | jq -r '.[].name'); do
-      hyprctl hyprpaper wallpaper "$M,$WALLPAPER" >/dev/null
-    done
-  fi
 }
 
 if is_hyprland; then
