@@ -8,23 +8,30 @@ function find_flyterm() {
   hyprctl clients -j | jq -e --arg class "$class" '.[] | select(.class == $class)' >/dev/null
 }
 
+# The lua config manager dropped `hyprctl keyword`; runtime config changes go
+# through `hyprctl eval` with the hl.* api instead.
+function set_special_animation() {
+  local bezier=$1 style=$2 out_speed=$3 leaf
+
+  for leaf in specialWorkspace specialWorkspaceIn; do
+    hyprctl eval "hl.animation({ leaf = '$leaf', enabled = true, speed = 1, bezier = '$bezier', style = '$style' })" >/dev/null
+  done
+  hyprctl eval "hl.animation({ leaf = 'specialWorkspaceOut', enabled = true, speed = $out_speed, bezier = '$bezier', style = '$style' })" >/dev/null
+}
+
 function flyterm_animation() {
-  # togglespecialworkspace animates the specialWorkspace node itself. Override
-  # it as well as its children so it cannot inherit the normal horizontal slide.
-  hyprctl keyword animation "specialWorkspace,    1, 1, overshot, slidevert -100%" >/dev/null
-  hyprctl keyword animation "specialWorkspaceIn,  1, 1, overshot, slidevert -100%" >/dev/null
-  hyprctl keyword animation "specialWorkspaceOut, 1, 2, overshot, slidevert -100%" >/dev/null
+  # toggle_special animates the specialWorkspace node itself. Override it as
+  # well as its children so it cannot inherit the normal horizontal slide.
+  set_special_animation overshot "slidevert -100%" 2
 }
 
 function normal_animation() {
-  hyprctl keyword animation "specialWorkspace,    1, 1, easeOutQuart, slide" >/dev/null
-  hyprctl keyword animation "specialWorkspaceIn,  1, 1, easeOutQuart, slide" >/dev/null
-  hyprctl keyword animation "specialWorkspaceOut, 1, 1, easeOutQuart, slide" >/dev/null
+  set_special_animation easeOutQuart slide 1
 }
 
 function toggle_term() {
   flyterm_animation
-  hyprctl dispatch togglespecialworkspace "$special" || {
+  hyprctl dispatch "hl.dsp.workspace.toggle_special('$special')" || {
     normal_animation
     return 1
   }
@@ -37,7 +44,7 @@ if find_flyterm; then
   exit 0
 fi
 
-hyprctl dispatch exec flyterm
+hyprctl dispatch 'hl.dsp.exec_cmd("flyterm")'
 
 for _ in {1..40}; do
   if find_flyterm; then

@@ -15,7 +15,7 @@ windows="$(printf '%s' "$workspace_json" | jq -r '.windows // 0')"
 fullscreen="$(printf '%s' "$active_window_json" | jq -r '.fullscreen // 0')"
 
 if [ "$windows" -gt 1 ] && [ "$fullscreen" -ne 0 ]; then
-  hyprctl --batch "dispatch fullscreenstate 0 0; dispatch movefocus $direction" >/dev/null
+  hyprctl --batch "dispatch hl.dsp.window.fullscreen_state({ internal = 0, client = 0 }); dispatch hl.dsp.focus({ direction = '$direction' })" >/dev/null
 else
-  hyprctl dispatch movefocus "$direction" >/dev/null
+  hyprctl dispatch "hl.dsp.focus({ direction = '$direction' })" >/dev/null
 fi
