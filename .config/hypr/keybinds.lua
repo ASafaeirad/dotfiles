@@ -81,6 +81,7 @@ hl.bind(mainMod .. " + n", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-notion
 
 -- ---- Shell (quickshell) ----
 hl.bind(mainMod .. " + slash", hl.dsp.exec_cmd("qs -c skill ipc call cheatsheet toggle"))
+hl.bind(mainMod .. " + CTRL + comma", hl.dsp.exec_cmd("qs -p ~/.config/quickshell/skill/settings.qml"))
 hl.bind(mainMod .. " + CTRL + w", hl.dsp.exec_cmd("qs -c skill ipc call wallpaperSelector toggle"))
 hl.bind(mainMod .. " + CTRL + period", hl.dsp.exec_cmd("qs -c skill ipc call sidebarRight toggle"))
 hl.bind(mainMod .. " + SHIFT + t", hl.dsp.exec_cmd("flyterm"))
