@@ -16,7 +16,7 @@ gmail() {
 }
 
 DEVS="$HOME/devs"
-alias tg='cd $HOME/downloads/Telegram\ Desktop'
+alias tg='cd $HOME/downloads/tg'
 alias dwn='cd $HOME/downloads'
 alias dnd='cd $DEVS/dnd'
 alias docs='cd $HOME/docs/'
