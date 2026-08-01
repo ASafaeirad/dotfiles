@@ -1,5 +1,3 @@
--- Animation curves and tree. (was animation.conf)
-
 hl.config({ animations = { enabled = true, }, })
 
 hl.curve("easeInOutSine", { type = "bezier", points = { { 0.37, 0 }, { 0.63, 1 } } })

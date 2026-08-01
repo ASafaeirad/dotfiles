@@ -1,5 +1,3 @@
--- Input, look & feel, layouts, misc. (was general.conf)
-
 hl.config({
     input = {
         kb_layout    = "us,ir",

@@ -1,4 +1,3 @@
--- Window rules. (was windowrules.conf)
 -- Rules are evaluated top to bottom, so order matters.
 
 hl.window_rule({ match = { class = "^([Bb]rave-browser|[Ff]irefox|[Cc]hromium|[Ff]irefox Beta)$" }, workspace = "2" })

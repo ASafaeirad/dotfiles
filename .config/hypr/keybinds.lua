@@ -1,5 +1,3 @@
--- Keybinds. (was keybinds.conf)
-
 local mainMod = "SUPER"
 local hyper   = mainMod .. " + SHIFT + CTRL + ALT"
 
