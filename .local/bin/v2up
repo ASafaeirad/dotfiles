@@ -7,7 +7,9 @@ if [[ "$1" == "-h" ]]; then
   exit 0
 fi
 
-config="$HOME/.config/v2ray/config.json"
+CONFIG=${1:-config}
+
+config="$HOME/.config/v2ray/$CONFIG.json"
 pidfile="/tmp/v2ray-$UID.pid"
 
 if [[ -f "$pidfile" ]] && kill -0 "$(cat "$pidfile")" 2>/dev/null; then
