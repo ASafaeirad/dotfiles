@@ -1,10 +1,10 @@
 {
-  "lastChangelogVersion": "0.79.10",
+  "lastChangelogVersion": "0.83.0",
   "theme": "dark",
   "packages": [
     "npm:@ollama/pi-web-search"
   ],
-  "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.4",
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gemini-3-flash-preview",
   "defaultThinkingLevel": "high"
 }
