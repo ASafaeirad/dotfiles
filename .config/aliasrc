@@ -134,7 +134,6 @@ alias reload='source $XDG_CONFIG_HOME/aliasrc && source $XDG_CONFIG_HOME/bookmar
 alias xreload='xrdb $XDG_CONFIG_HOME/X11/Xresources'
 
 # file system
-alias ls='ls --color'
 alias lsa='ls -lAF --group-directories-first'
 alias lless='l | less'
 alias laless='ll | less'
