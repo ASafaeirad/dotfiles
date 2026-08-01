@@ -20,6 +20,8 @@ end
 -- ---- Session / WM control ----
 hl.bind(mainMod .. " + SHIFT + q", hl.dsp.window.close())
 hl.bind(hyper .. " + q", hl.dsp.window.close())
+hl.bind(mainMod .. " + ALT + g", hl.dsp.exec_cmd("qs -c skill ipc call overlay toggle"))
+hl.bind(mainMod .. " + ALT + k", hl.dsp.exec_cmd("qs -c skill ipc call keyDisplay toggle"))
 
 hl.bind(mainMod .. " + h", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-unfullscreen l"))
 hl.bind(mainMod .. " + j", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-unfullscreen d"))
