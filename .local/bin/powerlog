@@ -49,8 +49,23 @@ read_upower() {
 }
 
 read_refresh() {
-  hyprctl monitors -j 2>/dev/null \
-    | jq -r 'map(select(.focused)) | first | .refreshRate // empty' 2>/dev/null \
+  # A Hyprland restart mints a new instance signature. A sampler that inherited the old one
+  # talks to a socket that no longer exists and silently logs an empty refresh_hz -- which is
+  # indistinguishable downstream from a real reading, in the one column the refresh-rate
+  # analysis rests on. Recover by trying the most recent live instance instead.
+  local sig json
+  json=$(hyprctl monitors -j 2>/dev/null)
+  if [[ $json != \[* ]]; then
+    for sig in $(ls -1t "${XDG_RUNTIME_DIR:-/run/user/$UID}/hypr" 2>/dev/null); do
+      json=$(HYPRLAND_INSTANCE_SIGNATURE="$sig" hyprctl monitors -j 2>/dev/null)
+      [[ $json == \[* ]] && break
+    done
+  fi
+  [[ $json == \[* ]] || return
+
+  # No monitor reports focus during some transitions (resume, VT switch); any monitor's
+  # refresh rate beats no reading at all.
+  jq -r '((map(select(.focused)) | first) // .[0] | .refreshRate) // empty' <<<"$json" 2>/dev/null \
     | awk 'NR==1 { printf "%.0f", $0 }'
 }
 

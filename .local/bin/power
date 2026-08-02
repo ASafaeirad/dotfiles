@@ -33,6 +33,23 @@ usage() {
 
 # --- state readers ----------------------------------------------------------
 
+ensure_hypr_instance() {
+  # A Hyprland restart mints a new instance signature. Anything holding the old one -- a
+  # long-lived terminal, a systemd user unit, whatever spawned us -- talks to a socket that no
+  # longer exists. Every hyprctl call below then fails, and because set_refresh verifies by
+  # re-reading, `power` would report a refresh failure it never actually had.
+  hyprctl monitors -j 2>/dev/null | grep -q '^\[' && return 0
+
+  local sig
+  for sig in $(ls -1t "${XDG_RUNTIME_DIR:-/run/user/$UID}/hypr" 2>/dev/null); do
+    if HYPRLAND_INSTANCE_SIGNATURE="$sig" hyprctl monitors -j 2>/dev/null | grep -q '^\['; then
+      export HYPRLAND_INSTANCE_SIGNATURE="$sig"
+      return 0
+    fi
+  done
+  return 1
+}
+
 on_ac() {
   local f
   for f in /sys/class/power_supply/A{C,CAD,DP*}/online; do
@@ -118,6 +135,8 @@ battery() {
 }
 
 # --- dispatch ---------------------------------------------------------------
+
+ensure_hypr_instance || echo "power: no reachable Hyprland instance; refresh rate unavailable" >&2
 
 case "${1:-status}" in
   status) status ;;
