@@ -1,0 +1,8 @@
+[Unit]
+Description=Sample power draw and its likely explanators to CSV
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/powerlog
+Nice=19
+IOSchedulingClass=idle

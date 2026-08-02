@@ -1,0 +1,12 @@
+[Unit]
+Description=Sample power draw every minute
+
+[Timer]
+# UPower only refreshes its energy-rate estimate every ~30s; sampling faster than
+# that just duplicates rows, so 60s is the floor worth using.
+OnActiveSec=30s
+OnUnitActiveSec=60s
+AccuracySec=5s
+
+[Install]
+WantedBy=timers.target

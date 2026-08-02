@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+
+# Samples power draw and the things that plausibly explain it, one CSV row per run.
+# Driven by a systemd --user timer; also runnable by hand with -1.
+#
+# HARD CONSTRAINT: never call nvidia-smi (or any NVML consumer) from here. Querying the
+# discrete GPU wakes it out of runtime suspend, which corrupts the very measurement this
+# script exists to take. dGPU state is read from sysfs only.
+
+set -uo pipefail
+
+LOGDIR="${XDG_DATA_HOME:-$HOME/.local/share}/powerlog"
+LOGFILE=""
+ONESHOT=0
+
+HEADER="timestamp,energy_rate_w,percentage,state,refresh_hz,backlight_pct,dgpu,profile,top_proc"
+
+if [[ "${1:-}" == "-h" ]]; then
+  echo "Usage: powerlog [-1] [-f <file>]"
+  echo "-1          print one sample to stdout instead of appending to the log"
+  echo "-f <file>   log file to append to (default: $LOGDIR/YYYY-MM.csv)"
+  echo ""
+  echo "Emits: $HEADER"
+  echo "Empty fields mean that input was unreadable; the column count never changes."
+  exit 0
+fi
+
+while (( $# )); do
+  case "$1" in
+    -1) ONESHOT=1; shift ;;
+    -f)
+      [[ -n "${2:-}" ]] || { echo "powerlog: -f needs a file argument" >&2; exit 1; }
+      LOGFILE="$2"; shift 2 ;;
+    *) echo "powerlog: unknown argument '$1' (try -h)" >&2; exit 1 ;;
+  esac
+done
+
+# --- collectors -------------------------------------------------------------
+# Every collector must emit exactly one field, empty on failure. Never let a missing
+# input crash the sampler or shift the row.
+
+battery_device() {
+  upower -e 2>/dev/null | grep -m1 'battery_' || true
+}
+
+read_upower() {
+  # $1 = field name as upower prints it. Strips trailing unit/percent.
+  awk -v key="$1" '$1 == key":" { print $2; exit }' <<<"$UPOWER_DUMP" | tr -d '%'
+}
+
+read_refresh() {
+  hyprctl monitors -j 2>/dev/null \
+    | jq -r 'map(select(.focused)) | first | .refreshRate // empty' 2>/dev/null \
+    | awk 'NR==1 { printf "%.0f", $0 }'
+}
+
+read_backlight() {
+  # brightnessctl -m: <device>,<class>,<current>,<pct>,<max>
+  brightnessctl -m 2>/dev/null | awk -F, 'NR==1 { gsub(/%/,"",$4); print $4 }'
+}
+
+read_dgpu() {
+  local dev vendor class
+  for dev in /sys/bus/pci/devices/*/; do
+    [[ -r "$dev/vendor" && -r "$dev/class" ]] || continue
+    vendor=$(<"$dev/vendor")
+    class=$(<"$dev/class")
+    [[ $vendor == 0x10de && $class == 0x030000 ]] || continue
+    [[ -r "$dev/power/runtime_status" ]] && printf '%s' "$(<"$dev/power/runtime_status")"
+    return
+  done
+}
+
+read_profile() {
+  [[ -r /sys/firmware/acpi/platform_profile ]] || return
+  printf '%s' "$(</sys/firmware/acpi/platform_profile)"
+}
+
+read_top_proc() {
+  # Highest-CPU process name, so a high-draw sample can be attributed to something.
+  # Skips this script's own pipeline. Commas stripped: they would shift the CSV row.
+  ps -eo pcpu,comm --sort=-pcpu --no-headers 2>/dev/null \
+    | awk '$2 != "ps" && $2 != "awk" && $2 != "powerlog" { gsub(/,/,"",$2); print $2; exit }'
+}
+
+# --- sample -----------------------------------------------------------------
+
+BATTERY=$(battery_device)
+if [[ -n "$BATTERY" ]]; then
+  UPOWER_DUMP=$(upower -i "$BATTERY" 2>/dev/null)
+else
+  UPOWER_DUMP=""
+fi
+
+TIMESTAMP=$(date -Is)
+RATE=$(read_upower "energy-rate")
+PERCENTAGE=$(read_upower "percentage")
+STATE=$(read_upower "state")
+REFRESH=$(read_refresh)
+BACKLIGHT=$(read_backlight)
+DGPU=$(read_dgpu)
+PROFILE=$(read_profile)
+TOPPROC=$(read_top_proc)
+
+ROW="$TIMESTAMP,$RATE,$PERCENTAGE,$STATE,$REFRESH,$BACKLIGHT,$DGPU,$PROFILE,$TOPPROC"
+
+if (( ONESHOT )); then
+  echo "$HEADER"
+  echo "$ROW"
+  exit 0
+fi
+
+if [[ -z "$LOGFILE" ]]; then
+  LOGFILE="$LOGDIR/$(date +%Y-%m).csv"
+fi
+
+mkdir -p "$(dirname "$LOGFILE")" || { echo "powerlog: cannot create $(dirname "$LOGFILE")" >&2; exit 1; }
+
+# If the schema changed since this file was started, rotate rather than append rows with a
+# different column count than the header claims. Downstream readers rely on that invariant.
+if [[ -s "$LOGFILE" ]]; then
+  EXISTING=$(head -n 1 "$LOGFILE")
+  if [[ "$EXISTING" != "$HEADER" ]]; then
+    mv -- "$LOGFILE" "$LOGFILE.$(date +%Y%m%dT%H%M%S).oldschema"
+  fi
+fi
+
+[[ -s "$LOGFILE" ]] || echo "$HEADER" >>"$LOGFILE"
+echo "$ROW" >>"$LOGFILE"

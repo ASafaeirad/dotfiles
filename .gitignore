@@ -92,6 +92,7 @@
 !.config/ripgrep/
 !.config/rofi/
 !.config/sxhkd
+!.config/systemd
 !.config/termite/
 !.config/tmux/
 .config/tmux/plugins

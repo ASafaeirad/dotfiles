@@ -56,7 +56,7 @@ case "$SELECTED" in
     $VISUAL ~/.config/picom/picom.conf
     ;;
   Quickshell)
-    $VISUAL ~/.config/quickshell
+    $VISUAL ~/.config/quickshell/skill
     ;;
   Edit)
     $VISUAL ~/.local/bin/menus/c-menu
