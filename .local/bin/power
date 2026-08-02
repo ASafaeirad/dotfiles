@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+
+# Single source of truth for AC/battery power policy. Idempotent: safe to run repeatedly,
+# and a no-op when the system already matches the requested state.
+#
+# Every privileged write goes through a daemon that already runs as root (power-profiles-daemon,
+# asusd) or through the compositor. This script never writes sysfs directly and never needs sudo.
+
+set -uo pipefail
+
+MONITOR="eDP-1"
+RESOLUTION="2560x1600"
+POSITION="0x0"
+SCALE="1"
+VRR="1"
+
+AC_PROFILE="balanced"
+AC_REFRESH="240"
+BATTERY_PROFILE="power-saver"
+BATTERY_REFRESH="60"
+
+usage() {
+  echo "Usage: power [status|ac|battery|auto|profile <name>]"
+  echo "status          show current power state (default)"
+  echo "ac              apply AC policy      ($AC_PROFILE, ${AC_REFRESH}Hz)"
+  echo "battery         apply battery policy ($BATTERY_PROFILE, ${BATTERY_REFRESH}Hz)"
+  echo "auto            detect power source and apply the matching policy"
+  echo "profile <name>  set profile manually (performance|balanced|power-saver)"
+  echo "-h              show this help"
+}
+
+[[ "${1:-}" == "-h" ]] && { usage; exit 0; }
+
+# --- state readers ----------------------------------------------------------
+
+on_ac() {
+  local f
+  for f in /sys/class/power_supply/A{C,CAD,DP*}/online; do
+    [[ -r "$f" ]] && [[ "$(<"$f")" == "1" ]] && return 0
+  done
+  return 1
+}
+
+current_profile() { powerprofilesctl get 2>/dev/null; }
+
+current_refresh() {
+  hyprctl monitors -j 2>/dev/null \
+    | jq -r --arg m "$MONITOR" '.[] | select(.name==$m) | .refreshRate // empty' 2>/dev/null \
+    | awk 'NR==1 { printf "%.0f", $0 }'
+}
+
+# --- actions ----------------------------------------------------------------
+
+set_profile() {
+  local want="$1"
+  [[ "$(current_profile)" == "$want" ]] && return 0
+  powerprofilesctl set "$want" 2>/dev/null || {
+    echo "power: failed to set profile '$want'" >&2
+    return 1
+  }
+  return 0
+}
+
+set_refresh() {
+  local want="$1"
+  [[ "$(current_refresh)" == "$want" ]] && return 0
+
+  # This config uses Hyprland's Lua parser, which disables `hyprctl keyword`
+  # ("keyword can't work with non-legacy parsers. Use eval."). The Lua equivalent is
+  # hl.monitor(), matching how .config/hypr/quickshell/monitors.lua declares the output.
+  hyprctl eval "hl.monitor({ output = \"$MONITOR\", mode = \"$RESOLUTION@${want}.00\", position = \"$POSITION\", scale = $SCALE, vrr = $VRR })" >/dev/null 2>&1
+
+  # hyprctl exits 0 even when it refuses the command, so verify the change actually landed
+  # rather than trusting the exit code.
+  sleep 1
+  if [[ "$(current_refresh)" != "$want" ]]; then
+    echo "power: failed to set refresh rate to ${want}Hz (still $(current_refresh)Hz)" >&2
+    return 1
+  fi
+  return 0
+}
+
+apply() {
+  local label="$1" profile="$2" refresh="$3" changed=0
+
+  [[ "$(current_profile)" != "$profile" ]] && changed=1
+  [[ "$(current_refresh)" != "$refresh" ]] && changed=1
+
+  set_profile "$profile"
+  set_refresh "$refresh"
+
+  if (( changed )); then
+    notify-send "Power: $label" "$profile · ${refresh}Hz" \
+      -a "power" -h "string:x-canonical-private-synchronous:power-policy" 2>/dev/null
+  fi
+
+  echo "$label: $(current_profile) · $(current_refresh)Hz"
+}
+
+status() {
+  local src dgpu
+  src=$(on_ac && echo "AC" || echo "battery")
+  dgpu=$(cat /sys/bus/pci/devices/0000:01:00.0/power/runtime_status 2>/dev/null)
+  echo "source:   $src"
+  echo "profile:  $(current_profile)"
+  echo "platform: $(cat /sys/firmware/acpi/platform_profile 2>/dev/null)"
+  echo "epp:      $(cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference 2>/dev/null)"
+  echo "refresh:  $(current_refresh)Hz"
+  echo "dgpu:     ${dgpu:-unknown}"
+  battery 2>/dev/null | sed 's/^/battery:  /' || true
+}
+
+battery() {
+  local dev
+  dev=$(upower -e 2>/dev/null | grep -m1 'battery_') || return 1
+  upower -i "$dev" 2>/dev/null \
+    | awk '/percentage:/ {p=$2} /state:/ {s=$2} /energy-rate:/ {r=$2} END {printf "%s %s (%.1f W)\n", p, s, r}'
+}
+
+# --- dispatch ---------------------------------------------------------------
+
+case "${1:-status}" in
+  status) status ;;
+  ac)      apply "AC" "$AC_PROFILE" "$AC_REFRESH" ;;
+  battery) apply "Battery" "$BATTERY_PROFILE" "$BATTERY_REFRESH" ;;
+  auto)
+    if on_ac; then
+      apply "AC" "$AC_PROFILE" "$AC_REFRESH"
+    else
+      apply "Battery" "$BATTERY_PROFILE" "$BATTERY_REFRESH"
+    fi
+    ;;
+  profile)
+    [[ -n "${2:-}" ]] || { echo "power: profile needs a name (try -h)" >&2; exit 1; }
+    set_profile "$2" || exit 1
+    echo "profile: $(current_profile)"
+    ;;
+  *) echo "power: unknown command '${1}' (try -h)" >&2; exit 1 ;;
+esac
