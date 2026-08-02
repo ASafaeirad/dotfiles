@@ -18,8 +18,6 @@ end
 -- ---- Session / WM control ----
 hl.bind(mainMod .. " + SHIFT + q", hl.dsp.window.close())
 hl.bind(hyper .. " + q", hl.dsp.window.close())
-hl.bind(mainMod .. " + ALT + g", hl.dsp.exec_cmd("qs -c skill ipc call overlay toggle"))
-hl.bind(mainMod .. " + ALT + k", hl.dsp.exec_cmd("qs -c skill ipc call keyDisplay toggle"))
 
 hl.bind(mainMod .. " + h", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-unfullscreen l"))
 hl.bind(mainMod .. " + j", hl.dsp.exec_cmd("~/.config/hypr/scripts/focus-or-unfullscreen d"))
@@ -80,10 +78,9 @@ hl.bind(mainMod .. " + F9", hl.dsp.exec_cmd("telegram-desktop"))
 hl.bind(mainMod .. " + n", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-notion"))
 
 -- ---- Shell (quickshell) ----
-hl.bind(mainMod .. " + slash", hl.dsp.exec_cmd("qs -c skill ipc call cheatsheet toggle"))
-hl.bind(mainMod .. " + CTRL + comma", hl.dsp.exec_cmd("qs -p ~/.config/quickshell/skill/settings.qml"))
-hl.bind(mainMod .. " + CTRL + w", hl.dsp.exec_cmd("qs -c skill ipc call wallpaperSelector toggle"))
 hl.bind(mainMod .. " + CTRL + period", hl.dsp.exec_cmd("qs -c skill ipc call sidebarRight toggle"))
+hl.bind(mainMod .. " + ALT + g", hl.dsp.exec_cmd("qs -c skill ipc call overlay toggle"))
+hl.bind(mainMod .. " + ALT + k", hl.dsp.exec_cmd("qs -c skill ipc call keyDisplay toggle"))
 hl.bind(mainMod .. " + SHIFT + t", hl.dsp.exec_cmd("flyterm"))
 
 hl.bind(mainMod .. " + SHIFT + Space", hl.dsp.exec_cmd("qs -c skill ipc call search toggle"))
@@ -99,7 +96,6 @@ local menus = {
     c = "c-menu",
     o = "open-menu",
     s = "power-menu",
-    w = "wifi-menu",
     y = "youtube-menu",
     i = "screen-menu",
     x = "dev-menu",
@@ -111,15 +107,23 @@ for key, cmd in pairs(menus) do
 end
 
 -- ---- Tools ----
-hl.bind(mainMod .. " + CTRL + x", hl.dsp.exec_cmd("hyprctl kill")) -- was xkill
-hl.bind(mainMod .. " + CTRL + m", hl.dsp.exec_cmd("pavucontrol"))
-hl.bind(mainMod .. " + CTRL + c", hl.dsp.exec_cmd("hyprpicker -a"))
-hl.bind(mainMod .. " + CTRL + b", hl.dsp.exec_cmd("book"))
-hl.bind(mainMod .. " + CTRL + n", hl.dsp.exec_cmd("notion-app"))
-hl.bind(mainMod .. " + CTRL + s", hl.dsp.exec_cmd("ocr"))
-hl.bind(mainMod .. " + CTRL + q", hl.dsp.exec_cmd("qbar"))
-hl.bind(mainMod .. " + CTRL + t", hl.dsp.exec_cmd("ocr en"))
-hl.bind(mainMod .. " + CTRL + p", hl.dsp.exec_cmd("qs -c skill ipc call region screenshot"))
+local tools = {
+    x = "hyprctl kill", -- was xkill
+    m = "pavucontrol",
+    c = "hyprpicker -a",
+    b = "book",
+    n = "notion-app",
+    q = "qbar",
+    s = "ocr",
+    t = "ocr en",
+    p = "qs -c skill ipc call region screenshot",
+    comma = "qs -p ~/.config/quickshell/skill/settings.qml",
+}
+
+for key, cmd in pairs(tools) do
+    hl.bind(mainMod .. " + CTRL + " .. key, hl.dsp.exec_cmd(cmd))
+end
+
 hl.bind(mainMod .. " + CTRL + r", hl.dsp.exec_cmd("regionrecord"))
 hl.bind(mainMod .. " + CTRL + SHIFT + r", hl.dsp.exec_cmd("regionrecord -s"))
 
