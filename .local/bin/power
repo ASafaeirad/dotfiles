@@ -18,13 +18,19 @@ AC_PROFILE="balanced"
 AC_REFRESH="240"
 BATTERY_PROFILE="power-saver"
 BATTERY_REFRESH="60"
+PERFORMANCE_PROFILE="performance"
 
 usage() {
-  echo "Usage: power [status|ac|battery|auto|profile <name>]"
+  echo "Usage: power [status|ac|battery|auto|mode <name>|profile <name>]"
   echo "status          show current power state (default)"
   echo "ac              apply AC policy      ($AC_PROFILE, ${AC_REFRESH}Hz)"
   echo "battery         apply battery policy ($BATTERY_PROFILE, ${BATTERY_REFRESH}Hz)"
   echo "auto            detect power source and apply the matching policy"
+  echo "mode <name>     apply a user-selected mode (auto|performance|powersaver)"
+  echo "                  auto         follow the power source, as 'auto'"
+  echo "                  performance  pin $PERFORMANCE_PROFILE + ${AC_REFRESH}Hz on both sources"
+  echo "                  powersaver   pin $BATTERY_PROFILE on both sources;"
+  echo "                               refresh rate still follows the source"
   echo "profile <name>  set profile manually (performance|balanced|power-saver)"
   echo "-h              show this help"
 }
@@ -114,6 +120,44 @@ apply() {
   echo "$label: $(current_profile) · $(current_refresh)Hz"
 }
 
+# User-selected mode, as opposed to raw source-following policy. The shell's power-profile
+# toggle cycles these three and hands the name straight here, so the meaning of each mode
+# stays in this script rather than being duplicated in QML.
+mode() {
+  case "${1:-}" in
+    auto)
+      if on_ac; then
+        apply "AC" "$AC_PROFILE" "$AC_REFRESH"
+      else
+        apply "Battery" "$BATTERY_PROFILE" "$BATTERY_REFRESH"
+      fi
+      ;;
+    performance)
+      # Pinned on both sources, refresh rate included: "performance" means the full panel even
+      # on battery. This is the most expensive mode by design -- it is the mirror of powersaver.
+      apply "Performance" "$PERFORMANCE_PROFILE" "$AC_REFRESH"
+      ;;
+    powersaver)
+      # Profile is pinned on both sources -- this is the "cool and quiet while plugged in" mode,
+      # and is what distinguishes it from auto (whose battery policy is the same). Refresh rate
+      # still follows the source: on AC the panel is free, so nothing is gained by dropping it.
+      if on_ac; then
+        apply "Power saver" "$BATTERY_PROFILE" "$AC_REFRESH"
+      else
+        apply "Power saver" "$BATTERY_PROFILE" "$BATTERY_REFRESH"
+      fi
+      ;;
+    "")
+      echo "power: mode needs a name (auto|performance|powersaver)" >&2
+      return 1
+      ;;
+    *)
+      echo "power: unknown mode '${1}' (auto|performance|powersaver)" >&2
+      return 1
+      ;;
+  esac
+}
+
 status() {
   local src dgpu
   src=$(on_ac && echo "AC" || echo "battery")
@@ -148,6 +192,9 @@ case "${1:-status}" in
     else
       apply "Battery" "$BATTERY_PROFILE" "$BATTERY_REFRESH"
     fi
+    ;;
+  mode)
+    mode "${2:-}" || exit 1
     ;;
   profile)
     [[ -n "${2:-}" ]] || { echo "power: profile needs a name (try -h)" >&2; exit 1; }
