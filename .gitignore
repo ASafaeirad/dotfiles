@@ -110,6 +110,7 @@
 .config/pi/last-changelog-version
 .config/pi/trust.json
 !.config/qt6ct/
+!.config/skill-shell/
 !.config/quickshell/
 .config/quickshell/skill
 !.config/waybar/
