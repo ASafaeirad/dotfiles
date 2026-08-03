@@ -33,6 +33,14 @@ Thumbs.db
 # File types
 *.svg
 
+.config/mozilla/firefox
+.config/zsh/.zcompdump*
+.config/chromium/
+.config/Cursor/User/History/
+.config/obs-studio/plugin_config/
+.config/Notion/Partitions/notion/File System/
+.config/dotfiles.git/
+
 # Etc
 .vscode/
 
