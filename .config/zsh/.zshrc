@@ -43,15 +43,23 @@ setopt nocheckjobs                 # Don't warn about running processes when exi
 setopt numericglobsort             # Sort filenames numerically when it makes sense
 setopt appendhistory               # Immediately append history instead of overwriting
 setopt histignorealldups           # If a new command is a duplicate, remove the older one
-# zstyle ':completion:*' rehash true # automatically find new executables in path
-zstyle ':completion:*' menu yes select
+
+fpath=($HOME/.local/share/zsh/completions $fpath)
+autoload -U compinit && compinit
+# autoload compinit && compinit -i -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
+
+export CARAPACE_BRIDGES='zsh,fish,bash,inshellisense' # optional
+
 
 # Setup a custom completions directory
 
 WORDCHARS=${WORDCHARS//\/[&.;]/}   # Don't consider certain characters part of the word
 
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+
 # Speed up completions
-zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' rehash true # automatically find new executables in path
+# zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
 
@@ -65,9 +73,6 @@ bindkey '^w' forward-word # ctrl+backspace
 bindkey '5~' kill-word    # ctrl+del
 
 
-fpath=($HOME/.local/share/zsh/completions $fpath)
-
-
 bindkey '^ ' autosuggest-accept
 
 zmodload zsh/terminfo
@@ -76,9 +81,9 @@ bindkey '^[[B' history-substring-search-down
 
 [[ -f "$ZSH/oh-my-zsh.sh" ]] && . "$ZSH/oh-my-zsh.sh"
 
+source <(carapace _carapace)
 source <(fzf --zsh)
 
-autoload compinit && compinit -i -d $XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION
 unalias l
 [[ -f "${XDG_CONFIG_HOME}/aliasrc" ]] && . "${XDG_CONFIG_HOME}/aliasrc"
 [[ -f "${XDG_CONFIG_HOME}/bookmarkrc" ]] && . "${XDG_CONFIG_HOME}/bookmarkrc"
