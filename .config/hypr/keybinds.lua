@@ -116,16 +116,15 @@ local tools = {
     q = "qbar",
     s = "ocr",
     t = "ocr en",
-    p = "qs -c skill ipc call region screenshot",
+    -- One overlay for screenshot / record / record + audio; Tab or the toolbar switches mode,
+    -- pressing it again while recording stops the recording
+    p = "qs -c skill ipc call region capture",
     comma = "qs -p ~/.config/quickshell/skill/settings.qml",
 }
 
 for key, cmd in pairs(tools) do
     hl.bind(mainMod .. " + CTRL + " .. key, hl.dsp.exec_cmd(cmd))
 end
-
-hl.bind(mainMod .. " + CTRL + r", hl.dsp.exec_cmd("regionrecord"))
-hl.bind(mainMod .. " + CTRL + SHIFT + r", hl.dsp.exec_cmd("regionrecord -s"))
 
 -- ---- Media / hardware keys ----
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true })

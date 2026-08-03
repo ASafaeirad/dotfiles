@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-if [[ "$1" == "-s" ]]; then
-	qs -c skill ipc call region recordWithSound
-else
-	qs -c skill ipc call region record
-fi
