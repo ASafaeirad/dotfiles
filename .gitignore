@@ -119,6 +119,7 @@
 !.local/
 .local/*
 !.local/bin/
+.local/bin/agy
 .local/bin/deno
 .local/bin/zed
 .local/bin/claude

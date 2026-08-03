@@ -1,6 +1,6 @@
 function _dmenu() {
   if [[ "${XDG_SESSION_TYPE:-}" = "wayland" ]]; then
-    ii_menu "$@"
+    qs_menu "$@"
   elif command -v wofi >/dev/null 2>&1; then
     wofi --dmenu "$@"
   elif command -v rofi >/dev/null 2>&1; then
@@ -19,7 +19,7 @@ function fn_exists() {
   declare -F "$1" >/dev/null
 }
 
-function ii_menu() {
+function qs_menu() {
   local prompt="Select"
   while [[ $# -gt 0 ]]; do
     case "$1" in
