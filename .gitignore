@@ -54,10 +54,15 @@
 !.config/gtk-4.0/
 .config/gtk-4.0/gtk.css
 !.config/htop/
+!.config/herdr
+.config/herdr/*
+!.config/herdr/config.toml
 !.config/hyper
 !.config/hypr
 .config/hypr/.vscode/
+.config/hypr/quickshell/overrides.lua
 .config/hyper/.hyper_plugins
+!.config/lazygit/
 !.config/i3/
 !.config/inputrc
 !.config/Kvantum/
@@ -123,6 +128,7 @@
 .local/bin/rtk
 .local/bin/ddimonds
 .local/bin/cursor
+.local/bin/cursor-agent
 .local/bin/agent
 .local/bin/deno
 .local/bin/zed
