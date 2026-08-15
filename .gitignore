@@ -120,6 +120,10 @@
 .local/*
 !.local/bin/
 .local/bin/agy
+.local/bin/rtk
+.local/bin/ddimonds
+.local/bin/cursor
+.local/bin/agent
 .local/bin/deno
 .local/bin/zed
 .local/bin/claude
