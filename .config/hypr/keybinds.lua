@@ -81,6 +81,7 @@ hl.bind(mainMod .. " + n", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-notion
 hl.bind(mainMod .. " + CTRL + period", hl.dsp.exec_cmd("qs -c skill ipc call sidebarRight toggle"))
 hl.bind(mainMod .. " + ALT + g", hl.dsp.exec_cmd("qs -c skill ipc call overlay toggle"))
 hl.bind(mainMod .. " + ALT + k", hl.dsp.exec_cmd("qs -c skill ipc call keyDisplay toggle"))
+hl.bind(mainMod .. " + ALT + z", hl.dsp.exec_cmd("qs -c skill ipc call screenZoom toggle"))
 hl.bind(mainMod .. " + SHIFT + t", hl.dsp.exec_cmd("flyterm"))
 
 hl.bind(mainMod .. " + SHIFT + Space", hl.dsp.exec_cmd("qs -c skill ipc call search toggle"))
@@ -140,3 +141,4 @@ hl.bind("XF86AudioStop", hl.dsp.exec_cmd("playerctl stop"))
 -- ---- Mouse ----
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+hl.bind(mainMod .. " + mouse:274", hl.dsp.exec_cmd("qs -c skill ipc call screenZoom toggle"))
