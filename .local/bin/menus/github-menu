@@ -5,6 +5,7 @@ source "$SCRIPT_DIR/_menu"
 
 LIST=(
   ASafaeirad
+  Alitabot
   Blackhole
   NotionIcons
   NotionAutomation
@@ -38,6 +39,9 @@ case "$SELECTED" in
     ;;
   ASafaeirad)
     xdg-open "https://github.com/ASafaeirad/"
+    ;;
+  Alitabot)
+    xdg-open "https://github.com/fullstacksjs/alita-bot"
     ;;
   Blackhole)
     xdg-open "https://github.com/ASafaeirad/blackhole"
