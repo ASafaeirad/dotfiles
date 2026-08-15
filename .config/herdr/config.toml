@@ -1,0 +1,32 @@
+onboarding = false
+[theme]
+name = "vesper"
+auto_switch = false
+
+[ui]
+show_agent_labels_on_pane_borders = true
+prompt_new_tab_name = false
+mouse_capture = true
+copy_on_select = true
+agent_panel_sort = "priority"
+
+[ui.sidebar.spaces]
+rows = [["state_icon", "workspace"], ["branch", "git_status"]]
+
+[ui.sidebar.agents]
+rows = [["state_icon", "workspace", "tab"], ["agent"]]
+
+# lazygit
+[[keys.command]]
+key = "prefix+ctrl+g"
+type = "popup"
+command = "lazygit"
+width = "80%"
+height = "80%"
+description = "lazygit popup"
+
+[[keys.command]]
+key = "prefix+f"
+type = "plugin_action"
+command = "herdr-file-viewer.open-file-viewer-tab"
+description = "open file viewer in split"
