@@ -78,7 +78,6 @@ hl.bind(mainMod .. " + F9", hl.dsp.exec_cmd("telegram-desktop"))
 hl.bind(mainMod .. " + n", hl.dsp.exec_cmd("~/.config/hypr/scripts/toggle-notion"))
 
 -- ---- Shell (quickshell) ----
-hl.bind(mainMod .. " + CTRL + period", hl.dsp.exec_cmd("qs -c skill ipc call sidebarRight toggle"))
 hl.bind(mainMod .. " + ALT + g", hl.dsp.exec_cmd("qs -c skill ipc call overlay toggle"))
 hl.bind(mainMod .. " + ALT + k", hl.dsp.exec_cmd("qs -c skill ipc call keyDisplay toggle"))
 hl.bind(mainMod .. " + ALT + z", hl.dsp.exec_cmd("qs -c skill ipc call screenZoom toggle"))
@@ -87,7 +86,7 @@ hl.bind(mainMod .. " + SHIFT + t", hl.dsp.exec_cmd("flyterm"))
 hl.bind(mainMod .. " + SHIFT + Space", hl.dsp.exec_cmd("qs -c skill ipc call search toggle"))
 hl.bind(hyper .. " + Space", hl.dsp.exec_cmd("qs -c skill ipc call search toggle"))
 
--- ---- Menus (SUPER+SHIFT and hyper are equivalent) ----
+-- ---- Menus ----
 local menus = {
     d = "s-menu",
     a = "auto-menu",
@@ -107,9 +106,8 @@ for key, cmd in pairs(menus) do
     hl.bind(hyper .. " + " .. key, hl.dsp.exec_cmd(cmd))
 end
 
--- ---- Tools ----
 local tools = {
-    x = "hyprctl kill", -- was xkill
+    x = "hyprctl kill",
     m = "pavucontrol",
     c = "hyprpicker -a",
     b = "book",
@@ -117,10 +115,9 @@ local tools = {
     q = "qbar",
     s = "ocr",
     t = "ocr en",
-    -- One overlay for screenshot / record / record + audio; Tab or the toolbar switches mode,
-    -- pressing it again while recording stops the recording
     p = "qs -c skill ipc call region capture",
     comma = "qs -p ~/.config/quickshell/skill/settings.qml",
+    period = "qs -c skill ipc call sidebarRight toggle",
 }
 
 for key, cmd in pairs(tools) do
