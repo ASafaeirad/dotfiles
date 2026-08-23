@@ -3,22 +3,15 @@
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
 source "$SCRIPT_DIR/_menu"
 S_USER=0
-EG_USER=1
-A_USER=2
-F_USER=3
 
 function _mail() {
-  xdg-open https://mail.google.com/mail/u/$EG_USER/ &
-  xdg-open https://mail.google.com/mail/u/$S_USER/ &
-  xdg-open https://mail.google.com/mail/u/$A_USER/ &
-  xdg-open https://mail.google.com/mail/u/$F_USER/ &
+  for i in $(seq 1 3); do
+    xdg-open https://mail.google.com/mail/u/$i &
+  done
 }
 
 LIST=(
-  "Task"
   "Pronounce"
-  "Notion"
-  "Day"
   "GMail"
   "Read"
   "Monkey"
@@ -76,24 +69,11 @@ case "$SELECTED" in
   Calendar)
     xdg-open https://calendar.google.com/calendar/u/$S_USER/r
     ;;
-  Day)
-    xdg-open https://www.edclub.com/sportal/program-3.game &
-    xdg-open https://github.com/ASafaeirad &
-    xdg-open https://estateguru.atlassian.net/jira/software/c/projects/GR/boards/13 &
-    xdg-open https://calendar.google.com/calendar/u/$S_USER/r &
-    slack &
-    ;;
   Arvan)
     xdg-open https://panel.arvancloud.com/oxKYwdMtHFajxNqVZs5uyw/ecc/ir-thr-w1/servers/create#select_dc
     ;;
   Jira)
     xdg-open https://fullstacksjs.atlassian.net/jira/software/c/projects/FSK/boards/1?selectedIssue=FSK-36
-    ;;
-  "Notion")
-    notion-app
-    ;;
-  "Task")
-    task
     ;;
   "English")
     zathura "$BOOKS/English Grammar in Use Book.pdf"
