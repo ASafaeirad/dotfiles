@@ -1,10 +1,27 @@
 function _dmenu() {
+  local -a args=()
+  local freeform=0
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -f|--freeform)
+        freeform=1
+        shift
+        ;;
+      *)
+        args+=("$1")
+        shift
+        ;;
+    esac
+  done
+
   if [[ "${XDG_SESSION_TYPE:-}" = "wayland" ]]; then
-    qs_menu "$@"
+    (( freeform )) && args=(--freeform "${args[@]}")
+    qs_menu "${args[@]}"
   elif command -v wofi >/dev/null 2>&1; then
-    wofi --dmenu "$@"
+    # wofi/rofi already return the typed text when nothing matches.
+    wofi --dmenu "${args[@]}"
   elif command -v rofi >/dev/null 2>&1; then
-    rofi -dmenu "$@"
+    rofi -dmenu "${args[@]}"
   else
     echo "Neither rofi nor wofi is available." >&2
     return 127
@@ -19,11 +36,20 @@ function fn_exists() {
   declare -F "$1" >/dev/null
 }
 
+# dmenu-style selector backed by the quickshell `selector` IPC target.
+#   -p/--prompt LABEL   placeholder shown in the input
+#   -f/--freeform       accept arbitrary typed text, not just piped items
+# Items come from stdin, one per line; with no stdin (or none left after
+# filtering) it falls back to free-form so a bare `-p` call is a text prompt.
 function qs_menu() {
-  local prompt="Select"
+  local prompt="Select" freeform=0
   while [[ $# -gt 0 ]]; do
     case "$1" in
       -i)
+        shift
+        ;;
+      -f|--freeform)
+        freeform=1
         shift
         ;;
       -p|--prompt)
@@ -35,10 +61,19 @@ function qs_menu() {
         ;;
     esac
   done
+
+  local items=""
+  [[ ! -t 0 ]] && items=$(cat | paste -sd '|')
+  [[ -z "$items" ]] && freeform=1
+
+  local fn=run
+  (( freeform )) && fn=runFreeform
+
   qs -c skill ipc call selector setPrompt "$prompt"
-  items=$(cat | paste -sd '|')
-  fifo=$(mktemp -u); mkfifo "$fifo"
-  qs -c skill ipc call selector run "$items" "$fifo"
+  local fifo
+  fifo=$(mktemp -u)
+  mkfifo "$fifo"
+  qs -c skill ipc call selector "$fn" "$items" "$fifo"
   cat "$fifo"
   rm -f "$fifo"
 }
