@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+URL="$1"
+
+mkdir /tmp/dl &>/dev/null
+rm /tmp/dl/file.* 2> /dev/null
+echo "yt-dlp -o \"/tmp/dl/file.%(ext)s\" \"$URL\""
+OUT=$(yt-dlp -o "/tmp/dl/file.%(ext)s" "$URL")
+FILE=$(ls /tmp/dl)
+scopy "/tmp/dl/$FILE"
+

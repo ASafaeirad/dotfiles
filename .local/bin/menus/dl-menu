@@ -17,9 +17,5 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
 source "$SCRIPT_DIR/_menu"
 SELECTED=$(print_list "${ITEMS[@]}" | _dmenu -i -p "Open")
 
-mkdir /tmp/dl &>/dev/null
-rm /tmp/dl/file.*
-echo "yt-dlp -o \"/tmp/dl/file.%(ext)s\" \"$SELECTED\""
-OUT=$(yt-dlp -o "/tmp/dl/file.%(ext)s" "$SELECTED")
-FILE=$(ls /tmp/dl)
-scopy "/tmp/dl/$FILE"
+dl "$SELECTED"
+
