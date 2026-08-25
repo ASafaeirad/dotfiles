@@ -1,12 +1,25 @@
 #!/usr/bin/env bash
 
+if [[ "$1" = "-h" ]]; then
+  echo "Usage: popup [--title TITLE] [--no-wait] <text>..."
+  echo "       <command> | popup [--title TITLE]"
+  echo "--title TITLE   heading shown above the text"
+  echo "--no-wait       return immediately instead of blocking until dismissed"
+  exit 0
+fi
+
 TITLE=""
 TEXT=""
+WAIT=1
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --title)
       TITLE="$2"
       shift 2
+      ;;
+    --no-wait)
+      WAIT=0
+      shift
       ;;
     *)
       TEXT+="${TEXT:+ }$1"
@@ -15,6 +28,44 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+# Accept piped text too, so `foo | popup` works like the old zenity heredoc.
+[[ -z "$TEXT" && ! -t 0 ]] && TEXT=$(cat)
+
+if [[ -z "$TEXT" ]]; then
+  echo "popup: no text to show" >&2
+  exit 1
+fi
+
 echo "$TEXT"
 
-zenity --text-info --title="$TITLE" <<<"$TEXT"
+# Fall back to zenity when the quickshell shell isn't running.
+if ! command -v qs >/dev/null 2>&1 || ! qs -c skill ipc show >/dev/null 2>&1; then
+  zenity --text-info --title="$TITLE" <<<"$TEXT"
+  exit $?
+fi
+
+# The text goes through a file: IPC arguments carry neither newlines nor commas.
+BODY=$(mktemp)
+printf '%s\n' "$TEXT" >"$BODY"
+
+if (( WAIT )); then
+  FIFO=$(mktemp -u)
+  mkfifo "$FIFO"
+  trap 'rm -f "$BODY" "$FIFO"' EXIT
+  if ! qs -c skill ipc call popup showFile "$TITLE" "$BODY" "$FIFO"; then
+    echo "popup: could not reach the shell popup" >&2
+    exit 1
+  fi
+  cat "$FIFO" >/dev/null
+else
+  if ! qs -c skill ipc call popup showFile "$TITLE" "$BODY" ""; then
+    rm -f "$BODY"
+    echo "popup: could not reach the shell popup" >&2
+    exit 1
+  fi
+  # The shell reads the file asynchronously, so outlive it briefly.
+  (sleep 5; rm -f "$BODY") >/dev/null 2>&1 &
+  disown
+fi
+
+exit 0

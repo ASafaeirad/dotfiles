@@ -84,8 +84,9 @@ case "$SELECTED" in
     ;;
   "Dictionary")
     WORD=$(_dmenu -p "Dictionary")
+    echo $WORD
     xdg-open "https://www.ldoceonline.com/dictionary/${WORD}"
-    xdg-open "https://ozdic.com/collocation/${WORD}"
+    xdg-open "https://ozdic.com/word/${WORD}"
     ;;
   "Linear")
     xdg-open "https://linear.app/fullstacksjs/team/FS/active"
@@ -126,6 +127,7 @@ case "$SELECTED" in
     ;;
   "Translate")
     TEXT=$(_dmenu -i -p "Translate")
+    [[ -z $TEXT ]] && exit 0
     TRANSLATED=$(transl8 "$TEXT" fa en)
     popup --title "Persian" "$TRANSLATED"
     ;;
