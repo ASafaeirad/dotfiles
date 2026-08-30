@@ -2,7 +2,7 @@
 
 count=$(copyq count)
 limit=$((count < 10 ? count : 10))
-url_regex='https?://[^ ]+'
+url_regex='^https?://[^[:space:]]+$'
 
 declare -a ITEMS
 
@@ -17,5 +17,12 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
 source "$SCRIPT_DIR/_menu"
 SELECTED=$(print_list "${ITEMS[@]}" | _dmenu -i -p "Open")
 
-dl "$SELECTED"
+[[ $SELECTED =~ $url_regex ]] || exit 0
 
+if dl "$SELECTED"; then
+  notify-send "Download complete" "$SELECTED"
+else
+  status=$?
+  notify-send --urgency=critical "Download failed" "$SELECTED"
+  exit "$status"
+fi
