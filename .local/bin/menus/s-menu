@@ -38,6 +38,7 @@ LIST=(
   "Translate"
   "Vercel"
   "Obs"
+  "Rezool"
 )
 
 print_list() { printf "%s\n" "$@"; }
@@ -136,5 +137,8 @@ case "$SELECTED" in
     ;;
   "Vercel")
     xdg-open "https://vercel.com/fullstacks"
+    ;;
+  "Rezool")
+    xdg-open "https://meet.google.com/pcd-wxmo-hav?pli=1&authuser=2"
     ;;
 esac

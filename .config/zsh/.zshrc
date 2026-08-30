@@ -71,7 +71,7 @@ bindkey '^z' undo
 bindkey '^b' backward-word
 bindkey '^w' forward-word # ctrl+backspace
 bindkey '5~' kill-word    # ctrl+del
-
+bindkey -M vicmd '^e' edit-command-line
 
 bindkey '^ ' autosuggest-accept
 
@@ -88,9 +88,6 @@ unalias l
 [[ -f "${XDG_CONFIG_HOME}/aliasrc" ]] && . "${XDG_CONFIG_HOME}/aliasrc"
 [[ -f "${XDG_CONFIG_HOME}/bookmarkrc" ]] && . "${XDG_CONFIG_HOME}/bookmarkrc"
 
-
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/skill/.local/share/sdkman"
 [[ -s "/home/skill/.local/share/sdkman/bin/sdkman-init.sh" ]] && source "/home/skill/.local/share/sdkman/bin/sdkman-init.sh"
-bindkey -M vicmd '^e' edit-command-line
 
