@@ -1,0 +1,157 @@
+#!/usr/bin/env bash
+# Preset the GPG passphrase into gpg-agent so unattended sessions (coding
+# agents, scripts) can sign commits and authenticate over SSH without hitting
+# a pinentry prompt.
+#
+# Asks for the passphrase exactly once via the configured pinentry, then pushes
+# it into the agent for each subkey keygrip. Nothing is written to disk. The
+# preset lasts until max-cache-ttl expires (24h) or the agent restarts.
+#
+# The passphrase cannot be read out of `pass`, because the password store is
+# encrypted to this same key -- that bootstrap is circular.
+#
+# Usage:   gpg-unlock            prompt via pinentry, preset every subkey
+#          gpg-unlock --check    report which keygrips are currently cached
+#          gpg-unlock --forget   forget every preset, leaving the agent up
+#          gpg-unlock --forget signing
+#                                forget one subkey; accepts a keygrip, a role
+#                                word (signing/ssh/decryption) or a tag (s/a/e)
+#          gpg-unlock --lock     --forget plus a full agent cache flush
+#                                (also available as `gpg-lock`)
+set -euo pipefail
+
+PRESET=/usr/lib/gnupg/gpg-preset-passphrase
+
+# Subkeys of C9B27831A8A5C0A4B016E7EF30F66A522A8ED062. The primary key is
+# offline (sec#), so only the subkeys ever need unlocking.
+declare -rA GRIPS=(
+  [E74913961E933D48A06FFF9D4F81D30F71AF2D54]='[S] signing'
+  [36AC60E5AB27DB850A175A6ACEC24D732B70539A]='[A] ssh'
+  [0827E4E1C2885C804D452E1A4183CEE3B0A1C3E4]='[E] decryption'
+)
+
+die() { printf 'gpg-unlock: %s\n' "$*" >&2; exit 1; }
+
+# Resolve a user-supplied key selector to a keygrip. Accepts a full keygrip,
+# a word from the role description ("signing", "ssh", "auth", "decryption"),
+# or the short tag ("s", "a", "e").
+resolve_grip() {
+  local want=${1,,} grip desc
+  for grip in "${!GRIPS[@]}"; do
+    desc=${GRIPS[$grip],,}
+    if [ "${grip,,}" = "$want" ] \
+      || [[ " $desc " == *" $want "* ]] \
+      || [ "[$want]" = "${desc##* }" ]; then
+      printf '%s' "$grip"; return 0
+    fi
+  done
+  return 1
+}
+
+forget_grip() {
+  local grip=$1
+  "$PRESET" --forget "$grip" 2>/dev/null || true
+  printf '  forgot      %s  %s\n' "$grip" "${GRIPS[$grip]}"
+}
+
+# Percent-decode a pinentry `D` payload. %25 is decoded last so that an
+# encoded literal '%' does not get re-interpreted.
+pct_decode() {
+  local s=$1
+  s=${s//%0D/$'\r'}
+  s=${s//%0A/$'\n'}
+  s=${s//%25/%}
+  printf '%s' "$s"
+}
+
+cached_grips() {
+  gpg-connect-agent 'KEYINFO --list' /bye 2>/dev/null \
+    | awk '$1=="S" && $2=="KEYINFO" && $7=="1" {print $3}'
+}
+
+report() {
+  local grip cached
+  cached=$(cached_grips)
+  for grip in "${!GRIPS[@]}"; do
+    if grep -qx "$grip" <<<"$cached"; then
+      printf '  cached      %s  %s\n' "$grip" "${GRIPS[$grip]}"
+    else
+      printf '  not cached  %s  %s\n' "$grip" "${GRIPS[$grip]}"
+    fi
+  done
+}
+
+ask_passphrase() {
+  local pe out line
+  pe=$(gpgconf --list-options gpg-agent 2>/dev/null \
+       | awk -F: '$1=="pinentry-program" {print $10}')
+  pe=${pe:-/usr/bin/pinentry}
+  [ -x "$pe" ] || die "pinentry not executable: $pe"
+
+  out=$(printf '%s\n' \
+    'SETTITLE Unlock GPG for unattended use' \
+    'SETDESC Preset the passphrase into gpg-agent so background agents can sign and authenticate.' \
+    'SETPROMPT Passphrase:' \
+    'GETPIN' \
+    'BYE' | "$pe" 2>/dev/null) || die 'pinentry failed'
+
+  while IFS= read -r line; do
+    case $line in
+      'D '*) pct_decode "${line#D }"; return 0 ;;
+      'ERR '*) die "${line#ERR }" ;;
+    esac
+  done <<<"$out"
+  die 'no passphrase returned'
+}
+
+forget() {
+  local grip
+  if [ $# -gt 0 ]; then
+    grip=$(resolve_grip "$1") \
+      || die "no such key: $1 (try a keygrip, or signing/ssh/decryption)"
+    forget_grip "$grip"
+    return 0
+  fi
+  for grip in "${!GRIPS[@]}"; do forget_grip "$grip"; done
+}
+
+lock() {
+  # Drop every preset, then flush the rest of the agent cache (including the
+  # ssh cache). Without the reload a passphrase typed into pinentry normally
+  # would survive --forget and stay live for the full max-cache-ttl.
+  echo "[forget]"
+  forget
+  echo "[result]"
+  gpg-connect-agent RELOADAGENT /bye >/dev/null 2>&1 || true
+}
+
+main() {
+  command -v gpgconf >/dev/null || die 'gpgconf not found'
+  [ -x "$PRESET" ] || die "missing $PRESET (install gnupg)"
+  gpgconf --launch gpg-agent
+
+  case "${1:-}" in
+    --check)  report; return 0 ;;
+    --lock)   lock; report; return 0 ;;
+    --forget) shift; forget "$@"; report; return 0 ;;
+    '') ;;
+    *) die "unknown option: $1 (use --check, --forget [KEY] or --lock)" ;;
+  esac
+
+  local pass grip rc=0
+  pass=$(ask_passphrase)
+  [ -n "$pass" ] || die 'empty passphrase'
+
+  for grip in "${!GRIPS[@]}"; do
+    if printf '%s' "$pass" | "$PRESET" --preset "$grip" 2>/dev/null; then
+      printf '  preset %s  %s\n' "$grip" "${GRIPS[$grip]}"
+    else
+      printf '  FAILED %s  %s\n' "$grip" "${GRIPS[$grip]}" >&2
+      rc=1
+    fi
+  done
+  unset pass
+  return $rc
+}
+
+main "$@"

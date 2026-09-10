@@ -1,0 +1,3 @@
+#!/bin/sh
+# Forget the preset GPG passphrases; see gpg-unlock.
+exec gpg-unlock --lock "$@"
