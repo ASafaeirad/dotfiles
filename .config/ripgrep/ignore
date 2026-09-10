@@ -71,4 +71,4 @@ Thumbs.db
 .t3/userdata/logs
 
 # Codex
-.codex/sessions/
+.config/codex/sessions/
