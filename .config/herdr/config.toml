@@ -1,4 +1,8 @@
 onboarding = false
+
+[keys]
+switch_workspace = "prefix+ctrl+1..9"
+
 [theme]
 name = "vesper"
 auto_switch = false
