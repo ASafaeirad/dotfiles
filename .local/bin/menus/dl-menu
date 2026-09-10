@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+source "$SCRIPT_DIR/_menu"
+
 count=$(copyq count)
 limit=$((count < 10 ? count : 10))
 url_regex='^https?://[^[:space:]]+$'
@@ -13,11 +16,7 @@ for ((i = 0; i < limit; i++)); do
   fi
 done
 
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
-source "$SCRIPT_DIR/_menu"
 SELECTED=$(print_list "${ITEMS[@]}" | _dmenu -i -p "Open")
-
-[[ $SELECTED =~ $url_regex ]] || exit 0
 
 if dl "$SELECTED"; then
   notify-send "Download complete" "$SELECTED"

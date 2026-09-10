@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 
 URL="$1"
+URL_REGEX='^https?://[^[:space:]]+$'
+
+if [[ ! $URL =~ $URL_REGEX ]]; then
+  echo "Invalid URL: please provide a valid URL" >&2
+  exit 1
+fi
 
 mkdir /tmp/dl &>/dev/null
 rm /tmp/dl/file.* 2> /dev/null
