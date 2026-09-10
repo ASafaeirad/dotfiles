@@ -27,6 +27,8 @@ video/x-matroska=smplayer.desktop
 text/javascript=code.desktop
 image/gif=feh.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
+x-scheme-handler/t3code=t3code-url-handler.desktop
+x-scheme-handler/antigravity=antigravity.desktop
 
 [Added Associations]
 image/jpeg=feh.desktop;viewnior.desktop;
@@ -51,3 +53,4 @@ video/mp4=smplayer.desktop;
 video/x-matroska=smplayer.desktop;
 text/javascript=code.desktop;
 image/gif=feh.desktop;
+x-scheme-handler/t3code=t3code.desktop;
