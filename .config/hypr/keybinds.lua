@@ -1,20 +1,6 @@
 local mainMod = "SUPER"
 local hyper   = mainMod .. " + SHIFT + CTRL + ALT"
 
--- split-monitor-workspaces provides per-monitor workspace numbering. Its lua
--- functions live under `hl.plugin.split_monitor_workspaces` and only exist once
--- the plugin is loaded, so resolve them at press time and fall back to the
--- built-in dispatchers if the plugin isn't there.
-local function split(fn, arg, fallback)
-    return function()
-        local smw = hl.plugin.split_monitor_workspaces
-        if smw and smw[fn] then
-            return smw[fn](arg)
-        end
-        hl.dispatch(fallback)
-    end
-end
-
 -- ---- Session / WM control ----
 hl.bind(mainMod .. " + SHIFT + q", hl.dsp.window.close())
 hl.bind(hyper .. " + q", hl.dsp.window.close())
@@ -46,26 +32,25 @@ hl.bind(mainMod .. " + SHIFT + m", hl.dsp.window.move({ monitor = "+1" }))
 
 -- =========================================================================
 -- Workspaces
+-- Use r~N / r±N so Super+N always targets the Nth workspace on the *focused*
+-- monitor. Absolute IDs (1..10) live on HDMI with split-monitor-workspaces, so
+-- falling back to them after Super+M incorrectly jumps focus back there.
 -- =========================================================================
 for i = 1, 10 do
     local key = tostring(i % 10) -- workspace 10 sits on key 0
+    local ws  = "r~" .. i
 
-    hl.bind(mainMod .. " + " .. key,
-        split("workspace", i, hl.dsp.focus({ workspace = i })))
-
-    hl.bind(mainMod .. " + SHIFT + " .. key,
-        split("move_to_workspace", i, hl.dsp.window.move({ workspace = i })))
-
-    hl.bind(mainMod .. " + CTRL + " .. key,
-        split("move_to_workspace_silent", i, hl.dsp.window.move({ workspace = i, follow = false })))
+    hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = ws }))
+    hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = ws }))
+    hl.bind(mainMod .. " + CTRL + " .. key, hl.dsp.window.move({ workspace = ws, follow = false }))
 end
 
-hl.bind(mainMod .. " + Backspace", hl.dsp.focus({ workspace = "previous" }))
-hl.bind(mainMod .. " + SHIFT + Backspace", hl.dsp.window.move({ workspace = "previous" }))
+hl.bind(mainMod .. " + Backspace", hl.dsp.focus({ workspace = "previous_per_monitor" }))
+hl.bind(mainMod .. " + SHIFT + Backspace", hl.dsp.window.move({ workspace = "previous_per_monitor" }))
 hl.bind(mainMod .. " + v", hl.dsp.exec_cmd("qs -c skill ipc call search clipboardToggle"))
 
-hl.bind(mainMod .. " + mouse_down", split("workspace", "+1", hl.dsp.focus({ workspace = "+1" })))
-hl.bind(mainMod .. " + mouse_up", split("workspace", "-1", hl.dsp.focus({ workspace = "-1" })))
+hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "r+1" }))
+hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "r-1" }))
 hl.bind(mainMod .. " + t", hl.dsp.exec_cmd("toggle-flyterm"))
 
 -- ---- Launchers ----
