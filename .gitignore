@@ -134,6 +134,7 @@
 .local/bin/zed
 .local/bin/claude
 .local/bin/omp
+.local/bin/ddiamond
 .local/bin/applications/
 .local/bin/automations/
 !.local/share/
