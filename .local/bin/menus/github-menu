@@ -29,6 +29,8 @@ LIST=(
   Incubate
   skill-shell
   Edit
+  skills
+  today
 )
 
 SELECTED=$(print_list "${LIST[@]}" | _dmenu -i -p "GitHub")
@@ -108,5 +110,11 @@ case "$SELECTED" in
     ;;
   "OXLintConfig")
     xdg-open "https://github.com/fullstacksjs/oxlint-config"
+    ;;
+  "skills")
+    xdg-open "https://github.com/ASafaeirad/skills"
+    ;;
+  "today")
+    xdg-open "https://github.com/ASafaeirad/today"
     ;;
 esac
