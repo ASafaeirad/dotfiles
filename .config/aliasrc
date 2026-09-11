@@ -30,11 +30,9 @@ alias clare='clear'
 alias swclicks='xmodmap -e "pointer = 3 2 1"'
 
 # npx commands
-alias oao='npx oao'
-alias np='npx np'
 alias nx='npx nx'
 alias tsc='npx tsc'
-alias heroku='npx heroku'
+alias serve='vpx live-server .'
 s() {
   [ -f ./.skill/env ] && . ./.skill/env
 }
