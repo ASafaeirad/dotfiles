@@ -36,23 +36,40 @@ ERRTXT=''
 VISIBLE=0
 RESP_KIND=''
 RESP_PIN=''
+PROMPT_DIR=''
+
+cleanup_prompt() {
+  if [[ -n $PROMPT_DIR ]]; then
+    rm -rf -- "$PROMPT_DIR"
+    PROMPT_DIR=''
+  fi
+}
+
+trap cleanup_prompt EXIT HUP INT TERM
 
 show_prompt() {
-  local dir fifo resp
-  dir=$(mktemp -d "${XDG_RUNTIME_DIR:-/tmp}/pinentry-skill.XXXXXX") || return 1
-  chmod 700 "$dir"
-  fifo="$dir/pipe"
+  local fifo resp
+  cleanup_prompt
+  PROMPT_DIR=$(mktemp -d "${XDG_RUNTIME_DIR:-/tmp}/pinentry-skill.XXXXXX") || return 1
+  chmod 700 "$PROMPT_DIR"
+  fifo="$PROMPT_DIR/pipe"
   if ! mkfifo -m 600 "$fifo"; then
-    rm -rf "$dir"
+    cleanup_prompt
     return 1
   fi
 
-  "${IPC[@]}" call pinentry prompt \
+  if ! "${IPC[@]}" call pinentry prompt \
     "$(b64 "$DESC")" "$(b64 "$PROMPT")" "$(b64 "$ERRTXT")" "$fifo" "$VISIBLE" \
-    >/dev/null 2>&1
+    >/dev/null 2>&1; then
+    cleanup_prompt
+    return 1
+  fi
 
-  IFS= read -r resp <"$fifo"
-  rm -rf "$dir"
+  if ! resp=$(timeout "${PINENTRY_TIMEOUT:-300}" cat "$fifo"); then
+    cleanup_prompt
+    return 1
+  fi
+  cleanup_prompt
   ERRTXT='' # a SETERROR only applies to the attempt that follows it
 
   case $resp in
