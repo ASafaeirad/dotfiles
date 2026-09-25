@@ -1,264 +1,294 @@
 {
-  "appearance": {
-    "extraBackgroundTint": true,
-    "fakeScreenRounding": 0,
-    "palette": {
-      "accentColor": "",
-      "type": "scheme-neutral"
+    "appearance": {
+        "extraBackgroundTint": true,
+        "fakeScreenRounding": 0,
+        "palette": {
+            "accentColor": "",
+            "type": "scheme-neutral"
+        },
+        "transparency": {
+            "automatic": true,
+            "backgroundTransparency": 0.3,
+            "contentTransparency": 0.7,
+            "enable": false
+        },
+        "wallpaperTheming": {
+            "enableAppsAndShell": true,
+            "enableQtApps": true,
+            "enableTerminal": true,
+            "gtkTheme": {
+                "dark": "Flat-Remix-GTK-Yellow-Darkest-Solid",
+                "enable": true,
+                "light": "adw-gtk3"
+            },
+            "terminalGenerationProps": {
+                "forceDarkMode": false,
+                "harmonizeThreshold": 100,
+                "harmony": 0.6,
+                "termFgBoost": 0.35
+            }
+        }
     },
-    "transparency": {
-      "automatic": true,
-      "backgroundTransparency": 0.3,
-      "contentTransparency": 0.7,
-      "enable": true
+    "background": {
+        "hideWhenFullscreen": true,
+        "thumbnailPath": "",
+        "wallpaperPath": "/home/skill/pics/wallpapers/sahra 1.png"
     },
-    "wallpaperTheming": {
-      "enableAppsAndShell": true,
-      "enableQtApps": true,
-      "enableTerminal": true,
-      "gtkTheme": {
-        "dark": "Flat-Remix-GTK-Yellow-Darkest-Solid",
+    "bar": {
+        "aiUsage": {
+            "enable": true,
+            "paused": false,
+            "refreshIntervalMinutes": 5
+        },
+        "autoHide": {
+            "enable": false,
+            "hoverRegionWidth": 2,
+            "pushWindows": false,
+            "showWhenPressingSuper": {
+                "delay": 140,
+                "enable": true
+            }
+        },
+        "borderless": false,
+        "bottom": false,
+        "cornerStyle": 2,
+        "floatStyleShadow": true,
+        "indicators": {
+            "notifications": {
+                "showUnreadCount": false
+            }
+        },
+        "screenList": [
+        ],
+        "showBackground": true,
+        "tooltips": {
+            "clickToShow": false
+        },
+        "topLeftIcon": "spark",
+        "verbose": true,
+        "weather": {
+            "city": "Utrecht",
+            "enable": true,
+            "enableGPS": false,
+            "fetchInterval": 10,
+            "useUSCS": false
+        }
+    },
+    "battery": {
+        "autoPowerProfile": true,
+        "automaticSuspend": true,
+        "critical": 10,
+        "full": 100,
+        "low": 20,
+        "powerMode": "auto",
+        "suspend": 5
+    },
+    "conflictKiller": {
+        "autoKillNotificationDaemons": false,
+        "autoKillTrays": false
+    },
+    "gmail": {
+        "accounts": [
+            {
+                "color": "term1",
+                "email": "frontendmonster@gmail.com",
+                "enabled": true,
+                "id": "10bf8dd343de67ac",
+                "label": "frontendmonster@gmail.com"
+            },
+            {
+                "color": "term2",
+                "email": "alireza.safaierad@gmail.com",
+                "enabled": true,
+                "id": "cda01f61070d02e7",
+                "label": "alireza.safaierad@gmail.com"
+            }
+        ],
         "enable": true,
-        "light": "adw-gtk3"
-      },
-      "terminalGenerationProps": {
-        "forceDarkMode": false,
-        "harmonizeThreshold": 100,
-        "harmony": 0.6,
-        "termFgBoost": 0.35
-      }
-    }
-  },
-  "background": {
-    "hideWhenFullscreen": true,
-    "thumbnailPath": "",
-    "wallpaperPath": "/home/skill/pics/wallpapers/sahra 1.png"
-  },
-  "bar": {
-    "autoHide": {
-      "enable": false,
-      "hoverRegionWidth": 2,
-      "pushWindows": false,
-      "showWhenPressingSuper": {
-        "delay": 140,
-        "enable": true
-      }
+        "notifyOnNewMail": false,
+        "refreshIntervalMinutes": 5
     },
-    "borderless": false,
-    "bottom": false,
-    "cornerStyle": 2,
-    "floatStyleShadow": true,
-    "indicators": {
-      "notifications": {
-        "showUnreadCount": false
-      }
-    },
-    "screenList": [],
-    "showBackground": true,
-    "tooltips": {
-      "clickToShow": false
-    },
-    "topLeftIcon": "spark",
-    "utilButtons": {
-      "showColorPicker": false,
-      "showDarkModeToggle": false,
-      "showMicToggle": false,
-      "showPerformanceProfileToggle": false,
-      "showScreenRecord": true,
-      "showScreenSnip": false
-    },
-    "verbose": true,
-    "vertical": false,
-    "weather": {
-      "city": "Utrecht",
-      "enable": true,
-      "enableGPS": true,
-      "fetchInterval": 10,
-      "useUSCS": false
-    }
-  },
-  "battery": {
-    "autoPowerProfile": true,
-    "automaticSuspend": true,
-    "critical": 10,
-    "full": 100,
-    "low": 20,
-    "powerMode": "auto",
-    "suspend": 5
-  },
-  "conflictKiller": {
-    "autoKillNotificationDaemons": false,
-    "autoKillTrays": false
-  },
-  "launcher": {
-    "pinnedApps": [
-      "org.kde.dolphin",
-      "kitty",
-      "cmake-gui"
-    ]
-  },
-  "light": {
-    "night": {
-      "automatic": true,
-      "colorTemperature": 5063,
-      "from": "19:00",
-      "to": "06:30"
-    }
-  },
-  "lock": {
-    "blur": {
-      "enable": true,
-      "extraZoom": 1.1,
-      "radius": 100
-    },
-    "centerClock": true,
-    "launchOnStartup": false,
-    "materialShapeChars": true,
-    "security": {
-      "requirePasswordToPower": false,
-      "unlockKeyring": true
-    },
-    "showLockedText": true,
-    "useHyprlock": false
-  },
-  "media": {
-    "filterDuplicatePlayers": true
-  },
-  "notifications": {
-    "forceMonitor": {
-      "enable": false,
-      "name": ""
-    }
-  },
-  "overlay": {
-    "clickthroughOpacity": 0.8,
-    "darkenScreen": true,
-    "floatingImage": {
-      "imageSource": "https://media.tenor.com/H5U5bJzj3oAAAAAi/kukuru.gif",
-      "scale": 0.5
-    },
-    "openingZoomAnimation": true
-  },
-  "overview": {
-    "centerIcons": true,
-    "columns": 10,
-    "enable": true,
-    "orderBottomUp": false,
-    "orderRightLeft": false,
-    "rows": 1,
-    "scale": 0.07
-  },
-  "pass": {
-    "ignoredEntryPatterns": ["archive", "docker-credential", "kramp", "iran"]
-  },
-  "regionSelector": {
-    "targetRegions": {
-      "content": true,
-      "layers": false,
-      "windows": true
-    }
-  },
-  "screenRecord": {
-    "savePath": "/home/skill/videos/screen"
-  },
-  "screenSnip": {
-    "savePath": ""
-  },
-  "search": {
-    "sloppy": false
-  },
-  "sidebar": {
-    "cornerOpen": {
-      "bottom": false,
-      "clickless": false,
-      "clicklessCornerEnd": true,
-      "clicklessCornerVerticalOffset": 1,
-      "cornerRegionHeight": 5,
-      "cornerRegionWidth": 250,
-      "enable": true,
-      "valueScroll": true,
-      "visualize": false
-    },
-    "keepRightSidebarLoaded": true,
-    "quickSliders": {
-      "enable": true,
-      "showBrightness": true,
-      "showMic": false,
-      "showVolume": true
-    },
-    "quickToggles": {
-      "android": {
-        "columns": 4,
-        "toggles": [
-          {
-            "size": 2,
-            "type": "network"
-          },
-          {
-            "size": 2,
-            "type": "bluetooth"
-          },
-          {
-            "size": 2,
-            "type": "powerProfile"
-          },
-          {
-            "size": 2,
-            "type": "audio"
-          },
-          {
-            "size": 2,
-            "type": "nightLight"
-          },
-          {
-            "size": 1,
-            "type": "gameMode"
-          },
-          {
-            "size": 1,
-            "type": "mic"
-          }
+    "launcher": {
+        "pinnedApps": [
+            "org.kde.dolphin",
+            "kitty",
+            "cmake-gui"
         ]
-      },
-      "style": "android"
-    }
-  },
-  "sounds": {
-    "battery": true,
-    "pomodoro": false,
-    "theme": "freedesktop"
-  },
-  "taskbar": {
-    "ignoredAppRegexes": [],
-    "pinnedApps": [
-      "org.kde.dolphin",
-      "kitty"
-    ]
-  },
-  "time": {
-    "format": "hh:mm",
-    "pomodoro": {
-      "breakTime": 300,
-      "cyclesBeforeLongBreak": 4,
-      "focus": 1500,
-      "longBreak": 900
     },
-    "secondPrecision": false
-  },
-  "tray": {
-    "filterPassive": true,
-    "invertPinnedItems": true,
-    "monochromeIcons": true,
-    "pinnedItems": [
-      "Fcitx"
-    ],
-    "showItemId": false
-  },
-  "wallpaperSelector": {
-    "useSystemFileDialog": false
-  },
-  "windows": {
-    "centerTitle": true,
-    "showTitlebar": true
-  }
+    "light": {
+        "night": {
+            "automatic": true,
+            "colorTemperature": 5063,
+            "from": "19:00",
+            "to": "06:30"
+        }
+    },
+    "lock": {
+        "blur": {
+            "enable": true,
+            "extraZoom": 1.1,
+            "radius": 100
+        },
+        "centerClock": true,
+        "launchOnStartup": false,
+        "materialShapeChars": true,
+        "security": {
+            "requirePasswordToPower": false,
+            "unlockKeyring": true
+        },
+        "showLockedText": true,
+        "useHyprlock": false
+    },
+    "media": {
+        "filterDuplicatePlayers": true
+    },
+    "notifications": {
+        "forceMonitor": {
+            "enable": false,
+            "name": ""
+        }
+    },
+    "overlay": {
+        "clickthroughOpacity": 0.8,
+        "darkenScreen": true,
+        "floatingImage": {
+            "imageSource": "https://media.tenor.com/H5U5bJzj3oAAAAAi/kukuru.gif",
+            "scale": 0.5
+        },
+        "openingZoomAnimation": true
+    },
+    "overview": {
+        "centerIcons": true,
+        "columns": 10,
+        "enable": true,
+        "orderBottomUp": false,
+        "orderRightLeft": false,
+        "rows": 1,
+        "scale": 0.07
+    },
+    "pass": {
+        "clipboardClearSeconds": 45,
+        "ignoredEntryPatterns": [
+            "archive",
+            "docker-credential",
+            "kramp",
+            "iran"
+        ],
+        "revealSeconds": 8,
+        "statusMessageSeconds": 2
+    },
+    "regionSelector": {
+        "targetRegions": {
+            "content": true,
+            "layers": false,
+            "windows": true
+        }
+    },
+    "screenRecord": {
+        "savePath": "/home/skill/videos/screen"
+    },
+    "screenSnip": {
+        "savePath": ""
+    },
+    "search": {
+        "sloppy": false
+    },
+    "sidebar": {
+        "cornerOpen": {
+            "bottom": false,
+            "clickless": false,
+            "clicklessCornerEnd": true,
+            "clicklessCornerVerticalOffset": 1,
+            "cornerRegionHeight": 5,
+            "cornerRegionWidth": 250,
+            "enable": true,
+            "valueScroll": true,
+            "visualize": false
+        },
+        "keepRightSidebarLoaded": true,
+        "quickSliders": {
+            "enable": true,
+            "showBrightness": true,
+            "showMic": false,
+            "showVolume": true
+        },
+        "quickToggles": {
+            "android": {
+                "columns": 4,
+                "toggles": [
+                    {
+                        "size": 2,
+                        "type": "network"
+                    },
+                    {
+                        "size": 2,
+                        "type": "bluetooth"
+                    },
+                    {
+                        "size": 2,
+                        "type": "powerProfile"
+                    },
+                    {
+                        "size": 2,
+                        "type": "audio"
+                    },
+                    {
+                        "size": 2,
+                        "type": "nightLight"
+                    },
+                    {
+                        "size": 1,
+                        "type": "gameMode"
+                    },
+                    {
+                        "size": 1,
+                        "type": "mic"
+                    }
+                ]
+            },
+            "style": "android"
+        }
+    },
+    "sounds": {
+        "battery": true,
+        "pomodoro": false,
+        "theme": "freedesktop"
+    },
+    "taskbar": {
+        "ignoredAppRegexes": [
+        ],
+        "pinnedApps": [
+            "org.kde.dolphin",
+            "kitty"
+        ]
+    },
+    "time": {
+        "format": "hh:mm",
+        "pomodoro": {
+            "breakTime": 300,
+            "cyclesBeforeLongBreak": 4,
+            "focus": 1500,
+            "longBreak": 900
+        },
+        "secondPrecision": false,
+        "worldClock": {
+            "timeZone": "Asia/Tehran"
+        }
+    },
+    "tray": {
+        "filterPassive": true,
+        "invertPinnedItems": true,
+        "monochromeIcons": true,
+        "pinnedItems": [
+            "Fcitx"
+        ],
+        "showItemId": false
+    },
+    "wallpaperSelector": {
+        "useSystemFileDialog": false
+    },
+    "windows": {
+        "centerTitle": true,
+        "showTitlebar": true
+    }
 }
