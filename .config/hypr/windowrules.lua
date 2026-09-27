@@ -9,7 +9,7 @@ hl.window_rule({ match = { class = "^(pavucontrol)$" }, float = true, center = t
 hl.window_rule({ match = { class = "^(blueman-manager)$" }, float = true, center = true })
 hl.window_rule({ match = { class = "^(lxappearance)$" }, float = true, size = { 760, 800 }, center = true })
 hl.window_rule({ match = { class = "^(kvantummanager)$" }, float = true, size = { 760, 800 }, center = true })
-hl.window_rule({ match = { class = "^(org\\.quickshell)$", title = "^(illogical-impulse Settings)$" }, float = true, size = { 1100, 1000 }, center = true })
+hl.window_rule({ match = { class = "^(org\\.quickshell)$", title = "^(Skill Shell Settings)$" }, float = true, size = { 1100, 1000 }, center = true })
 hl.window_rule({ match = { class = "^(zenity)$" }, float = true, size = { 640, 720 }, center = true })
 hl.window_rule({ match = { class = "^(Gpick|Gcolor3|xcolor)$" }, float = true })
 hl.window_rule({ match = { title = "^(Open File|Save File)$" }, float = true, max_size = { 1000, 700 }, center = true, })

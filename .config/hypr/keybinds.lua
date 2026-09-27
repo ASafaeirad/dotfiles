@@ -83,7 +83,7 @@ local menus = {
     s = "power-menu",
     y = "youtube-menu",
     i = "screen-menu",
-    x = "dev-menu",
+    x = "dev-menu"
 }
 
 for key, cmd in pairs(menus) do
@@ -101,6 +101,7 @@ local tools = {
     s = "ocr",
     t = "ocr en",
     p = "qs -c skill ipc call region capture",
+    d = 'qs -c skill ipc call mediaGrabber open',
     comma = "qs -p ~/.config/quickshell/skill/settings.qml",
     period = "qs -c skill ipc call sidebarRight toggle",
 }
