@@ -32,7 +32,8 @@
     "background": {
         "hideWhenFullscreen": true,
         "thumbnailPath": "",
-        "wallpaperPath": "/home/skill/pics/wallpapers/sahra 1.png"
+        "wallpaperPath": "/home/skill/pics/wallpapers/sahra 1.png",
+        "zoomStyle": "cover"
     },
     "bar": {
         "aiUsage": {
@@ -90,18 +91,18 @@
     "gmail": {
         "accounts": [
             {
-                "color": "term1",
+                "color": "term6",
                 "email": "frontendmonster@gmail.com",
                 "enabled": true,
                 "id": "10bf8dd343de67ac",
-                "label": "frontendmonster@gmail.com"
+                "label": "S-Kill"
             },
             {
                 "color": "term2",
                 "email": "alireza.safaierad@gmail.com",
                 "enabled": true,
                 "id": "cda01f61070d02e7",
-                "label": "alireza.safaierad@gmail.com"
+                "label": "ASafaeirad"
             }
         ],
         "enable": true,
