@@ -27,7 +27,7 @@ video/x-matroska=smplayer.desktop
 text/javascript=code.desktop
 image/gif=feh.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
-x-scheme-handler/t3code=t3code-url-handler.desktop
+x-scheme-handler/t3code=com.t3tools.T3Code.desktop
 x-scheme-handler/antigravity=antigravity.desktop
 
 [Added Associations]
