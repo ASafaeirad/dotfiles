@@ -78,7 +78,7 @@
   unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
 
   # clean up all
-  forget = "!git fetch -p && git branch -vv | awk '/: gone]/{print $1}' | xargs git branch -D"
+  forget = "!f() { git fetch -p || return; here=$(git rev-parse --show-toplevel) || return; main=$(git worktree list --porcelain | awk '/^worktree / { print substr($0, 10); exit }'); git for-each-ref --format='%(refname)%09%(upstream:track)' refs/heads | { failed=0; while IFS='\t' read -r ref track; do [ \"$track\" = '[gone]' ] || continue; path=$(git worktree list --porcelain | awk -v target=\"$ref\" '/^worktree / { path=substr($0, 10) } $0 == \"branch \" target { print path }'); if [ -n \"$path\" ]; then if [ \"$path\" = \"$main\" ] || [ \"$path\" = \"$here\" ]; then printf 'Skipping %s: checked out in the main or current worktree\\n' \"${ref#refs/heads/}\" >&2; failed=1; continue; fi; if ! git worktree remove -- \"$path\"; then failed=1; continue; fi; fi; git branch -D -- \"${ref#refs/heads/}\" || failed=1; done; exit \"$failed\"; }; }; f"
 
   # show the most recently touched branches
   recent = "!git for-each-ref --sort='-committerdate' --format='%(color:red)%(refname)%(color:reset)%09%(committerdate)' refs/heads | sed -e 's-refs/heads/--' | less -XFR"
