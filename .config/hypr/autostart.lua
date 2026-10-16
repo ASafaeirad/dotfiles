@@ -10,7 +10,6 @@ hl.on("hyprland.start", function()
 
     hl.exec_cmd("qs -c skill")
     hl.exec_cmd("flyterm")
-    hl.exec_cmd("notion-app")
 
     -- Apply the real AC/battery policy once the compositor is up.
     hl.exec_cmd("power auto")
