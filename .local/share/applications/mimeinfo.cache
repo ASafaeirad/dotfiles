@@ -1,1 +1,3 @@
 [MIME Cache]
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop;
+x-scheme-handler/t3code=com.t3tools.T3Code.desktop;t3code-url-handler.desktop;
