@@ -125,6 +125,7 @@
 .local/*
 !.local/bin/
 .local/bin/agy
+.local/bin/codex
 .local/bin/rtk
 .local/bin/ddimonds
 .local/bin/cursor

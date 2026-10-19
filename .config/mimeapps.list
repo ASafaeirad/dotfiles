@@ -29,6 +29,7 @@ image/gif=feh.desktop
 x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 x-scheme-handler/t3code=com.t3tools.T3Code.desktop
 x-scheme-handler/antigravity=antigravity.desktop
+x-scheme-handler/ton=org.telegram.desktop.desktop
 
 [Added Associations]
 image/jpeg=feh.desktop;viewnior.desktop;
@@ -54,3 +55,4 @@ video/x-matroska=smplayer.desktop;
 text/javascript=code.desktop;
 image/gif=feh.desktop;
 x-scheme-handler/t3code=t3code.desktop;
+x-scheme-handler/ton=org.telegram.desktop.desktop;
