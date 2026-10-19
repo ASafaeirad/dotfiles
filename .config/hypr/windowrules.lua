@@ -38,3 +38,12 @@ hl.window_rule({
     border_color = "rgb(000000)",
     workspace    = "special:term",
 })
+
+-- pcmanfm's file-operation progress dialog asks for a comically large size. 
+-- Capping it below its own minimum makes Hyprland fall back to that minimum
+hl.window_rule({
+    match    = { class = "^(pcmanfm)$", title = "^((Moving|Copying|Trashing|Deleting|Restoring) files|Creating links to files|Changing attributes of files)$" },
+    float    = true,
+    max_size = { 900, 1 },
+    center   = true,
+})
