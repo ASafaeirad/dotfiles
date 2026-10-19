@@ -86,6 +86,11 @@ export CODEX_HOME="${XDG_CONFIG_HOME}"/codex
 export BUN_INSTALL="$HOME/.local/bin/applications/bun" 
 export PATH="$BUN_INSTALL/bin:$PATH"
 
+# Hybrid GPU (Intel iGPU renders, HDMI-A-1 hangs off the NVIDIA dGPU).
+# Without this, aquamarine's cross-GPU atomic commits fail with
+# "failed to commit: Invalid argument" and the HDMI output stays dark.
+export AQ_MGPU_NO_EXPLICIT=1
+
 # GTK
 GTK_USE_PORTAL=1
 GDK_DEBUG=portals
