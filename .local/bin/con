@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ADAPTER="wlp3s0"
+ADAPTER="wlo1"
 
 is-connected() {
   local ic
