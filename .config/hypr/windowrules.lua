@@ -2,6 +2,7 @@
 
 hl.window_rule({ match = { class = "^([Bb]rave-browser|[Ff]irefox|[Cc]hromium|[Ff]irefox Beta)$" }, workspace = "2" })
 hl.window_rule({ match = { class = "^([Cc]ode|[Cc]ursor|dev\\.zed\\.Zed)$" }, workspace = "3" })
+hl.window_rule({ match = { class = "^([Ss]team)$" }, workspace = "6" })
 hl.window_rule({ match = { class = "^([Ss]lack)$" }, workspace = "7" })
 hl.window_rule({ match = { class = "^([Ss]potify)$" }, workspace = "8" })
 hl.window_rule({ match = { class = "^(org\\.telegram\\.desktop|TelegramDesktop)$" }, workspace = "9" })
